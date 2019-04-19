@@ -1,4 +1,5 @@
 ﻿using System;
+using System.IO;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -15,6 +16,16 @@ namespace VRChatLauncher.Utils
 {
     class Utils
     {
+        static FileInfo gameBinary;
+        public static  FileInfo getGamePath()
+        {
+            if (gameBinary == null) {
+                var ownPath = Path.GetDirectoryName(Application.ExecutablePath);
+                var gamePath = Path.Combine(ownPath, "VRChat.exe");
+                gameBinary = new FileInfo(gamePath);
+            }
+            return gameBinary;
+        }
         /*[DllImport("User32.dll")]
         public static extern Int32 SetForegroundWindow(int hWnd);*/
         public static void BringSelfToFront()

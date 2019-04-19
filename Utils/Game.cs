@@ -1,9 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Diagnostics;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Forms;
 
 namespace VRChatLauncher.Utils
 {
@@ -14,7 +16,9 @@ namespace VRChatLauncher.Utils
         {
             ProcessStartInfo proc = new ProcessStartInfo();
             // proc.UseShellExecute = true;
-            proc.WorkingDirectory = Environment.CurrentDirectory;
+            var ownPath = Path.GetDirectoryName(Application.ExecutablePath);
+            // var gamePath = Path.Combine(ownPath, gameBinary);
+            proc.WorkingDirectory = ownPath;
             proc.FileName = gameBinary;
             if (args != null) proc.Arguments += string.Join(" ", args);
             return Process.Start(proc);

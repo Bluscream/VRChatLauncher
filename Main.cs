@@ -61,13 +61,35 @@ namespace VRChatLauncher
                 string fileToOpen = gameSelector.FileName;
                 System.IO.FileInfo File = new System.IO.FileInfo(gameSelector.FileName);
             }
+            // ADD LOGIC
+        }
 
-
+        public void SetupMods()
+        {
+            if (!Setup.Mods.IsModLoaderInstalled())
+            {
+                var confirmResult = MessageBox.Show("No modloader was found so we will warn you that everything you do beyond this message can lead to bans.\n\nUse mods responsibly!", "No Modloader installed", MessageBoxButtons.OKCancel, MessageBoxIcon.Stop);
+                if (confirmResult == DialogResult.Cancel) tabControl1.SelectTab(0);
+            }
         }
 
         private void btn_play_Click(object sender, EventArgs e)
         {
-            Utils.Game.StartGame();
+            Game.StartGame(args: args);
+        }
+
+        private void tab_changed(object sender, TabControlEventArgs e)
+        {
+            // Logger.Debug(sender.ToString());
+            // Logger.Debug(e.ToString());
+            Logger.Debug(e.Action.ToString(), e.TabPage.Name, e.TabPageIndex.ToString());
+            switch (e.TabPage.Name)
+            {
+                case "tab_mods":
+                    SetupMods(); break;
+                default:
+                    break;
+            }
         }
     }
 }

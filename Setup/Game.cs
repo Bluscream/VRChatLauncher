@@ -8,12 +8,10 @@ namespace VRChatLauncher.Setup
     {
         public static bool CheckForGame()
         {
-            Logger.Trace("Start");
-            var ownPath = Path.GetDirectoryName(Application.ExecutablePath);
-            var gamePath = Path.Combine(ownPath, "VRChat.exe");
-            Logger.Debug("Checking if", gamePath, "exists...");
-            var isExecutablePresent = File.Exists(gamePath);
-            return isExecutablePresent;
+            // Logger.Trace("Start");
+            var gamePath = Utils.Utils.getGamePath();
+            Logger.Debug("Checking if", gamePath.FullName, "exists...");
+            return gamePath.Exists;
         }
     }
 }

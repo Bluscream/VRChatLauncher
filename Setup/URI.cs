@@ -18,10 +18,10 @@ namespace VRChatLauncher.Setup
             var ownPath = Path.GetDirectoryName(Application.ExecutablePath);
             var ownFile = Path.GetFullPath(Application.ExecutablePath);
             var steamFile =Path.Combine(ownPath, "launch.bat");
-            var expected_steam = $@"""{steamFile}"" ""{ownPath}"" ""%1""";
+            var expected_steam = $@"""{steamFile}"" ""%1"""; // ""{ownPath}"" 
             // Logger.Trace("expected_steam=", expected_steam);
             if (expected_steam == ret.key) { ret.match = URIResponse.URIEnum.DEFAULT; return ret; }
-            ret.expected = $@"""{ownFile}"" ""{ownPath}"" ""%1""";
+            ret.expected = $@"""{ownFile}"" ""%1"""; // ""{ownPath}"" 
             // Logger.Trace("expected=", ret.expected);
             if (ret.key != ret.expected) ret.match = URIResponse.URIEnum.WRONG;
             else ret.match = URIResponse.URIEnum.INSTALLED;

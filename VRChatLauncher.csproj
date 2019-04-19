@@ -89,10 +89,12 @@
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Setup\Game.cs" />
+    <Compile Include="Setup\Mods.cs" />
     <Compile Include="Utils\Game.cs" />
     <Compile Include="IPC\Launcher.cs" />
     <Compile Include="Utils\Logger.cs" />
     <Compile Include="Setup\URI.cs" />
+    <Compile Include="Utils\Mods.cs" />
     <Compile Include="Utils\Utils.cs" />
     <EmbeddedResource Include="Main.resx">
       <DependentUpon>Main.cs</DependentUpon>
