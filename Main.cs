@@ -77,10 +77,11 @@ namespace VRChatLauncher
                 var broken = string.IsNullOrEmpty(mod.Name);
                 var item = new ListViewItem();
                 if (broken) {
-                    item.Text = System.IO.Path.GetFileNameWithoutExtension(mod.File.Name);
+                    item.Text = mod.FileNameWithoutExtension;
                     item.ForeColor = Color.Red;
                 } else {
                     item.Text = mod.Name;
+                    item.ToolTipText = mod.FileNameWithoutExtension;
                 }
                 lst_mods.Items.Add(item);
             }

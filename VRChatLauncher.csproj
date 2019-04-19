@@ -57,6 +57,9 @@
     <Reference Include="Mono.Cecil.Rocks, Version=0.10.3.0, Culture=neutral, PublicKeyToken=50cebf1cceb9d05e, processorArchitecture=MSIL">
       <HintPath>..\packages\Mono.Cecil.0.10.3\lib\net40\Mono.Cecil.Rocks.dll</HintPath>
     </Reference>
+    <Reference Include="Newtonsoft.Json, Version=12.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <HintPath>..\packages\Newtonsoft.Json.12.0.1\lib\net45\Newtonsoft.Json.dll</HintPath>
+    </Reference>
     <Reference Include="SharmIpc, Version=1.16.2017.930, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\packages\SharmIPC.1.16.0\lib\net462\SharmIpc.dll</HintPath>
     </Reference>
