@@ -15,6 +15,8 @@ namespace VRChatLauncher
         [STAThread]
         static void Main()
         {
+            AppDomain.CurrentDomain.ProcessExit += new EventHandler(OnProcessExit);
+            Logger.Init();
             Logger.Trace("START");
             ipc = new IPC.Launcher(); ipc.Init();
             var args = Environment.GetCommandLineArgs().Skip(1).ToArray();
@@ -45,6 +47,13 @@ namespace VRChatLauncher
             mainWindow = new Main(args);
             Application.Run(mainWindow);
             Logger.Trace("END");
+        }
+
+        static void OnProcessExit(object sender, EventArgs e)
+        {
+            Logger.Log("Exiting...");
+            // LogReader.Dispose();
+            // IPC.Launcher.Dispose();
         }
     }
 }

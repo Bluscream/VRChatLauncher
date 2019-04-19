@@ -5,14 +5,19 @@ using System.Data;
 using System.Drawing;
 using System.Linq;
 using System.Text;
+using System.Threading.Tasks;
 using System.Windows.Forms;
 using VRChatLauncher.Utils;
+using static VRChatLauncher.Utils.Mods;
 
 namespace VRChatLauncher
 {
-    public partial class Main : Form
+        public partial class Main : Form
     {
         public static string[] args = new string[] { };
+        public static List<Mod> mods;
+        public static ListView selflog; public static ListView gamelog;
+        public LogReader logReader;
         public Main(string[] arguments)
         {
             Logger.Trace("START");
@@ -25,6 +30,7 @@ namespace VRChatLauncher
             Logger.Trace("match=", regKeyCorrect.match.ToString());
             if(regKeyCorrect.match != Setup.URIResponse.URIEnum.INSTALLED) SetupURI(regKeyCorrect.expected, regKeyCorrect.key);
             // richTextBox1.Text = "match: "+ regKeyCorrect.match.ToString() + "\n\nexpected: " + regKeyCorrect.expected + "\n\nkey: " + regKeyCorrect.key + "\n\n";
+            selflog = lst_log_launcher; gamelog = lst_log_game;
             Logger.Trace("END");
         }
 
@@ -69,13 +75,16 @@ namespace VRChatLauncher
             if (!Setup.Mods.IsModLoaderInstalled())
             {
                 var confirmResult = MessageBox.Show("No modloader was found so we will warn you that everything you do beyond this message can lead to bans.\n\nUse mods responsibly!", "No Modloader installed", MessageBoxButtons.OKCancel, MessageBoxIcon.Stop);
-                if (confirmResult == DialogResult.Cancel) tabControl1.SelectTab(0); return;
+                if (confirmResult == DialogResult.Cancel) tabs_main.SelectTab(0); return;
             }
-            var mods = Utils.Mods.GetMods();
+            if (mods == null)
+                mods = GetMods();
+            lst_mods.Clear();
             foreach (var mod in mods)
             {
                 var broken = string.IsNullOrEmpty(mod.Name);
                 var item = new ListViewItem();
+                item.Tag = mod;
                 if (broken) {
                     item.Text = mod.FileNameWithoutExtension;
                     item.ForeColor = Color.Red;
@@ -85,6 +94,19 @@ namespace VRChatLauncher
                 }
                 lst_mods.Items.Add(item);
             }
+        }
+
+        public void WriteGameLog(string message) {
+            if (string.IsNullOrWhiteSpace(message)) return;
+            if (lst_log_game.Items.Count > 500) lst_log_game.Items.RemoveAt(0);
+            lst_log_game.Items.Add(message);
+        }
+
+        public void WriteLauncherLog(string message)
+        {
+            if (string.IsNullOrWhiteSpace(message)) return;
+            if (lst_log_launcher.Items.Count > 200) lst_log_launcher.Items.RemoveAt(0);
+            lst_log_launcher.Items.Add(message);
         }
 
         private void btn_play_Click(object sender, EventArgs e)
@@ -101,9 +123,37 @@ namespace VRChatLauncher
             {
                 case "tab_mods":
                     SetupMods(); break;
+                case "tab_log_game":
+                    if (logReader == null) {
+                        logReader = new LogReader();
+                        logReader.Init();
+                        lst_log_game.Items.Add("Initialized Log Watcher");
+                    }
+                    break;
                 default:
                     break;
             }
+        }
+        int lastModIndex = 0;
+        private void on_mod_selected(object sender, ListViewItemSelectionChangedEventArgs e)
+        {
+            if (lastModIndex == e.ItemIndex) return;
+            lastModIndex = e.ItemIndex;
+            Logger.Warn(e.Item.Text);
+            Mod mod = (Mod)e.Item.Tag;
+            txt_mod_path.Text = mod.File.FullName;
+            txt_mod_name.Text = mod.Name;
+            txt_mod_version.Text = mod.Version;
+            txt_mod_author.Text = mod.Author;
+            txt_mod_type.Text = mod.Type.ToString();
+            txt_mod_description.Text = mod.Description;
+        }
+
+        private void mainForm_loaded(object sender, EventArgs e)
+        {
+            columnHeader1.Width = -1;
+            columnHeader2.Width = -1;
+            // Task.Run(() => LogReader.ReadLogs());
         }
     }
 }

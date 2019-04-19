@@ -12,7 +12,7 @@ using Newtonsoft.Json.Converters;
 
 namespace VRChatLauncher.Utils
 {
-    class Mods
+    public class Mods
     {
         public static List<Mod> GetMods()
         {

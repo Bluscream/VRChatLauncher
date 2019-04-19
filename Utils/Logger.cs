@@ -11,6 +11,7 @@ namespace VRChatLauncher.Utils
 {
     class Logger
     {
+        public static void Init() { Console.Title = "VRChat Launcher Log"; }
         public static void Trace(params string[] msg) => log(VRChatApi.Logging.LogLevel.Trace, msg);
         public static void Debug(params string[] msg) => log(VRChatApi.Logging.LogLevel.Debug, msg);
         public static void Log(params string[] msg) => log(VRChatApi.Logging.LogLevel.Info, msg);
@@ -25,24 +26,30 @@ namespace VRChatLauncher.Utils
             string timestamp = DateTime.UtcNow.ToString("HH:mm:ss.fff", System.Globalization.CultureInfo.InvariantCulture);
             StackFrame frame = new StackFrame(1); var method = frame.GetMethod(); var cName = method.DeclaringType.Name; var mName = method.Name;
             var oldColor = Console.ForegroundColor;
+            var item = new System.Windows.Forms.ListViewItem();
             switch (logLevel)
             {
                 case VRChatApi.Logging.LogLevel.Trace:
-                    Console.ForegroundColor = ConsoleColor.Gray;break;
+                    Console.ForegroundColor = ConsoleColor.Gray; item.ForeColor = System.Drawing.Color.Gray;break;
                 case VRChatApi.Logging.LogLevel.Debug:
-                    Console.ForegroundColor = ConsoleColor.Cyan; break;
+                    Console.ForegroundColor = ConsoleColor.Cyan; item.ForeColor = System.Drawing.Color.Cyan; break;
                 case VRChatApi.Logging.LogLevel.Info:
                     Console.ForegroundColor = ConsoleColor.White; break;
                 case VRChatApi.Logging.LogLevel.Warn:
-                    Console.ForegroundColor = ConsoleColor.DarkYellow; break;
+                    Console.ForegroundColor = ConsoleColor.DarkYellow; item.ForeColor = System.Drawing.Color.Orange; break;
                 case VRChatApi.Logging.LogLevel.Error:
-                    Console.ForegroundColor = ConsoleColor.Red; break;
+                    Console.ForegroundColor = ConsoleColor.Red; item.ForeColor = System.Drawing.Color.Red; break;
                 case VRChatApi.Logging.LogLevel.Fatal:
-                    Console.ForegroundColor = ConsoleColor.DarkRed; break;
+                    Console.ForegroundColor = ConsoleColor.DarkRed; item.BackColor = System.Drawing.Color.Red; break;
                 default:
                     break;
             }
-            Console.WriteLine($"[{timestamp}] {logLevel} - {cName}.{mName}: {string.Join(" ", msg)}");
+            var line = $"[{timestamp}] {logLevel} - {cName}.{mName}: {string.Join(" ", msg)}";
+            if (Main.selflog != null){
+                item.Text = line;
+                Main.selflog.Items.Add(item);
+            }
+            Console.WriteLine(line);
             Console.ForegroundColor = oldColor;
         }
     }
