@@ -32,17 +32,17 @@
             this.btn_play = new System.Windows.Forms.Button();
             this.tabControl1 = new System.Windows.Forms.TabControl();
             this.tab_news = new System.Windows.Forms.TabPage();
+            this.web_home = new System.Windows.Forms.WebBrowser();
             this.tab_friends = new System.Windows.Forms.TabPage();
             this.tab_avatars = new System.Windows.Forms.TabPage();
             this.tab_worlds = new System.Windows.Forms.TabPage();
             this.tab_profile = new System.Windows.Forms.TabPage();
             this.tab_mods = new System.Windows.Forms.TabPage();
             this.tab_settings = new System.Windows.Forms.TabPage();
-            this.web_home = new System.Windows.Forms.WebBrowser();
-            this.lst_mods = new System.Windows.Forms.ListBox();
+            this.lst_mods = new System.Windows.Forms.ListView();
             this.tabControl1.SuspendLayout();
             this.tab_news.SuspendLayout();
-            this.tab_settings.SuspendLayout();
+            this.tab_mods.SuspendLayout();
             this.SuspendLayout();
             // 
             // btn_play
@@ -84,6 +84,21 @@
             this.tab_news.Text = "News";
             this.tab_news.UseVisualStyleBackColor = true;
             // 
+            // web_home
+            // 
+            this.web_home.AllowNavigation = false;
+            this.web_home.AllowWebBrowserDrop = false;
+            this.web_home.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.web_home.Location = new System.Drawing.Point(3, 3);
+            this.web_home.MinimumSize = new System.Drawing.Size(20, 20);
+            this.web_home.Name = "web_home";
+            this.web_home.ScriptErrorsSuppressed = true;
+            this.web_home.ScrollBarsEnabled = false;
+            this.web_home.Size = new System.Drawing.Size(786, 334);
+            this.web_home.TabIndex = 0;
+            this.web_home.Url = new System.Uri("https://vrchat.com/home", System.UriKind.Absolute);
+            this.web_home.WebBrowserShortcutsEnabled = false;
+            // 
             // tab_friends
             // 
             this.tab_friends.Location = new System.Drawing.Point(4, 22);
@@ -123,6 +138,7 @@
             // 
             // tab_mods
             // 
+            this.tab_mods.Controls.Add(this.lst_mods);
             this.tab_mods.Location = new System.Drawing.Point(4, 22);
             this.tab_mods.Name = "tab_mods";
             this.tab_mods.Size = new System.Drawing.Size(792, 340);
@@ -132,7 +148,6 @@
             // 
             // tab_settings
             // 
-            this.tab_settings.Controls.Add(this.lst_mods);
             this.tab_settings.Location = new System.Drawing.Point(4, 22);
             this.tab_settings.Name = "tab_settings";
             this.tab_settings.Size = new System.Drawing.Size(792, 340);
@@ -140,29 +155,16 @@
             this.tab_settings.Text = "Settings";
             this.tab_settings.UseVisualStyleBackColor = true;
             // 
-            // web_home
-            // 
-            this.web_home.AllowNavigation = false;
-            this.web_home.AllowWebBrowserDrop = false;
-            this.web_home.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.web_home.Location = new System.Drawing.Point(3, 3);
-            this.web_home.MinimumSize = new System.Drawing.Size(20, 20);
-            this.web_home.Name = "web_home";
-            this.web_home.ScriptErrorsSuppressed = true;
-            this.web_home.ScrollBarsEnabled = false;
-            this.web_home.Size = new System.Drawing.Size(786, 334);
-            this.web_home.TabIndex = 0;
-            this.web_home.Url = new System.Uri("https://vrchat.com/home", System.UriKind.Absolute);
-            this.web_home.WebBrowserShortcutsEnabled = false;
-            // 
             // lst_mods
             // 
             this.lst_mods.Dock = System.Windows.Forms.DockStyle.Left;
-            this.lst_mods.FormattingEnabled = true;
+            this.lst_mods.FullRowSelect = true;
             this.lst_mods.Location = new System.Drawing.Point(0, 0);
             this.lst_mods.Name = "lst_mods";
-            this.lst_mods.Size = new System.Drawing.Size(120, 340);
+            this.lst_mods.Size = new System.Drawing.Size(121, 340);
             this.lst_mods.TabIndex = 0;
+            this.lst_mods.UseCompatibleStateImageBehavior = false;
+            this.lst_mods.View = System.Windows.Forms.View.List;
             // 
             // Main
             // 
@@ -176,7 +178,7 @@
             this.Text = "VRChat Launcher";
             this.tabControl1.ResumeLayout(false);
             this.tab_news.ResumeLayout(false);
-            this.tab_settings.ResumeLayout(false);
+            this.tab_mods.ResumeLayout(false);
             this.ResumeLayout(false);
 
         }
@@ -193,7 +195,7 @@
         private System.Windows.Forms.TabPage tab_profile;
         private System.Windows.Forms.TabPage tab_mods;
         private System.Windows.Forms.TabPage tab_settings;
-        private System.Windows.Forms.ListBox lst_mods;
+        private System.Windows.Forms.ListView lst_mods;
     }
 }
 

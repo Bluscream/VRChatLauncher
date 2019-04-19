@@ -1,9 +1,0 @@
-G:\Steam\steamapps\common\VRChat\_TOOLS\Launcher\Launcher.exe.config
-G:\Steam\steamapps\common\VRChat\_TOOLS\Launcher\Launcher.exe
-P:\Projects\Visual Studio\source\repos\VRChat\Tools\VRChatApps\VRChatLauncher\obj\Release\VRChatLauncher.csprojAssemblyReference.cache
-P:\Projects\Visual Studio\source\repos\VRChat\Tools\VRChatApps\VRChatLauncher\obj\Release\VRChatLauncher.Main.resources
-P:\Projects\Visual Studio\source\repos\VRChat\Tools\VRChatApps\VRChatLauncher\obj\Release\VRChatLauncher.Properties.Resources.resources
-P:\Projects\Visual Studio\source\repos\VRChat\Tools\VRChatApps\VRChatLauncher\obj\Release\VRChatLauncher.csproj.GenerateResource.cache
-P:\Projects\Visual Studio\source\repos\VRChat\Tools\VRChatApps\VRChatLauncher\obj\Release\VRChatLauncher.csproj.CoreCompileInputs.cache
-P:\Projects\Visual Studio\source\repos\VRChat\Tools\VRChatApps\VRChatLauncher\obj\Release\VRChatLauncher.csproj.CopyComplete
-P:\Projects\Visual Studio\source\repos\VRChat\Tools\VRChatApps\VRChatLauncher\obj\Release\Launcher.exe

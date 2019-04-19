@@ -69,7 +69,20 @@ namespace VRChatLauncher
             if (!Setup.Mods.IsModLoaderInstalled())
             {
                 var confirmResult = MessageBox.Show("No modloader was found so we will warn you that everything you do beyond this message can lead to bans.\n\nUse mods responsibly!", "No Modloader installed", MessageBoxButtons.OKCancel, MessageBoxIcon.Stop);
-                if (confirmResult == DialogResult.Cancel) tabControl1.SelectTab(0);
+                if (confirmResult == DialogResult.Cancel) tabControl1.SelectTab(0); return;
+            }
+            var mods = Utils.Mods.GetMods();
+            foreach (var mod in mods)
+            {
+                var broken = string.IsNullOrEmpty(mod.Name);
+                var item = new ListViewItem();
+                if (broken) {
+                    item.Text = System.IO.Path.GetFileNameWithoutExtension(mod.File.Name);
+                    item.ForeColor = Color.Red;
+                } else {
+                    item.Text = mod.Name;
+                }
+                lst_mods.Items.Add(item);
             }
         }
 
