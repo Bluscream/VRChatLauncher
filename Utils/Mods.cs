@@ -14,6 +14,43 @@ namespace VRChatLauncher.Utils
 {
     public class Mods
     {
+        public static List<Mod> CheckForUpdates(List<Mod> mods)
+        {
+            for (int i = 0; i < mods.Count; i++)
+            {
+                mods[i] = CheckForUpdate(mods[i]);
+            }
+            return mods;
+        }
+        public static Mod CheckForUpdate(Mod mod)
+        {
+            var sb = new StringBuilder();
+            switch (mod.Name)
+            {
+                case "VRCTools":
+                    var _mod = Updater.VRCTools.CheckForUpdate(mod);
+                    if (_mod.Update != null) mod = Updater.VRCTools.Update(_mod);
+                    break;
+                case "VRCModLoader":
+                    var dll = Setup.Mods.VRCModLoaderDLL();
+                    _mod = Updater.VRCModLoader.CheckForUpdate();
+                    if (_mod.Update != null) mod = Updater.VRCModLoader.Update(_mod);
+                    break;
+                default: break;
+            }
+            return mod;
+        }
+        public static Mod GetMod(string file)  {
+            var mod = new Mod();
+            mod.File = new FileInfo(file);
+            mod.FileNameWithoutExtension = Path.GetFileNameWithoutExtension(mod.File.Name);
+            try {
+                mod = GetModInfo(mod);
+                // Logger.Trace(mod.FileNameWithoutExtension, "Type:", mod.Type.ToString(), "Name:", mod.Name, "Version:", mod.Version, "Author:", mod.Author);
+                // Logger.Debug(mod.ToString());
+            } catch (Exception ex) { Logger.Error("Can't load mod", $"\"{mod.File.Name}\"", $"({ex.Message})", Environment.NewLine, ex.StackTrace); }
+            return mod;
+        }
         public static List<Mod> GetMods()
         {
             var ret = new List<Mod> { };
@@ -28,20 +65,13 @@ namespace VRChatLauncher.Utils
             {
                 if (!Directory.Exists(modPath)) continue;
                 foreach (var file in Directory.GetFiles(modPath, "*.dll", SearchOption.TopDirectoryOnly)) {
-                    var mod = new Mod();
-                    mod.File = new FileInfo(file);
-                    mod.FileNameWithoutExtension = Path.GetFileNameWithoutExtension(mod.File.Name);
-                    try {
-                        mod = GetModInfo(mod);
-                        // Logger.Trace(mod.FileNameWithoutExtension, "Type:", mod.Type.ToString(), "Name:", mod.Name, "Version:", mod.Version, "Author:", mod.Author);
-                        Logger.Debug(mod.ToString());
-                    } catch (Exception ex) { Logger.Error("Can't load mod", $"\"{mod.File.Name}\"", $"({ex.Message})", Environment.NewLine, ex.StackTrace); }
+                    var mod = GetMod(file);
                     ret.Add(mod);
                 }
             }
             return ret;
         }
-        public class Mod  {
+        public class Mod {
             public string FileNameWithoutExtension { get; set; }
             public FileInfo File { get; set; }
             public string Name { get; set; }
@@ -49,10 +79,16 @@ namespace VRChatLauncher.Utils
             public string Version { get; set; }
             public string Author { get; set; }
             public string Description { get; set; }
-            public string UpdateURL { get; set; }
+            public ModUpdate Update { get; set; }
             public override string ToString() {
                 return JsonConvert.SerializeObject(this, Formatting.Indented, new JsonConverter[] { new StringEnumConverter() });
             }
+        }
+        public class ModUpdate {
+            public string newVersion { get; set; }
+            public string hash { get; set; }
+            public string downloadURL { get; set; }
+            public bool isArchive { get; set; }
         }
         public enum ModLoaderType {
             Unknown,

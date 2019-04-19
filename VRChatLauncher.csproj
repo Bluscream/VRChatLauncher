@@ -63,6 +63,9 @@
     <Reference Include="SharmIpc, Version=1.16.2017.930, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\packages\SharmIPC.1.16.0\lib\net462\SharmIpc.dll</HintPath>
     </Reference>
+    <Reference Include="Socket, Version=2.1.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\Socket.2.1.0\lib\Socket.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="System.IO.FileSystem, Version=4.0.2.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
@@ -108,6 +111,10 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Setup\Game.cs" />
     <Compile Include="Setup\Mods.cs" />
+    <Compile Include="Updater\Launcher.cs" />
+    <Compile Include="Updater\VRCModLoader.cs" />
+    <Compile Include="Updater\VRCTools.cs" />
+    <Compile Include="Utils\ExternalConsole.cs" />
     <Compile Include="Utils\Game.cs" />
     <Compile Include="IPC\Launcher.cs" />
     <Compile Include="Utils\Logger.cs" />
@@ -152,5 +159,8 @@
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>
     <PostBuildEvent>COPY "$(TargetPath)" "../../$(TargetFileName)"</PostBuildEvent>
+  </PropertyGroup>
+  <PropertyGroup>
+    <PreBuildEvent>REM TASKKILL /F /IM Launcher.exe</PreBuildEvent>
   </PropertyGroup>
 </Project>

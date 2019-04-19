@@ -70,15 +70,21 @@ namespace VRChatLauncher
             // ADD LOGIC
         }
 
-        public void SetupMods()
+        public void SetupMods(bool force = false)
         {
-            if (!Setup.Mods.IsModLoaderInstalled())
+            if (!force && !Setup.Mods.IsModLoaderInstalled())
             {
                 var confirmResult = MessageBox.Show("No modloader was found so we will warn you that everything you do beyond this message can lead to bans.\n\nUse mods responsibly!", "No Modloader installed", MessageBoxButtons.OKCancel, MessageBoxIcon.Stop);
-                if (confirmResult == DialogResult.Cancel) tabs_main.SelectTab(0); return;
+                if (confirmResult != DialogResult.OK) tabs_main.SelectTab(0); return;
             }
-            if (mods == null)
+            if (mods == null || force) {
                 mods = GetMods();
+                CheckForUpdates(mods);
+                if (Setup.Mods.IsVRCModLoaderInstalled()) {
+                    Mod VRCModLoader = Updater.VRCModLoader.CheckForUpdate();
+                }
+            }
+                
             lst_mods.Clear();
             foreach (var mod in mods)
             {
@@ -116,8 +122,6 @@ namespace VRChatLauncher
 
         private void tab_changed(object sender, TabControlEventArgs e)
         {
-            // Logger.Debug(sender.ToString());
-            // Logger.Debug(e.ToString());
             Logger.Debug(e.Action.ToString(), e.TabPage.Name, e.TabPageIndex.ToString());
             switch (e.TabPage.Name)
             {
@@ -154,6 +158,11 @@ namespace VRChatLauncher
             columnHeader1.Width = -1;
             columnHeader2.Width = -1;
             // Task.Run(() => LogReader.ReadLogs());
+        }
+
+        private void Btn_mods_refresh_Click(object sender, EventArgs e)
+        {
+            SetupMods(force: true);
         }
     }
 }

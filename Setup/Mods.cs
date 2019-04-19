@@ -13,18 +13,26 @@ namespace VRChatLauncher.Setup
         {
             return (IsVRCModLoaderInstalled() || IsVRLoaderInstalled());
         }
-
-        public static bool IsVRCModLoaderInstalled()
+        public static FileInfo VRCModLoaderDLL()
         {
             var gamePath = Utils.Utils.getGamePath().DirectoryName;
             var dllPath = Path.Combine(gamePath, "VRChat_Data", "Managed", "VRCModLoader.dll");
-            return File.Exists(dllPath);
+            return new FileInfo(dllPath);
         }
-        public static bool IsVRLoaderInstalled()
+        public static bool IsVRCModLoaderInstalled()
+        {
+            return VRCModLoaderDLL().Exists;
+        }
+
+        public static FileInfo VRLoaderDLL()
         {
             var gamePath = Utils.Utils.getGamePath().DirectoryName;
             var dllPath = Path.Combine(gamePath, "VRLoader.dll");
-            return File.Exists(dllPath);
+            return new FileInfo(dllPath);
+        }
+        public static bool IsVRLoaderInstalled()
+        {
+            return VRLoaderDLL().Exists;
         }
     }
 }

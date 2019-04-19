@@ -1,17 +1,17 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Diagnostics;
-using System.IO;
 using System.Linq;
-// using System.Runtime.CompilerServices;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace VRChatLauncher.Utils
 {
     class Logger
     {
-        public static void Init() { Console.Title = "VRChat Launcher Log"; }
+        public static void Init() {
+            Console.Title = "VRChat Launcher Log";
+            var args = Environment.GetCommandLineArgs().Skip(1).ToArray();
+            args = args.Select(s => s.ToLowerInvariant()).ToArray();
+            if (args.Contains("--vrclauncher.console")) { /* ExternalConsole.InitConsole(); */ }
+        }
         public static void Trace(params string[] msg) => log(VRChatApi.Logging.LogLevel.Trace, msg);
         public static void Debug(params string[] msg) => log(VRChatApi.Logging.LogLevel.Debug, msg);
         public static void Log(params string[] msg) => log(VRChatApi.Logging.LogLevel.Info, msg);
