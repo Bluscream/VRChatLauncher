@@ -9,12 +9,13 @@ using System.Diagnostics;
 using System.Reflection;
 using System.Windows.Forms;
 using System.Runtime.InteropServices;
+using System.Net;
 // using System.Threading;
 // using System.Threading.Tasks;
 
 namespace VRChatLauncher.Utils
 {
-    class Utils
+    public static partial class Utils
     {
         static FileInfo ownBinary;
         static FileInfo gameBinary;
@@ -120,6 +121,56 @@ namespace VRChatLauncher.Utils
         public static string Base64Decode(string base64EncodedData) {
             var base64EncodedBytes = Convert.FromBase64String(base64EncodedData);
             return Encoding.UTF8.GetString(base64EncodedBytes);
+        }
+        public static FileInfo DownloadFile(string url, DirectoryInfo destinationPath, string fileName = null) {
+            if (fileName == null) fileName = url.Split('/').Last();
+            using (WebClient webClient = new WebClient ())
+            {
+                webClient.DownloadFile(url, Path.Combine(destinationPath.FullName, fileName));
+            }
+            return new FileInfo(Path.Combine(destinationPath.FullName, fileName));
+        }
+        
+        public static Process StartProcess(FileInfo file, params string[] args)
+        {
+            ProcessStartInfo proc = new ProcessStartInfo();
+            proc.WorkingDirectory = file.DirectoryName;
+            proc.FileName = file.FullName;
+            proc.Arguments = string.Join(" ", args);
+            return Process.Start(proc);
+        }
+        public static FileInfo getRipper()
+        {
+            return new FileInfo(Path.Combine(getGamePath().DirectoryName, "_TOOLS", "uTinyRipper", "uTinyRipper.exe"));
+        }
+    }
+    public static class Extensions
+    {
+        public static string Ext(this string text, string extension)
+        {
+            return text + "." + extension;
+        }
+        public static string Quote(this string text)
+        {
+            return SurroundWith(text, "\"");
+        }
+        public static string Enclose(this string text)
+        {
+            return SurroundWith(text, "(",")");
+        }
+        public static string SurroundWith(this string text, string surrounds)
+        {
+            return surrounds + text + surrounds;
+        }
+        public static string SurroundWith(this string text, string starts, string ends)
+        {
+            return starts + text + ends;
+        }
+        public static T PopAt<T>(this List<T> list, int index)
+        {
+            T r = list[index];
+            list.RemoveAt(index);
+            return r;
         }
     }
 }

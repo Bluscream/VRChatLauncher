@@ -23,7 +23,7 @@ namespace VRChatLauncher
             {
                 Logger.Warn($"[{i}]", args[i]);
             }
-            var msg = ipc.MakeRemoteRequestWithResponse(new IPC.Launcher.Message($"islauncherrunning {string.Join(" ", args)}"));
+            var msg = ipc.MakeRemoteRequestWithResponse(new IPC.Launcher.Message($"islauncherrunning {string.Join(" ", args)}"), 200);
             var launcher_running = Utils.Utils.IsLauncherAlreadyRunning();
             Logger.Log("Launcher already running:", launcher_running.ToString());
             if (msg.Str == "yes" || launcher_running) {

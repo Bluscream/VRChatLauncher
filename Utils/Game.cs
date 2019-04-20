@@ -12,16 +12,11 @@ namespace VRChatLauncher.Utils
     class Game
     {
         internal const string gameBinary = "VRChat.exe";
-        public static Process StartGame(bool steam = false, string[] args = null)
+        public static Process StartGame(bool steam = false, params string[] args)
         {
-            ProcessStartInfo proc = new ProcessStartInfo();
-            // proc.UseShellExecute = true;
-            var ownPath = Path.GetDirectoryName(Application.ExecutablePath);
-            // var gamePath = Path.Combine(ownPath, gameBinary);
-            proc.WorkingDirectory = ownPath;
-            proc.FileName = gameBinary;
-            if (args != null) proc.Arguments += string.Join(" ", args);
-            return Process.Start(proc);
+            // var ownPath = Path.GetDirectoryName(Application.ExecutablePath);
+            // proc.WorkingDirectory = ownPath;
+            return Utils.StartProcess(Utils.getGamePath(), args);
         }
         public static bool IsGameAlreadyRunning()
         {

@@ -25,27 +25,31 @@ namespace VRChatLauncher.IPC
         }
         Tuple<bool, byte[]> RemoteCall(byte[] data)
         {
-            var ret = new Message(string.Empty, false).ToTuple();
-            if (data.Length < 1) return ret;
+            var ret = new Message(string.Empty, false);
+            if (data.Length < 1) return ret.ToTuple();
             var str = ToString(data);
             Logger.Trace("Got IPC Message:", str);
             var cmd = str.Split(new[] { ' ' }, 2);
             var command = cmd[0].ToLower();
             var argument = string.Empty;
             if (cmd.Length > 1) argument = cmd[1];
+            //  Logger.Debug("Command:", command, "Argument:", argument, "IsCheck:", command == "islauncherrunning");
             switch (command) {
                 case "islauncherrunning":
-                    ret = new Message("yes").ToTuple();
+                    ret = new Message("yes");
                     Utils.Utils.BringSelfToFront();
                     foreach (var arg in argument.Split(' ')) {
-                        if(arg.ToLower().StartsWith("vrchat://"))
-                            Game.SendCommand(arg);
+                        if (arg.ToLower().StartsWith("vrchat://")) {
+                            // Game.SendCommand(arg); // Handle with launcher
+                        }
                     }
                     break;
                 default:
+                    Logger.Warn($"Recieved unknown IPC message: \"{command}\"");
                     break;
             }
-            return ret;
+            Logger.Debug("Answering IPC call with (", ret.Send, ",", ret.Str, ")");
+            return ret.ToTuple();
         }
         /*public void AsyncRemoteCallHandler(ulong msgId, byte[] data)
         {

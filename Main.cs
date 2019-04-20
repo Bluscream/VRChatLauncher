@@ -13,13 +13,14 @@ using IniParser;
 using IniParser.Model;
 using VRChatApi;
 using VRChatApi.Classes;
+using System.IO;
 
 namespace VRChatLauncher
 {
         public partial class Main : Form
     {
         public static string[] args = new string[] { };
-        public static List<Mod> mods;public static List<AvatarResponse> avatars;
+        public static List<Mod> mods;public static List<AvatarResponse> favorite_avatars;public static List<AvatarResponse> personal_avatars;
         public static ListView selflog; public static ListView gamelog;
         public LogReader logReader;public bool settingsInitialized = false;
         public IniData config;public VRChatApi.VRChatApi vrcapi;
@@ -89,6 +90,7 @@ namespace VRChatLauncher
                 CheckForUpdates(mods);
                 if (Setup.Mods.IsVRCModLoaderInstalled()) {
                     Mod VRCModLoader = Updater.VRCModLoader.CheckForUpdate();
+                    if (VRCModLoader.Update != null) MessageBox.Show("Update available for VRCModLoader");
                 }
             }
                 
@@ -176,25 +178,51 @@ namespace VRChatLauncher
             Config.Save(config);
         }
 
+        private Color ColorFromReleaseStatus(string releaseStatus)
+        {
+            switch (releaseStatus)
+            {
+                case "private":
+                    return Color.Red;
+                case "hidden":
+                    return Color.Gray;
+                case "public":
+                    return Color.Green;
+                default:
+                    return Color.Orange;
+            }
+        }
+
         public async void SetupAvatarsAsync(bool force = false) {
             tree_avatars.Nodes[0].Nodes.Clear();
             tree_avatars.Nodes[1].Nodes.Clear();
             tree_avatars.Nodes[2].Nodes.Clear();
-            if (avatars == null || force) {
-                avatars = await vrcapi.AvatarApi.Favorites(); // avatars = new List<AvatarResponse>();
-                /*var favorites = await vrcapi.FavoritesAPI.Get(type: "avatar");
-                foreach(var favorite in favorites)
-                {
-
-                }*/
+            if (personal_avatars == null || force) {
+                if (Utils.Utils.getRipper().Exists) btn_avatar_rip.Visible = true;
+                personal_avatars = await vrcapi.AvatarApi.Personal();
+                Logger.Debug("Downloaded list of", personal_avatars.Count, "official personal avatars");
             }
-            Logger.Debug("Downloaded list of", avatars.Count, "avatars");
-            foreach (var avatar in avatars)
+            foreach (var avatar in personal_avatars)
             {
                 var node = new TreeNode(avatar.name);
                 node.Tag = avatar;
+                node.ForeColor = ColorFromReleaseStatus(avatar.releaseStatus);
+                tree_avatars.Nodes[0].Nodes.Add(node);
+            }
+            tree_avatars.Nodes[0].Text = $"Personal ({tree_avatars.Nodes[0].Nodes.Count})";
+
+            if (favorite_avatars == null || force) {
+                favorite_avatars = await vrcapi.AvatarApi.Favorites();
+                Logger.Debug("Downloaded list of", favorite_avatars.Count, "official favorite avatars");
+            }
+            foreach (var avatar in favorite_avatars)
+            {
+                var node = new TreeNode(avatar.name);
+                node.Tag = avatar;
+                node.ForeColor = ColorFromReleaseStatus(avatar.releaseStatus);
                 tree_avatars.Nodes[1].Nodes.Add(node);
             }
+            tree_avatars.Nodes[1].Text = $"Official ({tree_avatars.Nodes[0].Nodes.Count} / 16)";
         }
 
         public void WriteGameLog(string message) {
@@ -208,11 +236,6 @@ namespace VRChatLauncher
             if (string.IsNullOrWhiteSpace(message)) return;
             if (lst_log_launcher.Items.Count > 200) lst_log_launcher.Items.RemoveAt(0);
             lst_log_launcher.Items.Add(message);
-        }
-
-        private void btn_play_Click(object sender, EventArgs e)
-        {
-            Game.StartGame(args: args);
         }
 
         private async void tab_changedAsync(object sender, TabControlEventArgs e)
@@ -286,11 +309,17 @@ namespace VRChatLauncher
         private void FillAvatar(AvatarResponse avatar)
         {
             txt_avatar_id.Text = avatar.id;
+            txt_avatar_id.Tag = avatar;
             txt_avatar_name.Text = avatar.name;
             txt_avatar_version.Text = avatar.version.ToString();
             txt_avatar_author.Text = $"{avatar.authorName} ({avatar.authorId})";
             txt_avatar_asseturl.Text = avatar.assetUrl;
             txt_avatar_description.Text = avatar.description;
+        }
+
+        private void btn_play_Click(object sender, EventArgs e)
+        {
+            Game.StartGame(args: args);
         }
 
         private void Btn_mods_refresh_Click(object sender, EventArgs e) {
@@ -310,6 +339,27 @@ namespace VRChatLauncher
         {
             var avatar = await vrcapi.AvatarApi.GetById(txt_avatar_id.Text);
             FillAvatar(avatar);
+        }
+        private List<FileInfo> tmpAvatars;
+        private void Btn_avatar_rip_Click(object sender, EventArgs e)
+        {
+            var ripper = Utils.Utils.getRipper();
+            if (!ripper.Exists) {
+                MessageBox.Show($"{ripper.Name} was not found in\n\n{ripper.Directory}\n\nIf you want to use this feature, place it there.");
+                return;
+            }
+            var avatar = (AvatarResponse)txt_avatar_id.Tag;
+            var tmpPath = new DirectoryInfo(Path.GetTempPath());
+            Logger.Log("Ripping avatar ", avatar.name, avatar.id.Enclose(), "to", tmpPath.FullName.Quote());
+            var file = Utils.Utils.DownloadFile(avatar.assetUrl, tmpPath, avatar.name.Ext("vrca"));
+            var proc = Utils.Utils.StartProcess(ripper, file.FullName.Quote());
+            proc.Exited += Proc_Exited;
+        }
+        private void Proc_Exited(object sender, EventArgs e) {
+            Logger.Trace("Process has exited", sender, e);
+            var file = tmpAvatars.PopAt(0);
+            file.Delete();
+            Logger.Log("Temp avatar file ", file.Name, "has been deleted");
         }
     }
 }
