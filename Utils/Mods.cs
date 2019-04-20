@@ -69,6 +69,7 @@ namespace VRChatLauncher.Utils
                     ret.Add(mod);
                 }
             }
+            Logger.Debug("Loaded", ret.Count.ToString(), "mods from", modPaths.Count.ToString(), "folders");
             return ret;
         }
         public class Mod {

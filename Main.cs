@@ -9,18 +9,25 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using VRChatLauncher.Utils;
 using static VRChatLauncher.Utils.Mods;
+using IniParser;
+using IniParser.Model;
+using VRChatApi;
+using VRChatApi.Classes;
 
 namespace VRChatLauncher
 {
         public partial class Main : Form
     {
         public static string[] args = new string[] { };
-        public static List<Mod> mods;
+        public static List<Mod> mods;public static List<AvatarResponse> avatars;
         public static ListView selflog; public static ListView gamelog;
-        public LogReader logReader;
+        public LogReader logReader;public bool settingsInitialized = false;
+        public IniData config;public VRChatApi.VRChatApi vrcapi;
+
         public Main(string[] arguments)
         {
             Logger.Trace("START");
+            config = Config.Load();
             InitializeComponent();
             // var args = Program.args.Skip(1).ToArray();
             args = arguments;
@@ -75,7 +82,7 @@ namespace VRChatLauncher
             if (!force && !Setup.Mods.IsModLoaderInstalled())
             {
                 var confirmResult = MessageBox.Show("No modloader was found so we will warn you that everything you do beyond this message can lead to bans.\n\nUse mods responsibly!", "No Modloader installed", MessageBoxButtons.OKCancel, MessageBoxIcon.Stop);
-                if (confirmResult != DialogResult.OK) tabs_main.SelectTab(0); return;
+                if (confirmResult != DialogResult.OK) { tabs_main.SelectTab(0); return; }
             }
             if (mods == null || force) {
                 mods = GetMods();
@@ -102,6 +109,94 @@ namespace VRChatLauncher
             }
         }
 
+        public void SetupSettings() {
+            flow_settings.Controls.Clear();
+            foreach (var section in config.Sections)
+            {
+                var group = new GroupBox();
+                group.Text = section.SectionName;
+                group.AutoSizeMode = AutoSizeMode.GrowOnly;
+                var table = new TableLayoutPanel();
+                table.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 40.00000F));
+                table.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 60.00000F));
+                table.Dock = DockStyle.Fill;
+                // table.RowStyles.Add(new RowStyle(SizeType.Absolute, 60F));
+                table.AutoSize = true;
+                table.ColumnCount = section.Keys.Count;
+                group.Controls.Add(table);
+                var i = 0;
+                foreach (var setting in section.Keys)
+                {
+                    var label = new Label();
+                    label.Text = setting.KeyName + ":";
+                    label.AutoSize = true;
+                    label.Anchor = (AnchorStyles.Left);
+                    label.Dock = DockStyle.Fill;
+                    label.TabIndex = 0;
+                    table.Controls.Add(label, 0, i);
+                    var txt = new TextBox();
+                    txt.Text = setting.Value;
+                    txt.AutoSize = true;
+                    txt.Anchor = (AnchorStyles.Right | AnchorStyles.Left);
+                    txt.Dock = DockStyle.Fill;
+                    // txt.Anchor = AnchorStyles.Right; 
+                    txt.TabIndex = 1;
+                    table.Controls.Add(txt, 1, i);
+                    i++;
+                }
+                flow_settings.Controls.Add(group);
+                // group.AutoSize = true;
+            }
+        }
+        public async Task<bool> VRCAPILogin(string username, string password)
+        {
+            Logger.Log("Trying to log in as", username, "...");
+            vrcapi = new VRChatApi.VRChatApi(username, password);
+            UserResponse user = await vrcapi.UserApi.Login();
+            if (user == null) {
+                var confirmResult = MessageBox.Show($"Something went wrong while logging you in as {username}\n\nRetry?", "Failed to log in!", MessageBoxButtons.RetryCancel, MessageBoxIcon.Error);
+                if (confirmResult == DialogResult.Retry) return await VRCAPILogin(username, password);
+                tabs_main.SelectTab(0); return false;
+            }
+            Logger.Log("Logged in as", user.username);
+            return true;
+        }
+        public async void SetupVRCApiAsync() {
+            var confirmResult = MessageBox.Show("You are not logged in to VRChat.\n\nIn order to use this tab you need to log in through your VRChat account.\n\nDo you want to log in?", "Not logged in!", MessageBoxButtons.YesNo, MessageBoxIcon.Warning);
+            if (confirmResult != DialogResult.Yes) { tabs_main.SelectTab(0); return; }
+            var loginModal = new Setup.VRCAPI.LoginModal();
+            loginModal.ShowDialog();
+            var username = loginModal.txt_username.Text;var password = loginModal.txt_password.Text;
+            // VRChatApi.Logging.LogProvider.SetCurrentLogProvider(new ColoredConsoleLogProvider());
+            // ConfigResponse config = await vrcapi.RemoteConfig.Get();
+            var logged_in = await VRCAPILogin(username, password);
+            if (!logged_in) return;
+            config["VRCAPI"]["u"] = Utils.Utils.Base64Encode(username);
+            config["VRCAPI"]["p"] = Utils.Utils.Base64Encode(password);
+            Config.Save(config);
+        }
+
+        public async void SetupAvatarsAsync(bool force = false) {
+            tree_avatars.Nodes[0].Nodes.Clear();
+            tree_avatars.Nodes[1].Nodes.Clear();
+            tree_avatars.Nodes[2].Nodes.Clear();
+            if (avatars == null || force) {
+                avatars = await vrcapi.AvatarApi.Favorites(); // avatars = new List<AvatarResponse>();
+                /*var favorites = await vrcapi.FavoritesAPI.Get(type: "avatar");
+                foreach(var favorite in favorites)
+                {
+
+                }*/
+            }
+            Logger.Debug("Downloaded list of", avatars.Count, "avatars");
+            foreach (var avatar in avatars)
+            {
+                var node = new TreeNode(avatar.name);
+                node.Tag = avatar;
+                tree_avatars.Nodes[1].Nodes.Add(node);
+            }
+        }
+
         public void WriteGameLog(string message) {
             if (string.IsNullOrWhiteSpace(message)) return;
             if (lst_log_game.Items.Count > 500) lst_log_game.Items.RemoveAt(0);
@@ -120,13 +215,36 @@ namespace VRChatLauncher
             Game.StartGame(args: args);
         }
 
-        private void tab_changed(object sender, TabControlEventArgs e)
+        private async void tab_changedAsync(object sender, TabControlEventArgs e)
         {
             Logger.Debug(e.Action.ToString(), e.TabPage.Name, e.TabPageIndex.ToString());
+            if (new string[] { "tab_friends", "tab_avatars", "tab_worlds", ""}.Contains(e.TabPage.Name))
+            {
+                if (vrcapi == null)
+                {
+                    if (config.Sections.ContainsSection("VRCAPI") && config["VRCAPI"].ContainsKey("p") && !string.IsNullOrWhiteSpace(config["VRCAPI"]["p"]))
+                    {
+                        await VRCAPILogin(Utils.Utils.Base64Decode(config["VRCAPI"]["u"]), Utils.Utils.Base64Decode(config["VRCAPI"]["p"]));
+                    }
+                    else
+                    {
+                        SetupVRCApiAsync(); return;
+                    }
+                }
+            }
             switch (e.TabPage.Name)
             {
+                case "tab_avatars":
+                    SetupAvatarsAsync();
+                    break;
+                case "tab_settings":
+                    if (!settingsInitialized)
+                        SetupSettings();
+                    break;
                 case "tab_mods":
-                    SetupMods(); break;
+                    if(mods == null)
+                        SetupMods();
+                    break;
                 case "tab_log_game":
                     if (logReader == null) {
                         logReader = new LogReader();
@@ -138,12 +256,18 @@ namespace VRChatLauncher
                     break;
             }
         }
+
+        private void mainForm_loaded(object sender, EventArgs e) {
+            columnHeader1.Width = -1;
+            columnHeader2.Width = -1;
+            // Task.Run(() => LogReader.ReadLogs());
+        }
+
         int lastModIndex = 0;
         private void on_mod_selected(object sender, ListViewItemSelectionChangedEventArgs e)
         {
             if (lastModIndex == e.ItemIndex) return;
             lastModIndex = e.ItemIndex;
-            Logger.Warn(e.Item.Text);
             Mod mod = (Mod)e.Item.Tag;
             txt_mod_path.Text = mod.File.FullName;
             txt_mod_name.Text = mod.Name;
@@ -152,17 +276,40 @@ namespace VRChatLauncher
             txt_mod_type.Text = mod.Type.ToString();
             txt_mod_description.Text = mod.Description;
         }
-
-        private void mainForm_loaded(object sender, EventArgs e)
+        private void avatars_node_selected(object sender, TreeNodeMouseClickEventArgs e)
         {
-            columnHeader1.Width = -1;
-            columnHeader2.Width = -1;
-            // Task.Run(() => LogReader.ReadLogs());
+            if (e.Node.Tag == null) return;
+            AvatarResponse avatar = (AvatarResponse)e.Node.Tag;
+            FillAvatar(avatar);
         }
 
-        private void Btn_mods_refresh_Click(object sender, EventArgs e)
+        private void FillAvatar(AvatarResponse avatar)
         {
+            txt_avatar_id.Text = avatar.id;
+            txt_avatar_name.Text = avatar.name;
+            txt_avatar_version.Text = avatar.version;
+            txt_avatar_author.Text = $"{avatar.authorName} ({avatar.authorId})";
+            txt_avatar_asseturl.Text = avatar.assetUrl;
+            txt_avatar_description.Text = avatar.description;
+        }
+
+        private void Btn_mods_refresh_Click(object sender, EventArgs e) {
             SetupMods(force: true);
+        }
+
+        private void Btn_config_save_Click(object sender, EventArgs e) {
+            Config.Save(config);
+        }
+
+        private void Btn_avatars_reload_Click(object sender, EventArgs e)
+        {
+            SetupAvatarsAsync(force: true);
+        }
+
+        private async void Btn_avatar_search_ClickAsync(object sender, EventArgs e)
+        {
+            var avatar = await vrcapi.AvatarApi.GetById(txt_avatar_id.Text);
+            FillAvatar(avatar);
         }
     }
 }

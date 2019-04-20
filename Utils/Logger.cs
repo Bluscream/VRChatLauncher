@@ -12,13 +12,13 @@ namespace VRChatLauncher.Utils
             args = args.Select(s => s.ToLowerInvariant()).ToArray();
             if (args.Contains("--vrclauncher.console")) { /* ExternalConsole.InitConsole(); */ }
         }
-        public static void Trace(params string[] msg) => log(VRChatApi.Logging.LogLevel.Trace, msg);
-        public static void Debug(params string[] msg) => log(VRChatApi.Logging.LogLevel.Debug, msg);
-        public static void Log(params string[] msg) => log(VRChatApi.Logging.LogLevel.Info, msg);
-        public static void Warn(params string[] msg) => log(VRChatApi.Logging.LogLevel.Warn, msg);
-        public static void Error(params string[] msg) => log(VRChatApi.Logging.LogLevel.Error, msg);
-        public static void Fatal(params string[] msg) => log(VRChatApi.Logging.LogLevel.Fatal, msg);
-        private static void log(VRChatApi.Logging.LogLevel logLevel, params string[] msg) // [CallerMemberName] string cName = "Unknown.Unknown", 
+        public static void Trace(params object[] msg) => log(VRChatApi.Logging.LogLevel.Trace, msg);
+        public static void Debug(params object[] msg) => log(VRChatApi.Logging.LogLevel.Debug, msg);
+        public static void Log(params object[] msg) => log(VRChatApi.Logging.LogLevel.Info, msg);
+        public static void Warn(params object[] msg) => log(VRChatApi.Logging.LogLevel.Warn, msg);
+        public static void Error(params object[] msg) => log(VRChatApi.Logging.LogLevel.Error, msg);
+        public static void Fatal(params object[] msg) => log(VRChatApi.Logging.LogLevel.Fatal, msg);
+        private static void log(VRChatApi.Logging.LogLevel logLevel, params object[] msgs) // [CallerMemberName] string cName = "Unknown.Unknown", 
         {
             /*if (logLevel == VRChatApi.Logging.LogLevel.Trace || logLevel == VRChatApi.Logging.LogLevel.Debug) {
                 if (!Main.args.Contains("--verbose") || !Main.args.Contains("-v")) return;
@@ -44,7 +44,15 @@ namespace VRChatLauncher.Utils
                 default:
                     break;
             }
-            var line = $"[{timestamp}] {logLevel} - {cName}.{mName}: {string.Join(" ", msg)}";
+            var str = "";
+            foreach(var msg in msgs) {
+                try { str += " " + (string)msg;
+                } catch (Exception ex) {
+                    // Console.WriteLine($"Error {ex.ToString()}");
+                    str += " " + msg.ToString();
+                }
+            }
+            var line = $"[{timestamp}] {logLevel} - {cName}.{mName}: {str}";
             if (Main.selflog != null){
                 item.Text = line;
                 Main.selflog.Items.Add(item);

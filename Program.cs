@@ -2,8 +2,6 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Windows.Forms;
-using IniParser;
-using IniParser.Model;
 using VRChatLauncher.Utils;
 
 namespace VRChatLauncher

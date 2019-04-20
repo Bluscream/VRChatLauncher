@@ -16,7 +16,15 @@ namespace VRChatLauncher.Utils
 {
     class Utils
     {
+        static FileInfo ownBinary;
         static FileInfo gameBinary;
+        public static FileInfo getOwnPath()
+        {
+            if (ownBinary == null) {
+                ownBinary = new FileInfo(Path.GetFullPath(Application.ExecutablePath));
+            }
+            return ownBinary;
+        }
         public static  FileInfo getGamePath()
         {
             if (gameBinary == null) {
@@ -104,6 +112,14 @@ namespace VRChatLauncher.Utils
                 isAdmin = false;
             }
             return isAdmin;
+        }
+        public static string Base64Encode(string plainText) {
+          var plainTextBytes = Encoding.UTF8.GetBytes(plainText);
+          return Convert.ToBase64String(plainTextBytes);
+        }
+        public static string Base64Decode(string base64EncodedData) {
+            var base64EncodedBytes = Convert.FromBase64String(base64EncodedData);
+            return Encoding.UTF8.GetString(base64EncodedBytes);
         }
     }
 }
