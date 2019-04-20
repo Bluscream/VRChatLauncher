@@ -81,9 +81,6 @@ namespace VRChatLauncher.Utils
             public string Author { get; set; }
             public string Description { get; set; }
             public ModUpdate Update { get; set; }
-            public override string ToString() {
-                return JsonConvert.SerializeObject(this, Formatting.Indented, new JsonConverter[] { new StringEnumConverter() });
-            }
         }
         public class ModUpdate {
             public string newVersion { get; set; }

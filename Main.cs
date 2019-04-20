@@ -20,7 +20,9 @@ namespace VRChatLauncher
         public partial class Main : Form
     {
         public static string[] args = new string[] { };
-        public static List<Mod> mods;public static List<AvatarResponse> favorite_avatars;public static List<AvatarResponse> personal_avatars;
+        public static List<Mod> mods;
+        public static List<AvatarResponse> favorite_avatars;public static List<AvatarResponse> personal_avatars;public static List<UserBriefResponse> friends;
+        public static List<UserResponse> blocked;public static List<UserResponse> user_requests;public static UserResponse me;
         public static ListView selflog; public static ListView gamelog;
         public LogReader logReader;public bool settingsInitialized = false;
         public IniData config;public VRChatApi.VRChatApi vrcapi;
@@ -154,13 +156,13 @@ namespace VRChatLauncher
         {
             Logger.Log("Trying to log in as", username, "...");
             vrcapi = new VRChatApi.VRChatApi(username, password);
-            UserResponse user = await vrcapi.UserApi.Login();
-            if (user == null) {
+            me = await vrcapi.UserApi.Login();
+            if (me == null) {
                 var confirmResult = MessageBox.Show($"Something went wrong while logging you in as {username}\n\nRetry?", "Failed to log in!", MessageBoxButtons.RetryCancel, MessageBoxIcon.Error);
                 if (confirmResult == DialogResult.Retry) return await VRCAPILogin(username, password);
                 tabs_main.SelectTab(0); return false;
             }
-            Logger.Log("Logged in as", user.username);
+            Logger.Log("Logged in as", me.username);
             return true;
         }
         public async void SetupVRCApiAsync() {
@@ -225,6 +227,59 @@ namespace VRChatLauncher
             tree_avatars.Nodes[1].Text = $"Official ({tree_avatars.Nodes[0].Nodes.Count} / 16)";
         }
 
+        public async void SetupUsersAsync(bool force = false) {
+            Logger.Trace("called");
+            var onlinenode = tree_users.Nodes[1].Nodes[0];
+            var offlinenode = tree_users.Nodes[1].Nodes[1];
+            onlinenode.Nodes.Clear();
+            offlinenode.Nodes.Clear();
+            tree_users.Nodes[2].Nodes.Clear();
+            tree_users.Nodes[3].Nodes.Clear();
+            if (me != null)  {
+                Logger.Warn(me.displayName);
+                if (force) me = await vrcapi.UserApi.UpdateInfo(me.id);
+                tree_users.Nodes[0].Text = me.displayName;
+                tree_users.Nodes[0].Tag = me;
+            }
+            if (friends == null || force) {
+                friends = new List<UserBriefResponse>();
+                var offset = 0;
+                for (int i = 0; i < 10; i++)
+                {
+                    var friends_part = await vrcapi.FriendsApi.Get(offset, 100, true);
+                    friends.AddRange(friends_part);
+                    if (friends_part.Count < 100) break;
+                    offset += 100;
+                } 
+                Logger.Debug("Downloaded list of", friends.Count, "official friends");
+            }
+            foreach (var friend in friends)
+            {
+                var node = new TreeNode(friend.displayName);
+                node.Tag = friend;
+                // node.ForeColor = ColorFromReleaseStatus(avatar.releaseStatus);
+                if (friend.location == "offline")
+                    tree_users.Nodes[1].Nodes[1].Nodes.Add(node);
+                else tree_users.Nodes[1].Nodes[0].Nodes.Add(node);
+            }
+            tree_users.Nodes[1].Text = $"Friends ({onlinenode.Nodes.Count + offlinenode.Nodes.Count})";
+            onlinenode.Text = $"Online ({onlinenode.Nodes.Count})";
+            offlinenode.Text = $"Offline ({offlinenode.Nodes.Count})";
+            return;
+            if (favorite_avatars == null || force) {
+                favorite_avatars = await vrcapi.AvatarApi.Favorites();
+                Logger.Debug("Downloaded list of", favorite_avatars.Count, "official favorite avatars");
+            }
+            foreach (var avatar in favorite_avatars)
+            {
+                var node = new TreeNode(avatar.name);
+                node.Tag = avatar;
+                node.ForeColor = ColorFromReleaseStatus(avatar.releaseStatus);
+                tree_users.Nodes[1].Nodes.Add(node);
+            }
+            tree_users.Nodes[1].Text = $"Official ({tree_users.Nodes[0].Nodes.Count} / 16)";
+        }
+
         public void WriteGameLog(string message) {
             if (string.IsNullOrWhiteSpace(message)) return;
             if (lst_log_game.Items.Count > 500) lst_log_game.Items.RemoveAt(0);
@@ -241,7 +296,7 @@ namespace VRChatLauncher
         private async void tab_changedAsync(object sender, TabControlEventArgs e)
         {
             Logger.Debug(e.Action.ToString(), e.TabPage.Name, e.TabPageIndex.ToString());
-            if (new string[] { "tab_friends", "tab_avatars", "tab_worlds", ""}.Contains(e.TabPage.Name))
+            if (new string[] { "tab_users", "tab_avatars", "tab_worlds"}.Contains(e.TabPage.Name))
             {
                 if (vrcapi == null)
                 {
@@ -257,6 +312,9 @@ namespace VRChatLauncher
             }
             switch (e.TabPage.Name)
             {
+                case "tab_users":
+                    SetupUsersAsync();
+                    break;
                 case "tab_avatars":
                     SetupAvatarsAsync();
                     break;
@@ -305,6 +363,12 @@ namespace VRChatLauncher
             AvatarResponse avatar = (AvatarResponse)e.Node.Tag;
             FillAvatar(avatar);
         }
+        private void users_node_selected(object sender, TreeNodeMouseClickEventArgs e)
+        {
+            if (e.Node.Tag == null) return;
+            UserBriefResponse user = (UserBriefResponse)e.Node.Tag;
+            FillUser(user);
+        }
 
         private void FillAvatar(AvatarResponse avatar)
         {
@@ -317,22 +381,34 @@ namespace VRChatLauncher
             txt_avatar_description.Text = avatar.description;
         }
 
+        private void FillUser(UserBriefResponse user)
+        {
+            txt_users_id.Text = user.id;
+            txt_users_id.Tag = user;
+            txt_users_displayname.Text = user.displayName;
+            txt_users_username.Text = user.username;
+            txt_users_status.Text = user.statusDescription;
+        }
+
         private void btn_play_Click(object sender, EventArgs e)
         {
             Game.StartGame(args: args);
-        }
-
-        private void Btn_mods_refresh_Click(object sender, EventArgs e) {
-            SetupMods(force: true);
         }
 
         private void Btn_config_save_Click(object sender, EventArgs e) {
             Config.Save(config);
         }
 
+        private void Btn_mods_refresh_Click(object sender, EventArgs e) {
+            SetupMods(force: true);
+        }
         private void Btn_avatars_reload_Click(object sender, EventArgs e)
         {
             SetupAvatarsAsync(force: true);
+        }
+        private void Btn_users_reload_Click(object sender, EventArgs e)
+        {
+            SetupUsersAsync(true);
         }
 
         private async void Btn_avatar_search_ClickAsync(object sender, EventArgs e)

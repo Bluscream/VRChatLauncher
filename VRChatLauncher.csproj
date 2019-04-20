@@ -91,6 +91,7 @@
       <Private>True</Private>
       <Private>True</Private>
     </Reference>
+    <Reference Include="System.Web" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="System.Data" />
@@ -103,6 +104,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="IPC\CommandHandler.cs" />
     <Compile Include="IPC\Game.cs" />
     <Compile Include="Main.cs">
       <SubType>Form</SubType>
@@ -131,6 +133,7 @@
     <Compile Include="Setup\URI.cs" />
     <Compile Include="Utils\LogReader.cs" />
     <Compile Include="Utils\Mods.cs" />
+    <Compile Include="Utils\URI.cs" />
     <Compile Include="Utils\Utils.cs" />
     <Compile Include="Utils\VRCAPI.cs" />
     <EmbeddedResource Include="Main.resx">

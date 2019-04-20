@@ -38,11 +38,7 @@ namespace VRChatLauncher.IPC
                 case "islauncherrunning":
                     ret = new Message("yes");
                     Utils.Utils.BringSelfToFront();
-                    foreach (var arg in argument.Split(' ')) {
-                        if (arg.ToLower().StartsWith("vrchat://")) {
-                            // Game.SendCommand(arg); // Handle with launcher
-                        }
-                    }
+                    CommandHandler.IsLauncherRunning(argument);
                     break;
                 default:
                     Logger.Warn($"Recieved unknown IPC message: \"{command}\"");
@@ -51,14 +47,15 @@ namespace VRChatLauncher.IPC
             Logger.Debug("Answering IPC call with (", ret.Send, ",", ret.Str, ")");
             return ret.ToTuple();
         }
-        /*public void AsyncRemoteCallHandler(ulong msgId, byte[] data)
+        
+        public void AsyncRemoteCallHandler(ulong msgId, byte[] data)
         {
             var ret = new Message(string.Empty, msgId);
             sm.AsyncAnswerOnRemoteCall(ret.Id, ret.ToTuple());
             if (data.Length < 1) return;
             var str = ToString(data);
             Logger.Trace("Got IPC Message async:", str);
-        }*/
+        }
 
         public Message MakeRemoteRequestWithResponse(Message message, int timeout = 100) {
             Logger.Trace("Awaiting sync IPC Message for:", message.Str);

@@ -12,13 +12,14 @@ namespace VRChatLauncher.Utils
             args = args.Select(s => s.ToLowerInvariant()).ToArray();
             if (args.Contains("--vrclauncher.console")) { /* ExternalConsole.InitConsole(); */ }
         }
-        public static void Trace(params object[] msg) => log(VRChatApi.Logging.LogLevel.Trace, msg);
-        public static void Debug(params object[] msg) => log(VRChatApi.Logging.LogLevel.Debug, msg);
-        public static void Log(params object[] msg) => log(VRChatApi.Logging.LogLevel.Info, msg);
-        public static void Warn(params object[] msg) => log(VRChatApi.Logging.LogLevel.Warn, msg);
-        public static void Error(params object[] msg) => log(VRChatApi.Logging.LogLevel.Error, msg);
-        public static void Fatal(params object[] msg) => log(VRChatApi.Logging.LogLevel.Fatal, msg);
-        private static void log(VRChatApi.Logging.LogLevel logLevel, params object[] msgs) // [CallerMemberName] string cName = "Unknown.Unknown", 
+        public static void Trace(params object[] msg) => log(VRChatApi.Logging.LogLevel.Trace, msgs: msg);
+        public static void Debug(params object[] msg) => log(VRChatApi.Logging.LogLevel.Debug, msgs: msg);
+        public static void Log(params object[] msg) => log(VRChatApi.Logging.LogLevel.Info, msgs: msg);
+        public static void LogLines(bool lines = false, params object[] msg) => log(VRChatApi.Logging.LogLevel.Info, lines: lines, msgs: msg);
+        public static void Warn(params object[] msg) => log(VRChatApi.Logging.LogLevel.Warn, msgs: msg);
+        public static void Error(params object[] msg) => log(VRChatApi.Logging.LogLevel.Error, msgs: msg);
+        public static void Fatal(params object[] msg) => log(VRChatApi.Logging.LogLevel.Fatal, msgs: msg);
+        private static void log(VRChatApi.Logging.LogLevel logLevel, bool lines = false, params object[] msgs) // [CallerMemberName] string cName = "Unknown.Unknown", 
         {
             /*if (logLevel == VRChatApi.Logging.LogLevel.Trace || logLevel == VRChatApi.Logging.LogLevel.Debug) {
                 if (!Main.args.Contains("--verbose") || !Main.args.Contains("-v")) return;
@@ -45,11 +46,12 @@ namespace VRChatLauncher.Utils
                     break;
             }
             var str = "";
+            var seperator = lines ? Environment.NewLine : " ";
             foreach(var msg in msgs) {
-                try { str += " " + (string)msg;
+                try { str += seperator + (string)msg;
                 } catch (Exception ex) {
                     // Console.WriteLine($"Error {ex.ToString()}");
-                    str += " " + msg.ToString();
+                    str += seperator + msg.ToString();
                 }
             }
             var line = $"[{timestamp}] {logLevel} - {cName}.{mName}: {str}";

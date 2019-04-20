@@ -10,6 +10,9 @@ using System.Reflection;
 using System.Windows.Forms;
 using System.Runtime.InteropServices;
 using System.Net;
+using Newtonsoft.Json;
+using Newtonsoft.Json.Converters;
+using System.Text.RegularExpressions;
 // using System.Threading;
 // using System.Threading.Tasks;
 
@@ -146,6 +149,9 @@ namespace VRChatLauncher.Utils
     }
     public static class Extensions
     {
+        public static object ToJson(this object obj) {
+            return JsonConvert.SerializeObject(obj, Formatting.Indented, new JsonConverter[] { new StringEnumConverter() });
+        }
         public static string Ext(this string text, string extension)
         {
             return text + "." + extension;
@@ -171,6 +177,18 @@ namespace VRChatLauncher.Utils
             T r = list[index];
             list.RemoveAt(index);
             return r;
+        }
+        private static readonly Regex QueryRegex = new Regex(@"[?&](\w[\w.]*)=([^?&]+)");
+        public static IReadOnlyDictionary<string, string> ParseQueryString(this Uri uri)
+        {
+            var match = QueryRegex.Match(uri.PathAndQuery);
+            var paramaters = new Dictionary<string, string>();
+            while (match.Success)
+            {
+                paramaters.Add(match.Groups[1].Value, match.Groups[2].Value);
+                match = match.NextMatch();
+            }
+            return paramaters;
         }
     }
 }
