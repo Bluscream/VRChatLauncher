@@ -287,7 +287,7 @@ namespace VRChatLauncher
         {
             txt_avatar_id.Text = avatar.id;
             txt_avatar_name.Text = avatar.name;
-            txt_avatar_version.Text = avatar.version;
+            txt_avatar_version.Text = avatar.version.ToString();
             txt_avatar_author.Text = $"{avatar.authorName} ({avatar.authorId})";
             txt_avatar_asseturl.Text = avatar.assetUrl;
             txt_avatar_description.Text = avatar.description;
