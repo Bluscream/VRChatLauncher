@@ -97,7 +97,7 @@ namespace VRChatLauncher
 
         private async void tab_changedAsync(object sender, TabControlEventArgs e)
         {
-            Logger.Debug(e.Action.ToString(), e.TabPage.Name, e.TabPageIndex.ToString());
+            Logger.Trace(e.Action.ToString(), e.TabPage.Name, e.TabPageIndex.ToString());
             if (new string[] { "tab_users", "tab_avatars", "tab_worlds"}.Contains(e.TabPage.Name))
             {
                 if (vrcapi == null)

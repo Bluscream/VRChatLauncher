@@ -75,10 +75,12 @@ namespace VRChatLauncher.Utils
                 Main.statusBar.ForeColor = newColor.Item1;
             }
             getLogFile().AppendLine(line);
-            try {
-                Console.WriteLine(line);
-                Console.ForegroundColor = oldColor;
-            } catch { }
+            if (logLevel > VRChatApi.Logging.LogLevel.Trace) {
+                try {
+                    Console.WriteLine(line);
+                    Console.ForegroundColor = oldColor;
+                } catch { }
+            }
         }
     }
 }
