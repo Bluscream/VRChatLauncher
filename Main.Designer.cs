@@ -54,7 +54,6 @@
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Main));
             this.tabs_main = new System.Windows.Forms.TabControl();
             this.tab_news = new System.Windows.Forms.TabPage();
-            this.web_home = new System.Windows.Forms.WebBrowser();
             this.tab_users = new System.Windows.Forms.TabPage();
             this.splitContainer2 = new System.Windows.Forms.SplitContainer();
             this.btn_users_reload = new System.Windows.Forms.Button();
@@ -163,6 +162,7 @@
             this.panel_status = new System.Windows.Forms.Panel();
             this.txt_status = new System.Windows.Forms.TextBox();
             this.btn_play = new System.Windows.Forms.Button();
+            this.txt_news = new System.Windows.Forms.RichTextBox();
             this.tabs_main.SuspendLayout();
             this.tab_news.SuspendLayout();
             this.tab_users.SuspendLayout();
@@ -226,7 +226,7 @@
             // 
             // tab_news
             // 
-            this.tab_news.Controls.Add(this.web_home);
+            this.tab_news.Controls.Add(this.txt_news);
             this.tab_news.Location = new System.Drawing.Point(4, 22);
             this.tab_news.Name = "tab_news";
             this.tab_news.Padding = new System.Windows.Forms.Padding(3);
@@ -234,21 +234,6 @@
             this.tab_news.TabIndex = 0;
             this.tab_news.Text = "News";
             this.tab_news.UseVisualStyleBackColor = true;
-            // 
-            // web_home
-            // 
-            this.web_home.AllowNavigation = false;
-            this.web_home.AllowWebBrowserDrop = false;
-            this.web_home.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.web_home.Location = new System.Drawing.Point(3, 3);
-            this.web_home.MinimumSize = new System.Drawing.Size(20, 20);
-            this.web_home.Name = "web_home";
-            this.web_home.ScriptErrorsSuppressed = true;
-            this.web_home.ScrollBarsEnabled = false;
-            this.web_home.Size = new System.Drawing.Size(899, 354);
-            this.web_home.TabIndex = 0;
-            this.web_home.Url = new System.Uri("https://vrchat.com/home", System.UriKind.Absolute);
-            this.web_home.WebBrowserShortcutsEnabled = false;
             // 
             // tab_users
             // 
@@ -1492,6 +1477,17 @@
             this.btn_play.Text = "Play";
             this.btn_play.UseVisualStyleBackColor = true;
             // 
+            // txt_news
+            // 
+            this.txt_news.BulletIndent = 1;
+            this.txt_news.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.txt_news.Location = new System.Drawing.Point(3, 3);
+            this.txt_news.Name = "txt_news";
+            this.txt_news.ReadOnly = true;
+            this.txt_news.Size = new System.Drawing.Size(899, 354);
+            this.txt_news.TabIndex = 0;
+            this.txt_news.Text = "Fetching news ...";
+            // 
             // Main
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -1562,7 +1558,6 @@
         #endregion
         private System.Windows.Forms.TabControl tabs_main;
         private System.Windows.Forms.TabPage tab_news;
-        private System.Windows.Forms.WebBrowser web_home;
         private System.Windows.Forms.TabPage tab_users;
         private System.Windows.Forms.TabPage tab_avatars;
         private System.Windows.Forms.TabPage tab_worlds;
@@ -1671,6 +1666,7 @@
         private System.Windows.Forms.Panel panel1;
         private System.Windows.Forms.ListView lst_mods;
         private System.Windows.Forms.Button btn_mods_refresh;
+        private System.Windows.Forms.RichTextBox txt_news;
     }
 }
 

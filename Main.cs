@@ -4,6 +4,7 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using VRChatLauncher.Utils;
 using IniParser.Model;
+using System.Net;
 
 namespace VRChatLauncher
 {
@@ -11,7 +12,7 @@ namespace VRChatLauncher
     {
         public static string[] args = new string[] { };
         public IniData config;public VRChatApi.VRChatApi vrcapi;
-        public static TextBox statusBar;
+        public static TextBox statusBar;public static WebClient webClient;
         public Main(string[] arguments)
         {
             Logger.Trace("START");
@@ -26,6 +27,8 @@ namespace VRChatLauncher
             if(regKeyCorrect.match != Setup.URIResponse.URIEnum.INSTALLED) SetupURI(regKeyCorrect.expected, regKeyCorrect.key);
             // richTextBox1.Text = "match: "+ regKeyCorrect.match.ToString() + "\n\nexpected: " + regKeyCorrect.expected + "\n\nkey: " + regKeyCorrect.key + "\n\n";
             selflog = lst_log_launcher; gamelog = lst_log_game;statusBar = txt_status;
+            webClient = new WebClient();
+            LoadNews();
             Logger.Trace("END");
         }
 

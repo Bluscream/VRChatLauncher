@@ -119,10 +119,7 @@ namespace VRChatLauncher.Utils
         }
         public static FileInfo DownloadFile(string url, DirectoryInfo destinationPath, string fileName = null) {
             if (fileName == null) fileName = url.Split('/').Last();
-            using (WebClient webClient = new WebClient ())
-            {
-                webClient.DownloadFile(url, Path.Combine(destinationPath.FullName, fileName));
-            }
+            Main.webClient.DownloadFile(url, Path.Combine(destinationPath.FullName, fileName));
             return new FileInfo(Path.Combine(destinationPath.FullName, fileName));
         }
         
