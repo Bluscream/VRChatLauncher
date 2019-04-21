@@ -173,5 +173,25 @@ namespace VRChatLauncher
         {
 
         }
+
+        private void Btn_users_friend_add_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void Btn_users_friend_remove_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void Btn_users_block_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void Btn_users_unblock_Click(object sender, EventArgs e)
+        {
+
+        }
     }
 }

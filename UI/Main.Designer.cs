@@ -43,20 +43,16 @@
             System.Windows.Forms.TreeNode treeNode9 = new System.Windows.Forms.TreeNode("Requests", new System.Windows.Forms.TreeNode[] {
             treeNode8});
             System.Windows.Forms.TreeNode treeNode10 = new System.Windows.Forms.TreeNode("Personal");
-            System.Windows.Forms.TreeNode treeNode11 = new System.Windows.Forms.TreeNode("Test Avatar");
-            System.Windows.Forms.TreeNode treeNode12 = new System.Windows.Forms.TreeNode("Test Private");
-            System.Windows.Forms.TreeNode treeNode13 = new System.Windows.Forms.TreeNode("Official", new System.Windows.Forms.TreeNode[] {
-            treeNode11,
-            treeNode12});
-            System.Windows.Forms.TreeNode treeNode14 = new System.Windows.Forms.TreeNode("Test Avatar");
-            System.Windows.Forms.TreeNode treeNode15 = new System.Windows.Forms.TreeNode("VRCTools", new System.Windows.Forms.TreeNode[] {
-            treeNode14});
+            System.Windows.Forms.TreeNode treeNode11 = new System.Windows.Forms.TreeNode("Favorites");
+            System.Windows.Forms.TreeNode treeNode12 = new System.Windows.Forms.TreeNode("VRCTools");
+            System.Windows.Forms.TreeNode treeNode13 = new System.Windows.Forms.TreeNode("Personal");
+            System.Windows.Forms.TreeNode treeNode14 = new System.Windows.Forms.TreeNode("Favorites");
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Main));
             this.tabs_main = new System.Windows.Forms.TabControl();
             this.tab_news = new System.Windows.Forms.TabPage();
             this.txt_news = new System.Windows.Forms.RichTextBox();
             this.tab_users = new System.Windows.Forms.TabPage();
-            this.splitContainer2 = new System.Windows.Forms.SplitContainer();
+            this.splitContainerUsers = new System.Windows.Forms.SplitContainer();
             this.btn_users_reload = new System.Windows.Forms.Button();
             this.tree_users = new System.Windows.Forms.TreeView();
             this.flowLayoutPanel1 = new System.Windows.Forms.FlowLayoutPanel();
@@ -65,7 +61,7 @@
             this.btn_users_friend_remove = new System.Windows.Forms.Button();
             this.btn_users_block = new System.Windows.Forms.Button();
             this.btn_users_unblock = new System.Windows.Forms.Button();
-            this.tableLayoutPanel8 = new System.Windows.Forms.TableLayoutPanel();
+            this.tableLayoutPanelUSers = new System.Windows.Forms.TableLayoutPanel();
             this.label13 = new System.Windows.Forms.Label();
             this.txt_users_tags = new System.Windows.Forms.RichTextBox();
             this.txt_users_rank = new System.Windows.Forms.TextBox();
@@ -77,14 +73,14 @@
             this.label21 = new System.Windows.Forms.Label();
             this.txt_users_username = new System.Windows.Forms.TextBox();
             this.txt_users_status = new System.Windows.Forms.TextBox();
-            this.panel5 = new System.Windows.Forms.Panel();
+            this.panel_users_id = new System.Windows.Forms.Panel();
             this.btn_users_search = new System.Windows.Forms.Button();
             this.txt_users_id = new System.Windows.Forms.TextBox();
             this.tab_avatars = new System.Windows.Forms.TabPage();
-            this.splitContainer1 = new System.Windows.Forms.SplitContainer();
+            this.splitContainerAvatars = new System.Windows.Forms.SplitContainer();
+            this.button5 = new System.Windows.Forms.Button();
             this.tree_avatars = new System.Windows.Forms.TreeView();
-            this.btn_avatars_reload = new System.Windows.Forms.Button();
-            this.tableLayoutPanel7 = new System.Windows.Forms.TableLayoutPanel();
+            this.tableLayoutPanelTEST = new System.Windows.Forms.TableLayoutPanel();
             this.label11 = new System.Windows.Forms.Label();
             this.txt_avatar_description = new System.Windows.Forms.RichTextBox();
             this.label12 = new System.Windows.Forms.Label();
@@ -94,22 +90,44 @@
             this.txt_avatar_name = new System.Windows.Forms.TextBox();
             this.label16 = new System.Windows.Forms.Label();
             this.txt_avatar_version = new System.Windows.Forms.TextBox();
-            this.panel4 = new System.Windows.Forms.Panel();
+            this.panel_worlds_id = new System.Windows.Forms.Panel();
             this.btn_avatar_search = new System.Windows.Forms.Button();
             this.txt_avatar_id = new System.Windows.Forms.TextBox();
-            this.panel3 = new System.Windows.Forms.Panel();
+            this.panel_worlds_asseturl = new System.Windows.Forms.Panel();
             this.btn_avatar_rip = new System.Windows.Forms.Button();
             this.txt_avatar_asseturl = new System.Windows.Forms.TextBox();
-            this.panel6 = new System.Windows.Forms.Panel();
+            this.panel_worlds_author = new System.Windows.Forms.Panel();
             this.btn_avatars_profile = new System.Windows.Forms.Button();
             this.txt_avatar_author = new System.Windows.Forms.TextBox();
             this.tab_worlds = new System.Windows.Forms.TabPage();
+            this.splitContainerWOrlds = new System.Windows.Forms.SplitContainer();
+            this.tree_worlds = new System.Windows.Forms.TreeView();
+            this.btn_worlds_reload = new System.Windows.Forms.Button();
+            this.tableLayoutPanelWorlds = new System.Windows.Forms.TableLayoutPanel();
+            this.label22 = new System.Windows.Forms.Label();
+            this.txt_world_description = new System.Windows.Forms.RichTextBox();
+            this.label23 = new System.Windows.Forms.Label();
+            this.label24 = new System.Windows.Forms.Label();
+            this.label25 = new System.Windows.Forms.Label();
+            this.label26 = new System.Windows.Forms.Label();
+            this.txt_world_name = new System.Windows.Forms.TextBox();
+            this.label27 = new System.Windows.Forms.Label();
+            this.txt_world_version = new System.Windows.Forms.TextBox();
+            this.panel_words_id_2 = new System.Windows.Forms.Panel();
+            this.btn_worlds_search = new System.Windows.Forms.Button();
+            this.txt_world_id = new System.Windows.Forms.TextBox();
+            this.panel8 = new System.Windows.Forms.Panel();
+            this.btn_worlds_rip = new System.Windows.Forms.Button();
+            this.txt_world_asset = new System.Windows.Forms.TextBox();
+            this.panel9 = new System.Windows.Forms.Panel();
+            this.btn_worlds_author = new System.Windows.Forms.Button();
+            this.txt_world_author = new System.Windows.Forms.TextBox();
             this.tab_mods = new System.Windows.Forms.TabPage();
-            this.splitContainer3 = new System.Windows.Forms.SplitContainer();
-            this.panel1 = new System.Windows.Forms.Panel();
+            this.splitContainerMods = new System.Windows.Forms.SplitContainer();
+            this.panel_mods_list = new System.Windows.Forms.Panel();
             this.lst_mods = new System.Windows.Forms.ListView();
             this.btn_mods_refresh = new System.Windows.Forms.Button();
-            this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
+            this.tableLayoutPanelmods = new System.Windows.Forms.TableLayoutPanel();
             this.lbl_mod_name = new System.Windows.Forms.Label();
             this.txt_mod_description = new System.Windows.Forms.RichTextBox();
             this.txt_mod_type = new System.Windows.Forms.TextBox();
@@ -123,34 +141,9 @@
             this.txt_mod_version = new System.Windows.Forms.TextBox();
             this.txt_mod_author = new System.Windows.Forms.TextBox();
             this.tab_settings = new System.Windows.Forms.TabPage();
-            this.panel2 = new System.Windows.Forms.Panel();
+            this.panel_setings = new System.Windows.Forms.Panel();
             this.btn_config_save = new System.Windows.Forms.Button();
             this.flow_settings = new System.Windows.Forms.FlowLayoutPanel();
-            this.tableLayoutPanel3 = new System.Windows.Forms.TableLayoutPanel();
-            this.label3 = new System.Windows.Forms.Label();
-            this.label4 = new System.Windows.Forms.Label();
-            this.textBox3 = new System.Windows.Forms.TextBox();
-            this.textBox4 = new System.Windows.Forms.TextBox();
-            this.tableLayoutPanel6 = new System.Windows.Forms.TableLayoutPanel();
-            this.label9 = new System.Windows.Forms.Label();
-            this.label10 = new System.Windows.Forms.Label();
-            this.textBox9 = new System.Windows.Forms.TextBox();
-            this.textBox10 = new System.Windows.Forms.TextBox();
-            this.tableLayoutPanel5 = new System.Windows.Forms.TableLayoutPanel();
-            this.label7 = new System.Windows.Forms.Label();
-            this.label8 = new System.Windows.Forms.Label();
-            this.textBox7 = new System.Windows.Forms.TextBox();
-            this.textBox8 = new System.Windows.Forms.TextBox();
-            this.tableLayoutPanel4 = new System.Windows.Forms.TableLayoutPanel();
-            this.label5 = new System.Windows.Forms.Label();
-            this.label6 = new System.Windows.Forms.Label();
-            this.textBox5 = new System.Windows.Forms.TextBox();
-            this.textBox6 = new System.Windows.Forms.TextBox();
-            this.tableLayoutPanel2 = new System.Windows.Forms.TableLayoutPanel();
-            this.label1 = new System.Windows.Forms.Label();
-            this.label2 = new System.Windows.Forms.Label();
-            this.textBox2 = new System.Windows.Forms.TextBox();
-            this.textBox1 = new System.Windows.Forms.TextBox();
             this.tab_log = new System.Windows.Forms.TabPage();
             this.tabs_log = new System.Windows.Forms.TabControl();
             this.tab_log_launcher = new System.Windows.Forms.TabPage();
@@ -166,37 +159,40 @@
             this.tabs_main.SuspendLayout();
             this.tab_news.SuspendLayout();
             this.tab_users.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.splitContainer2)).BeginInit();
-            this.splitContainer2.Panel1.SuspendLayout();
-            this.splitContainer2.Panel2.SuspendLayout();
-            this.splitContainer2.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.splitContainerUsers)).BeginInit();
+            this.splitContainerUsers.Panel1.SuspendLayout();
+            this.splitContainerUsers.Panel2.SuspendLayout();
+            this.splitContainerUsers.SuspendLayout();
             this.flowLayoutPanel1.SuspendLayout();
-            this.tableLayoutPanel8.SuspendLayout();
-            this.panel5.SuspendLayout();
+            this.tableLayoutPanelUSers.SuspendLayout();
+            this.panel_users_id.SuspendLayout();
             this.tab_avatars.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).BeginInit();
-            this.splitContainer1.Panel1.SuspendLayout();
-            this.splitContainer1.Panel2.SuspendLayout();
-            this.splitContainer1.SuspendLayout();
-            this.tableLayoutPanel7.SuspendLayout();
-            this.panel4.SuspendLayout();
-            this.panel3.SuspendLayout();
-            this.panel6.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.splitContainerAvatars)).BeginInit();
+            this.splitContainerAvatars.Panel1.SuspendLayout();
+            this.splitContainerAvatars.Panel2.SuspendLayout();
+            this.splitContainerAvatars.SuspendLayout();
+            this.tableLayoutPanelTEST.SuspendLayout();
+            this.panel_worlds_id.SuspendLayout();
+            this.panel_worlds_asseturl.SuspendLayout();
+            this.panel_worlds_author.SuspendLayout();
+            this.tab_worlds.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.splitContainerWOrlds)).BeginInit();
+            this.splitContainerWOrlds.Panel1.SuspendLayout();
+            this.splitContainerWOrlds.Panel2.SuspendLayout();
+            this.splitContainerWOrlds.SuspendLayout();
+            this.tableLayoutPanelWorlds.SuspendLayout();
+            this.panel_words_id_2.SuspendLayout();
+            this.panel8.SuspendLayout();
+            this.panel9.SuspendLayout();
             this.tab_mods.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.splitContainer3)).BeginInit();
-            this.splitContainer3.Panel1.SuspendLayout();
-            this.splitContainer3.Panel2.SuspendLayout();
-            this.splitContainer3.SuspendLayout();
-            this.panel1.SuspendLayout();
-            this.tableLayoutPanel1.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.splitContainerMods)).BeginInit();
+            this.splitContainerMods.Panel1.SuspendLayout();
+            this.splitContainerMods.Panel2.SuspendLayout();
+            this.splitContainerMods.SuspendLayout();
+            this.panel_mods_list.SuspendLayout();
+            this.tableLayoutPanelmods.SuspendLayout();
             this.tab_settings.SuspendLayout();
-            this.panel2.SuspendLayout();
-            this.flow_settings.SuspendLayout();
-            this.tableLayoutPanel3.SuspendLayout();
-            this.tableLayoutPanel6.SuspendLayout();
-            this.tableLayoutPanel5.SuspendLayout();
-            this.tableLayoutPanel4.SuspendLayout();
-            this.tableLayoutPanel2.SuspendLayout();
+            this.panel_setings.SuspendLayout();
             this.tab_log.SuspendLayout();
             this.tabs_log.SuspendLayout();
             this.tab_log_launcher.SuspendLayout();
@@ -249,7 +245,7 @@
             // 
             // tab_users
             // 
-            this.tab_users.Controls.Add(this.splitContainer2);
+            this.tab_users.Controls.Add(this.splitContainerUsers);
             this.tab_users.Location = new System.Drawing.Point(4, 22);
             this.tab_users.Name = "tab_users";
             this.tab_users.Padding = new System.Windows.Forms.Padding(3);
@@ -258,24 +254,24 @@
             this.tab_users.Text = "Users";
             this.tab_users.UseVisualStyleBackColor = true;
             // 
-            // splitContainer2
+            // splitContainerUsers
             // 
-            this.splitContainer2.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.splitContainer2.Location = new System.Drawing.Point(3, 3);
-            this.splitContainer2.Name = "splitContainer2";
+            this.splitContainerUsers.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.splitContainerUsers.Location = new System.Drawing.Point(3, 3);
+            this.splitContainerUsers.Name = "splitContainerUsers";
             // 
-            // splitContainer2.Panel1
+            // splitContainerUsers.Panel1
             // 
-            this.splitContainer2.Panel1.Controls.Add(this.btn_users_reload);
-            this.splitContainer2.Panel1.Controls.Add(this.tree_users);
+            this.splitContainerUsers.Panel1.Controls.Add(this.btn_users_reload);
+            this.splitContainerUsers.Panel1.Controls.Add(this.tree_users);
             // 
-            // splitContainer2.Panel2
+            // splitContainerUsers.Panel2
             // 
-            this.splitContainer2.Panel2.Controls.Add(this.flowLayoutPanel1);
-            this.splitContainer2.Panel2.Controls.Add(this.tableLayoutPanel8);
-            this.splitContainer2.Size = new System.Drawing.Size(899, 354);
-            this.splitContainer2.SplitterDistance = 187;
-            this.splitContainer2.TabIndex = 0;
+            this.splitContainerUsers.Panel2.Controls.Add(this.flowLayoutPanel1);
+            this.splitContainerUsers.Panel2.Controls.Add(this.tableLayoutPanelUSers);
+            this.splitContainerUsers.Size = new System.Drawing.Size(899, 354);
+            this.splitContainerUsers.SplitterDistance = 187;
+            this.splitContainerUsers.TabIndex = 0;
             // 
             // btn_users_reload
             // 
@@ -290,7 +286,7 @@
             // 
             // tree_users
             // 
-            this.tree_users.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.tree_users.Dock = System.Windows.Forms.DockStyle.Top;
             this.tree_users.Location = new System.Drawing.Point(0, 0);
             this.tree_users.Name = "tree_users";
             treeNode1.Name = "node_user_self";
@@ -322,7 +318,7 @@
             treeNode5,
             treeNode7,
             treeNode9});
-            this.tree_users.Size = new System.Drawing.Size(187, 354);
+            this.tree_users.Size = new System.Drawing.Size(187, 325);
             this.tree_users.TabIndex = 22;
             this.tree_users.NodeMouseClick += new System.Windows.Forms.TreeNodeMouseClickEventHandler(this.users_node_selected);
             // 
@@ -348,6 +344,7 @@
             this.btn_users_save.Text = "Save";
             this.btn_users_save.UseVisualStyleBackColor = true;
             this.btn_users_save.Visible = false;
+            this.btn_users_save.Click += new System.EventHandler(this.btn_users_save_click);
             // 
             // btn_users_friend_add
             // 
@@ -359,6 +356,7 @@
             this.btn_users_friend_add.Text = "Add Friend";
             this.btn_users_friend_add.UseVisualStyleBackColor = true;
             this.btn_users_friend_add.Visible = false;
+            this.btn_users_friend_add.Click += new System.EventHandler(this.Btn_users_friend_add_Click);
             // 
             // btn_users_friend_remove
             // 
@@ -370,6 +368,7 @@
             this.btn_users_friend_remove.Text = "Remove Friend";
             this.btn_users_friend_remove.UseVisualStyleBackColor = true;
             this.btn_users_friend_remove.Visible = false;
+            this.btn_users_friend_remove.Click += new System.EventHandler(this.Btn_users_friend_remove_Click);
             // 
             // btn_users_block
             // 
@@ -381,6 +380,7 @@
             this.btn_users_block.Text = "Block";
             this.btn_users_block.UseVisualStyleBackColor = true;
             this.btn_users_block.Visible = false;
+            this.btn_users_block.Click += new System.EventHandler(this.Btn_users_block_Click);
             // 
             // btn_users_unblock
             // 
@@ -392,37 +392,38 @@
             this.btn_users_unblock.Text = "Unblock";
             this.btn_users_unblock.UseVisualStyleBackColor = true;
             this.btn_users_unblock.Visible = false;
+            this.btn_users_unblock.Click += new System.EventHandler(this.Btn_users_unblock_Click);
             // 
-            // tableLayoutPanel8
+            // tableLayoutPanelUSers
             // 
-            this.tableLayoutPanel8.ColumnCount = 2;
-            this.tableLayoutPanel8.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 16.66667F));
-            this.tableLayoutPanel8.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 83.33333F));
-            this.tableLayoutPanel8.Controls.Add(this.label13, 0, 1);
-            this.tableLayoutPanel8.Controls.Add(this.txt_users_tags, 1, 5);
-            this.tableLayoutPanel8.Controls.Add(this.txt_users_rank, 1, 4);
-            this.tableLayoutPanel8.Controls.Add(this.label17, 0, 5);
-            this.tableLayoutPanel8.Controls.Add(this.label18, 0, 0);
-            this.tableLayoutPanel8.Controls.Add(this.label19, 0, 4);
-            this.tableLayoutPanel8.Controls.Add(this.label20, 0, 3);
-            this.tableLayoutPanel8.Controls.Add(this.txt_users_displayname, 1, 1);
-            this.tableLayoutPanel8.Controls.Add(this.label21, 0, 2);
-            this.tableLayoutPanel8.Controls.Add(this.txt_users_username, 1, 2);
-            this.tableLayoutPanel8.Controls.Add(this.txt_users_status, 1, 3);
-            this.tableLayoutPanel8.Controls.Add(this.panel5, 1, 0);
-            this.tableLayoutPanel8.Dock = System.Windows.Forms.DockStyle.Top;
-            this.tableLayoutPanel8.Location = new System.Drawing.Point(0, 0);
-            this.tableLayoutPanel8.Name = "tableLayoutPanel8";
-            this.tableLayoutPanel8.RowCount = 6;
-            this.tableLayoutPanel8.RowStyles.Add(new System.Windows.Forms.RowStyle());
-            this.tableLayoutPanel8.RowStyles.Add(new System.Windows.Forms.RowStyle());
-            this.tableLayoutPanel8.RowStyles.Add(new System.Windows.Forms.RowStyle());
-            this.tableLayoutPanel8.RowStyles.Add(new System.Windows.Forms.RowStyle());
-            this.tableLayoutPanel8.RowStyles.Add(new System.Windows.Forms.RowStyle());
-            this.tableLayoutPanel8.RowStyles.Add(new System.Windows.Forms.RowStyle());
-            this.tableLayoutPanel8.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 20F));
-            this.tableLayoutPanel8.Size = new System.Drawing.Size(708, 327);
-            this.tableLayoutPanel8.TabIndex = 25;
+            this.tableLayoutPanelUSers.ColumnCount = 2;
+            this.tableLayoutPanelUSers.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 16.66667F));
+            this.tableLayoutPanelUSers.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 83.33333F));
+            this.tableLayoutPanelUSers.Controls.Add(this.label13, 0, 1);
+            this.tableLayoutPanelUSers.Controls.Add(this.txt_users_tags, 1, 5);
+            this.tableLayoutPanelUSers.Controls.Add(this.txt_users_rank, 1, 4);
+            this.tableLayoutPanelUSers.Controls.Add(this.label17, 0, 5);
+            this.tableLayoutPanelUSers.Controls.Add(this.label18, 0, 0);
+            this.tableLayoutPanelUSers.Controls.Add(this.label19, 0, 4);
+            this.tableLayoutPanelUSers.Controls.Add(this.label20, 0, 3);
+            this.tableLayoutPanelUSers.Controls.Add(this.txt_users_displayname, 1, 1);
+            this.tableLayoutPanelUSers.Controls.Add(this.label21, 0, 2);
+            this.tableLayoutPanelUSers.Controls.Add(this.txt_users_username, 1, 2);
+            this.tableLayoutPanelUSers.Controls.Add(this.txt_users_status, 1, 3);
+            this.tableLayoutPanelUSers.Controls.Add(this.panel_users_id, 1, 0);
+            this.tableLayoutPanelUSers.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.tableLayoutPanelUSers.Location = new System.Drawing.Point(0, 0);
+            this.tableLayoutPanelUSers.Name = "tableLayoutPanelUSers";
+            this.tableLayoutPanelUSers.RowCount = 6;
+            this.tableLayoutPanelUSers.RowStyles.Add(new System.Windows.Forms.RowStyle());
+            this.tableLayoutPanelUSers.RowStyles.Add(new System.Windows.Forms.RowStyle());
+            this.tableLayoutPanelUSers.RowStyles.Add(new System.Windows.Forms.RowStyle());
+            this.tableLayoutPanelUSers.RowStyles.Add(new System.Windows.Forms.RowStyle());
+            this.tableLayoutPanelUSers.RowStyles.Add(new System.Windows.Forms.RowStyle());
+            this.tableLayoutPanelUSers.RowStyles.Add(new System.Windows.Forms.RowStyle());
+            this.tableLayoutPanelUSers.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 20F));
+            this.tableLayoutPanelUSers.Size = new System.Drawing.Size(708, 354);
+            this.tableLayoutPanelUSers.TabIndex = 25;
             // 
             // label13
             // 
@@ -440,7 +441,7 @@
             this.txt_users_tags.Location = new System.Drawing.Point(121, 133);
             this.txt_users_tags.Name = "txt_users_tags";
             this.txt_users_tags.ReadOnly = true;
-            this.txt_users_tags.Size = new System.Drawing.Size(584, 191);
+            this.txt_users_tags.Size = new System.Drawing.Size(584, 218);
             this.txt_users_tags.TabIndex = 12;
             this.txt_users_tags.Text = "";
             // 
@@ -530,15 +531,15 @@
             this.txt_users_status.Size = new System.Drawing.Size(584, 20);
             this.txt_users_status.TabIndex = 7;
             // 
-            // panel5
+            // panel_users_id
             // 
-            this.panel5.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
-            this.panel5.Controls.Add(this.btn_users_search);
-            this.panel5.Controls.Add(this.txt_users_id);
-            this.panel5.Location = new System.Drawing.Point(121, 3);
-            this.panel5.Name = "panel5";
-            this.panel5.Size = new System.Drawing.Size(584, 20);
-            this.panel5.TabIndex = 13;
+            this.panel_users_id.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
+            this.panel_users_id.Controls.Add(this.btn_users_search);
+            this.panel_users_id.Controls.Add(this.txt_users_id);
+            this.panel_users_id.Location = new System.Drawing.Point(121, 3);
+            this.panel_users_id.Name = "panel_users_id";
+            this.panel_users_id.Size = new System.Drawing.Size(584, 20);
+            this.panel_users_id.TabIndex = 13;
             // 
             // btn_users_search
             // 
@@ -549,6 +550,7 @@
             this.btn_users_search.TabIndex = 1;
             this.btn_users_search.Text = "Search";
             this.btn_users_search.UseVisualStyleBackColor = true;
+            this.btn_users_search.Click += new System.EventHandler(this.Btn_users_search_ClickAsync);
             // 
             // txt_users_id
             // 
@@ -560,7 +562,7 @@
             // 
             // tab_avatars
             // 
-            this.tab_avatars.Controls.Add(this.splitContainer1);
+            this.tab_avatars.Controls.Add(this.splitContainerAvatars);
             this.tab_avatars.Location = new System.Drawing.Point(4, 22);
             this.tab_avatars.Name = "tab_avatars";
             this.tab_avatars.Size = new System.Drawing.Size(905, 360);
@@ -568,23 +570,34 @@
             this.tab_avatars.Text = "Avatars";
             this.tab_avatars.UseVisualStyleBackColor = true;
             // 
-            // splitContainer1
+            // splitContainerAvatars
             // 
-            this.splitContainer1.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.splitContainer1.Location = new System.Drawing.Point(0, 0);
-            this.splitContainer1.Name = "splitContainer1";
+            this.splitContainerAvatars.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.splitContainerAvatars.Location = new System.Drawing.Point(0, 0);
+            this.splitContainerAvatars.Name = "splitContainerAvatars";
             // 
-            // splitContainer1.Panel1
+            // splitContainerAvatars.Panel1
             // 
-            this.splitContainer1.Panel1.Controls.Add(this.tree_avatars);
-            this.splitContainer1.Panel1.Controls.Add(this.btn_avatars_reload);
+            this.splitContainerAvatars.Panel1.Controls.Add(this.button5);
+            this.splitContainerAvatars.Panel1.Controls.Add(this.tree_avatars);
             // 
-            // splitContainer1.Panel2
+            // splitContainerAvatars.Panel2
             // 
-            this.splitContainer1.Panel2.Controls.Add(this.tableLayoutPanel7);
-            this.splitContainer1.Size = new System.Drawing.Size(905, 360);
-            this.splitContainer1.SplitterDistance = 177;
-            this.splitContainer1.TabIndex = 0;
+            this.splitContainerAvatars.Panel2.Controls.Add(this.tableLayoutPanelTEST);
+            this.splitContainerAvatars.Size = new System.Drawing.Size(905, 360);
+            this.splitContainerAvatars.SplitterDistance = 177;
+            this.splitContainerAvatars.TabIndex = 0;
+            // 
+            // button5
+            // 
+            this.button5.Dock = System.Windows.Forms.DockStyle.Bottom;
+            this.button5.Location = new System.Drawing.Point(0, 337);
+            this.button5.Name = "button5";
+            this.button5.Size = new System.Drawing.Size(177, 23);
+            this.button5.TabIndex = 25;
+            this.button5.Text = "Reload";
+            this.button5.UseVisualStyleBackColor = true;
+            this.button5.Click += new System.EventHandler(this.Btn_avatars_reload_Click);
             // 
             // tree_avatars
             // 
@@ -593,70 +606,47 @@
             this.tree_avatars.Name = "tree_avatars";
             treeNode10.Name = "Node0";
             treeNode10.Text = "Personal";
-            treeNode10.ToolTipText = "Avatars uploaded by you";
-            treeNode11.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(192)))), ((int)(((byte)(0)))));
-            treeNode11.Name = "Node2";
-            treeNode11.Text = "Test Avatar";
-            treeNode12.ForeColor = System.Drawing.Color.Red;
-            treeNode12.Name = "Node4";
-            treeNode12.Text = "Test Private";
-            treeNode13.Name = "Node0";
-            treeNode13.Text = "Official";
-            treeNode13.ToolTipText = "Avatars favorited though VRChat";
-            treeNode14.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(192)))), ((int)(((byte)(0)))));
-            treeNode14.Name = "Node3";
-            treeNode14.Text = "Test Avatar";
-            treeNode15.Name = "Node1";
-            treeNode15.Text = "VRCTools";
-            treeNode15.ToolTipText = "Avatars favorited though VRCTools";
+            treeNode11.Name = "Node1";
+            treeNode11.Text = "Favorites";
+            treeNode12.Name = "Node2";
+            treeNode12.Text = "VRCTools";
             this.tree_avatars.Nodes.AddRange(new System.Windows.Forms.TreeNode[] {
             treeNode10,
-            treeNode13,
-            treeNode15});
-            this.tree_avatars.Size = new System.Drawing.Size(177, 337);
-            this.tree_avatars.TabIndex = 22;
+            treeNode11,
+            treeNode12});
+            this.tree_avatars.Size = new System.Drawing.Size(177, 360);
+            this.tree_avatars.TabIndex = 24;
             this.tree_avatars.NodeMouseClick += new System.Windows.Forms.TreeNodeMouseClickEventHandler(this.avatars_node_selected);
             // 
-            // btn_avatars_reload
+            // tableLayoutPanelTEST
             // 
-            this.btn_avatars_reload.Dock = System.Windows.Forms.DockStyle.Bottom;
-            this.btn_avatars_reload.Location = new System.Drawing.Point(0, 337);
-            this.btn_avatars_reload.Name = "btn_avatars_reload";
-            this.btn_avatars_reload.Size = new System.Drawing.Size(177, 23);
-            this.btn_avatars_reload.TabIndex = 21;
-            this.btn_avatars_reload.Text = "Reload";
-            this.btn_avatars_reload.UseVisualStyleBackColor = true;
-            this.btn_avatars_reload.Click += new System.EventHandler(this.Btn_avatars_reload_Click);
-            // 
-            // tableLayoutPanel7
-            // 
-            this.tableLayoutPanel7.ColumnCount = 2;
-            this.tableLayoutPanel7.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 16.66667F));
-            this.tableLayoutPanel7.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 83.33333F));
-            this.tableLayoutPanel7.Controls.Add(this.label11, 0, 1);
-            this.tableLayoutPanel7.Controls.Add(this.txt_avatar_description, 1, 5);
-            this.tableLayoutPanel7.Controls.Add(this.label12, 0, 5);
-            this.tableLayoutPanel7.Controls.Add(this.lbl, 0, 0);
-            this.tableLayoutPanel7.Controls.Add(this.label14, 0, 4);
-            this.tableLayoutPanel7.Controls.Add(this.label15, 0, 3);
-            this.tableLayoutPanel7.Controls.Add(this.txt_avatar_name, 1, 1);
-            this.tableLayoutPanel7.Controls.Add(this.label16, 0, 2);
-            this.tableLayoutPanel7.Controls.Add(this.txt_avatar_version, 1, 2);
-            this.tableLayoutPanel7.Controls.Add(this.panel4, 1, 0);
-            this.tableLayoutPanel7.Controls.Add(this.panel3, 1, 4);
-            this.tableLayoutPanel7.Controls.Add(this.panel6, 1, 3);
-            this.tableLayoutPanel7.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.tableLayoutPanel7.Location = new System.Drawing.Point(0, 0);
-            this.tableLayoutPanel7.Name = "tableLayoutPanel7";
-            this.tableLayoutPanel7.RowCount = 6;
-            this.tableLayoutPanel7.RowStyles.Add(new System.Windows.Forms.RowStyle());
-            this.tableLayoutPanel7.RowStyles.Add(new System.Windows.Forms.RowStyle());
-            this.tableLayoutPanel7.RowStyles.Add(new System.Windows.Forms.RowStyle());
-            this.tableLayoutPanel7.RowStyles.Add(new System.Windows.Forms.RowStyle());
-            this.tableLayoutPanel7.RowStyles.Add(new System.Windows.Forms.RowStyle());
-            this.tableLayoutPanel7.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
-            this.tableLayoutPanel7.Size = new System.Drawing.Size(724, 360);
-            this.tableLayoutPanel7.TabIndex = 22;
+            this.tableLayoutPanelTEST.ColumnCount = 2;
+            this.tableLayoutPanelTEST.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 16.66667F));
+            this.tableLayoutPanelTEST.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 83.33333F));
+            this.tableLayoutPanelTEST.Controls.Add(this.label11, 0, 1);
+            this.tableLayoutPanelTEST.Controls.Add(this.txt_avatar_description, 1, 5);
+            this.tableLayoutPanelTEST.Controls.Add(this.label12, 0, 5);
+            this.tableLayoutPanelTEST.Controls.Add(this.lbl, 0, 0);
+            this.tableLayoutPanelTEST.Controls.Add(this.label14, 0, 4);
+            this.tableLayoutPanelTEST.Controls.Add(this.label15, 0, 3);
+            this.tableLayoutPanelTEST.Controls.Add(this.txt_avatar_name, 1, 1);
+            this.tableLayoutPanelTEST.Controls.Add(this.label16, 0, 2);
+            this.tableLayoutPanelTEST.Controls.Add(this.txt_avatar_version, 1, 2);
+            this.tableLayoutPanelTEST.Controls.Add(this.panel_worlds_id, 1, 0);
+            this.tableLayoutPanelTEST.Controls.Add(this.panel_worlds_asseturl, 1, 4);
+            this.tableLayoutPanelTEST.Controls.Add(this.panel_worlds_author, 1, 3);
+            this.tableLayoutPanelTEST.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.tableLayoutPanelTEST.Location = new System.Drawing.Point(0, 0);
+            this.tableLayoutPanelTEST.Name = "tableLayoutPanelTEST";
+            this.tableLayoutPanelTEST.RowCount = 6;
+            this.tableLayoutPanelTEST.RowStyles.Add(new System.Windows.Forms.RowStyle());
+            this.tableLayoutPanelTEST.RowStyles.Add(new System.Windows.Forms.RowStyle());
+            this.tableLayoutPanelTEST.RowStyles.Add(new System.Windows.Forms.RowStyle());
+            this.tableLayoutPanelTEST.RowStyles.Add(new System.Windows.Forms.RowStyle());
+            this.tableLayoutPanelTEST.RowStyles.Add(new System.Windows.Forms.RowStyle());
+            this.tableLayoutPanelTEST.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
+            this.tableLayoutPanelTEST.Size = new System.Drawing.Size(724, 360);
+            this.tableLayoutPanelTEST.TabIndex = 24;
             // 
             // label11
             // 
@@ -746,15 +736,15 @@
             this.txt_avatar_version.Size = new System.Drawing.Size(598, 20);
             this.txt_avatar_version.TabIndex = 5;
             // 
-            // panel4
+            // panel_worlds_id
             // 
-            this.panel4.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
-            this.panel4.Controls.Add(this.btn_avatar_search);
-            this.panel4.Controls.Add(this.txt_avatar_id);
-            this.panel4.Location = new System.Drawing.Point(123, 3);
-            this.panel4.Name = "panel4";
-            this.panel4.Size = new System.Drawing.Size(598, 20);
-            this.panel4.TabIndex = 13;
+            this.panel_worlds_id.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
+            this.panel_worlds_id.Controls.Add(this.btn_avatar_search);
+            this.panel_worlds_id.Controls.Add(this.txt_avatar_id);
+            this.panel_worlds_id.Location = new System.Drawing.Point(123, 3);
+            this.panel_worlds_id.Name = "panel_worlds_id";
+            this.panel_worlds_id.Size = new System.Drawing.Size(598, 20);
+            this.panel_worlds_id.TabIndex = 13;
             // 
             // btn_avatar_search
             // 
@@ -765,6 +755,7 @@
             this.btn_avatar_search.TabIndex = 1;
             this.btn_avatar_search.Text = "Search";
             this.btn_avatar_search.UseVisualStyleBackColor = true;
+            this.btn_avatar_search.Click += new System.EventHandler(this.Btn_avatar_search_ClickAsync);
             // 
             // txt_avatar_id
             // 
@@ -774,16 +765,16 @@
             this.txt_avatar_id.Size = new System.Drawing.Size(517, 20);
             this.txt_avatar_id.TabIndex = 0;
             // 
-            // panel3
+            // panel_worlds_asseturl
             // 
-            this.panel3.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
-            this.panel3.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
-            this.panel3.Controls.Add(this.btn_avatar_rip);
-            this.panel3.Controls.Add(this.txt_avatar_asseturl);
-            this.panel3.Location = new System.Drawing.Point(123, 109);
-            this.panel3.Name = "panel3";
-            this.panel3.Size = new System.Drawing.Size(598, 20);
-            this.panel3.TabIndex = 14;
+            this.panel_worlds_asseturl.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
+            this.panel_worlds_asseturl.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
+            this.panel_worlds_asseturl.Controls.Add(this.btn_avatar_rip);
+            this.panel_worlds_asseturl.Controls.Add(this.txt_avatar_asseturl);
+            this.panel_worlds_asseturl.Location = new System.Drawing.Point(123, 109);
+            this.panel_worlds_asseturl.Name = "panel_worlds_asseturl";
+            this.panel_worlds_asseturl.Size = new System.Drawing.Size(598, 20);
+            this.panel_worlds_asseturl.TabIndex = 14;
             // 
             // btn_avatar_rip
             // 
@@ -806,15 +797,15 @@
             this.txt_avatar_asseturl.Size = new System.Drawing.Size(517, 20);
             this.txt_avatar_asseturl.TabIndex = 0;
             // 
-            // panel6
+            // panel_worlds_author
             // 
-            this.panel6.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
-            this.panel6.Controls.Add(this.btn_avatars_profile);
-            this.panel6.Controls.Add(this.txt_avatar_author);
-            this.panel6.Location = new System.Drawing.Point(123, 81);
-            this.panel6.Name = "panel6";
-            this.panel6.Size = new System.Drawing.Size(598, 22);
-            this.panel6.TabIndex = 15;
+            this.panel_worlds_author.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
+            this.panel_worlds_author.Controls.Add(this.btn_avatars_profile);
+            this.panel_worlds_author.Controls.Add(this.txt_avatar_author);
+            this.panel_worlds_author.Location = new System.Drawing.Point(123, 81);
+            this.panel_worlds_author.Name = "panel_worlds_author";
+            this.panel_worlds_author.Size = new System.Drawing.Size(598, 22);
+            this.panel_worlds_author.TabIndex = 15;
             // 
             // btn_avatars_profile
             // 
@@ -838,6 +829,7 @@
             // 
             // tab_worlds
             // 
+            this.tab_worlds.Controls.Add(this.splitContainerWOrlds);
             this.tab_worlds.Location = new System.Drawing.Point(4, 22);
             this.tab_worlds.Name = "tab_worlds";
             this.tab_worlds.Size = new System.Drawing.Size(905, 360);
@@ -845,9 +837,265 @@
             this.tab_worlds.Text = "Worlds";
             this.tab_worlds.UseVisualStyleBackColor = true;
             // 
+            // splitContainerWOrlds
+            // 
+            this.splitContainerWOrlds.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.splitContainerWOrlds.Location = new System.Drawing.Point(0, 0);
+            this.splitContainerWOrlds.Name = "splitContainerWOrlds";
+            // 
+            // splitContainerWOrlds.Panel1
+            // 
+            this.splitContainerWOrlds.Panel1.Controls.Add(this.tree_worlds);
+            this.splitContainerWOrlds.Panel1.Controls.Add(this.btn_worlds_reload);
+            // 
+            // splitContainerWOrlds.Panel2
+            // 
+            this.splitContainerWOrlds.Panel2.Controls.Add(this.tableLayoutPanelWorlds);
+            this.splitContainerWOrlds.Size = new System.Drawing.Size(905, 360);
+            this.splitContainerWOrlds.SplitterDistance = 177;
+            this.splitContainerWOrlds.TabIndex = 1;
+            // 
+            // tree_worlds
+            // 
+            this.tree_worlds.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.tree_worlds.Location = new System.Drawing.Point(0, 0);
+            this.tree_worlds.Name = "tree_worlds";
+            treeNode13.Name = "Node0";
+            treeNode13.Text = "Personal";
+            treeNode13.ToolTipText = "Worlds uploaded by you";
+            treeNode14.Name = "Node0";
+            treeNode14.Text = "Favorites";
+            treeNode14.ToolTipText = "Worlds favorited though VRChat";
+            this.tree_worlds.Nodes.AddRange(new System.Windows.Forms.TreeNode[] {
+            treeNode13,
+            treeNode14});
+            this.tree_worlds.Size = new System.Drawing.Size(177, 337);
+            this.tree_worlds.TabIndex = 22;
+            this.tree_worlds.NodeMouseClick += new System.Windows.Forms.TreeNodeMouseClickEventHandler(this.worlds_node_selected);
+            // 
+            // btn_worlds_reload
+            // 
+            this.btn_worlds_reload.Dock = System.Windows.Forms.DockStyle.Bottom;
+            this.btn_worlds_reload.Location = new System.Drawing.Point(0, 337);
+            this.btn_worlds_reload.Name = "btn_worlds_reload";
+            this.btn_worlds_reload.Size = new System.Drawing.Size(177, 23);
+            this.btn_worlds_reload.TabIndex = 21;
+            this.btn_worlds_reload.Text = "Reload";
+            this.btn_worlds_reload.UseVisualStyleBackColor = true;
+            this.btn_worlds_reload.Click += new System.EventHandler(this.Btn_worlds_reload_Click);
+            // 
+            // tableLayoutPanelWorlds
+            // 
+            this.tableLayoutPanelWorlds.ColumnCount = 2;
+            this.tableLayoutPanelWorlds.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 16.66667F));
+            this.tableLayoutPanelWorlds.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 83.33333F));
+            this.tableLayoutPanelWorlds.Controls.Add(this.label22, 0, 1);
+            this.tableLayoutPanelWorlds.Controls.Add(this.txt_world_description, 1, 5);
+            this.tableLayoutPanelWorlds.Controls.Add(this.label23, 0, 5);
+            this.tableLayoutPanelWorlds.Controls.Add(this.label24, 0, 0);
+            this.tableLayoutPanelWorlds.Controls.Add(this.label25, 0, 4);
+            this.tableLayoutPanelWorlds.Controls.Add(this.label26, 0, 3);
+            this.tableLayoutPanelWorlds.Controls.Add(this.txt_world_name, 1, 1);
+            this.tableLayoutPanelWorlds.Controls.Add(this.label27, 0, 2);
+            this.tableLayoutPanelWorlds.Controls.Add(this.txt_world_version, 1, 2);
+            this.tableLayoutPanelWorlds.Controls.Add(this.panel_words_id_2, 1, 0);
+            this.tableLayoutPanelWorlds.Controls.Add(this.panel8, 1, 4);
+            this.tableLayoutPanelWorlds.Controls.Add(this.panel9, 1, 3);
+            this.tableLayoutPanelWorlds.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.tableLayoutPanelWorlds.Location = new System.Drawing.Point(0, 0);
+            this.tableLayoutPanelWorlds.Name = "tableLayoutPanelWorlds";
+            this.tableLayoutPanelWorlds.RowCount = 6;
+            this.tableLayoutPanelWorlds.RowStyles.Add(new System.Windows.Forms.RowStyle());
+            this.tableLayoutPanelWorlds.RowStyles.Add(new System.Windows.Forms.RowStyle());
+            this.tableLayoutPanelWorlds.RowStyles.Add(new System.Windows.Forms.RowStyle());
+            this.tableLayoutPanelWorlds.RowStyles.Add(new System.Windows.Forms.RowStyle());
+            this.tableLayoutPanelWorlds.RowStyles.Add(new System.Windows.Forms.RowStyle());
+            this.tableLayoutPanelWorlds.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
+            this.tableLayoutPanelWorlds.Size = new System.Drawing.Size(724, 360);
+            this.tableLayoutPanelWorlds.TabIndex = 22;
+            // 
+            // label22
+            // 
+            this.label22.Anchor = System.Windows.Forms.AnchorStyles.Left;
+            this.label22.AutoSize = true;
+            this.label22.Location = new System.Drawing.Point(3, 32);
+            this.label22.Name = "label22";
+            this.label22.Size = new System.Drawing.Size(38, 13);
+            this.label22.TabIndex = 2;
+            this.label22.Text = "Name:";
+            // 
+            // txt_world_description
+            // 
+            this.txt_world_description.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.txt_world_description.Location = new System.Drawing.Point(123, 135);
+            this.txt_world_description.Name = "txt_world_description";
+            this.txt_world_description.ReadOnly = true;
+            this.txt_world_description.Size = new System.Drawing.Size(598, 222);
+            this.txt_world_description.TabIndex = 12;
+            this.txt_world_description.Text = "";
+            // 
+            // label23
+            // 
+            this.label23.Anchor = System.Windows.Forms.AnchorStyles.Left;
+            this.label23.AutoSize = true;
+            this.label23.Location = new System.Drawing.Point(3, 239);
+            this.label23.Name = "label23";
+            this.label23.Size = new System.Drawing.Size(63, 13);
+            this.label23.TabIndex = 11;
+            this.label23.Text = "Description:";
+            // 
+            // label24
+            // 
+            this.label24.Anchor = System.Windows.Forms.AnchorStyles.Left;
+            this.label24.AutoSize = true;
+            this.label24.Location = new System.Drawing.Point(3, 6);
+            this.label24.Name = "label24";
+            this.label24.Size = new System.Drawing.Size(21, 13);
+            this.label24.TabIndex = 4;
+            this.label24.Text = "ID:";
+            // 
+            // label25
+            // 
+            this.label25.Anchor = System.Windows.Forms.AnchorStyles.Left;
+            this.label25.AutoSize = true;
+            this.label25.Location = new System.Drawing.Point(3, 112);
+            this.label25.Name = "label25";
+            this.label25.Size = new System.Drawing.Size(61, 13);
+            this.label25.TabIndex = 10;
+            this.label25.Text = "Asset URL:";
+            // 
+            // label26
+            // 
+            this.label26.Anchor = System.Windows.Forms.AnchorStyles.Left;
+            this.label26.AutoSize = true;
+            this.label26.Location = new System.Drawing.Point(3, 85);
+            this.label26.Name = "label26";
+            this.label26.Size = new System.Drawing.Size(41, 13);
+            this.label26.TabIndex = 8;
+            this.label26.Text = "Author:";
+            // 
+            // txt_world_name
+            // 
+            this.txt_world_name.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.txt_world_name.Location = new System.Drawing.Point(123, 29);
+            this.txt_world_name.Name = "txt_world_name";
+            this.txt_world_name.ReadOnly = true;
+            this.txt_world_name.Size = new System.Drawing.Size(598, 20);
+            this.txt_world_name.TabIndex = 1;
+            // 
+            // label27
+            // 
+            this.label27.Anchor = System.Windows.Forms.AnchorStyles.Left;
+            this.label27.AutoSize = true;
+            this.label27.Location = new System.Drawing.Point(3, 58);
+            this.label27.Name = "label27";
+            this.label27.Size = new System.Drawing.Size(45, 13);
+            this.label27.TabIndex = 6;
+            this.label27.Text = "Version:";
+            // 
+            // txt_world_version
+            // 
+            this.txt_world_version.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.txt_world_version.Location = new System.Drawing.Point(123, 55);
+            this.txt_world_version.Name = "txt_world_version";
+            this.txt_world_version.ReadOnly = true;
+            this.txt_world_version.Size = new System.Drawing.Size(598, 20);
+            this.txt_world_version.TabIndex = 5;
+            // 
+            // panel_words_id_2
+            // 
+            this.panel_words_id_2.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
+            this.panel_words_id_2.Controls.Add(this.btn_worlds_search);
+            this.panel_words_id_2.Controls.Add(this.txt_world_id);
+            this.panel_words_id_2.Location = new System.Drawing.Point(123, 3);
+            this.panel_words_id_2.Name = "panel_words_id_2";
+            this.panel_words_id_2.Size = new System.Drawing.Size(598, 20);
+            this.panel_words_id_2.TabIndex = 13;
+            // 
+            // btn_worlds_search
+            // 
+            this.btn_worlds_search.Dock = System.Windows.Forms.DockStyle.Right;
+            this.btn_worlds_search.Location = new System.Drawing.Point(523, 0);
+            this.btn_worlds_search.Name = "btn_worlds_search";
+            this.btn_worlds_search.Size = new System.Drawing.Size(75, 20);
+            this.btn_worlds_search.TabIndex = 1;
+            this.btn_worlds_search.Text = "Search";
+            this.btn_worlds_search.UseVisualStyleBackColor = true;
+            this.btn_worlds_search.Click += new System.EventHandler(this.Btn_worlds_search_ClickAsync);
+            // 
+            // txt_world_id
+            // 
+            this.txt_world_id.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
+            this.txt_world_id.Location = new System.Drawing.Point(0, 0);
+            this.txt_world_id.Name = "txt_world_id";
+            this.txt_world_id.Size = new System.Drawing.Size(517, 20);
+            this.txt_world_id.TabIndex = 0;
+            // 
+            // panel8
+            // 
+            this.panel8.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
+            this.panel8.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
+            this.panel8.Controls.Add(this.btn_worlds_rip);
+            this.panel8.Controls.Add(this.txt_world_asset);
+            this.panel8.Location = new System.Drawing.Point(123, 109);
+            this.panel8.Name = "panel8";
+            this.panel8.Size = new System.Drawing.Size(598, 20);
+            this.panel8.TabIndex = 14;
+            // 
+            // btn_worlds_rip
+            // 
+            this.btn_worlds_rip.Dock = System.Windows.Forms.DockStyle.Right;
+            this.btn_worlds_rip.Location = new System.Drawing.Point(523, 0);
+            this.btn_worlds_rip.Name = "btn_worlds_rip";
+            this.btn_worlds_rip.Size = new System.Drawing.Size(75, 20);
+            this.btn_worlds_rip.TabIndex = 1;
+            this.btn_worlds_rip.Text = "Rip";
+            this.btn_worlds_rip.UseVisualStyleBackColor = true;
+            this.btn_worlds_rip.Visible = false;
+            this.btn_worlds_rip.Click += new System.EventHandler(this.Btn_worlds_rip_Click);
+            // 
+            // txt_world_asset
+            // 
+            this.txt_world_asset.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
+            this.txt_world_asset.Location = new System.Drawing.Point(0, 0);
+            this.txt_world_asset.Name = "txt_world_asset";
+            this.txt_world_asset.ReadOnly = true;
+            this.txt_world_asset.Size = new System.Drawing.Size(517, 20);
+            this.txt_world_asset.TabIndex = 0;
+            // 
+            // panel9
+            // 
+            this.panel9.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
+            this.panel9.Controls.Add(this.btn_worlds_author);
+            this.panel9.Controls.Add(this.txt_world_author);
+            this.panel9.Location = new System.Drawing.Point(123, 81);
+            this.panel9.Name = "panel9";
+            this.panel9.Size = new System.Drawing.Size(598, 22);
+            this.panel9.TabIndex = 15;
+            // 
+            // btn_worlds_author
+            // 
+            this.btn_worlds_author.Dock = System.Windows.Forms.DockStyle.Right;
+            this.btn_worlds_author.Location = new System.Drawing.Point(523, 0);
+            this.btn_worlds_author.Name = "btn_worlds_author";
+            this.btn_worlds_author.Size = new System.Drawing.Size(75, 22);
+            this.btn_worlds_author.TabIndex = 10;
+            this.btn_worlds_author.Text = "Profile";
+            this.btn_worlds_author.UseVisualStyleBackColor = true;
+            this.btn_worlds_author.Click += new System.EventHandler(this.Btn_worlds_author_ClickAsync);
+            // 
+            // txt_world_author
+            // 
+            this.txt_world_author.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
+            this.txt_world_author.Location = new System.Drawing.Point(0, 3);
+            this.txt_world_author.Name = "txt_world_author";
+            this.txt_world_author.ReadOnly = true;
+            this.txt_world_author.Size = new System.Drawing.Size(517, 20);
+            this.txt_world_author.TabIndex = 9;
+            // 
             // tab_mods
             // 
-            this.tab_mods.Controls.Add(this.splitContainer3);
+            this.tab_mods.Controls.Add(this.splitContainerMods);
             this.tab_mods.Location = new System.Drawing.Point(4, 22);
             this.tab_mods.Name = "tab_mods";
             this.tab_mods.Size = new System.Drawing.Size(905, 360);
@@ -855,32 +1103,32 @@
             this.tab_mods.Text = "Mods";
             this.tab_mods.UseVisualStyleBackColor = true;
             // 
-            // splitContainer3
+            // splitContainerMods
             // 
-            this.splitContainer3.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.splitContainer3.Location = new System.Drawing.Point(0, 0);
-            this.splitContainer3.Name = "splitContainer3";
+            this.splitContainerMods.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.splitContainerMods.Location = new System.Drawing.Point(0, 0);
+            this.splitContainerMods.Name = "splitContainerMods";
             // 
-            // splitContainer3.Panel1
+            // splitContainerMods.Panel1
             // 
-            this.splitContainer3.Panel1.Controls.Add(this.panel1);
+            this.splitContainerMods.Panel1.Controls.Add(this.panel_mods_list);
             // 
-            // splitContainer3.Panel2
+            // splitContainerMods.Panel2
             // 
-            this.splitContainer3.Panel2.Controls.Add(this.tableLayoutPanel1);
-            this.splitContainer3.Size = new System.Drawing.Size(905, 360);
-            this.splitContainer3.SplitterDistance = 169;
-            this.splitContainer3.TabIndex = 0;
+            this.splitContainerMods.Panel2.Controls.Add(this.tableLayoutPanelmods);
+            this.splitContainerMods.Size = new System.Drawing.Size(905, 360);
+            this.splitContainerMods.SplitterDistance = 169;
+            this.splitContainerMods.TabIndex = 0;
             // 
-            // panel1
+            // panel_mods_list
             // 
-            this.panel1.Controls.Add(this.lst_mods);
-            this.panel1.Controls.Add(this.btn_mods_refresh);
-            this.panel1.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.panel1.Location = new System.Drawing.Point(0, 0);
-            this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(169, 360);
-            this.panel1.TabIndex = 18;
+            this.panel_mods_list.Controls.Add(this.lst_mods);
+            this.panel_mods_list.Controls.Add(this.btn_mods_refresh);
+            this.panel_mods_list.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.panel_mods_list.Location = new System.Drawing.Point(0, 0);
+            this.panel_mods_list.Name = "panel_mods_list";
+            this.panel_mods_list.Size = new System.Drawing.Size(169, 360);
+            this.panel_mods_list.TabIndex = 18;
             // 
             // lst_mods
             // 
@@ -910,35 +1158,35 @@
             this.btn_mods_refresh.UseVisualStyleBackColor = true;
             this.btn_mods_refresh.Click += new System.EventHandler(this.on_btn_mods_refresh_Click);
             // 
-            // tableLayoutPanel1
+            // tableLayoutPanelmods
             // 
-            this.tableLayoutPanel1.ColumnCount = 2;
-            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 16.66667F));
-            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 83.33334F));
-            this.tableLayoutPanel1.Controls.Add(this.lbl_mod_name, 0, 1);
-            this.tableLayoutPanel1.Controls.Add(this.txt_mod_description, 1, 5);
-            this.tableLayoutPanel1.Controls.Add(this.txt_mod_type, 1, 4);
-            this.tableLayoutPanel1.Controls.Add(this.lbl_mod_description, 0, 5);
-            this.tableLayoutPanel1.Controls.Add(this.lbl_mod_path, 0, 0);
-            this.tableLayoutPanel1.Controls.Add(this.lbl_mod_type, 0, 4);
-            this.tableLayoutPanel1.Controls.Add(this.txt_mod_path, 1, 0);
-            this.tableLayoutPanel1.Controls.Add(this.lbl_mod_author, 0, 3);
-            this.tableLayoutPanel1.Controls.Add(this.txt_mod_name, 1, 1);
-            this.tableLayoutPanel1.Controls.Add(this.lbl_mod_version, 0, 2);
-            this.tableLayoutPanel1.Controls.Add(this.txt_mod_version, 1, 2);
-            this.tableLayoutPanel1.Controls.Add(this.txt_mod_author, 1, 3);
-            this.tableLayoutPanel1.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.tableLayoutPanel1.Location = new System.Drawing.Point(0, 0);
-            this.tableLayoutPanel1.Name = "tableLayoutPanel1";
-            this.tableLayoutPanel1.RowCount = 6;
-            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle());
-            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle());
-            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle());
-            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle());
-            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle());
-            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 60F));
-            this.tableLayoutPanel1.Size = new System.Drawing.Size(732, 360);
-            this.tableLayoutPanel1.TabIndex = 19;
+            this.tableLayoutPanelmods.ColumnCount = 2;
+            this.tableLayoutPanelmods.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 16.66667F));
+            this.tableLayoutPanelmods.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 83.33334F));
+            this.tableLayoutPanelmods.Controls.Add(this.lbl_mod_name, 0, 1);
+            this.tableLayoutPanelmods.Controls.Add(this.txt_mod_description, 1, 5);
+            this.tableLayoutPanelmods.Controls.Add(this.txt_mod_type, 1, 4);
+            this.tableLayoutPanelmods.Controls.Add(this.lbl_mod_description, 0, 5);
+            this.tableLayoutPanelmods.Controls.Add(this.lbl_mod_path, 0, 0);
+            this.tableLayoutPanelmods.Controls.Add(this.lbl_mod_type, 0, 4);
+            this.tableLayoutPanelmods.Controls.Add(this.txt_mod_path, 1, 0);
+            this.tableLayoutPanelmods.Controls.Add(this.lbl_mod_author, 0, 3);
+            this.tableLayoutPanelmods.Controls.Add(this.txt_mod_name, 1, 1);
+            this.tableLayoutPanelmods.Controls.Add(this.lbl_mod_version, 0, 2);
+            this.tableLayoutPanelmods.Controls.Add(this.txt_mod_version, 1, 2);
+            this.tableLayoutPanelmods.Controls.Add(this.txt_mod_author, 1, 3);
+            this.tableLayoutPanelmods.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.tableLayoutPanelmods.Location = new System.Drawing.Point(0, 0);
+            this.tableLayoutPanelmods.Name = "tableLayoutPanelmods";
+            this.tableLayoutPanelmods.RowCount = 6;
+            this.tableLayoutPanelmods.RowStyles.Add(new System.Windows.Forms.RowStyle());
+            this.tableLayoutPanelmods.RowStyles.Add(new System.Windows.Forms.RowStyle());
+            this.tableLayoutPanelmods.RowStyles.Add(new System.Windows.Forms.RowStyle());
+            this.tableLayoutPanelmods.RowStyles.Add(new System.Windows.Forms.RowStyle());
+            this.tableLayoutPanelmods.RowStyles.Add(new System.Windows.Forms.RowStyle());
+            this.tableLayoutPanelmods.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 60F));
+            this.tableLayoutPanelmods.Size = new System.Drawing.Size(732, 360);
+            this.tableLayoutPanelmods.TabIndex = 19;
             // 
             // lbl_mod_name
             // 
@@ -1058,22 +1306,22 @@
             // tab_settings
             // 
             this.tab_settings.BackColor = System.Drawing.Color.Transparent;
-            this.tab_settings.Controls.Add(this.panel2);
+            this.tab_settings.Controls.Add(this.panel_setings);
             this.tab_settings.Location = new System.Drawing.Point(4, 22);
             this.tab_settings.Name = "tab_settings";
             this.tab_settings.Size = new System.Drawing.Size(905, 360);
             this.tab_settings.TabIndex = 6;
             this.tab_settings.Text = "Settings";
             // 
-            // panel2
+            // panel_setings
             // 
-            this.panel2.Controls.Add(this.btn_config_save);
-            this.panel2.Controls.Add(this.flow_settings);
-            this.panel2.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.panel2.Location = new System.Drawing.Point(0, 0);
-            this.panel2.Name = "panel2";
-            this.panel2.Size = new System.Drawing.Size(905, 360);
-            this.panel2.TabIndex = 1;
+            this.panel_setings.Controls.Add(this.btn_config_save);
+            this.panel_setings.Controls.Add(this.flow_settings);
+            this.panel_setings.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.panel_setings.Location = new System.Drawing.Point(0, 0);
+            this.panel_setings.Name = "panel_setings";
+            this.panel_setings.Size = new System.Drawing.Size(905, 360);
+            this.panel_setings.TabIndex = 1;
             // 
             // btn_config_save
             // 
@@ -1089,286 +1337,11 @@
             // 
             // flow_settings
             // 
-            this.flow_settings.Controls.Add(this.tableLayoutPanel3);
-            this.flow_settings.Controls.Add(this.tableLayoutPanel6);
-            this.flow_settings.Controls.Add(this.tableLayoutPanel5);
-            this.flow_settings.Controls.Add(this.tableLayoutPanel4);
-            this.flow_settings.Controls.Add(this.tableLayoutPanel2);
             this.flow_settings.Dock = System.Windows.Forms.DockStyle.Fill;
             this.flow_settings.Location = new System.Drawing.Point(0, 0);
             this.flow_settings.Name = "flow_settings";
             this.flow_settings.Size = new System.Drawing.Size(905, 360);
             this.flow_settings.TabIndex = 0;
-            // 
-            // tableLayoutPanel3
-            // 
-            this.tableLayoutPanel3.ColumnCount = 2;
-            this.tableLayoutPanel3.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 41.74757F));
-            this.tableLayoutPanel3.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 58.25243F));
-            this.tableLayoutPanel3.Controls.Add(this.label3, 0, 0);
-            this.tableLayoutPanel3.Controls.Add(this.label4, 0, 1);
-            this.tableLayoutPanel3.Controls.Add(this.textBox3, 1, 1);
-            this.tableLayoutPanel3.Controls.Add(this.textBox4, 1, 0);
-            this.tableLayoutPanel3.Location = new System.Drawing.Point(3, 3);
-            this.tableLayoutPanel3.Name = "tableLayoutPanel3";
-            this.tableLayoutPanel3.RowCount = 2;
-            this.tableLayoutPanel3.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50F));
-            this.tableLayoutPanel3.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50F));
-            this.tableLayoutPanel3.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 20F));
-            this.tableLayoutPanel3.Size = new System.Drawing.Size(200, 100);
-            this.tableLayoutPanel3.TabIndex = 1;
-            // 
-            // label3
-            // 
-            this.label3.Anchor = System.Windows.Forms.AnchorStyles.Left;
-            this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(3, 18);
-            this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(35, 13);
-            this.label3.TabIndex = 0;
-            this.label3.Text = "label3";
-            // 
-            // label4
-            // 
-            this.label4.Anchor = System.Windows.Forms.AnchorStyles.Left;
-            this.label4.AutoSize = true;
-            this.label4.Location = new System.Drawing.Point(3, 68);
-            this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(35, 13);
-            this.label4.TabIndex = 2;
-            this.label4.Text = "label4";
-            // 
-            // textBox3
-            // 
-            this.textBox3.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
-            this.textBox3.Location = new System.Drawing.Point(86, 65);
-            this.textBox3.Name = "textBox3";
-            this.textBox3.Size = new System.Drawing.Size(111, 20);
-            this.textBox3.TabIndex = 3;
-            // 
-            // textBox4
-            // 
-            this.textBox4.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
-            this.textBox4.Location = new System.Drawing.Point(86, 15);
-            this.textBox4.Name = "textBox4";
-            this.textBox4.Size = new System.Drawing.Size(111, 20);
-            this.textBox4.TabIndex = 1;
-            // 
-            // tableLayoutPanel6
-            // 
-            this.tableLayoutPanel6.ColumnCount = 2;
-            this.tableLayoutPanel6.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 41.74757F));
-            this.tableLayoutPanel6.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 58.25243F));
-            this.tableLayoutPanel6.Controls.Add(this.label9, 0, 0);
-            this.tableLayoutPanel6.Controls.Add(this.label10, 0, 1);
-            this.tableLayoutPanel6.Controls.Add(this.textBox9, 1, 1);
-            this.tableLayoutPanel6.Controls.Add(this.textBox10, 1, 0);
-            this.tableLayoutPanel6.Location = new System.Drawing.Point(209, 3);
-            this.tableLayoutPanel6.Name = "tableLayoutPanel6";
-            this.tableLayoutPanel6.RowCount = 2;
-            this.tableLayoutPanel6.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50F));
-            this.tableLayoutPanel6.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50F));
-            this.tableLayoutPanel6.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 20F));
-            this.tableLayoutPanel6.Size = new System.Drawing.Size(200, 100);
-            this.tableLayoutPanel6.TabIndex = 4;
-            // 
-            // label9
-            // 
-            this.label9.Anchor = System.Windows.Forms.AnchorStyles.Left;
-            this.label9.AutoSize = true;
-            this.label9.Location = new System.Drawing.Point(3, 18);
-            this.label9.Name = "label9";
-            this.label9.Size = new System.Drawing.Size(35, 13);
-            this.label9.TabIndex = 0;
-            this.label9.Text = "label9";
-            // 
-            // label10
-            // 
-            this.label10.Anchor = System.Windows.Forms.AnchorStyles.Left;
-            this.label10.AutoSize = true;
-            this.label10.Location = new System.Drawing.Point(3, 68);
-            this.label10.Name = "label10";
-            this.label10.Size = new System.Drawing.Size(41, 13);
-            this.label10.TabIndex = 2;
-            this.label10.Text = "label10";
-            // 
-            // textBox9
-            // 
-            this.textBox9.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
-            this.textBox9.Location = new System.Drawing.Point(86, 65);
-            this.textBox9.Name = "textBox9";
-            this.textBox9.Size = new System.Drawing.Size(111, 20);
-            this.textBox9.TabIndex = 3;
-            // 
-            // textBox10
-            // 
-            this.textBox10.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
-            this.textBox10.Location = new System.Drawing.Point(86, 15);
-            this.textBox10.Name = "textBox10";
-            this.textBox10.Size = new System.Drawing.Size(111, 20);
-            this.textBox10.TabIndex = 1;
-            // 
-            // tableLayoutPanel5
-            // 
-            this.tableLayoutPanel5.ColumnCount = 2;
-            this.tableLayoutPanel5.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 41.74757F));
-            this.tableLayoutPanel5.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 58.25243F));
-            this.tableLayoutPanel5.Controls.Add(this.label7, 0, 0);
-            this.tableLayoutPanel5.Controls.Add(this.label8, 0, 1);
-            this.tableLayoutPanel5.Controls.Add(this.textBox7, 1, 1);
-            this.tableLayoutPanel5.Controls.Add(this.textBox8, 1, 0);
-            this.tableLayoutPanel5.Location = new System.Drawing.Point(415, 3);
-            this.tableLayoutPanel5.Name = "tableLayoutPanel5";
-            this.tableLayoutPanel5.RowCount = 2;
-            this.tableLayoutPanel5.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50F));
-            this.tableLayoutPanel5.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50F));
-            this.tableLayoutPanel5.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 20F));
-            this.tableLayoutPanel5.Size = new System.Drawing.Size(200, 100);
-            this.tableLayoutPanel5.TabIndex = 3;
-            // 
-            // label7
-            // 
-            this.label7.Anchor = System.Windows.Forms.AnchorStyles.Left;
-            this.label7.AutoSize = true;
-            this.label7.Location = new System.Drawing.Point(3, 18);
-            this.label7.Name = "label7";
-            this.label7.Size = new System.Drawing.Size(35, 13);
-            this.label7.TabIndex = 0;
-            this.label7.Text = "label7";
-            // 
-            // label8
-            // 
-            this.label8.Anchor = System.Windows.Forms.AnchorStyles.Left;
-            this.label8.AutoSize = true;
-            this.label8.Location = new System.Drawing.Point(3, 68);
-            this.label8.Name = "label8";
-            this.label8.Size = new System.Drawing.Size(35, 13);
-            this.label8.TabIndex = 2;
-            this.label8.Text = "label8";
-            // 
-            // textBox7
-            // 
-            this.textBox7.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
-            this.textBox7.Location = new System.Drawing.Point(86, 65);
-            this.textBox7.Name = "textBox7";
-            this.textBox7.Size = new System.Drawing.Size(111, 20);
-            this.textBox7.TabIndex = 3;
-            // 
-            // textBox8
-            // 
-            this.textBox8.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
-            this.textBox8.Location = new System.Drawing.Point(86, 15);
-            this.textBox8.Name = "textBox8";
-            this.textBox8.Size = new System.Drawing.Size(111, 20);
-            this.textBox8.TabIndex = 1;
-            // 
-            // tableLayoutPanel4
-            // 
-            this.tableLayoutPanel4.ColumnCount = 2;
-            this.tableLayoutPanel4.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 41.74757F));
-            this.tableLayoutPanel4.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 58.25243F));
-            this.tableLayoutPanel4.Controls.Add(this.label5, 0, 0);
-            this.tableLayoutPanel4.Controls.Add(this.label6, 0, 1);
-            this.tableLayoutPanel4.Controls.Add(this.textBox5, 1, 1);
-            this.tableLayoutPanel4.Controls.Add(this.textBox6, 1, 0);
-            this.tableLayoutPanel4.Location = new System.Drawing.Point(621, 3);
-            this.tableLayoutPanel4.Name = "tableLayoutPanel4";
-            this.tableLayoutPanel4.RowCount = 2;
-            this.tableLayoutPanel4.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50F));
-            this.tableLayoutPanel4.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50F));
-            this.tableLayoutPanel4.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 20F));
-            this.tableLayoutPanel4.Size = new System.Drawing.Size(200, 100);
-            this.tableLayoutPanel4.TabIndex = 2;
-            // 
-            // label5
-            // 
-            this.label5.Anchor = System.Windows.Forms.AnchorStyles.Left;
-            this.label5.AutoSize = true;
-            this.label5.Location = new System.Drawing.Point(3, 18);
-            this.label5.Name = "label5";
-            this.label5.Size = new System.Drawing.Size(35, 13);
-            this.label5.TabIndex = 0;
-            this.label5.Text = "label5";
-            // 
-            // label6
-            // 
-            this.label6.Anchor = System.Windows.Forms.AnchorStyles.Left;
-            this.label6.AutoSize = true;
-            this.label6.Location = new System.Drawing.Point(3, 68);
-            this.label6.Name = "label6";
-            this.label6.Size = new System.Drawing.Size(35, 13);
-            this.label6.TabIndex = 2;
-            this.label6.Text = "label6";
-            // 
-            // textBox5
-            // 
-            this.textBox5.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
-            this.textBox5.Location = new System.Drawing.Point(86, 65);
-            this.textBox5.Name = "textBox5";
-            this.textBox5.Size = new System.Drawing.Size(111, 20);
-            this.textBox5.TabIndex = 3;
-            // 
-            // textBox6
-            // 
-            this.textBox6.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
-            this.textBox6.Location = new System.Drawing.Point(86, 15);
-            this.textBox6.Name = "textBox6";
-            this.textBox6.Size = new System.Drawing.Size(111, 20);
-            this.textBox6.TabIndex = 1;
-            // 
-            // tableLayoutPanel2
-            // 
-            this.tableLayoutPanel2.ColumnCount = 2;
-            this.tableLayoutPanel2.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 41.74757F));
-            this.tableLayoutPanel2.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 58.25243F));
-            this.tableLayoutPanel2.Controls.Add(this.label1, 0, 0);
-            this.tableLayoutPanel2.Controls.Add(this.label2, 0, 1);
-            this.tableLayoutPanel2.Controls.Add(this.textBox2, 1, 1);
-            this.tableLayoutPanel2.Controls.Add(this.textBox1, 1, 0);
-            this.tableLayoutPanel2.Location = new System.Drawing.Point(3, 109);
-            this.tableLayoutPanel2.Name = "tableLayoutPanel2";
-            this.tableLayoutPanel2.RowCount = 2;
-            this.tableLayoutPanel2.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50F));
-            this.tableLayoutPanel2.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50F));
-            this.tableLayoutPanel2.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 20F));
-            this.tableLayoutPanel2.Size = new System.Drawing.Size(200, 100);
-            this.tableLayoutPanel2.TabIndex = 0;
-            // 
-            // label1
-            // 
-            this.label1.Anchor = System.Windows.Forms.AnchorStyles.Left;
-            this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(3, 18);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(35, 13);
-            this.label1.TabIndex = 0;
-            this.label1.Text = "label1";
-            // 
-            // label2
-            // 
-            this.label2.Anchor = System.Windows.Forms.AnchorStyles.Left;
-            this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(3, 68);
-            this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(35, 13);
-            this.label2.TabIndex = 2;
-            this.label2.Text = "label2";
-            // 
-            // textBox2
-            // 
-            this.textBox2.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
-            this.textBox2.Location = new System.Drawing.Point(86, 65);
-            this.textBox2.Name = "textBox2";
-            this.textBox2.Size = new System.Drawing.Size(111, 20);
-            this.textBox2.TabIndex = 3;
-            // 
-            // textBox1
-            // 
-            this.textBox1.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
-            this.textBox1.Location = new System.Drawing.Point(86, 15);
-            this.textBox1.Name = "textBox1";
-            this.textBox1.Size = new System.Drawing.Size(111, 20);
-            this.textBox1.TabIndex = 1;
             // 
             // tab_log
             // 
@@ -1488,6 +1461,7 @@
             this.btn_play.TabIndex = 2;
             this.btn_play.Text = "Play";
             this.btn_play.UseVisualStyleBackColor = true;
+            this.btn_play.Click += new System.EventHandler(this.btn_play_Click);
             // 
             // Main
             // 
@@ -1504,49 +1478,51 @@
             this.tabs_main.ResumeLayout(false);
             this.tab_news.ResumeLayout(false);
             this.tab_users.ResumeLayout(false);
-            this.splitContainer2.Panel1.ResumeLayout(false);
-            this.splitContainer2.Panel2.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)(this.splitContainer2)).EndInit();
-            this.splitContainer2.ResumeLayout(false);
+            this.splitContainerUsers.Panel1.ResumeLayout(false);
+            this.splitContainerUsers.Panel2.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.splitContainerUsers)).EndInit();
+            this.splitContainerUsers.ResumeLayout(false);
             this.flowLayoutPanel1.ResumeLayout(false);
-            this.tableLayoutPanel8.ResumeLayout(false);
-            this.tableLayoutPanel8.PerformLayout();
-            this.panel5.ResumeLayout(false);
-            this.panel5.PerformLayout();
+            this.tableLayoutPanelUSers.ResumeLayout(false);
+            this.tableLayoutPanelUSers.PerformLayout();
+            this.panel_users_id.ResumeLayout(false);
+            this.panel_users_id.PerformLayout();
             this.tab_avatars.ResumeLayout(false);
-            this.splitContainer1.Panel1.ResumeLayout(false);
-            this.splitContainer1.Panel2.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).EndInit();
-            this.splitContainer1.ResumeLayout(false);
-            this.tableLayoutPanel7.ResumeLayout(false);
-            this.tableLayoutPanel7.PerformLayout();
-            this.panel4.ResumeLayout(false);
-            this.panel4.PerformLayout();
-            this.panel3.ResumeLayout(false);
-            this.panel3.PerformLayout();
-            this.panel6.ResumeLayout(false);
-            this.panel6.PerformLayout();
+            this.splitContainerAvatars.Panel1.ResumeLayout(false);
+            this.splitContainerAvatars.Panel2.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.splitContainerAvatars)).EndInit();
+            this.splitContainerAvatars.ResumeLayout(false);
+            this.tableLayoutPanelTEST.ResumeLayout(false);
+            this.tableLayoutPanelTEST.PerformLayout();
+            this.panel_worlds_id.ResumeLayout(false);
+            this.panel_worlds_id.PerformLayout();
+            this.panel_worlds_asseturl.ResumeLayout(false);
+            this.panel_worlds_asseturl.PerformLayout();
+            this.panel_worlds_author.ResumeLayout(false);
+            this.panel_worlds_author.PerformLayout();
+            this.tab_worlds.ResumeLayout(false);
+            this.splitContainerWOrlds.Panel1.ResumeLayout(false);
+            this.splitContainerWOrlds.Panel2.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.splitContainerWOrlds)).EndInit();
+            this.splitContainerWOrlds.ResumeLayout(false);
+            this.tableLayoutPanelWorlds.ResumeLayout(false);
+            this.tableLayoutPanelWorlds.PerformLayout();
+            this.panel_words_id_2.ResumeLayout(false);
+            this.panel_words_id_2.PerformLayout();
+            this.panel8.ResumeLayout(false);
+            this.panel8.PerformLayout();
+            this.panel9.ResumeLayout(false);
+            this.panel9.PerformLayout();
             this.tab_mods.ResumeLayout(false);
-            this.splitContainer3.Panel1.ResumeLayout(false);
-            this.splitContainer3.Panel2.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)(this.splitContainer3)).EndInit();
-            this.splitContainer3.ResumeLayout(false);
-            this.panel1.ResumeLayout(false);
-            this.tableLayoutPanel1.ResumeLayout(false);
-            this.tableLayoutPanel1.PerformLayout();
+            this.splitContainerMods.Panel1.ResumeLayout(false);
+            this.splitContainerMods.Panel2.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.splitContainerMods)).EndInit();
+            this.splitContainerMods.ResumeLayout(false);
+            this.panel_mods_list.ResumeLayout(false);
+            this.tableLayoutPanelmods.ResumeLayout(false);
+            this.tableLayoutPanelmods.PerformLayout();
             this.tab_settings.ResumeLayout(false);
-            this.panel2.ResumeLayout(false);
-            this.flow_settings.ResumeLayout(false);
-            this.tableLayoutPanel3.ResumeLayout(false);
-            this.tableLayoutPanel3.PerformLayout();
-            this.tableLayoutPanel6.ResumeLayout(false);
-            this.tableLayoutPanel6.PerformLayout();
-            this.tableLayoutPanel5.ResumeLayout(false);
-            this.tableLayoutPanel5.PerformLayout();
-            this.tableLayoutPanel4.ResumeLayout(false);
-            this.tableLayoutPanel4.PerformLayout();
-            this.tableLayoutPanel2.ResumeLayout(false);
-            this.tableLayoutPanel2.PerformLayout();
+            this.panel_setings.ResumeLayout(false);
             this.tab_log.ResumeLayout(false);
             this.tabs_log.ResumeLayout(false);
             this.tab_log_launcher.ResumeLayout(false);
@@ -1573,66 +1549,20 @@
         private System.Windows.Forms.ColumnHeader columnHeader1;
         private System.Windows.Forms.ColumnHeader columnHeader2;
         private System.Windows.Forms.FlowLayoutPanel flow_settings;
-        private System.Windows.Forms.TableLayoutPanel tableLayoutPanel2;
-        private System.Windows.Forms.Label label1;
-        private System.Windows.Forms.Label label2;
-        private System.Windows.Forms.TextBox textBox2;
-        private System.Windows.Forms.TextBox textBox1;
-        private System.Windows.Forms.TableLayoutPanel tableLayoutPanel3;
-        private System.Windows.Forms.Label label3;
-        private System.Windows.Forms.Label label4;
-        private System.Windows.Forms.TextBox textBox3;
-        private System.Windows.Forms.TextBox textBox4;
-        private System.Windows.Forms.TableLayoutPanel tableLayoutPanel4;
-        private System.Windows.Forms.Label label5;
-        private System.Windows.Forms.Label label6;
-        private System.Windows.Forms.TextBox textBox5;
-        private System.Windows.Forms.TextBox textBox6;
-        private System.Windows.Forms.TableLayoutPanel tableLayoutPanel5;
-        private System.Windows.Forms.Label label7;
-        private System.Windows.Forms.Label label8;
-        private System.Windows.Forms.TextBox textBox7;
-        private System.Windows.Forms.TextBox textBox8;
-        private System.Windows.Forms.TableLayoutPanel tableLayoutPanel6;
-        private System.Windows.Forms.Label label9;
-        private System.Windows.Forms.Label label10;
-        private System.Windows.Forms.TextBox textBox9;
-        private System.Windows.Forms.TextBox textBox10;
-        private System.Windows.Forms.Panel panel2;
+        private System.Windows.Forms.Panel panel_setings;
         private System.Windows.Forms.Button btn_config_save;
-        private System.Windows.Forms.SplitContainer splitContainer1;
+        private System.Windows.Forms.SplitContainer splitContainerAvatars;
         private System.Windows.Forms.TabPage tab_test;
-        private System.Windows.Forms.TreeView tree_avatars;
-        private System.Windows.Forms.Button btn_avatars_reload;
-        private System.Windows.Forms.TableLayoutPanel tableLayoutPanel7;
-        private System.Windows.Forms.Label label11;
-        private System.Windows.Forms.RichTextBox txt_avatar_description;
-        private System.Windows.Forms.Label label12;
-        private System.Windows.Forms.Label lbl;
-        private System.Windows.Forms.Label label14;
-        private System.Windows.Forms.Label label15;
-        private System.Windows.Forms.TextBox txt_avatar_name;
-        private System.Windows.Forms.Label label16;
-        private System.Windows.Forms.TextBox txt_avatar_version;
-        private System.Windows.Forms.Panel panel4;
-        private System.Windows.Forms.Button btn_avatar_search;
-        private System.Windows.Forms.TextBox txt_avatar_id;
-        private System.Windows.Forms.Panel panel3;
-        private System.Windows.Forms.Button btn_avatar_rip;
-        private System.Windows.Forms.TextBox txt_avatar_asseturl;
-        private System.Windows.Forms.SplitContainer splitContainer2;
+        private System.Windows.Forms.SplitContainer splitContainerUsers;
         private System.Windows.Forms.TreeView tree_users;
         private System.Windows.Forms.Button btn_users_reload;
-        private System.Windows.Forms.Panel panel6;
-        private System.Windows.Forms.Button btn_avatars_profile;
-        private System.Windows.Forms.TextBox txt_avatar_author;
         private System.Windows.Forms.Button btn_users_save;
         private System.Windows.Forms.FlowLayoutPanel flowLayoutPanel1;
         private System.Windows.Forms.Button btn_users_friend_add;
         private System.Windows.Forms.Button btn_users_friend_remove;
         private System.Windows.Forms.Button btn_users_block;
         private System.Windows.Forms.Button btn_users_unblock;
-        private System.Windows.Forms.TableLayoutPanel tableLayoutPanel8;
+        private System.Windows.Forms.TableLayoutPanel tableLayoutPanelUSers;
         private System.Windows.Forms.Label label13;
         private System.Windows.Forms.RichTextBox txt_users_tags;
         private System.Windows.Forms.TextBox txt_users_rank;
@@ -1644,15 +1574,15 @@
         private System.Windows.Forms.Label label21;
         private System.Windows.Forms.TextBox txt_users_username;
         private System.Windows.Forms.TextBox txt_users_status;
-        private System.Windows.Forms.Panel panel5;
+        private System.Windows.Forms.Panel panel_users_id;
         private System.Windows.Forms.Button btn_users_search;
         private System.Windows.Forms.TextBox txt_users_id;
         private System.Windows.Forms.Panel panel_status;
         private System.Windows.Forms.Button btn_play;
         public System.Windows.Forms.TextBox txt_status;
         private System.Windows.Forms.TabPage tab_mods;
-        private System.Windows.Forms.SplitContainer splitContainer3;
-        private System.Windows.Forms.TableLayoutPanel tableLayoutPanel1;
+        private System.Windows.Forms.SplitContainer splitContainerMods;
+        private System.Windows.Forms.TableLayoutPanel tableLayoutPanelmods;
         private System.Windows.Forms.Label lbl_mod_name;
         private System.Windows.Forms.RichTextBox txt_mod_description;
         private System.Windows.Forms.TextBox txt_mod_type;
@@ -1665,10 +1595,53 @@
         private System.Windows.Forms.Label lbl_mod_version;
         private System.Windows.Forms.TextBox txt_mod_version;
         private System.Windows.Forms.TextBox txt_mod_author;
-        private System.Windows.Forms.Panel panel1;
+        private System.Windows.Forms.Panel panel_mods_list;
         private System.Windows.Forms.ListView lst_mods;
         private System.Windows.Forms.Button btn_mods_refresh;
         private System.Windows.Forms.RichTextBox txt_news;
+        private System.Windows.Forms.SplitContainer splitContainerWOrlds;
+        private System.Windows.Forms.TreeView tree_worlds;
+        private System.Windows.Forms.Button btn_worlds_reload;
+        private System.Windows.Forms.TableLayoutPanel tableLayoutPanelWorlds;
+        private System.Windows.Forms.Label label22;
+        private System.Windows.Forms.RichTextBox txt_world_description;
+        private System.Windows.Forms.Label label23;
+        private System.Windows.Forms.Label label24;
+        private System.Windows.Forms.Label label25;
+        private System.Windows.Forms.Label label26;
+        private System.Windows.Forms.TextBox txt_world_name;
+        private System.Windows.Forms.Label label27;
+        private System.Windows.Forms.TextBox txt_world_version;
+        private System.Windows.Forms.Panel panel_words_id_2;
+        private System.Windows.Forms.Button btn_worlds_search;
+        private System.Windows.Forms.TextBox txt_world_id;
+        private System.Windows.Forms.Panel panel8;
+        private System.Windows.Forms.Button btn_worlds_rip;
+        private System.Windows.Forms.TextBox txt_world_asset;
+        private System.Windows.Forms.Panel panel9;
+        private System.Windows.Forms.Button btn_worlds_author;
+        private System.Windows.Forms.TextBox txt_world_author;
+        private System.Windows.Forms.Button button5;
+        private System.Windows.Forms.TreeView tree_avatars;
+        private System.Windows.Forms.TableLayoutPanel tableLayoutPanelTEST;
+        private System.Windows.Forms.Label label11;
+        private System.Windows.Forms.RichTextBox txt_avatar_description;
+        private System.Windows.Forms.Label label12;
+        private System.Windows.Forms.Label lbl;
+        private System.Windows.Forms.Label label14;
+        private System.Windows.Forms.Label label15;
+        private System.Windows.Forms.TextBox txt_avatar_name;
+        private System.Windows.Forms.Label label16;
+        private System.Windows.Forms.TextBox txt_avatar_version;
+        private System.Windows.Forms.Panel panel_worlds_id;
+        private System.Windows.Forms.Button btn_avatar_search;
+        private System.Windows.Forms.TextBox txt_avatar_id;
+        private System.Windows.Forms.Panel panel_worlds_asseturl;
+        private System.Windows.Forms.Button btn_avatar_rip;
+        private System.Windows.Forms.TextBox txt_avatar_asseturl;
+        private System.Windows.Forms.Panel panel_worlds_author;
+        private System.Windows.Forms.Button btn_avatars_profile;
+        private System.Windows.Forms.TextBox txt_avatar_author;
     }
 }
 

@@ -120,6 +120,9 @@ namespace VRChatLauncher
                 case "tab_avatars":
                     SetupAvatarsAsync();
                     break;
+                case "tab_worlds":
+                    SetupWorldsAsync();
+                    break;
                 case "tab_settings":
                     if (!settingsInitialized)
                         SetupSettings();
@@ -148,7 +151,7 @@ namespace VRChatLauncher
 
         private void mainForm_loaded(object sender, EventArgs e) {
             var state = config["Window"]["State"];var loc = config["Window"]["Location"].Split(':');var size = config["Window"]["Size"].Split(':');
-            Logger.Debug("Was ", config["Window"]["State"], "Location:", loc, "Size:", size);
+            Logger.Debug("Was", config["Window"]["State"], "Location:", loc.ToJson(false), "Size:", size.ToJson(false));
             switch (state) {
                 case "Maximized":
                     WindowState = FormWindowState.Maximized;
@@ -170,7 +173,7 @@ namespace VRChatLauncher
         {
             Logger.Debug("called");
             if(WindowState == FormWindowState.Normal) {
-                config["Window"]["Location"] = RestoreBounds.Location.X.ToString() + ":" + RestoreBounds.Location.Y.ToString();
+                config["Window"]["Location"] = Location.X.ToString() + ":" + Location.Y.ToString();
                 config["Window"]["Size"] = RestoreBounds.Size.Height.ToString() + ":" + RestoreBounds.Size.Width.ToString();
             }
             config["Window"]["State"] = WindowState.ToString();

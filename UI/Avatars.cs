@@ -27,6 +27,20 @@ namespace VRChatLauncher
                     return Color.Orange;
             }
         }
+        private Color ColorFromReleaseStatus(ReleaseStatus releaseStatus)
+        {
+            switch (releaseStatus)
+            {
+                case ReleaseStatus.Public:
+                    return Color.Green;
+                case ReleaseStatus.Private:
+                    return Color.OrangeRed;
+                case ReleaseStatus.Hidden:
+                    return Color.Gray;
+                default:
+                    return Color.Orange;
+            }
+        }
 
         public async void SetupAvatarsAsync(bool force = false) {
             if (avatars_loading) { Logger.Warn("Avatars are already loading, try again later");  return; }
@@ -59,7 +73,7 @@ namespace VRChatLauncher
                 node.ForeColor = ColorFromReleaseStatus(avatar.releaseStatus);
                 tree_avatars.Nodes[1].Nodes.Add(node);
             }
-            tree_avatars.Nodes[1].Text = $"Official ({tree_avatars.Nodes[0].Nodes.Count} / 16)";
+            tree_avatars.Nodes[1].Text = $"Official ({tree_avatars.Nodes[1].Nodes.Count} / 16)";
             avatars_loading = false;
         }
         private void FillAvatar(AvatarResponse avatar)

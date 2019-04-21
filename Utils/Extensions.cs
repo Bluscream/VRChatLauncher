@@ -12,8 +12,8 @@ namespace VRChatLauncher.Utils
 {
     static class Extensions
     {
-        public static object ToJson(this object obj) {
-            return JsonConvert.SerializeObject(obj, Formatting.Indented, new JsonConverter[] { new StringEnumConverter() });
+        public static object ToJson(this object obj, bool indented = true) {
+            return JsonConvert.SerializeObject(obj, (indented ? Formatting.Indented : Formatting.None), new JsonConverter[] { new StringEnumConverter() });
         }
         public static string Ext(this string text, string extension)
         {
