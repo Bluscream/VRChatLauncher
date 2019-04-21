@@ -6,8 +6,7 @@ namespace VRChatLauncher
     {
         private const string newsurl = "https://github.com/Bluscream/VRChatLauncher/raw/master/News.rtf";
         public void LoadNews() {
-            try
-            {
+            try {
                 txt_news.Rtf = webClient.DownloadString(newsurl);
             } catch (Exception ex) {
                 Utils.Logger.Error(ex);

@@ -54,6 +54,7 @@
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Main));
             this.tabs_main = new System.Windows.Forms.TabControl();
             this.tab_news = new System.Windows.Forms.TabPage();
+            this.txt_news = new System.Windows.Forms.RichTextBox();
             this.tab_users = new System.Windows.Forms.TabPage();
             this.splitContainer2 = new System.Windows.Forms.SplitContainer();
             this.btn_users_reload = new System.Windows.Forms.Button();
@@ -162,7 +163,6 @@
             this.panel_status = new System.Windows.Forms.Panel();
             this.txt_status = new System.Windows.Forms.TextBox();
             this.btn_play = new System.Windows.Forms.Button();
-            this.txt_news = new System.Windows.Forms.RichTextBox();
             this.tabs_main.SuspendLayout();
             this.tab_news.SuspendLayout();
             this.tab_users.SuspendLayout();
@@ -234,6 +234,18 @@
             this.tab_news.TabIndex = 0;
             this.tab_news.Text = "News";
             this.tab_news.UseVisualStyleBackColor = true;
+            // 
+            // txt_news
+            // 
+            this.txt_news.BulletIndent = 1;
+            this.txt_news.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.txt_news.Enabled = false;
+            this.txt_news.Location = new System.Drawing.Point(3, 3);
+            this.txt_news.Name = "txt_news";
+            this.txt_news.ReadOnly = true;
+            this.txt_news.Size = new System.Drawing.Size(899, 354);
+            this.txt_news.TabIndex = 0;
+            this.txt_news.Text = "Fetching news ...";
             // 
             // tab_users
             // 
@@ -1476,17 +1488,6 @@
             this.btn_play.TabIndex = 2;
             this.btn_play.Text = "Play";
             this.btn_play.UseVisualStyleBackColor = true;
-            // 
-            // txt_news
-            // 
-            this.txt_news.BulletIndent = 1;
-            this.txt_news.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.txt_news.Location = new System.Drawing.Point(3, 3);
-            this.txt_news.Name = "txt_news";
-            this.txt_news.ReadOnly = true;
-            this.txt_news.Size = new System.Drawing.Size(899, 354);
-            this.txt_news.TabIndex = 0;
-            this.txt_news.Text = "Fetching news ...";
             // 
             // Main
             // 
