@@ -1,20 +1,12 @@
 ﻿using System;
 using System.IO;
-using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-
 using System.Security.Principal;
 using System.Diagnostics;
 using System.Reflection;
 using System.Windows.Forms;
-using System.Runtime.InteropServices;
 using System.Net;
-using Newtonsoft.Json;
-using Newtonsoft.Json.Converters;
-using System.Text.RegularExpressions;
-// using System.Threading;
-// using System.Threading.Tasks;
 
 namespace VRChatLauncher.Utils
 {
@@ -145,50 +137,6 @@ namespace VRChatLauncher.Utils
         public static FileInfo getRipper()
         {
             return new FileInfo(Path.Combine(getGamePath().DirectoryName, "_TOOLS", "uTinyRipper", "uTinyRipper.exe"));
-        }
-    }
-    public static class Extensions
-    {
-        public static object ToJson(this object obj) {
-            return JsonConvert.SerializeObject(obj, Formatting.Indented, new JsonConverter[] { new StringEnumConverter() });
-        }
-        public static string Ext(this string text, string extension)
-        {
-            return text + "." + extension;
-        }
-        public static string Quote(this string text)
-        {
-            return SurroundWith(text, "\"");
-        }
-        public static string Enclose(this string text)
-        {
-            return SurroundWith(text, "(",")");
-        }
-        public static string SurroundWith(this string text, string surrounds)
-        {
-            return surrounds + text + surrounds;
-        }
-        public static string SurroundWith(this string text, string starts, string ends)
-        {
-            return starts + text + ends;
-        }
-        public static T PopAt<T>(this List<T> list, int index)
-        {
-            T r = list[index];
-            list.RemoveAt(index);
-            return r;
-        }
-        private static readonly Regex QueryRegex = new Regex(@"[?&](\w[\w.]*)=([^?&]+)");
-        public static IReadOnlyDictionary<string, string> ParseQueryString(this Uri uri)
-        {
-            var match = QueryRegex.Match(uri.PathAndQuery);
-            var paramaters = new Dictionary<string, string>();
-            while (match.Success)
-            {
-                paramaters.Add(match.Groups[1].Value, match.Groups[2].Value);
-                match = match.NextMatch();
-            }
-            return paramaters;
         }
     }
 }

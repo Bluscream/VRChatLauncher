@@ -52,17 +52,23 @@
             System.Windows.Forms.TreeNode treeNode15 = new System.Windows.Forms.TreeNode("VRCTools", new System.Windows.Forms.TreeNode[] {
             treeNode14});
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Main));
-            this.btn_play = new System.Windows.Forms.Button();
             this.tabs_main = new System.Windows.Forms.TabControl();
             this.tab_news = new System.Windows.Forms.TabPage();
             this.web_home = new System.Windows.Forms.WebBrowser();
             this.tab_users = new System.Windows.Forms.TabPage();
             this.splitContainer2 = new System.Windows.Forms.SplitContainer();
+            this.btn_users_reload = new System.Windows.Forms.Button();
             this.tree_users = new System.Windows.Forms.TreeView();
+            this.flowLayoutPanel1 = new System.Windows.Forms.FlowLayoutPanel();
+            this.btn_users_save = new System.Windows.Forms.Button();
+            this.btn_users_friend_add = new System.Windows.Forms.Button();
+            this.btn_users_friend_remove = new System.Windows.Forms.Button();
+            this.btn_users_block = new System.Windows.Forms.Button();
+            this.btn_users_unblock = new System.Windows.Forms.Button();
             this.tableLayoutPanel8 = new System.Windows.Forms.TableLayoutPanel();
             this.label13 = new System.Windows.Forms.Label();
-            this.richTextBox1 = new System.Windows.Forms.RichTextBox();
-            this.textBox11 = new System.Windows.Forms.TextBox();
+            this.txt_users_tags = new System.Windows.Forms.RichTextBox();
+            this.txt_users_rank = new System.Windows.Forms.TextBox();
             this.label17 = new System.Windows.Forms.Label();
             this.label18 = new System.Windows.Forms.Label();
             this.label19 = new System.Windows.Forms.Label();
@@ -72,7 +78,7 @@
             this.txt_users_username = new System.Windows.Forms.TextBox();
             this.txt_users_status = new System.Windows.Forms.TextBox();
             this.panel5 = new System.Windows.Forms.Panel();
-            this.button1 = new System.Windows.Forms.Button();
+            this.btn_users_search = new System.Windows.Forms.Button();
             this.txt_users_id = new System.Windows.Forms.TextBox();
             this.tab_avatars = new System.Windows.Forms.TabPage();
             this.splitContainer1 = new System.Windows.Forms.SplitContainer();
@@ -88,16 +94,21 @@
             this.txt_avatar_name = new System.Windows.Forms.TextBox();
             this.label16 = new System.Windows.Forms.Label();
             this.txt_avatar_version = new System.Windows.Forms.TextBox();
-            this.txt_avatar_author = new System.Windows.Forms.TextBox();
             this.panel4 = new System.Windows.Forms.Panel();
             this.btn_avatar_search = new System.Windows.Forms.Button();
             this.txt_avatar_id = new System.Windows.Forms.TextBox();
             this.panel3 = new System.Windows.Forms.Panel();
             this.btn_avatar_rip = new System.Windows.Forms.Button();
             this.txt_avatar_asseturl = new System.Windows.Forms.TextBox();
+            this.panel6 = new System.Windows.Forms.Panel();
+            this.btn_avatars_profile = new System.Windows.Forms.Button();
+            this.txt_avatar_author = new System.Windows.Forms.TextBox();
             this.tab_worlds = new System.Windows.Forms.TabPage();
-            this.tab_profile = new System.Windows.Forms.TabPage();
             this.tab_mods = new System.Windows.Forms.TabPage();
+            this.splitContainer3 = new System.Windows.Forms.SplitContainer();
+            this.panel1 = new System.Windows.Forms.Panel();
+            this.lst_mods = new System.Windows.Forms.ListView();
+            this.btn_mods_refresh = new System.Windows.Forms.Button();
             this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
             this.lbl_mod_name = new System.Windows.Forms.Label();
             this.txt_mod_description = new System.Windows.Forms.RichTextBox();
@@ -111,9 +122,6 @@
             this.lbl_mod_version = new System.Windows.Forms.Label();
             this.txt_mod_version = new System.Windows.Forms.TextBox();
             this.txt_mod_author = new System.Windows.Forms.TextBox();
-            this.panel1 = new System.Windows.Forms.Panel();
-            this.lst_mods = new System.Windows.Forms.ListView();
-            this.btn_mods_refresh = new System.Windows.Forms.Button();
             this.tab_settings = new System.Windows.Forms.TabPage();
             this.panel2 = new System.Windows.Forms.Panel();
             this.btn_config_save = new System.Windows.Forms.Button();
@@ -152,7 +160,9 @@
             this.lst_log_game = new System.Windows.Forms.ListView();
             this.columnHeader2 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.tab_test = new System.Windows.Forms.TabPage();
-            this.btn_users_reload = new System.Windows.Forms.Button();
+            this.panel_status = new System.Windows.Forms.Panel();
+            this.txt_status = new System.Windows.Forms.TextBox();
+            this.btn_play = new System.Windows.Forms.Button();
             this.tabs_main.SuspendLayout();
             this.tab_news.SuspendLayout();
             this.tab_users.SuspendLayout();
@@ -160,6 +170,7 @@
             this.splitContainer2.Panel1.SuspendLayout();
             this.splitContainer2.Panel2.SuspendLayout();
             this.splitContainer2.SuspendLayout();
+            this.flowLayoutPanel1.SuspendLayout();
             this.tableLayoutPanel8.SuspendLayout();
             this.panel5.SuspendLayout();
             this.tab_avatars.SuspendLayout();
@@ -170,9 +181,14 @@
             this.tableLayoutPanel7.SuspendLayout();
             this.panel4.SuspendLayout();
             this.panel3.SuspendLayout();
+            this.panel6.SuspendLayout();
             this.tab_mods.SuspendLayout();
-            this.tableLayoutPanel1.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.splitContainer3)).BeginInit();
+            this.splitContainer3.Panel1.SuspendLayout();
+            this.splitContainer3.Panel2.SuspendLayout();
+            this.splitContainer3.SuspendLayout();
             this.panel1.SuspendLayout();
+            this.tableLayoutPanel1.SuspendLayout();
             this.tab_settings.SuspendLayout();
             this.panel2.SuspendLayout();
             this.flow_settings.SuspendLayout();
@@ -185,35 +201,26 @@
             this.tabs_log.SuspendLayout();
             this.tab_log_launcher.SuspendLayout();
             this.tab_log_game.SuspendLayout();
+            this.panel_status.SuspendLayout();
             this.SuspendLayout();
-            // 
-            // btn_play
-            // 
-            this.btn_play.Dock = System.Windows.Forms.DockStyle.Bottom;
-            this.btn_play.Location = new System.Drawing.Point(0, 401);
-            this.btn_play.Name = "btn_play";
-            this.btn_play.Size = new System.Drawing.Size(913, 50);
-            this.btn_play.TabIndex = 0;
-            this.btn_play.Text = "Play";
-            this.btn_play.UseVisualStyleBackColor = true;
-            this.btn_play.Click += new System.EventHandler(this.btn_play_Click);
             // 
             // tabs_main
             // 
+            this.tabs_main.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.tabs_main.Controls.Add(this.tab_news);
             this.tabs_main.Controls.Add(this.tab_users);
             this.tabs_main.Controls.Add(this.tab_avatars);
             this.tabs_main.Controls.Add(this.tab_worlds);
-            this.tabs_main.Controls.Add(this.tab_profile);
             this.tabs_main.Controls.Add(this.tab_mods);
             this.tabs_main.Controls.Add(this.tab_settings);
             this.tabs_main.Controls.Add(this.tab_log);
             this.tabs_main.Controls.Add(this.tab_test);
-            this.tabs_main.Dock = System.Windows.Forms.DockStyle.Fill;
             this.tabs_main.Location = new System.Drawing.Point(0, 0);
             this.tabs_main.Name = "tabs_main";
             this.tabs_main.SelectedIndex = 0;
-            this.tabs_main.Size = new System.Drawing.Size(913, 401);
+            this.tabs_main.Size = new System.Drawing.Size(913, 386);
             this.tabs_main.TabIndex = 1;
             this.tabs_main.Selected += new System.Windows.Forms.TabControlEventHandler(this.tab_changedAsync);
             // 
@@ -223,7 +230,7 @@
             this.tab_news.Location = new System.Drawing.Point(4, 22);
             this.tab_news.Name = "tab_news";
             this.tab_news.Padding = new System.Windows.Forms.Padding(3);
-            this.tab_news.Size = new System.Drawing.Size(905, 375);
+            this.tab_news.Size = new System.Drawing.Size(905, 360);
             this.tab_news.TabIndex = 0;
             this.tab_news.Text = "News";
             this.tab_news.UseVisualStyleBackColor = true;
@@ -238,7 +245,7 @@
             this.web_home.Name = "web_home";
             this.web_home.ScriptErrorsSuppressed = true;
             this.web_home.ScrollBarsEnabled = false;
-            this.web_home.Size = new System.Drawing.Size(899, 369);
+            this.web_home.Size = new System.Drawing.Size(899, 354);
             this.web_home.TabIndex = 0;
             this.web_home.Url = new System.Uri("https://vrchat.com/home", System.UriKind.Absolute);
             this.web_home.WebBrowserShortcutsEnabled = false;
@@ -249,7 +256,7 @@
             this.tab_users.Location = new System.Drawing.Point(4, 22);
             this.tab_users.Name = "tab_users";
             this.tab_users.Padding = new System.Windows.Forms.Padding(3);
-            this.tab_users.Size = new System.Drawing.Size(905, 375);
+            this.tab_users.Size = new System.Drawing.Size(905, 360);
             this.tab_users.TabIndex = 1;
             this.tab_users.Text = "Users";
             this.tab_users.UseVisualStyleBackColor = true;
@@ -267,10 +274,22 @@
             // 
             // splitContainer2.Panel2
             // 
+            this.splitContainer2.Panel2.Controls.Add(this.flowLayoutPanel1);
             this.splitContainer2.Panel2.Controls.Add(this.tableLayoutPanel8);
-            this.splitContainer2.Size = new System.Drawing.Size(899, 369);
+            this.splitContainer2.Size = new System.Drawing.Size(899, 354);
             this.splitContainer2.SplitterDistance = 187;
             this.splitContainer2.TabIndex = 0;
+            // 
+            // btn_users_reload
+            // 
+            this.btn_users_reload.Dock = System.Windows.Forms.DockStyle.Bottom;
+            this.btn_users_reload.Location = new System.Drawing.Point(0, 331);
+            this.btn_users_reload.Name = "btn_users_reload";
+            this.btn_users_reload.Size = new System.Drawing.Size(187, 23);
+            this.btn_users_reload.TabIndex = 23;
+            this.btn_users_reload.Text = "Reload";
+            this.btn_users_reload.UseVisualStyleBackColor = true;
+            this.btn_users_reload.Click += new System.EventHandler(this.Btn_users_reload_Click);
             // 
             // tree_users
             // 
@@ -306,9 +325,76 @@
             treeNode5,
             treeNode7,
             treeNode9});
-            this.tree_users.Size = new System.Drawing.Size(187, 369);
+            this.tree_users.Size = new System.Drawing.Size(187, 354);
             this.tree_users.TabIndex = 22;
             this.tree_users.NodeMouseClick += new System.Windows.Forms.TreeNodeMouseClickEventHandler(this.users_node_selected);
+            // 
+            // flowLayoutPanel1
+            // 
+            this.flowLayoutPanel1.Controls.Add(this.btn_users_save);
+            this.flowLayoutPanel1.Controls.Add(this.btn_users_friend_add);
+            this.flowLayoutPanel1.Controls.Add(this.btn_users_friend_remove);
+            this.flowLayoutPanel1.Controls.Add(this.btn_users_block);
+            this.flowLayoutPanel1.Controls.Add(this.btn_users_unblock);
+            this.flowLayoutPanel1.Dock = System.Windows.Forms.DockStyle.Bottom;
+            this.flowLayoutPanel1.Location = new System.Drawing.Point(0, 315);
+            this.flowLayoutPanel1.Name = "flowLayoutPanel1";
+            this.flowLayoutPanel1.Size = new System.Drawing.Size(708, 39);
+            this.flowLayoutPanel1.TabIndex = 26;
+            // 
+            // btn_users_save
+            // 
+            this.btn_users_save.Location = new System.Drawing.Point(3, 3);
+            this.btn_users_save.Name = "btn_users_save";
+            this.btn_users_save.Size = new System.Drawing.Size(90, 33);
+            this.btn_users_save.TabIndex = 15;
+            this.btn_users_save.Text = "Save";
+            this.btn_users_save.UseVisualStyleBackColor = true;
+            this.btn_users_save.Visible = false;
+            // 
+            // btn_users_friend_add
+            // 
+            this.btn_users_friend_add.Dock = System.Windows.Forms.DockStyle.Right;
+            this.btn_users_friend_add.Location = new System.Drawing.Point(99, 3);
+            this.btn_users_friend_add.Name = "btn_users_friend_add";
+            this.btn_users_friend_add.Size = new System.Drawing.Size(90, 33);
+            this.btn_users_friend_add.TabIndex = 16;
+            this.btn_users_friend_add.Text = "Add Friend";
+            this.btn_users_friend_add.UseVisualStyleBackColor = true;
+            this.btn_users_friend_add.Visible = false;
+            // 
+            // btn_users_friend_remove
+            // 
+            this.btn_users_friend_remove.Dock = System.Windows.Forms.DockStyle.Right;
+            this.btn_users_friend_remove.Location = new System.Drawing.Point(195, 3);
+            this.btn_users_friend_remove.Name = "btn_users_friend_remove";
+            this.btn_users_friend_remove.Size = new System.Drawing.Size(90, 33);
+            this.btn_users_friend_remove.TabIndex = 17;
+            this.btn_users_friend_remove.Text = "Remove Friend";
+            this.btn_users_friend_remove.UseVisualStyleBackColor = true;
+            this.btn_users_friend_remove.Visible = false;
+            // 
+            // btn_users_block
+            // 
+            this.btn_users_block.Dock = System.Windows.Forms.DockStyle.Right;
+            this.btn_users_block.Location = new System.Drawing.Point(291, 3);
+            this.btn_users_block.Name = "btn_users_block";
+            this.btn_users_block.Size = new System.Drawing.Size(90, 33);
+            this.btn_users_block.TabIndex = 18;
+            this.btn_users_block.Text = "Block";
+            this.btn_users_block.UseVisualStyleBackColor = true;
+            this.btn_users_block.Visible = false;
+            // 
+            // btn_users_unblock
+            // 
+            this.btn_users_unblock.Dock = System.Windows.Forms.DockStyle.Right;
+            this.btn_users_unblock.Location = new System.Drawing.Point(387, 3);
+            this.btn_users_unblock.Name = "btn_users_unblock";
+            this.btn_users_unblock.Size = new System.Drawing.Size(90, 33);
+            this.btn_users_unblock.TabIndex = 19;
+            this.btn_users_unblock.Text = "Unblock";
+            this.btn_users_unblock.UseVisualStyleBackColor = true;
+            this.btn_users_unblock.Visible = false;
             // 
             // tableLayoutPanel8
             // 
@@ -316,8 +402,8 @@
             this.tableLayoutPanel8.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 16.66667F));
             this.tableLayoutPanel8.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 83.33333F));
             this.tableLayoutPanel8.Controls.Add(this.label13, 0, 1);
-            this.tableLayoutPanel8.Controls.Add(this.richTextBox1, 1, 5);
-            this.tableLayoutPanel8.Controls.Add(this.textBox11, 1, 4);
+            this.tableLayoutPanel8.Controls.Add(this.txt_users_tags, 1, 5);
+            this.tableLayoutPanel8.Controls.Add(this.txt_users_rank, 1, 4);
             this.tableLayoutPanel8.Controls.Add(this.label17, 0, 5);
             this.tableLayoutPanel8.Controls.Add(this.label18, 0, 0);
             this.tableLayoutPanel8.Controls.Add(this.label19, 0, 4);
@@ -327,7 +413,7 @@
             this.tableLayoutPanel8.Controls.Add(this.txt_users_username, 1, 2);
             this.tableLayoutPanel8.Controls.Add(this.txt_users_status, 1, 3);
             this.tableLayoutPanel8.Controls.Add(this.panel5, 1, 0);
-            this.tableLayoutPanel8.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.tableLayoutPanel8.Dock = System.Windows.Forms.DockStyle.Top;
             this.tableLayoutPanel8.Location = new System.Drawing.Point(0, 0);
             this.tableLayoutPanel8.Name = "tableLayoutPanel8";
             this.tableLayoutPanel8.RowCount = 6;
@@ -336,9 +422,10 @@
             this.tableLayoutPanel8.RowStyles.Add(new System.Windows.Forms.RowStyle());
             this.tableLayoutPanel8.RowStyles.Add(new System.Windows.Forms.RowStyle());
             this.tableLayoutPanel8.RowStyles.Add(new System.Windows.Forms.RowStyle());
-            this.tableLayoutPanel8.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 60F));
-            this.tableLayoutPanel8.Size = new System.Drawing.Size(708, 369);
-            this.tableLayoutPanel8.TabIndex = 23;
+            this.tableLayoutPanel8.RowStyles.Add(new System.Windows.Forms.RowStyle());
+            this.tableLayoutPanel8.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 20F));
+            this.tableLayoutPanel8.Size = new System.Drawing.Size(708, 327);
+            this.tableLayoutPanel8.TabIndex = 25;
             // 
             // label13
             // 
@@ -350,24 +437,24 @@
             this.label13.TabIndex = 2;
             this.label13.Text = "Display Name:";
             // 
-            // richTextBox1
+            // txt_users_tags
             // 
-            this.richTextBox1.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.richTextBox1.Location = new System.Drawing.Point(121, 133);
-            this.richTextBox1.Name = "richTextBox1";
-            this.richTextBox1.ReadOnly = true;
-            this.richTextBox1.Size = new System.Drawing.Size(584, 233);
-            this.richTextBox1.TabIndex = 12;
-            this.richTextBox1.Text = "";
+            this.txt_users_tags.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.txt_users_tags.Location = new System.Drawing.Point(121, 133);
+            this.txt_users_tags.Name = "txt_users_tags";
+            this.txt_users_tags.ReadOnly = true;
+            this.txt_users_tags.Size = new System.Drawing.Size(584, 191);
+            this.txt_users_tags.TabIndex = 12;
+            this.txt_users_tags.Text = "";
             // 
-            // textBox11
+            // txt_users_rank
             // 
-            this.textBox11.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.textBox11.Location = new System.Drawing.Point(121, 107);
-            this.textBox11.Name = "textBox11";
-            this.textBox11.ReadOnly = true;
-            this.textBox11.Size = new System.Drawing.Size(584, 20);
-            this.textBox11.TabIndex = 9;
+            this.txt_users_rank.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.txt_users_rank.Location = new System.Drawing.Point(121, 107);
+            this.txt_users_rank.Name = "txt_users_rank";
+            this.txt_users_rank.ReadOnly = true;
+            this.txt_users_rank.Size = new System.Drawing.Size(584, 20);
+            this.txt_users_rank.TabIndex = 9;
             // 
             // label17
             // 
@@ -449,29 +536,29 @@
             // panel5
             // 
             this.panel5.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
-            this.panel5.Controls.Add(this.button1);
+            this.panel5.Controls.Add(this.btn_users_search);
             this.panel5.Controls.Add(this.txt_users_id);
             this.panel5.Location = new System.Drawing.Point(121, 3);
             this.panel5.Name = "panel5";
             this.panel5.Size = new System.Drawing.Size(584, 20);
             this.panel5.TabIndex = 13;
             // 
-            // button1
+            // btn_users_search
             // 
-            this.button1.Dock = System.Windows.Forms.DockStyle.Right;
-            this.button1.Location = new System.Drawing.Point(503, 0);
-            this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(81, 20);
-            this.button1.TabIndex = 1;
-            this.button1.Text = "Search";
-            this.button1.UseVisualStyleBackColor = true;
+            this.btn_users_search.Dock = System.Windows.Forms.DockStyle.Right;
+            this.btn_users_search.Location = new System.Drawing.Point(503, 0);
+            this.btn_users_search.Name = "btn_users_search";
+            this.btn_users_search.Size = new System.Drawing.Size(81, 20);
+            this.btn_users_search.TabIndex = 1;
+            this.btn_users_search.Text = "Search";
+            this.btn_users_search.UseVisualStyleBackColor = true;
             // 
             // txt_users_id
             // 
-            this.txt_users_id.Dock = System.Windows.Forms.DockStyle.Left;
+            this.txt_users_id.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
             this.txt_users_id.Location = new System.Drawing.Point(0, 0);
             this.txt_users_id.Name = "txt_users_id";
-            this.txt_users_id.Size = new System.Drawing.Size(496, 20);
+            this.txt_users_id.Size = new System.Drawing.Size(497, 20);
             this.txt_users_id.TabIndex = 0;
             // 
             // tab_avatars
@@ -479,7 +566,7 @@
             this.tab_avatars.Controls.Add(this.splitContainer1);
             this.tab_avatars.Location = new System.Drawing.Point(4, 22);
             this.tab_avatars.Name = "tab_avatars";
-            this.tab_avatars.Size = new System.Drawing.Size(905, 375);
+            this.tab_avatars.Size = new System.Drawing.Size(905, 360);
             this.tab_avatars.TabIndex = 2;
             this.tab_avatars.Text = "Avatars";
             this.tab_avatars.UseVisualStyleBackColor = true;
@@ -498,7 +585,7 @@
             // splitContainer1.Panel2
             // 
             this.splitContainer1.Panel2.Controls.Add(this.tableLayoutPanel7);
-            this.splitContainer1.Size = new System.Drawing.Size(905, 375);
+            this.splitContainer1.Size = new System.Drawing.Size(905, 360);
             this.splitContainer1.SplitterDistance = 177;
             this.splitContainer1.TabIndex = 0;
             // 
@@ -529,14 +616,14 @@
             treeNode10,
             treeNode13,
             treeNode15});
-            this.tree_avatars.Size = new System.Drawing.Size(177, 352);
+            this.tree_avatars.Size = new System.Drawing.Size(177, 337);
             this.tree_avatars.TabIndex = 22;
             this.tree_avatars.NodeMouseClick += new System.Windows.Forms.TreeNodeMouseClickEventHandler(this.avatars_node_selected);
             // 
             // btn_avatars_reload
             // 
             this.btn_avatars_reload.Dock = System.Windows.Forms.DockStyle.Bottom;
-            this.btn_avatars_reload.Location = new System.Drawing.Point(0, 352);
+            this.btn_avatars_reload.Location = new System.Drawing.Point(0, 337);
             this.btn_avatars_reload.Name = "btn_avatars_reload";
             this.btn_avatars_reload.Size = new System.Drawing.Size(177, 23);
             this.btn_avatars_reload.TabIndex = 21;
@@ -558,9 +645,9 @@
             this.tableLayoutPanel7.Controls.Add(this.txt_avatar_name, 1, 1);
             this.tableLayoutPanel7.Controls.Add(this.label16, 0, 2);
             this.tableLayoutPanel7.Controls.Add(this.txt_avatar_version, 1, 2);
-            this.tableLayoutPanel7.Controls.Add(this.txt_avatar_author, 1, 3);
             this.tableLayoutPanel7.Controls.Add(this.panel4, 1, 0);
             this.tableLayoutPanel7.Controls.Add(this.panel3, 1, 4);
+            this.tableLayoutPanel7.Controls.Add(this.panel6, 1, 3);
             this.tableLayoutPanel7.Dock = System.Windows.Forms.DockStyle.Fill;
             this.tableLayoutPanel7.Location = new System.Drawing.Point(0, 0);
             this.tableLayoutPanel7.Name = "tableLayoutPanel7";
@@ -571,7 +658,7 @@
             this.tableLayoutPanel7.RowStyles.Add(new System.Windows.Forms.RowStyle());
             this.tableLayoutPanel7.RowStyles.Add(new System.Windows.Forms.RowStyle());
             this.tableLayoutPanel7.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
-            this.tableLayoutPanel7.Size = new System.Drawing.Size(724, 375);
+            this.tableLayoutPanel7.Size = new System.Drawing.Size(724, 360);
             this.tableLayoutPanel7.TabIndex = 22;
             // 
             // label11
@@ -587,10 +674,10 @@
             // txt_avatar_description
             // 
             this.txt_avatar_description.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.txt_avatar_description.Location = new System.Drawing.Point(123, 133);
+            this.txt_avatar_description.Location = new System.Drawing.Point(123, 135);
             this.txt_avatar_description.Name = "txt_avatar_description";
             this.txt_avatar_description.ReadOnly = true;
-            this.txt_avatar_description.Size = new System.Drawing.Size(598, 239);
+            this.txt_avatar_description.Size = new System.Drawing.Size(598, 222);
             this.txt_avatar_description.TabIndex = 12;
             this.txt_avatar_description.Text = "";
             // 
@@ -598,7 +685,7 @@
             // 
             this.label12.Anchor = System.Windows.Forms.AnchorStyles.Left;
             this.label12.AutoSize = true;
-            this.label12.Location = new System.Drawing.Point(3, 246);
+            this.label12.Location = new System.Drawing.Point(3, 239);
             this.label12.Name = "label12";
             this.label12.Size = new System.Drawing.Size(63, 13);
             this.label12.TabIndex = 11;
@@ -618,7 +705,7 @@
             // 
             this.label14.Anchor = System.Windows.Forms.AnchorStyles.Left;
             this.label14.AutoSize = true;
-            this.label14.Location = new System.Drawing.Point(3, 110);
+            this.label14.Location = new System.Drawing.Point(3, 112);
             this.label14.Name = "label14";
             this.label14.Size = new System.Drawing.Size(61, 13);
             this.label14.TabIndex = 10;
@@ -628,7 +715,7 @@
             // 
             this.label15.Anchor = System.Windows.Forms.AnchorStyles.Left;
             this.label15.AutoSize = true;
-            this.label15.Location = new System.Drawing.Point(3, 84);
+            this.label15.Location = new System.Drawing.Point(3, 85);
             this.label15.Name = "label15";
             this.label15.Size = new System.Drawing.Size(41, 13);
             this.label15.TabIndex = 8;
@@ -661,15 +748,6 @@
             this.txt_avatar_version.ReadOnly = true;
             this.txt_avatar_version.Size = new System.Drawing.Size(598, 20);
             this.txt_avatar_version.TabIndex = 5;
-            // 
-            // txt_avatar_author
-            // 
-            this.txt_avatar_author.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.txt_avatar_author.Location = new System.Drawing.Point(123, 81);
-            this.txt_avatar_author.Name = "txt_avatar_author";
-            this.txt_avatar_author.ReadOnly = true;
-            this.txt_avatar_author.Size = new System.Drawing.Size(598, 20);
-            this.txt_avatar_author.TabIndex = 7;
             // 
             // panel4
             // 
@@ -705,7 +783,7 @@
             this.panel3.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
             this.panel3.Controls.Add(this.btn_avatar_rip);
             this.panel3.Controls.Add(this.txt_avatar_asseturl);
-            this.panel3.Location = new System.Drawing.Point(123, 107);
+            this.panel3.Location = new System.Drawing.Point(123, 109);
             this.panel3.Name = "panel3";
             this.panel3.Size = new System.Drawing.Size(598, 20);
             this.panel3.TabIndex = 14;
@@ -727,37 +805,113 @@
             this.txt_avatar_asseturl.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
             this.txt_avatar_asseturl.Location = new System.Drawing.Point(0, 0);
             this.txt_avatar_asseturl.Name = "txt_avatar_asseturl";
+            this.txt_avatar_asseturl.ReadOnly = true;
             this.txt_avatar_asseturl.Size = new System.Drawing.Size(517, 20);
             this.txt_avatar_asseturl.TabIndex = 0;
+            // 
+            // panel6
+            // 
+            this.panel6.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
+            this.panel6.Controls.Add(this.btn_avatars_profile);
+            this.panel6.Controls.Add(this.txt_avatar_author);
+            this.panel6.Location = new System.Drawing.Point(123, 81);
+            this.panel6.Name = "panel6";
+            this.panel6.Size = new System.Drawing.Size(598, 22);
+            this.panel6.TabIndex = 15;
+            // 
+            // btn_avatars_profile
+            // 
+            this.btn_avatars_profile.Dock = System.Windows.Forms.DockStyle.Right;
+            this.btn_avatars_profile.Location = new System.Drawing.Point(523, 0);
+            this.btn_avatars_profile.Name = "btn_avatars_profile";
+            this.btn_avatars_profile.Size = new System.Drawing.Size(75, 22);
+            this.btn_avatars_profile.TabIndex = 10;
+            this.btn_avatars_profile.Text = "Profile";
+            this.btn_avatars_profile.UseVisualStyleBackColor = true;
+            this.btn_avatars_profile.Click += new System.EventHandler(this.Btn_avatars_profile_ClickAsync);
+            // 
+            // txt_avatar_author
+            // 
+            this.txt_avatar_author.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
+            this.txt_avatar_author.Location = new System.Drawing.Point(0, 3);
+            this.txt_avatar_author.Name = "txt_avatar_author";
+            this.txt_avatar_author.ReadOnly = true;
+            this.txt_avatar_author.Size = new System.Drawing.Size(517, 20);
+            this.txt_avatar_author.TabIndex = 9;
             // 
             // tab_worlds
             // 
             this.tab_worlds.Location = new System.Drawing.Point(4, 22);
             this.tab_worlds.Name = "tab_worlds";
-            this.tab_worlds.Size = new System.Drawing.Size(905, 375);
+            this.tab_worlds.Size = new System.Drawing.Size(905, 360);
             this.tab_worlds.TabIndex = 3;
             this.tab_worlds.Text = "Worlds";
             this.tab_worlds.UseVisualStyleBackColor = true;
             // 
-            // tab_profile
-            // 
-            this.tab_profile.Location = new System.Drawing.Point(4, 22);
-            this.tab_profile.Name = "tab_profile";
-            this.tab_profile.Size = new System.Drawing.Size(905, 375);
-            this.tab_profile.TabIndex = 4;
-            this.tab_profile.Text = "Profile";
-            this.tab_profile.UseVisualStyleBackColor = true;
-            // 
             // tab_mods
             // 
-            this.tab_mods.Controls.Add(this.tableLayoutPanel1);
-            this.tab_mods.Controls.Add(this.panel1);
+            this.tab_mods.Controls.Add(this.splitContainer3);
             this.tab_mods.Location = new System.Drawing.Point(4, 22);
             this.tab_mods.Name = "tab_mods";
-            this.tab_mods.Size = new System.Drawing.Size(905, 375);
+            this.tab_mods.Size = new System.Drawing.Size(905, 360);
             this.tab_mods.TabIndex = 5;
             this.tab_mods.Text = "Mods";
             this.tab_mods.UseVisualStyleBackColor = true;
+            // 
+            // splitContainer3
+            // 
+            this.splitContainer3.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.splitContainer3.Location = new System.Drawing.Point(0, 0);
+            this.splitContainer3.Name = "splitContainer3";
+            // 
+            // splitContainer3.Panel1
+            // 
+            this.splitContainer3.Panel1.Controls.Add(this.panel1);
+            // 
+            // splitContainer3.Panel2
+            // 
+            this.splitContainer3.Panel2.Controls.Add(this.tableLayoutPanel1);
+            this.splitContainer3.Size = new System.Drawing.Size(905, 360);
+            this.splitContainer3.SplitterDistance = 169;
+            this.splitContainer3.TabIndex = 0;
+            // 
+            // panel1
+            // 
+            this.panel1.Controls.Add(this.lst_mods);
+            this.panel1.Controls.Add(this.btn_mods_refresh);
+            this.panel1.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.panel1.Location = new System.Drawing.Point(0, 0);
+            this.panel1.Name = "panel1";
+            this.panel1.Size = new System.Drawing.Size(169, 360);
+            this.panel1.TabIndex = 18;
+            // 
+            // lst_mods
+            // 
+            this.lst_mods.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.lst_mods.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.lst_mods.FullRowSelect = true;
+            this.lst_mods.HeaderStyle = System.Windows.Forms.ColumnHeaderStyle.None;
+            this.lst_mods.Location = new System.Drawing.Point(0, 0);
+            this.lst_mods.MultiSelect = false;
+            this.lst_mods.Name = "lst_mods";
+            this.lst_mods.ShowGroups = false;
+            this.lst_mods.ShowItemToolTips = true;
+            this.lst_mods.Size = new System.Drawing.Size(169, 337);
+            this.lst_mods.TabIndex = 13;
+            this.lst_mods.UseCompatibleStateImageBehavior = false;
+            this.lst_mods.View = System.Windows.Forms.View.List;
+            this.lst_mods.ItemSelectionChanged += new System.Windows.Forms.ListViewItemSelectionChangedEventHandler(this.on_list_mods_ItemSelectionChanged);
+            // 
+            // btn_mods_refresh
+            // 
+            this.btn_mods_refresh.Dock = System.Windows.Forms.DockStyle.Bottom;
+            this.btn_mods_refresh.Location = new System.Drawing.Point(0, 337);
+            this.btn_mods_refresh.Name = "btn_mods_refresh";
+            this.btn_mods_refresh.Size = new System.Drawing.Size(169, 23);
+            this.btn_mods_refresh.TabIndex = 14;
+            this.btn_mods_refresh.Text = "Reload";
+            this.btn_mods_refresh.UseVisualStyleBackColor = true;
+            this.btn_mods_refresh.Click += new System.EventHandler(this.on_btn_mods_refresh_Click);
             // 
             // tableLayoutPanel1
             // 
@@ -776,8 +930,8 @@
             this.tableLayoutPanel1.Controls.Add(this.lbl_mod_version, 0, 2);
             this.tableLayoutPanel1.Controls.Add(this.txt_mod_version, 1, 2);
             this.tableLayoutPanel1.Controls.Add(this.txt_mod_author, 1, 3);
-            this.tableLayoutPanel1.Dock = System.Windows.Forms.DockStyle.Top;
-            this.tableLayoutPanel1.Location = new System.Drawing.Point(121, 0);
+            this.tableLayoutPanel1.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.tableLayoutPanel1.Location = new System.Drawing.Point(0, 0);
             this.tableLayoutPanel1.Name = "tableLayoutPanel1";
             this.tableLayoutPanel1.RowCount = 6;
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle());
@@ -786,8 +940,8 @@
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle());
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle());
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 60F));
-            this.tableLayoutPanel1.Size = new System.Drawing.Size(784, 224);
-            this.tableLayoutPanel1.TabIndex = 17;
+            this.tableLayoutPanel1.Size = new System.Drawing.Size(732, 360);
+            this.tableLayoutPanel1.TabIndex = 19;
             // 
             // lbl_mod_name
             // 
@@ -802,27 +956,27 @@
             // txt_mod_description
             // 
             this.txt_mod_description.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.txt_mod_description.Location = new System.Drawing.Point(133, 133);
+            this.txt_mod_description.Location = new System.Drawing.Point(125, 133);
             this.txt_mod_description.Name = "txt_mod_description";
             this.txt_mod_description.ReadOnly = true;
-            this.txt_mod_description.Size = new System.Drawing.Size(648, 88);
+            this.txt_mod_description.Size = new System.Drawing.Size(604, 224);
             this.txt_mod_description.TabIndex = 12;
             this.txt_mod_description.Text = "";
             // 
             // txt_mod_type
             // 
             this.txt_mod_type.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.txt_mod_type.Location = new System.Drawing.Point(133, 107);
+            this.txt_mod_type.Location = new System.Drawing.Point(125, 107);
             this.txt_mod_type.Name = "txt_mod_type";
             this.txt_mod_type.ReadOnly = true;
-            this.txt_mod_type.Size = new System.Drawing.Size(648, 20);
+            this.txt_mod_type.Size = new System.Drawing.Size(604, 20);
             this.txt_mod_type.TabIndex = 9;
             // 
             // lbl_mod_description
             // 
             this.lbl_mod_description.Anchor = System.Windows.Forms.AnchorStyles.Left;
             this.lbl_mod_description.AutoSize = true;
-            this.lbl_mod_description.Location = new System.Drawing.Point(3, 170);
+            this.lbl_mod_description.Location = new System.Drawing.Point(3, 238);
             this.lbl_mod_description.Name = "lbl_mod_description";
             this.lbl_mod_description.Size = new System.Drawing.Size(63, 13);
             this.lbl_mod_description.TabIndex = 11;
@@ -851,10 +1005,10 @@
             // txt_mod_path
             // 
             this.txt_mod_path.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.txt_mod_path.Location = new System.Drawing.Point(133, 3);
+            this.txt_mod_path.Location = new System.Drawing.Point(125, 3);
             this.txt_mod_path.Name = "txt_mod_path";
             this.txt_mod_path.ReadOnly = true;
-            this.txt_mod_path.Size = new System.Drawing.Size(648, 20);
+            this.txt_mod_path.Size = new System.Drawing.Size(604, 20);
             this.txt_mod_path.TabIndex = 3;
             // 
             // lbl_mod_author
@@ -870,10 +1024,10 @@
             // txt_mod_name
             // 
             this.txt_mod_name.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.txt_mod_name.Location = new System.Drawing.Point(133, 29);
+            this.txt_mod_name.Location = new System.Drawing.Point(125, 29);
             this.txt_mod_name.Name = "txt_mod_name";
             this.txt_mod_name.ReadOnly = true;
-            this.txt_mod_name.Size = new System.Drawing.Size(648, 20);
+            this.txt_mod_name.Size = new System.Drawing.Size(604, 20);
             this.txt_mod_name.TabIndex = 1;
             // 
             // lbl_mod_version
@@ -889,57 +1043,20 @@
             // txt_mod_version
             // 
             this.txt_mod_version.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.txt_mod_version.Location = new System.Drawing.Point(133, 55);
+            this.txt_mod_version.Location = new System.Drawing.Point(125, 55);
             this.txt_mod_version.Name = "txt_mod_version";
             this.txt_mod_version.ReadOnly = true;
-            this.txt_mod_version.Size = new System.Drawing.Size(648, 20);
+            this.txt_mod_version.Size = new System.Drawing.Size(604, 20);
             this.txt_mod_version.TabIndex = 5;
             // 
             // txt_mod_author
             // 
             this.txt_mod_author.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.txt_mod_author.Location = new System.Drawing.Point(133, 81);
+            this.txt_mod_author.Location = new System.Drawing.Point(125, 81);
             this.txt_mod_author.Name = "txt_mod_author";
             this.txt_mod_author.ReadOnly = true;
-            this.txt_mod_author.Size = new System.Drawing.Size(648, 20);
+            this.txt_mod_author.Size = new System.Drawing.Size(604, 20);
             this.txt_mod_author.TabIndex = 7;
-            // 
-            // panel1
-            // 
-            this.panel1.Controls.Add(this.lst_mods);
-            this.panel1.Controls.Add(this.btn_mods_refresh);
-            this.panel1.Dock = System.Windows.Forms.DockStyle.Left;
-            this.panel1.Location = new System.Drawing.Point(0, 0);
-            this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(121, 375);
-            this.panel1.TabIndex = 16;
-            // 
-            // lst_mods
-            // 
-            this.lst_mods.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.lst_mods.FullRowSelect = true;
-            this.lst_mods.HeaderStyle = System.Windows.Forms.ColumnHeaderStyle.None;
-            this.lst_mods.Location = new System.Drawing.Point(0, 0);
-            this.lst_mods.MultiSelect = false;
-            this.lst_mods.Name = "lst_mods";
-            this.lst_mods.ShowGroups = false;
-            this.lst_mods.ShowItemToolTips = true;
-            this.lst_mods.Size = new System.Drawing.Size(121, 347);
-            this.lst_mods.TabIndex = 13;
-            this.lst_mods.UseCompatibleStateImageBehavior = false;
-            this.lst_mods.View = System.Windows.Forms.View.List;
-            this.lst_mods.ItemSelectionChanged += new System.Windows.Forms.ListViewItemSelectionChangedEventHandler(this.on_mod_selected);
-            // 
-            // btn_mods_refresh
-            // 
-            this.btn_mods_refresh.Dock = System.Windows.Forms.DockStyle.Bottom;
-            this.btn_mods_refresh.Location = new System.Drawing.Point(0, 352);
-            this.btn_mods_refresh.Name = "btn_mods_refresh";
-            this.btn_mods_refresh.Size = new System.Drawing.Size(121, 23);
-            this.btn_mods_refresh.TabIndex = 14;
-            this.btn_mods_refresh.Text = "Reload";
-            this.btn_mods_refresh.UseVisualStyleBackColor = true;
-            this.btn_mods_refresh.Click += new System.EventHandler(this.Btn_mods_refresh_Click);
             // 
             // tab_settings
             // 
@@ -947,7 +1064,7 @@
             this.tab_settings.Controls.Add(this.panel2);
             this.tab_settings.Location = new System.Drawing.Point(4, 22);
             this.tab_settings.Name = "tab_settings";
-            this.tab_settings.Size = new System.Drawing.Size(905, 375);
+            this.tab_settings.Size = new System.Drawing.Size(905, 360);
             this.tab_settings.TabIndex = 6;
             this.tab_settings.Text = "Settings";
             // 
@@ -958,14 +1075,14 @@
             this.panel2.Dock = System.Windows.Forms.DockStyle.Fill;
             this.panel2.Location = new System.Drawing.Point(0, 0);
             this.panel2.Name = "panel2";
-            this.panel2.Size = new System.Drawing.Size(905, 375);
+            this.panel2.Size = new System.Drawing.Size(905, 360);
             this.panel2.TabIndex = 1;
             // 
             // btn_config_save
             // 
             this.btn_config_save.Dock = System.Windows.Forms.DockStyle.Bottom;
             this.btn_config_save.Enabled = false;
-            this.btn_config_save.Location = new System.Drawing.Point(0, 352);
+            this.btn_config_save.Location = new System.Drawing.Point(0, 337);
             this.btn_config_save.Name = "btn_config_save";
             this.btn_config_save.Size = new System.Drawing.Size(905, 23);
             this.btn_config_save.TabIndex = 1;
@@ -983,7 +1100,7 @@
             this.flow_settings.Dock = System.Windows.Forms.DockStyle.Fill;
             this.flow_settings.Location = new System.Drawing.Point(0, 0);
             this.flow_settings.Name = "flow_settings";
-            this.flow_settings.Size = new System.Drawing.Size(905, 375);
+            this.flow_settings.Size = new System.Drawing.Size(905, 360);
             this.flow_settings.TabIndex = 0;
             // 
             // tableLayoutPanel3
@@ -1261,7 +1378,7 @@
             this.tab_log.Controls.Add(this.tabs_log);
             this.tab_log.Location = new System.Drawing.Point(4, 22);
             this.tab_log.Name = "tab_log";
-            this.tab_log.Size = new System.Drawing.Size(905, 375);
+            this.tab_log.Size = new System.Drawing.Size(905, 360);
             this.tab_log.TabIndex = 8;
             this.tab_log.Text = "Log";
             this.tab_log.UseVisualStyleBackColor = true;
@@ -1274,7 +1391,7 @@
             this.tabs_log.Location = new System.Drawing.Point(0, 0);
             this.tabs_log.Name = "tabs_log";
             this.tabs_log.SelectedIndex = 0;
-            this.tabs_log.Size = new System.Drawing.Size(905, 375);
+            this.tabs_log.Size = new System.Drawing.Size(905, 360);
             this.tabs_log.TabIndex = 0;
             this.tabs_log.Selected += new System.Windows.Forms.TabControlEventHandler(this.tab_changedAsync);
             // 
@@ -1284,7 +1401,7 @@
             this.tab_log_launcher.Location = new System.Drawing.Point(4, 22);
             this.tab_log_launcher.Name = "tab_log_launcher";
             this.tab_log_launcher.Padding = new System.Windows.Forms.Padding(3);
-            this.tab_log_launcher.Size = new System.Drawing.Size(897, 349);
+            this.tab_log_launcher.Size = new System.Drawing.Size(897, 334);
             this.tab_log_launcher.TabIndex = 0;
             this.tab_log_launcher.Text = "Launcher";
             this.tab_log_launcher.UseVisualStyleBackColor = true;
@@ -1297,7 +1414,7 @@
             this.lst_log_launcher.HeaderStyle = System.Windows.Forms.ColumnHeaderStyle.None;
             this.lst_log_launcher.Location = new System.Drawing.Point(3, 3);
             this.lst_log_launcher.Name = "lst_log_launcher";
-            this.lst_log_launcher.Size = new System.Drawing.Size(891, 343);
+            this.lst_log_launcher.Size = new System.Drawing.Size(891, 328);
             this.lst_log_launcher.TabIndex = 1;
             this.lst_log_launcher.UseCompatibleStateImageBehavior = false;
             this.lst_log_launcher.View = System.Windows.Forms.View.Details;
@@ -1313,7 +1430,7 @@
             this.tab_log_game.Location = new System.Drawing.Point(4, 22);
             this.tab_log_game.Name = "tab_log_game";
             this.tab_log_game.Padding = new System.Windows.Forms.Padding(3);
-            this.tab_log_game.Size = new System.Drawing.Size(897, 349);
+            this.tab_log_game.Size = new System.Drawing.Size(897, 334);
             this.tab_log_game.TabIndex = 1;
             this.tab_log_game.Text = "Game";
             this.tab_log_game.UseVisualStyleBackColor = true;
@@ -1327,7 +1444,7 @@
             this.lst_log_game.HeaderStyle = System.Windows.Forms.ColumnHeaderStyle.None;
             this.lst_log_game.Location = new System.Drawing.Point(3, 3);
             this.lst_log_game.Name = "lst_log_game";
-            this.lst_log_game.Size = new System.Drawing.Size(891, 343);
+            this.lst_log_game.Size = new System.Drawing.Size(891, 328);
             this.lst_log_game.TabIndex = 0;
             this.lst_log_game.UseCompatibleStateImageBehavior = false;
             this.lst_log_game.View = System.Windows.Forms.View.Details;
@@ -1341,29 +1458,47 @@
             // 
             this.tab_test.Location = new System.Drawing.Point(4, 22);
             this.tab_test.Name = "tab_test";
-            this.tab_test.Size = new System.Drawing.Size(905, 375);
+            this.tab_test.Size = new System.Drawing.Size(905, 360);
             this.tab_test.TabIndex = 9;
             this.tab_test.Text = "Test";
             this.tab_test.UseVisualStyleBackColor = true;
             // 
-            // btn_users_reload
+            // panel_status
             // 
-            this.btn_users_reload.Dock = System.Windows.Forms.DockStyle.Bottom;
-            this.btn_users_reload.Location = new System.Drawing.Point(0, 346);
-            this.btn_users_reload.Name = "btn_users_reload";
-            this.btn_users_reload.Size = new System.Drawing.Size(187, 23);
-            this.btn_users_reload.TabIndex = 23;
-            this.btn_users_reload.Text = "Reload";
-            this.btn_users_reload.UseVisualStyleBackColor = true;
-            this.btn_users_reload.Click += new System.EventHandler(this.Btn_users_reload_Click);
+            this.panel_status.Controls.Add(this.txt_status);
+            this.panel_status.Controls.Add(this.btn_play);
+            this.panel_status.Dock = System.Windows.Forms.DockStyle.Bottom;
+            this.panel_status.Location = new System.Drawing.Point(0, 392);
+            this.panel_status.Name = "panel_status";
+            this.panel_status.Size = new System.Drawing.Size(913, 73);
+            this.panel_status.TabIndex = 2;
+            // 
+            // txt_status
+            // 
+            this.txt_status.Dock = System.Windows.Forms.DockStyle.Bottom;
+            this.txt_status.Location = new System.Drawing.Point(0, 53);
+            this.txt_status.Name = "txt_status";
+            this.txt_status.ReadOnly = true;
+            this.txt_status.Size = new System.Drawing.Size(913, 20);
+            this.txt_status.TabIndex = 3;
+            // 
+            // btn_play
+            // 
+            this.btn_play.Dock = System.Windows.Forms.DockStyle.Top;
+            this.btn_play.Location = new System.Drawing.Point(0, 0);
+            this.btn_play.Name = "btn_play";
+            this.btn_play.Size = new System.Drawing.Size(913, 50);
+            this.btn_play.TabIndex = 2;
+            this.btn_play.Text = "Play";
+            this.btn_play.UseVisualStyleBackColor = true;
             // 
             // Main
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(913, 451);
+            this.ClientSize = new System.Drawing.Size(913, 465);
+            this.Controls.Add(this.panel_status);
             this.Controls.Add(this.tabs_main);
-            this.Controls.Add(this.btn_play);
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Name = "Main";
             this.Text = "VRChat Launcher";
@@ -1375,6 +1510,7 @@
             this.splitContainer2.Panel2.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer2)).EndInit();
             this.splitContainer2.ResumeLayout(false);
+            this.flowLayoutPanel1.ResumeLayout(false);
             this.tableLayoutPanel8.ResumeLayout(false);
             this.tableLayoutPanel8.PerformLayout();
             this.panel5.ResumeLayout(false);
@@ -1390,10 +1526,16 @@
             this.panel4.PerformLayout();
             this.panel3.ResumeLayout(false);
             this.panel3.PerformLayout();
+            this.panel6.ResumeLayout(false);
+            this.panel6.PerformLayout();
             this.tab_mods.ResumeLayout(false);
+            this.splitContainer3.Panel1.ResumeLayout(false);
+            this.splitContainer3.Panel2.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.splitContainer3)).EndInit();
+            this.splitContainer3.ResumeLayout(false);
+            this.panel1.ResumeLayout(false);
             this.tableLayoutPanel1.ResumeLayout(false);
             this.tableLayoutPanel1.PerformLayout();
-            this.panel1.ResumeLayout(false);
             this.tab_settings.ResumeLayout(false);
             this.panel2.ResumeLayout(false);
             this.flow_settings.ResumeLayout(false);
@@ -1411,46 +1553,28 @@
             this.tabs_log.ResumeLayout(false);
             this.tab_log_launcher.ResumeLayout(false);
             this.tab_log_game.ResumeLayout(false);
+            this.panel_status.ResumeLayout(false);
+            this.panel_status.PerformLayout();
             this.ResumeLayout(false);
 
         }
 
         #endregion
-
-        private System.Windows.Forms.Button btn_play;
         private System.Windows.Forms.TabControl tabs_main;
         private System.Windows.Forms.TabPage tab_news;
         private System.Windows.Forms.WebBrowser web_home;
         private System.Windows.Forms.TabPage tab_users;
         private System.Windows.Forms.TabPage tab_avatars;
         private System.Windows.Forms.TabPage tab_worlds;
-        private System.Windows.Forms.TabPage tab_profile;
-        private System.Windows.Forms.TabPage tab_mods;
         private System.Windows.Forms.TabPage tab_settings;
-        private System.Windows.Forms.RichTextBox txt_mod_description;
-        private System.Windows.Forms.Label lbl_mod_description;
-        private System.Windows.Forms.Label lbl_mod_type;
-        private System.Windows.Forms.TextBox txt_mod_type;
-        private System.Windows.Forms.Label lbl_mod_author;
-        private System.Windows.Forms.TextBox txt_mod_author;
-        private System.Windows.Forms.Label lbl_mod_version;
-        private System.Windows.Forms.TextBox txt_mod_version;
-        private System.Windows.Forms.Label lbl_mod_path;
-        private System.Windows.Forms.TextBox txt_mod_path;
-        private System.Windows.Forms.Label lbl_mod_name;
-        private System.Windows.Forms.TextBox txt_mod_name;
         private System.Windows.Forms.TabPage tab_log;
         private System.Windows.Forms.TabControl tabs_log;
         private System.Windows.Forms.TabPage tab_log_launcher;
         private System.Windows.Forms.TabPage tab_log_game;
-        private System.Windows.Forms.ListView lst_mods;
         private System.Windows.Forms.ListView lst_log_launcher;
         private System.Windows.Forms.ListView lst_log_game;
         private System.Windows.Forms.ColumnHeader columnHeader1;
         private System.Windows.Forms.ColumnHeader columnHeader2;
-        private System.Windows.Forms.Button btn_mods_refresh;
-        private System.Windows.Forms.Panel panel1;
-        private System.Windows.Forms.TableLayoutPanel tableLayoutPanel1;
         private System.Windows.Forms.FlowLayoutPanel flow_settings;
         private System.Windows.Forms.TableLayoutPanel tableLayoutPanel2;
         private System.Windows.Forms.Label label1;
@@ -1493,7 +1617,6 @@
         private System.Windows.Forms.TextBox txt_avatar_name;
         private System.Windows.Forms.Label label16;
         private System.Windows.Forms.TextBox txt_avatar_version;
-        private System.Windows.Forms.TextBox txt_avatar_author;
         private System.Windows.Forms.Panel panel4;
         private System.Windows.Forms.Button btn_avatar_search;
         private System.Windows.Forms.TextBox txt_avatar_id;
@@ -1502,10 +1625,20 @@
         private System.Windows.Forms.TextBox txt_avatar_asseturl;
         private System.Windows.Forms.SplitContainer splitContainer2;
         private System.Windows.Forms.TreeView tree_users;
+        private System.Windows.Forms.Button btn_users_reload;
+        private System.Windows.Forms.Panel panel6;
+        private System.Windows.Forms.Button btn_avatars_profile;
+        private System.Windows.Forms.TextBox txt_avatar_author;
+        private System.Windows.Forms.Button btn_users_save;
+        private System.Windows.Forms.FlowLayoutPanel flowLayoutPanel1;
+        private System.Windows.Forms.Button btn_users_friend_add;
+        private System.Windows.Forms.Button btn_users_friend_remove;
+        private System.Windows.Forms.Button btn_users_block;
+        private System.Windows.Forms.Button btn_users_unblock;
         private System.Windows.Forms.TableLayoutPanel tableLayoutPanel8;
         private System.Windows.Forms.Label label13;
-        private System.Windows.Forms.RichTextBox richTextBox1;
-        private System.Windows.Forms.TextBox textBox11;
+        private System.Windows.Forms.RichTextBox txt_users_tags;
+        private System.Windows.Forms.TextBox txt_users_rank;
         private System.Windows.Forms.Label label17;
         private System.Windows.Forms.Label label18;
         private System.Windows.Forms.Label label19;
@@ -1515,9 +1648,29 @@
         private System.Windows.Forms.TextBox txt_users_username;
         private System.Windows.Forms.TextBox txt_users_status;
         private System.Windows.Forms.Panel panel5;
-        private System.Windows.Forms.Button button1;
+        private System.Windows.Forms.Button btn_users_search;
         private System.Windows.Forms.TextBox txt_users_id;
-        private System.Windows.Forms.Button btn_users_reload;
+        private System.Windows.Forms.Panel panel_status;
+        private System.Windows.Forms.Button btn_play;
+        public System.Windows.Forms.TextBox txt_status;
+        private System.Windows.Forms.TabPage tab_mods;
+        private System.Windows.Forms.SplitContainer splitContainer3;
+        private System.Windows.Forms.TableLayoutPanel tableLayoutPanel1;
+        private System.Windows.Forms.Label lbl_mod_name;
+        private System.Windows.Forms.RichTextBox txt_mod_description;
+        private System.Windows.Forms.TextBox txt_mod_type;
+        private System.Windows.Forms.Label lbl_mod_description;
+        private System.Windows.Forms.Label lbl_mod_path;
+        private System.Windows.Forms.Label lbl_mod_type;
+        private System.Windows.Forms.TextBox txt_mod_path;
+        private System.Windows.Forms.Label lbl_mod_author;
+        private System.Windows.Forms.TextBox txt_mod_name;
+        private System.Windows.Forms.Label lbl_mod_version;
+        private System.Windows.Forms.TextBox txt_mod_version;
+        private System.Windows.Forms.TextBox txt_mod_author;
+        private System.Windows.Forms.Panel panel1;
+        private System.Windows.Forms.ListView lst_mods;
+        private System.Windows.Forms.Button btn_mods_refresh;
     }
 }
 

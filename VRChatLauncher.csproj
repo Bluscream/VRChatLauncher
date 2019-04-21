@@ -122,10 +122,29 @@
     <Compile Include="Setup\VRCAPI\LoginModal.Designer.cs">
       <DependentUpon>LoginModal.cs</DependentUpon>
     </Compile>
+    <Compile Include="UI\Avatars.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="UI\Log.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="UI\Mods.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="UI\Settings.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="UI\Users.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="UI\Worlds.cs">
+      <SubType>Form</SubType>
+    </Compile>
     <Compile Include="Updater\Launcher.cs" />
     <Compile Include="Updater\VRCModLoader.cs" />
     <Compile Include="Updater\VRCTools.cs" />
     <Compile Include="Utils\Config.cs" />
+    <Compile Include="Utils\Extensions.cs" />
     <Compile Include="Utils\ExternalConsole.cs" />
     <Compile Include="Utils\Game.cs" />
     <Compile Include="IPC\Launcher.cs" />
@@ -154,15 +173,6 @@
     </EmbeddedResource>
     <None Include="app.config" />
     <None Include="packages.config" />
-    <None Include="Properties\Settings.settings">
-      <Generator>SettingsSingleFileGenerator</Generator>
-      <LastGenOutput>Settings.Designer.cs</LastGenOutput>
-    </None>
-    <Compile Include="Properties\Settings.Designer.cs">
-      <AutoGen>True</AutoGen>
-      <DependentUpon>Settings.settings</DependentUpon>
-      <DesignTimeSharedInput>True</DesignTimeSharedInput>
-    </Compile>
   </ItemGroup>
   <ItemGroup>
     <Content Include="Launcher.ico" />

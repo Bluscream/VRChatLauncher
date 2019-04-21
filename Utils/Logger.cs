@@ -1,16 +1,41 @@
 ﻿using System;
 using System.Diagnostics;
+using System.Drawing;
+using System.IO;
 using System.Linq;
 
 namespace VRChatLauncher.Utils
 {
     class Logger
     {
+        private static FileInfo getLogFile(string fileName = "Launcher.log") {
+            return new FileInfo(Path.Combine(Utils.getOwnPath().DirectoryName, fileName));
+        }
         public static void Init() {
             Console.Title = "VRChat Launcher Log";
             var args = Environment.GetCommandLineArgs().Skip(1).ToArray();
             args = args.Select(s => s.ToLowerInvariant()).ToArray();
             if (args.Contains("--vrclauncher.console")) { /* ExternalConsole.InitConsole(); */ }
+        }
+        public static void ClearLog() {
+            var log = getLogFile();
+            if (log.Exists && log.Length > 0) File.WriteAllText(log.FullName,string.Empty);
+            }
+        private static Tuple<Color, ConsoleColor> ColorFromLogLevel(VRChatApi.Logging.LogLevel logLevel) {
+            switch (logLevel) {
+                case VRChatApi.Logging.LogLevel.Trace:
+                    return new Tuple<Color, ConsoleColor>(Color.Gray, ConsoleColor.Gray);
+                case VRChatApi.Logging.LogLevel.Debug:
+                    return new Tuple<Color, ConsoleColor>(Color.Cyan, ConsoleColor.Cyan);
+                case VRChatApi.Logging.LogLevel.Warn:
+                    return new Tuple<Color, ConsoleColor>(Color.Orange, ConsoleColor.DarkYellow);
+                case VRChatApi.Logging.LogLevel.Error:
+                    return new Tuple<Color, ConsoleColor>(Color.Red, ConsoleColor.Red);
+                case VRChatApi.Logging.LogLevel.Fatal:
+                    return new Tuple<Color, ConsoleColor>(Color.DarkRed, ConsoleColor.DarkRed);
+                default:
+                    return new Tuple<Color, ConsoleColor>(Color.White, ConsoleColor.White);
+            }
         }
         public static void Trace(params object[] msg) => log(VRChatApi.Logging.LogLevel.Trace, msgs: msg);
         public static void Debug(params object[] msg) => log(VRChatApi.Logging.LogLevel.Debug, msgs: msg);
@@ -27,24 +52,10 @@ namespace VRChatLauncher.Utils
             string timestamp = DateTime.UtcNow.ToString("HH:mm:ss.fff", System.Globalization.CultureInfo.InvariantCulture);
             StackFrame frame = new StackFrame(1); var method = frame.GetMethod(); var cName = method.DeclaringType.Name; var mName = method.Name;
             var oldColor = Console.ForegroundColor;
+            var newColor = ColorFromLogLevel(logLevel);
+            Console.ForegroundColor = newColor.Item2;
             var item = new System.Windows.Forms.ListViewItem();
-            switch (logLevel)
-            {
-                case VRChatApi.Logging.LogLevel.Trace:
-                    Console.ForegroundColor = ConsoleColor.Gray; item.ForeColor = System.Drawing.Color.Gray;break;
-                case VRChatApi.Logging.LogLevel.Debug:
-                    Console.ForegroundColor = ConsoleColor.Cyan; item.ForeColor = System.Drawing.Color.Cyan; break;
-                case VRChatApi.Logging.LogLevel.Info:
-                    Console.ForegroundColor = ConsoleColor.White; break;
-                case VRChatApi.Logging.LogLevel.Warn:
-                    Console.ForegroundColor = ConsoleColor.DarkYellow; item.ForeColor = System.Drawing.Color.Orange; break;
-                case VRChatApi.Logging.LogLevel.Error:
-                    Console.ForegroundColor = ConsoleColor.Red; item.ForeColor = System.Drawing.Color.Red; break;
-                case VRChatApi.Logging.LogLevel.Fatal:
-                    Console.ForegroundColor = ConsoleColor.DarkRed; item.BackColor = System.Drawing.Color.Red; break;
-                default:
-                    break;
-            }
+            item.ForeColor = newColor.Item1;
             var str = "";
             var seperator = lines ? Environment.NewLine : " ";
             foreach(var msg in msgs) {
@@ -55,10 +66,15 @@ namespace VRChatLauncher.Utils
                 }
             }
             var line = $"[{timestamp}] {logLevel} - {cName}.{mName}: {str}";
-            if (Main.selflog != null){
+            if (Main.selflog != null) {
                 item.Text = line;
                 Main.selflog.Items.Add(item);
             }
+            if (Main.statusBar != null) {
+                Main.statusBar.Text = line;
+                Main.statusBar.ForeColor = newColor.Item1;
+            }
+            getLogFile().AppendLine(line);
             Console.WriteLine(line);
             Console.ForegroundColor = oldColor;
         }

@@ -30,6 +30,7 @@ namespace VRChatLauncher
                 Logger.Fatal("Launcher already running, exiting...");
                 Utils.Utils.Exit();return;
             }
+            Logger.ClearLog();
             var game_running = Game.IsGameAlreadyRunning();
             Logger.Log("Game already running:", game_running.ToString());
             if(!game_running) {
