@@ -12,10 +12,10 @@ namespace VRChatLauncher.Utils
             return new FileInfo(Path.Combine(Utils.getOwnPath().DirectoryName, fileName));
         }
         public static void Init() {
-            Console.Title = "VRChat Launcher Log";
+            try { Console.Title = "VRChat Launcher Log"; } catch { }
             var args = Environment.GetCommandLineArgs().Skip(1).ToArray();
             args = args.Select(s => s.ToLowerInvariant()).ToArray();
-            if (args.Contains("--vrclauncher.console")) { /* ExternalConsole.InitConsole(); */ }
+            if (args.Contains("--vrclauncher.console")) { ExternalConsole.InitConsole(); }
         }
         public static void ClearLog() {
             var log = getLogFile();
@@ -53,7 +53,7 @@ namespace VRChatLauncher.Utils
             StackFrame frame = new StackFrame(1); var method = frame.GetMethod(); var cName = method.DeclaringType.Name; var mName = method.Name;
             var oldColor = Console.ForegroundColor;
             var newColor = ColorFromLogLevel(logLevel);
-            Console.ForegroundColor = newColor.Item2;
+            try { Console.ForegroundColor = newColor.Item2; } catch { }
             var item = new System.Windows.Forms.ListViewItem();
             item.ForeColor = newColor.Item1;
             var str = "";
@@ -70,13 +70,15 @@ namespace VRChatLauncher.Utils
                 item.Text = line;
                 Main.selflog.Items.Add(item);
             }
-            if (Main.statusBar != null) {
+            if (Main.statusBar != null && logLevel > VRChatApi.Logging.LogLevel.Debug) {
                 Main.statusBar.Text = line;
                 Main.statusBar.ForeColor = newColor.Item1;
             }
             getLogFile().AppendLine(line);
-            Console.WriteLine(line);
-            Console.ForegroundColor = oldColor;
+            try {
+                Console.WriteLine(line);
+                Console.ForegroundColor = oldColor;
+            } catch { }
         }
     }
 }

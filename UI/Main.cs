@@ -147,24 +147,20 @@ namespace VRChatLauncher
         
 
         private void mainForm_loaded(object sender, EventArgs e) {
-            /*
-            if (Properties.Settings.Default.Maximised)
-            {
-                WindowState = FormWindowState.Maximized;
-                Location = Properties.Settings.Default.Location;
-                Size = Properties.Settings.Default.Size;
+            var state = config["Window"]["State"];var loc = config["Window"]["Location"].Split(':');var size = config["Window"]["Size"].Split(':');
+            Logger.Debug("Was ", config["Window"]["State"], "Location:", loc, "Size:", size);
+            switch (state) {
+                case "Maximized":
+                    WindowState = FormWindowState.Maximized;
+                    break;
+                case "Minimized":
+                    // WindowState = FormWindowState.Minimized;
+                    break;
+                default:
+                    Location = new System.Drawing.Point(int.Parse(loc[0]), int.Parse(loc[1]));
+                    Size = new System.Drawing.Size(int.Parse(size[1]), int.Parse(size[0]));
+                    break;
             }
-            else if (Properties.Settings.Default.Minimised)
-            {
-                WindowState = FormWindowState.Minimized;
-                Location = Properties.Settings.Default.Location;
-                Size = Properties.Settings.Default.Size;
-            }
-            else
-            {
-                Location = Properties.Settings.Default.Location;
-                Size = Properties.Settings.Default.Size;
-            }*/
             columnHeader1.Width = -1;
             columnHeader2.Width = -1;
             // Task.Run(() => LogReader.ReadLogs());
@@ -172,9 +168,12 @@ namespace VRChatLauncher
 
         private void Main_FormClosing(object sender, FormClosingEventArgs e)
         {
-            config["window"]["location"] = RestoreBounds.Location.X.ToString() + ":" + RestoreBounds.Location.Y.ToString();
-            config["window"]["size"] = RestoreBounds.Size.Height.ToString() + ":" + RestoreBounds.Size.Width.ToString();
-            config["window"]["state"] = WindowState.ToString();
+            Logger.Debug("called");
+            if(WindowState == FormWindowState.Normal) {
+                config["Window"]["Location"] = RestoreBounds.Location.X.ToString() + ":" + RestoreBounds.Location.Y.ToString();
+                config["Window"]["Size"] = RestoreBounds.Size.Height.ToString() + ":" + RestoreBounds.Size.Width.ToString();
+            }
+            config["Window"]["State"] = WindowState.ToString();
             Config.Save(config);
         }
     }

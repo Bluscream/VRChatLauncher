@@ -1499,6 +1499,7 @@
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Name = "Main";
             this.Text = "VRChat Launcher";
+            this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.Main_FormClosing);
             this.Load += new System.EventHandler(this.mainForm_loaded);
             this.tabs_main.ResumeLayout(false);
             this.tab_news.ResumeLayout(false);
