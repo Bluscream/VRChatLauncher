@@ -28,6 +28,7 @@ namespace VRChatLauncher.Utils
         public static void Save(IniData config, string file = null, FileIniDataParser parser = null) {
             if (file == null) file = DefaultConfigFile;
             if (parser == null) parser = new FileIniDataParser();
+            if (config.Sections.Count < 1) return;
             Logger.Debug("Writing config to", file);
             parser.WriteFile(file, config);
         }

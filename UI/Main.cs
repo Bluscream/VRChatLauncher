@@ -1,4 +1,5 @@
 ﻿using System;
+using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Windows.Forms;
@@ -62,10 +63,13 @@ namespace VRChatLauncher
             gameSelector.Filter = "VRChat Executable|VRChat.exe|All Executables|*.exe";
             if (gameSelector.ShowDialog() == DialogResult.OK)
             {
-                string fileToOpen = gameSelector.FileName;
-                System.IO.FileInfo File = new System.IO.FileInfo(gameSelector.FileName);
+                var Game = new FileInfo(gameSelector.FileName);
+                var Launcher = Utils.Utils.getOwnPath();
+                var newPath = new FileInfo(Path.Combine(Game.DirectoryName, Launcher.Name));
+                Launcher.CopyTo(newPath.FullName);
+                Utils.Utils.StartProcess(newPath, "--vrclauncher.keep", Launcher.FullName.Quote());
             }
-            // ADD LOGIC
+            Utils.Utils.Exit();
         }
         public async Task<bool> VRCAPILogin(string username, string password)
         {
