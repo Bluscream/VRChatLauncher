@@ -6,6 +6,7 @@ using System.IO;
 using System.Linq;
 using System.Text;
 using System.Text.RegularExpressions;
+using System.Threading;
 using System.Threading.Tasks;
 
 namespace VRChatLauncher.Utils
@@ -55,8 +56,21 @@ namespace VRChatLauncher.Utils
         }
         public static void AppendLine(this FileInfo file, string line)
         {
-            if (!file.Exists) file.Create();
-            File.AppendAllLines(file.FullName, new string[] { line });
+            try {
+                if (!file.Exists) file.Create();
+                File.AppendAllLines(file.FullName, new string[] { line });
+            } catch { }
+        }
+        public static async Task<TResult> TimeoutAfter<TResult>(this Task<TResult> task, TimeSpan timeout) {
+            using (var timeoutCancellationTokenSource = new CancellationTokenSource()) {
+                var completedTask = await Task.WhenAny(task, Task.Delay(timeout, timeoutCancellationTokenSource.Token));
+                if (completedTask == task) {
+                    timeoutCancellationTokenSource.Cancel();
+                    return await task;  // Very important in order to propagate exceptions
+                } else {
+                    return default(TResult);
+                }
+            }
         }
     }
 }

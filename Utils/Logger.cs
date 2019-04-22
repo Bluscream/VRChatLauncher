@@ -19,7 +19,7 @@ namespace VRChatLauncher.Utils
         }
         public static void ClearLog() {
             var log = getLogFile();
-            if (log.Exists && log.Length > 0) File.WriteAllText(log.FullName,string.Empty);
+            if (log.Exists && log.Length > 0) try { File.WriteAllText(log.FullName, string.Empty); } catch { }
             }
         private static Tuple<Color, ConsoleColor> ColorFromLogLevel(VRChatApi.Logging.LogLevel logLevel) {
             switch (logLevel) {

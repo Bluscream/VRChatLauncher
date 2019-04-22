@@ -49,22 +49,45 @@ namespace VRChatLauncher
             tree_worlds.Nodes[1].Text = $"Favorites ({tree_worlds.Nodes[1].Nodes.Count})";
             worlds_loading = false;
         }
-        private void FillWorld(WorldBriefResponse world)
+        private void FillWorld(WorldResponse world)
         {
             txt_world_id.Text = world.id;
             txt_world_id.Tag = world;
             txt_world_name.Text = world.name;
-            // txt_world_version.Text = world.version.ToString();
-            // txt_world_author.Text = $"{world.authorName} ({world.authorId})";
-            // txt_world_asset.Text = world.assetUrl;
-            // txt_world_description.Text = world.description;
+            txt_world_version.Text = world.version.ToString();
+            txt_world_author.Text = $"{world.authorName} ({world.authorId})";
+            txt_world_asset.Text = world.assetUrl;
+            txt_world_description.Text = world.description;
         }
 
-        private void worlds_node_selected(object sender, TreeNodeMouseClickEventArgs e)
+        private async void worlds_node_selectedAsync(object sender, TreeNodeMouseClickEventArgs e)
         {
             if (e.Node.Tag == null) return;
-            WorldBriefResponse world = (WorldBriefResponse)e.Node.Tag;
+            WorldResponse world;
+            if (e.Node.Tag is WorldResponse) {
+                world = (WorldResponse)e.Node.Tag;
+            } else if (e.Node.Tag is WorldBriefResponse) {
+                var _world = (WorldBriefResponse)e.Node.Tag;
+            Logger.Warn("test7");
+                var fullworld = await vrcapi.WorldApi.Get(_world.id);
+            Logger.Warn("test8");
+                e.Node.Tag = fullworld;
+            Logger.Warn("test9");
+                world = (WorldResponse)e.Node.Tag;
+            Logger.Warn("test10");
+            } else { return; }
+            Logger.Warn("test11");
             FillWorld(world);
+            Logger.Warn("test12");
+            e.Node.Nodes.Clear();
+            Logger.Warn("test13");
+            foreach (var instance in world.instances)
+            {
+            Logger.Warn("test14");
+                var node = new TreeNode($"{instance.id} ({instance.occupants}/{world.capacity})");
+                e.Node.Nodes.Add(node);
+            }
+            Logger.Warn("test15");
         }
 
         private void Btn_worlds_reload_Click(object sender, EventArgs e)

@@ -71,7 +71,7 @@ namespace VRChatLauncher
         {
             Logger.Log("Trying to log in as", username, "...");
             vrcapi = new VRChatApi.VRChatApi(username, password);
-            me = await vrcapi.UserApi.Login();
+            me = await vrcapi.UserApi.Login().TimeoutAfter(TimeSpan.FromSeconds(3));
             if (me == null) {
                 var confirmResult = MessageBox.Show($"Something went wrong while logging you in as {username}\n\nRetry?", "Failed to log in!", MessageBoxButtons.RetryCancel, MessageBoxIcon.Error);
                 if (confirmResult == DialogResult.Retry) return await VRCAPILogin(username, password);
@@ -178,6 +178,11 @@ namespace VRChatLauncher
             }
             config["Window"]["State"] = WindowState.ToString();
             Config.Save(config);
+        }
+
+        private void ContextMenuStrip1_Opening(object sender, System.ComponentModel.CancelEventArgs e)
+        {
+
         }
     }
 }
