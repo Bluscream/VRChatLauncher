@@ -13,6 +13,9 @@ namespace VRChatLauncher.Utils
 {
     static class Extensions
     {
+        public static string FileNameWithoutExtension(this FileInfo file) {
+            return Path.GetFileNameWithoutExtension(file.Name);
+        }
         public static object ToJson(this object obj, bool indented = true) {
             return JsonConvert.SerializeObject(obj, (indented ? Formatting.Indented : Formatting.None), new JsonConverter[] { new StringEnumConverter() });
         }

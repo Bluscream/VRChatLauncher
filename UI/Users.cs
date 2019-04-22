@@ -95,7 +95,7 @@ namespace VRChatLauncher
                 }
                 friends = friends.OrderBy(o=>o.location).ToList();
                 friends = friends.OrderBy(o=>o.displayName).ToList();
-                Logger.Debug("Downloaded list of", friends.Count, "official friends");
+                Logger.Log("Downloaded list of", friends.Count, "official friends");
             }
             foreach (var friend in friends)
             {
@@ -116,7 +116,7 @@ namespace VRChatLauncher
             return;
             if (favorite_avatars == null || force) {
                 favorite_avatars = await vrcapi.AvatarApi.Favorites();
-                Logger.Debug("Downloaded list of", favorite_avatars.Count, "official favorite avatars");
+                Logger.Log("Downloaded list of", favorite_avatars.Count, "official favorite avatars");
             }
             foreach (var avatar in favorite_avatars)
             {

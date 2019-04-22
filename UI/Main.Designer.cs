@@ -166,6 +166,7 @@
             this.panel_status = new System.Windows.Forms.Panel();
             this.txt_status = new System.Windows.Forms.TextBox();
             this.btn_play = new System.Windows.Forms.Button();
+            this.icons_mods = new System.Windows.Forms.ImageList(this.components);
             this.tabs_main.SuspendLayout();
             this.tab_news.SuspendLayout();
             this.tab_users.SuspendLayout();
@@ -1187,15 +1188,17 @@
             this.lst_mods.Dock = System.Windows.Forms.DockStyle.Fill;
             this.lst_mods.FullRowSelect = true;
             this.lst_mods.HeaderStyle = System.Windows.Forms.ColumnHeaderStyle.None;
+            this.lst_mods.LargeImageList = this.icons_mods;
             this.lst_mods.Location = new System.Drawing.Point(0, 0);
             this.lst_mods.MultiSelect = false;
             this.lst_mods.Name = "lst_mods";
             this.lst_mods.ShowGroups = false;
             this.lst_mods.ShowItemToolTips = true;
             this.lst_mods.Size = new System.Drawing.Size(169, 337);
+            this.lst_mods.SmallImageList = this.icons_mods;
             this.lst_mods.TabIndex = 13;
             this.lst_mods.UseCompatibleStateImageBehavior = false;
-            this.lst_mods.View = System.Windows.Forms.View.List;
+            this.lst_mods.View = System.Windows.Forms.View.SmallIcon;
             this.lst_mods.ItemSelectionChanged += new System.Windows.Forms.ListViewItemSelectionChangedEventHandler(this.on_list_mods_ItemSelectionChanged);
             // 
             // menu_mod
@@ -1205,25 +1208,29 @@
             this.deleteModToolStripMenuItem,
             this.decompileModToolStripMenuItem});
             this.menu_mod.Name = "menu_mod";
-            this.menu_mod.Size = new System.Drawing.Size(181, 92);
+            this.menu_mod.Size = new System.Drawing.Size(132, 70);
+            this.menu_mod.Opening += new System.ComponentModel.CancelEventHandler(this.Menu_mod_Opening);
             // 
             // toggleModToolStripMenuItem
             // 
             this.toggleModToolStripMenuItem.Name = "toggleModToolStripMenuItem";
-            this.toggleModToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.toggleModToolStripMenuItem.Size = new System.Drawing.Size(131, 22);
             this.toggleModToolStripMenuItem.Text = "Disable";
+            this.toggleModToolStripMenuItem.Click += new System.EventHandler(this.ToggleModToolStripMenuItem_Click);
             // 
             // deleteModToolStripMenuItem
             // 
             this.deleteModToolStripMenuItem.Name = "deleteModToolStripMenuItem";
-            this.deleteModToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.deleteModToolStripMenuItem.Size = new System.Drawing.Size(131, 22);
             this.deleteModToolStripMenuItem.Text = "Delete";
+            this.deleteModToolStripMenuItem.Click += new System.EventHandler(this.DeleteModToolStripMenuItem_Click);
             // 
             // decompileModToolStripMenuItem
             // 
             this.decompileModToolStripMenuItem.Name = "decompileModToolStripMenuItem";
-            this.decompileModToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.decompileModToolStripMenuItem.Size = new System.Drawing.Size(131, 22);
             this.decompileModToolStripMenuItem.Text = "Decompile";
+            this.decompileModToolStripMenuItem.Click += new System.EventHandler(this.DecompileModToolStripMenuItem_Click);
             // 
             // btn_mods_refresh
             // 
@@ -1541,6 +1548,12 @@
             this.btn_play.UseVisualStyleBackColor = true;
             this.btn_play.Click += new System.EventHandler(this.btn_play_Click);
             // 
+            // icons_mods
+            // 
+            this.icons_mods.ImageStream = ((System.Windows.Forms.ImageListStreamer)(resources.GetObject("icons_mods.ImageStream")));
+            this.icons_mods.TransparentColor = System.Drawing.Color.Transparent;
+            this.icons_mods.Images.SetKeyName(0, "vrctoolspng.png");
+            // 
             // Main
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -1731,6 +1744,7 @@
         private System.Windows.Forms.ToolStripMenuItem toggleModToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem deleteModToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem decompileModToolStripMenuItem;
+        private System.Windows.Forms.ImageList icons_mods;
     }
 }
 

@@ -51,7 +51,7 @@ namespace VRChatLauncher
             if (personal_avatars == null || force) {
                 if (Utils.Utils.getRipper().Exists) btn_avatar_rip.Visible = true;
                 personal_avatars = await vrcapi.AvatarApi.Personal();
-                Logger.Debug("Downloaded list of", personal_avatars.Count, "official personal avatars");
+                Logger.Log("Downloaded list of", personal_avatars.Count, "official personal avatars");
             }
             foreach (var avatar in personal_avatars)
             {
@@ -64,7 +64,7 @@ namespace VRChatLauncher
 
             if (favorite_avatars == null || force) {
                 favorite_avatars = await vrcapi.AvatarApi.Favorites();
-                Logger.Debug("Downloaded list of", favorite_avatars.Count, "official favorite avatars");
+                Logger.Log("Downloaded list of", favorite_avatars.Count, "official favorite avatars");
             }
             foreach (var avatar in favorite_avatars)
             {

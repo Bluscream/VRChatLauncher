@@ -40,15 +40,30 @@ namespace VRChatLauncher.Utils
             }
             return mod;
         }
-        public static Mod GetMod(string file)  {
-            var mod = new Mod();
-            mod.File = new FileInfo(file);
-            mod.FileNameWithoutExtension = Path.GetFileNameWithoutExtension(mod.File.Name);
-            try {
-                mod = GetModInfo(mod);
-                // Logger.Trace(mod.FileNameWithoutExtension, "Type:", mod.Type.ToString(), "Name:", mod.Name, "Version:", mod.Version, "Author:", mod.Author);
-                // Logger.Debug(mod.ToString());
-            } catch (Exception ex) { Logger.Error("Can't load mod", $"\"{mod.File.Name}\"", $"({ex.Message})", Environment.NewLine, ex.StackTrace); }
+        public static Mod EnableMod(Mod mod)
+        {
+            if (mod.File.Directory.Name != "Disabled") {
+                Logger.Warn("Mod", mod.Name, "is already in folder", mod.File.Directory.Name);
+                return mod;
+            }
+            var newPath = Path.Combine(mod.File.Directory.Parent.FullName, mod.File.Name);
+            Logger.Debug("Moving mod", mod.Name, "to", newPath);
+            mod.File.MoveTo(newPath);
+            mod.File = new FileInfo(newPath);
+            mod.Enabled = true;
+            return mod;
+        }
+        public static Mod DisableMod(Mod mod)
+        {
+            if (mod.File.Directory.Name == "Disabled") {
+                Logger.Warn("Mod", mod.Name, "is already in folder", mod.File.Directory.Name);
+                return mod;
+            }
+            var newPath = Path.Combine(mod.File.DirectoryName, "Disabled", mod.File.Name);
+            Logger.Debug("Moving mod", mod.Name, "to", newPath);
+            mod.File.MoveTo(newPath);
+            mod.File = new FileInfo(newPath);
+            mod.Enabled = false;
             return mod;
         }
         public static List<Mod> GetMods()
@@ -77,11 +92,67 @@ namespace VRChatLauncher.Utils
                     ret.Add(mod);
                 }
             }
-            Logger.Debug("Loaded", ret.Count.ToString(), "mods from", modPaths.Count.ToString(), "folders");
+            Logger.Log("Loaded", ret.Count.ToString(), "mods from", modPaths.Count.ToString(), "folders");
             return ret;
         }
+        public static List<TypeDefinition> GetTypes(Mod mod)
+        {
+            var ret = new List<TypeDefinition>(){ };
+            ModuleDefinition module = ModuleDefinition.ReadModule(mod.File.FullName);
+            ret = module.Types.ToList();
+            return ret;
+        }
+        public static Mod GetMod(string file)  {
+            var mod = new Mod();
+            // mod.Type = ModLoaderType.Unknown;
+            mod.File = new FileInfo(file);
+            mod.Name = mod.File.FileNameWithoutExtension();
+            try {
+                mod = GetModInfo(mod);
+            } catch (Exception ex) { Logger.Error("Can't load mod", $"\"{mod.File.Name}\"", $"({ex.Message})", Environment.NewLine, ex.StackTrace); }
+            return mod;
+        }
+        public static Mod GetModInfo(Mod mod) {
+            var types = GetTypes(mod);
+            // [ModuleInfo("Freecam/Drone", "1.0", "CJ - Credit to the real Meep <3 Join today | https://discord.gg/xgPdrGP")]
+            // [VRCModInfo("Single Instance", "2.1", "Bluscream")]
+            foreach (var type in types)
+            {
+                CustomAttribute ignoreAttribute;
+                if (TryGetCustomAttribute(type, "VRLoader.Attributes.ModuleInfoAttribute", out ignoreAttribute)) 
+                {
+                    mod.Type = ModLoaderType.VRLoader;
+                    mod.Name = (string)ignoreAttribute.ConstructorArguments[0].Value;
+                    mod.Version = (string)ignoreAttribute.ConstructorArguments[1].Value;
+                    mod.Author = (string)ignoreAttribute.ConstructorArguments[2].Value;
+                    return mod;
+                }
+                else if (TryGetCustomAttribute(type, "VRCModLoader.VRCModInfoAttribute", out ignoreAttribute))
+                {
+                    mod.Type = ModLoaderType.VRCModloader;
+                    mod.Name = (string)ignoreAttribute.ConstructorArguments[0].Value;
+                    mod.Version = (string)ignoreAttribute.ConstructorArguments[1].Value;
+                    mod.Author = (string)ignoreAttribute.ConstructorArguments[2].Value;
+                    return mod;
+                }
+            }
+            return mod;
+        }
+        public static bool TryGetCustomAttribute(TypeDefinition type, string attributeType, out CustomAttribute result)
+        {
+            result = null;
+            if (!type.HasCustomAttributes) return false;
+            foreach (CustomAttribute attribute in type.CustomAttributes) {
+                if (attribute.AttributeType.FullName != attributeType)
+                    continue;
+
+                result = attribute;
+                return true;
+            }
+            return false;
+        }
+
         public class Mod {
-            public string FileNameWithoutExtension { get; set; }
             public FileInfo File { get; set; }
             public bool Enabled { get; set; }
             public string Name { get; set; }
@@ -101,59 +172,6 @@ namespace VRChatLauncher.Utils
             Unknown,
             VRCModloader,
             VRLoader
-        }
-        public static List<TypeDefinition> GetTypes(Mod mod)
-        {
-            var ret = new List<TypeDefinition>(){ };
-            ModuleDefinition module = ModuleDefinition.ReadModule(mod.File.FullName);
-            ret = module.Types.ToList();
-            // Logger.Trace(mod.FileNameWithoutExtension, "Types:", string.Join(", ", ret));
-            return ret;
-        }
-        public static Mod GetModInfo(Mod mod) {
-            var types = GetTypes(mod);
-            // [ModuleInfo("Freecam/Drone", "1.0", "CJ - Credit to the real Meep <3 Join today | https://discord.gg/xgPdrGP")]
-            // [VRCModInfo("Single Instance", "2.1", "Bluscream")]
-            foreach (var type in types)
-            {
-                // Logger.Log("Now checking type", type.ToString());
-                CustomAttribute ignoreAttribute;
-                if (TryGetCustomAttribute(type, "VRLoader.Attributes.ModuleInfoAttribute", out ignoreAttribute)) 
-                {
-                    // Logger.Warn("Found VRLoader mod!");
-                    mod.Type = ModLoaderType.VRLoader;
-                    mod.Name = (string)ignoreAttribute.ConstructorArguments[0].Value;
-                    mod.Version = (string)ignoreAttribute.ConstructorArguments[1].Value;
-                    mod.Author = (string)ignoreAttribute.ConstructorArguments[2].Value;
-                }
-                else if (TryGetCustomAttribute(type, "VRCModLoader.VRCModInfoAttribute", out ignoreAttribute))
-                {
-                    // Logger.Warn("Found VRCModloader mod!");
-                    mod.Type = ModLoaderType.VRCModloader;
-                    mod.Name = (string)ignoreAttribute.ConstructorArguments[0].Value;
-                    mod.Version = (string)ignoreAttribute.ConstructorArguments[1].Value;
-                    mod.Author = (string)ignoreAttribute.ConstructorArguments[2].Value;
-                }
-                else
-                {
-                    mod.Type = ModLoaderType.Unknown;
-                    mod.Name = mod.FileNameWithoutExtension;
-                }
-            }
-            return mod;
-        }
-        public static bool TryGetCustomAttribute(TypeDefinition type, string attributeType, out CustomAttribute result)
-        {
-            result = null;
-            if (!type.HasCustomAttributes) return false;
-            foreach (CustomAttribute attribute in type.CustomAttributes) {
-                if (attribute.AttributeType.FullName != attributeType)
-                    continue;
-
-                result = attribute;
-                return true;
-            }
-            return false;
         }
     }
 }

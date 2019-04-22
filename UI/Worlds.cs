@@ -25,7 +25,7 @@ namespace VRChatLauncher
             if (personal_worlds == null || force) {
                 if (Utils.Utils.getRipper().Exists) btn_worlds_rip.Visible = true;
                 personal_worlds = await vrcapi.WorldApi.Search(user: UserOptions.Me, releaseStatus: ReleaseStatus.All, count: 100);
-                Logger.Debug("Downloaded list of", personal_worlds.Count, "official personal worlds");
+                Logger.Log("Downloaded list of", personal_worlds.Count, "official personal worlds");
             }
             foreach (var world in personal_worlds)
             {
@@ -37,7 +37,7 @@ namespace VRChatLauncher
             tree_worlds.Nodes[0].Text = $"Personal ({tree_worlds.Nodes[0].Nodes.Count})";
             if (favorite_worlds == null || force) {
                 favorite_worlds = await vrcapi.WorldApi.Search(WorldGroups.Favorite, releaseStatus: ReleaseStatus.All, count: 100);
-                Logger.Debug("Downloaded list of", favorite_worlds.Count, "official favorite worlds");
+                Logger.Log("Downloaded list of", favorite_worlds.Count, "official favorite worlds");
             }
             foreach (var avatar in favorite_worlds)
             {

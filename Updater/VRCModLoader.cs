@@ -42,7 +42,7 @@ namespace VRChatLauncher.Updater
             this.username = "<none>";
             this.type = type;
             this.data = data;
-            Logger.Log(this.toJSON());
+            Logger.Debug(this.toJSON());
         }
         public string toJSON() {
             return Newtonsoft.Json.JsonConvert.SerializeObject(this);

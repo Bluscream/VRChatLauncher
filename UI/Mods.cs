@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Drawing;
 using System.Linq;
 using System.Windows.Forms;
+using VRChatLauncher.Utils;
 using static VRChatLauncher.Utils.Mods;
 
 namespace VRChatLauncher
@@ -34,14 +35,27 @@ namespace VRChatLauncher
                 var broken = string.IsNullOrEmpty(mod.Version);
                 var item = new ListViewItem();
                 item.Tag = mod;
-                if(!mod.Enabled) item.BackColor = Color.Gray;
+                // ImageList imageList = new ImageList();
+                // imageList.Images.Add(Properties.Resources.vrctoolspng);
+                switch (mod.Type)
+                {
+                    case ModLoaderType.Unknown:
+                        break;
+                    case ModLoaderType.VRCModloader:
+                        item.ImageIndex = 0;break;
+                    case ModLoaderType.VRLoader:
+                        break;
+                    default:
+                        break;
+                }
                 if (broken) {
-                    item.Text = mod.FileNameWithoutExtension;
+                    item.Text = mod.File.FileNameWithoutExtension();
                     item.ForeColor = Color.Red;
                 } else {
                     item.Text = mod.Name;
-                    item.ToolTipText = mod.FileNameWithoutExtension;
+                    item.ToolTipText = mod.File.FileNameWithoutExtension();
                 }
+                if(!mod.Enabled) item.ForeColor = Color.Gray;
                 lst_mods.Items.Add(item);
             }
 
@@ -63,6 +77,47 @@ namespace VRChatLauncher
 
         private void on_btn_mods_refresh_Click(object sender, EventArgs e) {
             SetupMods(force: true);
+        }
+
+        private void Menu_mod_Opening(object sender, System.ComponentModel.CancelEventArgs e)
+        {
+            var mod = (Mod)lst_mods.SelectedItems[0].Tag;
+            if (mod == null) return;
+            menu_mod.Items[0].Text = mod.Enabled ? "Disable" : "Enable";
+        }
+
+        private void ToggleModToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            var mod = (Mod)lst_mods.SelectedItems[0].Tag;
+            if (mod == null) return;
+            Logger.Debug(mod.ToJson());
+            if (mod.Enabled)
+            {
+                var confirmResult = MessageBox.Show($"Mod {mod.Name} will be moved to the Mods/Disabled/ folder, Are you sure?", "Disable mod?", MessageBoxButtons.OKCancel, MessageBoxIcon.Question);
+                if (confirmResult != DialogResult.OK) { return; }
+                mod = DisableMod(mod);
+                if (mod.Enabled) MessageBox.Show($"Failed to disable mod {mod.Name}, check logs/console!", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            } else {
+                mod = EnableMod(mod);
+                if (!mod.Enabled) MessageBox.Show($"Failed to enable mod {mod.Name}, check logs/console!", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+            SetupMods(true);
+        }
+
+        private void DeleteModToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            var mod = (Mod)lst_mods.SelectedItems[0].Tag;
+            if (mod == null) return;
+            var confirmResult = MessageBox.Show($"Mod {mod.Name} will be deleted, Are you sure?", "Disable mod?", MessageBoxButtons.OKCancel, MessageBoxIcon.Warning);
+            if (confirmResult != DialogResult.OK) { return; }
+            mod.File.Delete();
+        }
+
+        private void DecompileModToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            var mod = (Mod)lst_mods.SelectedItems[0].Tag;
+            if (mod == null) return;
+            MessageBox.Show($"Not implemented", "tupper is gay", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
         }
     }
 }
