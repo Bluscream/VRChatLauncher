@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Drawing;
+using System.Linq;
 using System.Windows.Forms;
 using static VRChatLauncher.Utils.Mods;
 
@@ -19,6 +20,7 @@ namespace VRChatLauncher
             }
             if (mods == null || force) {
                 mods = GetMods();
+                mods.OrderBy(x => x.Name);
                 CheckForUpdates(mods);
                 if (Setup.Mods.IsVRCModLoaderInstalled()) {
                     Mod VRCModLoader = Updater.VRCModLoader.CheckForUpdate();
@@ -29,9 +31,10 @@ namespace VRChatLauncher
             lst_mods.Clear();
             foreach (var mod in mods)
             {
-                var broken = string.IsNullOrEmpty(mod.Name);
+                var broken = string.IsNullOrEmpty(mod.Version);
                 var item = new ListViewItem();
                 item.Tag = mod;
+                if(!mod.Enabled) item.BackColor = Color.Gray;
                 if (broken) {
                     item.Text = mod.FileNameWithoutExtension;
                     item.ForeColor = Color.Red;
@@ -41,6 +44,7 @@ namespace VRChatLauncher
                 }
                 lst_mods.Items.Add(item);
             }
+
         }
 
         int lastModIndex = 0;

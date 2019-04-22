@@ -183,10 +183,5 @@ namespace VRChatLauncher
             config["Window"]["State"] = WindowState.ToString();
             Config.Save(config);
         }
-
-        private void ContextMenuStrip1_Opening(object sender, System.ComponentModel.CancelEventArgs e)
-        {
-
-        }
     }
 }

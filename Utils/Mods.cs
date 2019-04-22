@@ -66,6 +66,14 @@ namespace VRChatLauncher.Utils
                 if (!Directory.Exists(modPath)) continue;
                 foreach (var file in Directory.GetFiles(modPath, "*.dll", SearchOption.TopDirectoryOnly)) {
                     var mod = GetMod(file);
+                    mod.Enabled = true;
+                    ret.Add(mod);
+                }
+                var disabledModPath = Path.Combine(modPath, "Disabled");
+                if (!Directory.Exists(disabledModPath)) continue;
+                foreach (var file in Directory.GetFiles(disabledModPath, "*.dll", SearchOption.TopDirectoryOnly)) {
+                    var mod = GetMod(file);
+                    mod.Enabled = false;
                     ret.Add(mod);
                 }
             }
@@ -75,6 +83,7 @@ namespace VRChatLauncher.Utils
         public class Mod {
             public string FileNameWithoutExtension { get; set; }
             public FileInfo File { get; set; }
+            public bool Enabled { get; set; }
             public string Name { get; set; }
             public ModLoaderType Type { get; set; }
             public string Version { get; set; }
@@ -124,6 +133,11 @@ namespace VRChatLauncher.Utils
                     mod.Name = (string)ignoreAttribute.ConstructorArguments[0].Value;
                     mod.Version = (string)ignoreAttribute.ConstructorArguments[1].Value;
                     mod.Author = (string)ignoreAttribute.ConstructorArguments[2].Value;
+                }
+                else
+                {
+                    mod.Type = ModLoaderType.Unknown;
+                    mod.Name = mod.FileNameWithoutExtension;
                 }
             }
             return mod;
