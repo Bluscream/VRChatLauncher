@@ -13,6 +13,10 @@ namespace VRChatLauncher.Utils
 {
     static class Extensions
     {
+        public static bool ExpiredSince(this DateTime dateTime, int minutes)
+        {
+            return (dateTime - DateTime.Now).TotalMinutes < minutes;
+        }
         public static string FileNameWithoutExtension(this FileInfo file) {
             return Path.GetFileNameWithoutExtension(file.Name);
         }

@@ -46,8 +46,8 @@
             System.Windows.Forms.TreeNode treeNode10 = new System.Windows.Forms.TreeNode("Personal");
             System.Windows.Forms.TreeNode treeNode11 = new System.Windows.Forms.TreeNode("Favorites");
             System.Windows.Forms.TreeNode treeNode12 = new System.Windows.Forms.TreeNode("VRCTools");
-            System.Windows.Forms.TreeNode treeNode13 = new System.Windows.Forms.TreeNode("Personal");
-            System.Windows.Forms.TreeNode treeNode14 = new System.Windows.Forms.TreeNode("Favorites");
+            System.Windows.Forms.TreeNode treeNode13 = new System.Windows.Forms.TreeNode("Personal", 2, 2);
+            System.Windows.Forms.TreeNode treeNode14 = new System.Windows.Forms.TreeNode("Favorites", -2, -2);
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Main));
             this.tabs_main = new System.Windows.Forms.TabControl();
             this.tab_news = new System.Windows.Forms.TabPage();
@@ -167,6 +167,7 @@
             this.txt_status = new System.Windows.Forms.TextBox();
             this.btn_play = new System.Windows.Forms.Button();
             this.icons_mods = new System.Windows.Forms.ImageList(this.components);
+            this.icons_worlds = new System.Windows.Forms.ImageList(this.components);
             this.tabs_main.SuspendLayout();
             this.tab_news.SuspendLayout();
             this.tab_users.SuspendLayout();
@@ -911,10 +912,14 @@
             this.tree_worlds.Dock = System.Windows.Forms.DockStyle.Fill;
             this.tree_worlds.Location = new System.Drawing.Point(0, 0);
             this.tree_worlds.Name = "tree_worlds";
+            treeNode13.ImageIndex = 2;
             treeNode13.Name = "Node0";
+            treeNode13.SelectedImageIndex = 2;
             treeNode13.Text = "Personal";
             treeNode13.ToolTipText = "Worlds uploaded by you";
+            treeNode14.ImageIndex = -2;
             treeNode14.Name = "Node0";
+            treeNode14.SelectedImageIndex = -2;
             treeNode14.Text = "Favorites";
             treeNode14.ToolTipText = "Worlds favorited though VRChat";
             this.tree_worlds.Nodes.AddRange(new System.Windows.Forms.TreeNode[] {
@@ -1554,6 +1559,12 @@
             this.icons_mods.TransparentColor = System.Drawing.Color.Transparent;
             this.icons_mods.Images.SetKeyName(0, "vrctoolspng.png");
             // 
+            // icons_worlds
+            // 
+            this.icons_worlds.ImageStream = ((System.Windows.Forms.ImageListStreamer)(resources.GetObject("icons_worlds.ImageStream")));
+            this.icons_worlds.TransparentColor = System.Drawing.Color.Transparent;
+            this.icons_worlds.Images.SetKeyName(0, "lock.png");
+            // 
             // Main
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -1745,6 +1756,7 @@
         private System.Windows.Forms.ToolStripMenuItem deleteModToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem decompileModToolStripMenuItem;
         private System.Windows.Forms.ImageList icons_mods;
+        private System.Windows.Forms.ImageList icons_worlds;
     }
 }
 
