@@ -122,13 +122,19 @@ namespace VRChatLauncher.Utils
             Main.webClient.DownloadFile(url, Path.Combine(destinationPath.FullName, fileName));
             return new FileInfo(Path.Combine(destinationPath.FullName, fileName));
         }
-        
-        public static Process StartProcess(FileInfo file, params string[] args)
-        {
+        public static void ShowFileInExplorer(FileInfo file) {
+            StartProcess("explorer.exe", null, "/select, "+file.FullName.Quote());
+        }
+        public static Process StartProcess(FileInfo file, params string[] args) => StartProcess(file.FullName, file.DirectoryName, args);
+        public static Process StartProcess(string file, string workDir = null, params string[] args) {
             ProcessStartInfo proc = new ProcessStartInfo();
-            proc.WorkingDirectory = file.DirectoryName;
-            proc.FileName = file.FullName;
+            proc.FileName = file;
             proc.Arguments = string.Join(" ", args);
+            Logger.Debug(proc.FileName, proc.Arguments);
+            if (workDir != null) {
+                proc.WorkingDirectory = workDir;
+                Logger.Debug("WorkingDirectory:", proc.WorkingDirectory);
+            }
             return Process.Start(proc);
         }
         public static FileInfo getRipper()

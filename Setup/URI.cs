@@ -23,7 +23,7 @@ namespace VRChatLauncher.Setup
             // Logger.Trace("expected=", ret.expected);
             if (ret.key != ret.expected) ret.match = URIResponse.URIEnum.WRONG;
             else ret.match = URIResponse.URIEnum.INSTALLED;
-            // MessageBox.Show("expected:\n" + ret.expected+ "\n\nkey:\n" + ret.key);
+            Logger.Debug(ret.ToJson());
             // "G:\Steam\steamapps\common\VRChat\launch.bat" "G:\Steam\steamapps\common\VRChat" "%1"
             return ret;
         }

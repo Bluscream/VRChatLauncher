@@ -83,7 +83,7 @@ namespace VRChatLauncher
         {
             var mod = (Mod)lst_mods.SelectedItems[0].Tag;
             if (mod == null) return;
-            menu_mod.Items[0].Text = mod.Enabled ? "Disable" : "Enable";
+            menu_mod.Items[1].Text = mod.Enabled ? "Disable" : "Enable";
         }
 
         private void ToggleModToolStripMenuItem_Click(object sender, EventArgs e)
@@ -118,6 +118,13 @@ namespace VRChatLauncher
             var mod = (Mod)lst_mods.SelectedItems[0].Tag;
             if (mod == null) return;
             MessageBox.Show($"Not implemented", "tupper is gay", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+        }
+
+        private void OpenFolderToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            var mod = (Mod)lst_mods.SelectedItems[0].Tag;
+            if (mod == null) return;
+            Utils.Utils.ShowFileInExplorer(mod.File);
         }
     }
 }

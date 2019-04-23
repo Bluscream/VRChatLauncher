@@ -129,13 +129,17 @@
             this.btn_worlds_author = new System.Windows.Forms.Button();
             this.txt_world_author = new System.Windows.Forms.TextBox();
             this.tab_mods = new System.Windows.Forms.TabPage();
+            this.tabs_mods = new System.Windows.Forms.TabControl();
+            this.tab_mods_installed = new System.Windows.Forms.TabPage();
             this.splitContainerMods = new System.Windows.Forms.SplitContainer();
             this.panel_mods_list = new System.Windows.Forms.Panel();
             this.lst_mods = new System.Windows.Forms.ListView();
             this.menu_mod = new System.Windows.Forms.ContextMenuStrip(this.components);
+            this.openFolderToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.toggleModToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.deleteModToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.decompileModToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.icons_mods = new System.Windows.Forms.ImageList(this.components);
             this.btn_mods_refresh = new System.Windows.Forms.Button();
             this.tableLayoutPanelmods = new System.Windows.Forms.TableLayoutPanel();
             this.lbl_mod_name = new System.Windows.Forms.Label();
@@ -150,6 +154,7 @@
             this.lbl_mod_version = new System.Windows.Forms.Label();
             this.txt_mod_version = new System.Windows.Forms.TextBox();
             this.txt_mod_author = new System.Windows.Forms.TextBox();
+            this.tab_mods_available = new System.Windows.Forms.TabPage();
             this.tab_settings = new System.Windows.Forms.TabPage();
             this.panel_setings = new System.Windows.Forms.Panel();
             this.btn_config_save = new System.Windows.Forms.Button();
@@ -166,7 +171,6 @@
             this.panel_status = new System.Windows.Forms.Panel();
             this.txt_status = new System.Windows.Forms.TextBox();
             this.btn_play = new System.Windows.Forms.Button();
-            this.icons_mods = new System.Windows.Forms.ImageList(this.components);
             this.icons_worlds = new System.Windows.Forms.ImageList(this.components);
             this.tabs_main.SuspendLayout();
             this.tab_news.SuspendLayout();
@@ -198,6 +202,8 @@
             this.panel8.SuspendLayout();
             this.panel9.SuspendLayout();
             this.tab_mods.SuspendLayout();
+            this.tabs_mods.SuspendLayout();
+            this.tab_mods_installed.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainerMods)).BeginInit();
             this.splitContainerMods.Panel1.SuspendLayout();
             this.splitContainerMods.Panel2.SuspendLayout();
@@ -1151,7 +1157,7 @@
             // 
             // tab_mods
             // 
-            this.tab_mods.Controls.Add(this.splitContainerMods);
+            this.tab_mods.Controls.Add(this.tabs_mods);
             this.tab_mods.Location = new System.Drawing.Point(4, 22);
             this.tab_mods.Name = "tab_mods";
             this.tab_mods.Size = new System.Drawing.Size(905, 360);
@@ -1159,10 +1165,32 @@
             this.tab_mods.Text = "Mods";
             this.tab_mods.UseVisualStyleBackColor = true;
             // 
+            // tabs_mods
+            // 
+            this.tabs_mods.Controls.Add(this.tab_mods_installed);
+            this.tabs_mods.Controls.Add(this.tab_mods_available);
+            this.tabs_mods.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.tabs_mods.Location = new System.Drawing.Point(0, 0);
+            this.tabs_mods.Name = "tabs_mods";
+            this.tabs_mods.SelectedIndex = 0;
+            this.tabs_mods.Size = new System.Drawing.Size(905, 360);
+            this.tabs_mods.TabIndex = 0;
+            // 
+            // tab_mods_installed
+            // 
+            this.tab_mods_installed.Controls.Add(this.splitContainerMods);
+            this.tab_mods_installed.Location = new System.Drawing.Point(4, 22);
+            this.tab_mods_installed.Name = "tab_mods_installed";
+            this.tab_mods_installed.Padding = new System.Windows.Forms.Padding(3);
+            this.tab_mods_installed.Size = new System.Drawing.Size(897, 334);
+            this.tab_mods_installed.TabIndex = 0;
+            this.tab_mods_installed.Text = "Installed";
+            this.tab_mods_installed.UseVisualStyleBackColor = true;
+            // 
             // splitContainerMods
             // 
             this.splitContainerMods.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.splitContainerMods.Location = new System.Drawing.Point(0, 0);
+            this.splitContainerMods.Location = new System.Drawing.Point(3, 3);
             this.splitContainerMods.Name = "splitContainerMods";
             // 
             // splitContainerMods.Panel1
@@ -1172,9 +1200,9 @@
             // splitContainerMods.Panel2
             // 
             this.splitContainerMods.Panel2.Controls.Add(this.tableLayoutPanelmods);
-            this.splitContainerMods.Size = new System.Drawing.Size(905, 360);
-            this.splitContainerMods.SplitterDistance = 169;
-            this.splitContainerMods.TabIndex = 0;
+            this.splitContainerMods.Size = new System.Drawing.Size(891, 328);
+            this.splitContainerMods.SplitterDistance = 166;
+            this.splitContainerMods.TabIndex = 2;
             // 
             // panel_mods_list
             // 
@@ -1183,7 +1211,7 @@
             this.panel_mods_list.Dock = System.Windows.Forms.DockStyle.Fill;
             this.panel_mods_list.Location = new System.Drawing.Point(0, 0);
             this.panel_mods_list.Name = "panel_mods_list";
-            this.panel_mods_list.Size = new System.Drawing.Size(169, 360);
+            this.panel_mods_list.Size = new System.Drawing.Size(166, 328);
             this.panel_mods_list.TabIndex = 18;
             // 
             // lst_mods
@@ -1199,7 +1227,7 @@
             this.lst_mods.Name = "lst_mods";
             this.lst_mods.ShowGroups = false;
             this.lst_mods.ShowItemToolTips = true;
-            this.lst_mods.Size = new System.Drawing.Size(169, 337);
+            this.lst_mods.Size = new System.Drawing.Size(166, 305);
             this.lst_mods.SmallImageList = this.icons_mods;
             this.lst_mods.TabIndex = 13;
             this.lst_mods.UseCompatibleStateImageBehavior = false;
@@ -1209,44 +1237,57 @@
             // menu_mod
             // 
             this.menu_mod.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.openFolderToolStripMenuItem,
             this.toggleModToolStripMenuItem,
             this.deleteModToolStripMenuItem,
             this.decompileModToolStripMenuItem});
             this.menu_mod.Name = "menu_mod";
-            this.menu_mod.Size = new System.Drawing.Size(132, 70);
+            this.menu_mod.Size = new System.Drawing.Size(202, 92);
             this.menu_mod.Opening += new System.ComponentModel.CancelEventHandler(this.Menu_mod_Opening);
+            // 
+            // openFolderToolStripMenuItem
+            // 
+            this.openFolderToolStripMenuItem.Name = "openFolderToolStripMenuItem";
+            this.openFolderToolStripMenuItem.Size = new System.Drawing.Size(201, 22);
+            this.openFolderToolStripMenuItem.Text = "Open Containing Folder";
+            this.openFolderToolStripMenuItem.Click += new System.EventHandler(this.OpenFolderToolStripMenuItem_Click);
             // 
             // toggleModToolStripMenuItem
             // 
             this.toggleModToolStripMenuItem.Name = "toggleModToolStripMenuItem";
-            this.toggleModToolStripMenuItem.Size = new System.Drawing.Size(131, 22);
+            this.toggleModToolStripMenuItem.Size = new System.Drawing.Size(201, 22);
             this.toggleModToolStripMenuItem.Text = "Disable";
             this.toggleModToolStripMenuItem.Click += new System.EventHandler(this.ToggleModToolStripMenuItem_Click);
             // 
             // deleteModToolStripMenuItem
             // 
             this.deleteModToolStripMenuItem.Name = "deleteModToolStripMenuItem";
-            this.deleteModToolStripMenuItem.Size = new System.Drawing.Size(131, 22);
+            this.deleteModToolStripMenuItem.Size = new System.Drawing.Size(201, 22);
             this.deleteModToolStripMenuItem.Text = "Delete";
             this.deleteModToolStripMenuItem.Click += new System.EventHandler(this.DeleteModToolStripMenuItem_Click);
             // 
             // decompileModToolStripMenuItem
             // 
             this.decompileModToolStripMenuItem.Name = "decompileModToolStripMenuItem";
-            this.decompileModToolStripMenuItem.Size = new System.Drawing.Size(131, 22);
+            this.decompileModToolStripMenuItem.Size = new System.Drawing.Size(201, 22);
             this.decompileModToolStripMenuItem.Text = "Decompile";
             this.decompileModToolStripMenuItem.Click += new System.EventHandler(this.DecompileModToolStripMenuItem_Click);
+            // 
+            // icons_mods
+            // 
+            this.icons_mods.ImageStream = ((System.Windows.Forms.ImageListStreamer)(resources.GetObject("icons_mods.ImageStream")));
+            this.icons_mods.TransparentColor = System.Drawing.Color.Transparent;
+            this.icons_mods.Images.SetKeyName(0, "vrctoolspng.png");
             // 
             // btn_mods_refresh
             // 
             this.btn_mods_refresh.Dock = System.Windows.Forms.DockStyle.Bottom;
-            this.btn_mods_refresh.Location = new System.Drawing.Point(0, 337);
+            this.btn_mods_refresh.Location = new System.Drawing.Point(0, 305);
             this.btn_mods_refresh.Name = "btn_mods_refresh";
-            this.btn_mods_refresh.Size = new System.Drawing.Size(169, 23);
+            this.btn_mods_refresh.Size = new System.Drawing.Size(166, 23);
             this.btn_mods_refresh.TabIndex = 14;
             this.btn_mods_refresh.Text = "Reload";
             this.btn_mods_refresh.UseVisualStyleBackColor = true;
-            this.btn_mods_refresh.Click += new System.EventHandler(this.on_btn_mods_refresh_Click);
             // 
             // tableLayoutPanelmods
             // 
@@ -1275,7 +1316,7 @@
             this.tableLayoutPanelmods.RowStyles.Add(new System.Windows.Forms.RowStyle());
             this.tableLayoutPanelmods.RowStyles.Add(new System.Windows.Forms.RowStyle());
             this.tableLayoutPanelmods.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 60F));
-            this.tableLayoutPanelmods.Size = new System.Drawing.Size(732, 360);
+            this.tableLayoutPanelmods.Size = new System.Drawing.Size(721, 328);
             this.tableLayoutPanelmods.TabIndex = 19;
             // 
             // lbl_mod_name
@@ -1291,27 +1332,27 @@
             // txt_mod_description
             // 
             this.txt_mod_description.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.txt_mod_description.Location = new System.Drawing.Point(125, 133);
+            this.txt_mod_description.Location = new System.Drawing.Point(123, 133);
             this.txt_mod_description.Name = "txt_mod_description";
             this.txt_mod_description.ReadOnly = true;
-            this.txt_mod_description.Size = new System.Drawing.Size(604, 224);
+            this.txt_mod_description.Size = new System.Drawing.Size(595, 192);
             this.txt_mod_description.TabIndex = 12;
             this.txt_mod_description.Text = "";
             // 
             // txt_mod_type
             // 
             this.txt_mod_type.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.txt_mod_type.Location = new System.Drawing.Point(125, 107);
+            this.txt_mod_type.Location = new System.Drawing.Point(123, 107);
             this.txt_mod_type.Name = "txt_mod_type";
             this.txt_mod_type.ReadOnly = true;
-            this.txt_mod_type.Size = new System.Drawing.Size(604, 20);
+            this.txt_mod_type.Size = new System.Drawing.Size(595, 20);
             this.txt_mod_type.TabIndex = 9;
             // 
             // lbl_mod_description
             // 
             this.lbl_mod_description.Anchor = System.Windows.Forms.AnchorStyles.Left;
             this.lbl_mod_description.AutoSize = true;
-            this.lbl_mod_description.Location = new System.Drawing.Point(3, 238);
+            this.lbl_mod_description.Location = new System.Drawing.Point(3, 222);
             this.lbl_mod_description.Name = "lbl_mod_description";
             this.lbl_mod_description.Size = new System.Drawing.Size(63, 13);
             this.lbl_mod_description.TabIndex = 11;
@@ -1340,10 +1381,10 @@
             // txt_mod_path
             // 
             this.txt_mod_path.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.txt_mod_path.Location = new System.Drawing.Point(125, 3);
+            this.txt_mod_path.Location = new System.Drawing.Point(123, 3);
             this.txt_mod_path.Name = "txt_mod_path";
             this.txt_mod_path.ReadOnly = true;
-            this.txt_mod_path.Size = new System.Drawing.Size(604, 20);
+            this.txt_mod_path.Size = new System.Drawing.Size(595, 20);
             this.txt_mod_path.TabIndex = 3;
             // 
             // lbl_mod_author
@@ -1359,10 +1400,10 @@
             // txt_mod_name
             // 
             this.txt_mod_name.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.txt_mod_name.Location = new System.Drawing.Point(125, 29);
+            this.txt_mod_name.Location = new System.Drawing.Point(123, 29);
             this.txt_mod_name.Name = "txt_mod_name";
             this.txt_mod_name.ReadOnly = true;
-            this.txt_mod_name.Size = new System.Drawing.Size(604, 20);
+            this.txt_mod_name.Size = new System.Drawing.Size(595, 20);
             this.txt_mod_name.TabIndex = 1;
             // 
             // lbl_mod_version
@@ -1378,20 +1419,30 @@
             // txt_mod_version
             // 
             this.txt_mod_version.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.txt_mod_version.Location = new System.Drawing.Point(125, 55);
+            this.txt_mod_version.Location = new System.Drawing.Point(123, 55);
             this.txt_mod_version.Name = "txt_mod_version";
             this.txt_mod_version.ReadOnly = true;
-            this.txt_mod_version.Size = new System.Drawing.Size(604, 20);
+            this.txt_mod_version.Size = new System.Drawing.Size(595, 20);
             this.txt_mod_version.TabIndex = 5;
             // 
             // txt_mod_author
             // 
             this.txt_mod_author.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.txt_mod_author.Location = new System.Drawing.Point(125, 81);
+            this.txt_mod_author.Location = new System.Drawing.Point(123, 81);
             this.txt_mod_author.Name = "txt_mod_author";
             this.txt_mod_author.ReadOnly = true;
-            this.txt_mod_author.Size = new System.Drawing.Size(604, 20);
+            this.txt_mod_author.Size = new System.Drawing.Size(595, 20);
             this.txt_mod_author.TabIndex = 7;
+            // 
+            // tab_mods_available
+            // 
+            this.tab_mods_available.Location = new System.Drawing.Point(4, 22);
+            this.tab_mods_available.Name = "tab_mods_available";
+            this.tab_mods_available.Padding = new System.Windows.Forms.Padding(3);
+            this.tab_mods_available.Size = new System.Drawing.Size(897, 334);
+            this.tab_mods_available.TabIndex = 1;
+            this.tab_mods_available.Text = "Available";
+            this.tab_mods_available.UseVisualStyleBackColor = true;
             // 
             // tab_settings
             // 
@@ -1553,12 +1604,6 @@
             this.btn_play.UseVisualStyleBackColor = true;
             this.btn_play.Click += new System.EventHandler(this.btn_play_Click);
             // 
-            // icons_mods
-            // 
-            this.icons_mods.ImageStream = ((System.Windows.Forms.ImageListStreamer)(resources.GetObject("icons_mods.ImageStream")));
-            this.icons_mods.TransparentColor = System.Drawing.Color.Transparent;
-            this.icons_mods.Images.SetKeyName(0, "vrctoolspng.png");
-            // 
             // icons_worlds
             // 
             this.icons_worlds.ImageStream = ((System.Windows.Forms.ImageListStreamer)(resources.GetObject("icons_worlds.ImageStream")));
@@ -1617,6 +1662,8 @@
             this.panel9.ResumeLayout(false);
             this.panel9.PerformLayout();
             this.tab_mods.ResumeLayout(false);
+            this.tabs_mods.ResumeLayout(false);
+            this.tab_mods_installed.ResumeLayout(false);
             this.splitContainerMods.Panel1.ResumeLayout(false);
             this.splitContainerMods.Panel2.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.splitContainerMods)).EndInit();
@@ -1685,23 +1732,6 @@
         private System.Windows.Forms.Button btn_play;
         public System.Windows.Forms.TextBox txt_status;
         private System.Windows.Forms.TabPage tab_mods;
-        private System.Windows.Forms.SplitContainer splitContainerMods;
-        private System.Windows.Forms.TableLayoutPanel tableLayoutPanelmods;
-        private System.Windows.Forms.Label lbl_mod_name;
-        private System.Windows.Forms.RichTextBox txt_mod_description;
-        private System.Windows.Forms.TextBox txt_mod_type;
-        private System.Windows.Forms.Label lbl_mod_description;
-        private System.Windows.Forms.Label lbl_mod_path;
-        private System.Windows.Forms.Label lbl_mod_type;
-        private System.Windows.Forms.TextBox txt_mod_path;
-        private System.Windows.Forms.Label lbl_mod_author;
-        private System.Windows.Forms.TextBox txt_mod_name;
-        private System.Windows.Forms.Label lbl_mod_version;
-        private System.Windows.Forms.TextBox txt_mod_version;
-        private System.Windows.Forms.TextBox txt_mod_author;
-        private System.Windows.Forms.Panel panel_mods_list;
-        private System.Windows.Forms.ListView lst_mods;
-        private System.Windows.Forms.Button btn_mods_refresh;
         private System.Windows.Forms.RichTextBox txt_news;
         private System.Windows.Forms.SplitContainer splitContainerWOrlds;
         private System.Windows.Forms.TreeView tree_worlds;
@@ -1757,6 +1787,27 @@
         private System.Windows.Forms.ToolStripMenuItem decompileModToolStripMenuItem;
         private System.Windows.Forms.ImageList icons_mods;
         private System.Windows.Forms.ImageList icons_worlds;
+        private System.Windows.Forms.ToolStripMenuItem openFolderToolStripMenuItem;
+        private System.Windows.Forms.TabControl tabs_mods;
+        private System.Windows.Forms.TabPage tab_mods_installed;
+        private System.Windows.Forms.SplitContainer splitContainerMods;
+        private System.Windows.Forms.Panel panel_mods_list;
+        private System.Windows.Forms.ListView lst_mods;
+        private System.Windows.Forms.Button btn_mods_refresh;
+        private System.Windows.Forms.TableLayoutPanel tableLayoutPanelmods;
+        private System.Windows.Forms.Label lbl_mod_name;
+        private System.Windows.Forms.RichTextBox txt_mod_description;
+        private System.Windows.Forms.TextBox txt_mod_type;
+        private System.Windows.Forms.Label lbl_mod_description;
+        private System.Windows.Forms.Label lbl_mod_path;
+        private System.Windows.Forms.Label lbl_mod_type;
+        private System.Windows.Forms.TextBox txt_mod_path;
+        private System.Windows.Forms.Label lbl_mod_author;
+        private System.Windows.Forms.TextBox txt_mod_name;
+        private System.Windows.Forms.Label lbl_mod_version;
+        private System.Windows.Forms.TextBox txt_mod_version;
+        private System.Windows.Forms.TextBox txt_mod_author;
+        private System.Windows.Forms.TabPage tab_mods_available;
     }
 }
 
