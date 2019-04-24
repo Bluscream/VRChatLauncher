@@ -46,9 +46,9 @@ namespace VRChatLauncher.Utils
         public static void Fatal(params object[] msg) => log(VRChatApi.Logging.LogLevel.Fatal, msgs: msg);
         private static void log(VRChatApi.Logging.LogLevel logLevel, bool lines = false, params object[] msgs) // [CallerMemberName] string cName = "Unknown.Unknown", 
         {
-            /*if (logLevel == VRChatApi.Logging.LogLevel.Trace || logLevel == VRChatApi.Logging.LogLevel.Debug) {
-                if (!Main.args.Contains("--verbose") || !Main.args.Contains("-v")) return;
-            }*/
+            if (logLevel == VRChatApi.Logging.LogLevel.Trace) {
+                if (!Main.args.Contains("--vrclauncher.verbose")) return;
+            }
             string timestamp = DateTime.UtcNow.ToString("HH:mm:ss.fff", System.Globalization.CultureInfo.InvariantCulture);
             StackFrame frame = new StackFrame(1); var method = frame.GetMethod(); var cName = method.DeclaringType.Name; var mName = method.Name;
             var oldColor = Console.ForegroundColor;
