@@ -71,7 +71,7 @@ namespace VRChatLauncher
             txt_mod_version.Text = mod.Version;
             txt_mod_author.Text = mod.Author;
             txt_mod_type.Text = mod.Type.ToString();
-            if (mod.Error != null) txt_mod_type.Text += mod.Error.Enclose();
+            if (mod.Error != null) txt_mod_type.Text += $" ({mod.Error})";
             txt_mod_description.Text = mod.Description;
         }
 

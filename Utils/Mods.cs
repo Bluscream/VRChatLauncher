@@ -114,7 +114,8 @@ namespace VRChatLauncher.Utils
             try
             {
                 FileVersionInfo verInfo = FileVersionInfo.GetVersionInfo(mod.File.FullName);
-                if (!string.IsNullOrEmpty(verInfo.ProductName)) mod.Name = $"{verInfo.ProductName} ({verInfo.InternalName})";
+                if (!string.IsNullOrEmpty(verInfo.ProductName)) mod.Name = verInfo.ProductName;
+                if (!string.IsNullOrEmpty(verInfo.InternalName)) mod.Name += $" ({verInfo.InternalName})";
                 mod.Author = verInfo.CompanyName;
                 mod.Version = string.IsNullOrEmpty(verInfo.ProductVersion) ? verInfo.FileVersion : verInfo.ProductVersion;
                 mod.Description = verInfo.FileDescription;
