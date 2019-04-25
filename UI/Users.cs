@@ -11,10 +11,8 @@ namespace VRChatLauncher
 {
     partial class Main
     {
-        public static List<UserBriefResponse> friends;
-        public static List<UserResponse> blocked;
-        public static List<UserResponse> user_requests;
         public static UserResponse me;
+        public static DateTime users_last_update;
         public static bool users_loading = false;
 
         public enum UserRank {
@@ -69,7 +67,7 @@ namespace VRChatLauncher
 
         public async void SetupUsersAsync(bool force = false) {
             if (users_loading) { Logger.Warn("Users are already loading, try again later");  return; }
-            users_loading = true;
+            users_loading = true;var friends = new List<UserBriefResponse>();
             var onlinenode = tree_users.Nodes[1].Nodes[0];
             var offlinenode = tree_users.Nodes[1].Nodes[1];
             onlinenode.Nodes.Clear();
@@ -83,8 +81,7 @@ namespace VRChatLauncher
                 tree_users.Nodes[0].Tag = me;
                 tree_users.Nodes[1].Text = $"Friends ({me.friends.Count})";
             }
-            if (friends == null || force) {
-                friends = new List<UserBriefResponse>();
+            if (users_last_update == null || users_last_update.ExpiredSince(3) || force) {
                 var offset = 0;
                 for (int i = 0; i < 10; i++)
                 {
@@ -96,36 +93,22 @@ namespace VRChatLauncher
                 friends = friends.OrderBy(o=>o.location).ToList();
                 friends = friends.OrderBy(o=>o.displayName).ToList();
                 Logger.Log("Downloaded list of", friends.Count, "official friends");
+                foreach (var friend in friends)
+                {
+                    var node = new TreeNode(friend.displayName);
+                    node.Tag = friend;
+                    SetNodeColorFromTags(node, friend.tags);
+                    if (friend.location == "offline")
+                        tree_users.Nodes[1].Nodes[1].Nodes.Add(node);
+                    else tree_users.Nodes[1].Nodes[0].Nodes.Add(node);
+                }
+                //  tree_users.Nodes[1].Text = $"Friends ({onlinenode.Nodes.Count + offlinenode.Nodes.Count})";
+                onlinenode.Text = $"Online ({onlinenode.Nodes.Count})";
+                offlinenode.Text = $"Offline ({offlinenode.Nodes.Count})";
             }
-            foreach (var friend in friends)
-            {
-                var node = new TreeNode(friend.displayName);
-                node.Tag = friend;
-                SetNodeColorFromTags(node, friend.tags);
-                // node.ForeColor = ColorFromReleaseStatus(avatar.releaseStatus);
-                if (friend.location == "offline")
-                    tree_users.Nodes[1].Nodes[1].Nodes.Add(node);
-                else tree_users.Nodes[1].Nodes[0].Nodes.Add(node);
-            }
-            //  tree_users.Nodes[1].Text = $"Friends ({onlinenode.Nodes.Count + offlinenode.Nodes.Count})";
-            onlinenode.Text = $"Online ({onlinenode.Nodes.Count})";
-            offlinenode.Text = $"Offline ({offlinenode.Nodes.Count})";
             // tree_users.TreeViewNodeSorter = new NodeSorter();
             // tree_users.Sort(onlinenode);
             users_loading = false;
-            return;
-            if (favorite_avatars == null || force) {
-                favorite_avatars = await vrcapi.AvatarApi.Favorites();
-                Logger.Log("Downloaded list of", favorite_avatars.Count, "official favorite avatars");
-            }
-            foreach (var avatar in favorite_avatars)
-            {
-                var node = new TreeNode(avatar.name);
-                node.Tag = avatar;
-                node.ForeColor = ColorFromReleaseStatus(avatar.releaseStatus);
-                tree_users.Nodes[1].Nodes.Add(node);
-            }
-            tree_users.Nodes[1].Text = $"Official ({tree_users.Nodes[0].Nodes.Count} / 16)";
         }
 
         private void FillUser(UserBriefResponse user)

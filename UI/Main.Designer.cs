@@ -30,24 +30,19 @@
         {
             this.components = new System.ComponentModel.Container();
             System.Windows.Forms.TreeNode treeNode1 = new System.Windows.Forms.TreeNode("Me");
-            System.Windows.Forms.TreeNode treeNode2 = new System.Windows.Forms.TreeNode("Test Friend");
-            System.Windows.Forms.TreeNode treeNode3 = new System.Windows.Forms.TreeNode("Online", new System.Windows.Forms.TreeNode[] {
-            treeNode2});
-            System.Windows.Forms.TreeNode treeNode4 = new System.Windows.Forms.TreeNode("Offline");
-            System.Windows.Forms.TreeNode treeNode5 = new System.Windows.Forms.TreeNode("Friends", new System.Windows.Forms.TreeNode[] {
-            treeNode3,
-            treeNode4});
-            System.Windows.Forms.TreeNode treeNode6 = new System.Windows.Forms.TreeNode("Test Blocked");
-            System.Windows.Forms.TreeNode treeNode7 = new System.Windows.Forms.TreeNode("Blocked", new System.Windows.Forms.TreeNode[] {
-            treeNode6});
-            System.Windows.Forms.TreeNode treeNode8 = new System.Windows.Forms.TreeNode("Test Request");
-            System.Windows.Forms.TreeNode treeNode9 = new System.Windows.Forms.TreeNode("Requests", new System.Windows.Forms.TreeNode[] {
-            treeNode8});
-            System.Windows.Forms.TreeNode treeNode10 = new System.Windows.Forms.TreeNode("Personal");
-            System.Windows.Forms.TreeNode treeNode11 = new System.Windows.Forms.TreeNode("Favorites");
-            System.Windows.Forms.TreeNode treeNode12 = new System.Windows.Forms.TreeNode("VRCTools");
-            System.Windows.Forms.TreeNode treeNode13 = new System.Windows.Forms.TreeNode("Personal", 2, 2);
-            System.Windows.Forms.TreeNode treeNode14 = new System.Windows.Forms.TreeNode("Favorites", -2, -2);
+            System.Windows.Forms.TreeNode treeNode2 = new System.Windows.Forms.TreeNode("Online");
+            System.Windows.Forms.TreeNode treeNode3 = new System.Windows.Forms.TreeNode("Offline");
+            System.Windows.Forms.TreeNode treeNode4 = new System.Windows.Forms.TreeNode("Friends", new System.Windows.Forms.TreeNode[] {
+            treeNode2,
+            treeNode3});
+            System.Windows.Forms.TreeNode treeNode5 = new System.Windows.Forms.TreeNode("Blocked");
+            System.Windows.Forms.TreeNode treeNode6 = new System.Windows.Forms.TreeNode("Requests");
+            System.Windows.Forms.TreeNode treeNode7 = new System.Windows.Forms.TreeNode("Search");
+            System.Windows.Forms.TreeNode treeNode8 = new System.Windows.Forms.TreeNode("Personal");
+            System.Windows.Forms.TreeNode treeNode9 = new System.Windows.Forms.TreeNode("Favorites");
+            System.Windows.Forms.TreeNode treeNode10 = new System.Windows.Forms.TreeNode("VRCTools");
+            System.Windows.Forms.TreeNode treeNode11 = new System.Windows.Forms.TreeNode("Personal", 2, 2);
+            System.Windows.Forms.TreeNode treeNode12 = new System.Windows.Forms.TreeNode("Favorites", -2, -2);
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Main));
             this.tabs_main = new System.Windows.Forms.TabControl();
             this.tab_news = new System.Windows.Forms.TabPage();
@@ -57,10 +52,9 @@
             this.btn_users_reload = new System.Windows.Forms.Button();
             this.tree_users = new System.Windows.Forms.TreeView();
             this.menu_users = new System.Windows.Forms.ContextMenuStrip(this.components);
-            this.addFriendToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.removeFriendToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.profileMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.friendToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.blockToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.unblockToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.flowLayoutPanel1 = new System.Windows.Forms.FlowLayoutPanel();
             this.btn_users_save = new System.Windows.Forms.Button();
             this.btn_users_friend_add = new System.Windows.Forms.Button();
@@ -315,33 +309,27 @@
             this.tree_users.Name = "tree_users";
             treeNode1.Name = "node_user_self";
             treeNode1.Text = "Me";
-            treeNode2.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(192)))), ((int)(((byte)(0)))));
-            treeNode2.Name = "Node2";
-            treeNode2.Text = "Test Friend";
-            treeNode3.Name = "Node3";
-            treeNode3.Text = "Online";
-            treeNode4.Name = "Node2";
-            treeNode4.Text = "Offline";
+            treeNode2.Name = "Node3";
+            treeNode2.Text = "Online";
+            treeNode3.Name = "Node2";
+            treeNode3.Text = "Offline";
+            treeNode4.Name = "Node0";
+            treeNode4.Text = "Friends";
+            treeNode4.ToolTipText = "Your VRChat friends";
             treeNode5.Name = "Node0";
-            treeNode5.Text = "Friends";
-            treeNode5.ToolTipText = "Your VRChat friends";
-            treeNode6.ForeColor = System.Drawing.Color.Red;
+            treeNode5.Text = "Blocked";
+            treeNode5.ToolTipText = "Avatars favorited though VRChat";
             treeNode6.Name = "Node4";
-            treeNode6.Text = "Test Blocked";
-            treeNode7.Name = "Node0";
-            treeNode7.Text = "Blocked";
-            treeNode7.ToolTipText = "Avatars favorited though VRChat";
-            treeNode8.ForeColor = System.Drawing.Color.Cyan;
-            treeNode8.Name = "";
-            treeNode8.Text = "Test Request";
-            treeNode9.Name = "Node4";
-            treeNode9.Text = "Requests";
-            treeNode9.ToolTipText = "Users that want to become your friend";
+            treeNode6.Text = "Requests";
+            treeNode6.ToolTipText = "Users that want to become your friend";
+            treeNode7.Name = "node_users_search";
+            treeNode7.Text = "Search";
             this.tree_users.Nodes.AddRange(new System.Windows.Forms.TreeNode[] {
             treeNode1,
+            treeNode4,
             treeNode5,
-            treeNode7,
-            treeNode9});
+            treeNode6,
+            treeNode7});
             this.tree_users.Size = new System.Drawing.Size(187, 325);
             this.tree_users.TabIndex = 22;
             this.tree_users.NodeMouseClick += new System.Windows.Forms.TreeNodeMouseClickEventHandler(this.users_node_selected);
@@ -349,36 +337,29 @@
             // menu_users
             // 
             this.menu_users.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.addFriendToolStripMenuItem,
-            this.removeFriendToolStripMenuItem,
-            this.blockToolStripMenuItem,
-            this.unblockToolStripMenuItem});
+            this.profileMenuItem,
+            this.friendToolStripMenuItem,
+            this.blockToolStripMenuItem});
             this.menu_users.Name = "contextMenuStrip1";
-            this.menu_users.Size = new System.Drawing.Size(154, 92);
+            this.menu_users.Size = new System.Drawing.Size(137, 70);
             // 
-            // addFriendToolStripMenuItem
+            // profileMenuItem
             // 
-            this.addFriendToolStripMenuItem.Name = "addFriendToolStripMenuItem";
-            this.addFriendToolStripMenuItem.Size = new System.Drawing.Size(153, 22);
-            this.addFriendToolStripMenuItem.Text = "Add Friend";
+            this.profileMenuItem.Name = "profileMenuItem";
+            this.profileMenuItem.Size = new System.Drawing.Size(136, 22);
+            this.profileMenuItem.Text = "View Profile";
             // 
-            // removeFriendToolStripMenuItem
+            // friendToolStripMenuItem
             // 
-            this.removeFriendToolStripMenuItem.Name = "removeFriendToolStripMenuItem";
-            this.removeFriendToolStripMenuItem.Size = new System.Drawing.Size(153, 22);
-            this.removeFriendToolStripMenuItem.Text = "Remove Friend";
+            this.friendToolStripMenuItem.Name = "friendToolStripMenuItem";
+            this.friendToolStripMenuItem.Size = new System.Drawing.Size(136, 22);
+            this.friendToolStripMenuItem.Text = "Friend";
             // 
             // blockToolStripMenuItem
             // 
             this.blockToolStripMenuItem.Name = "blockToolStripMenuItem";
-            this.blockToolStripMenuItem.Size = new System.Drawing.Size(153, 22);
+            this.blockToolStripMenuItem.Size = new System.Drawing.Size(136, 22);
             this.blockToolStripMenuItem.Text = "Block";
-            // 
-            // unblockToolStripMenuItem
-            // 
-            this.unblockToolStripMenuItem.Name = "unblockToolStripMenuItem";
-            this.unblockToolStripMenuItem.Size = new System.Drawing.Size(153, 22);
-            this.unblockToolStripMenuItem.Text = "Unblock";
             // 
             // flowLayoutPanel1
             // 
@@ -662,16 +643,16 @@
             this.tree_avatars.Dock = System.Windows.Forms.DockStyle.Fill;
             this.tree_avatars.Location = new System.Drawing.Point(0, 0);
             this.tree_avatars.Name = "tree_avatars";
-            treeNode10.Name = "Node0";
-            treeNode10.Text = "Personal";
-            treeNode11.Name = "Node1";
-            treeNode11.Text = "Favorites";
-            treeNode12.Name = "Node2";
-            treeNode12.Text = "VRCTools";
+            treeNode8.Name = "Node0";
+            treeNode8.Text = "Personal";
+            treeNode9.Name = "Node1";
+            treeNode9.Text = "Favorites";
+            treeNode10.Name = "Node2";
+            treeNode10.Text = "VRCTools";
             this.tree_avatars.Nodes.AddRange(new System.Windows.Forms.TreeNode[] {
-            treeNode10,
-            treeNode11,
-            treeNode12});
+            treeNode8,
+            treeNode9,
+            treeNode10});
             this.tree_avatars.Size = new System.Drawing.Size(177, 360);
             this.tree_avatars.TabIndex = 24;
             this.tree_avatars.NodeMouseClick += new System.Windows.Forms.TreeNodeMouseClickEventHandler(this.avatars_node_selected);
@@ -843,7 +824,6 @@
             this.btn_avatar_rip.TabIndex = 1;
             this.btn_avatar_rip.Text = "Rip";
             this.btn_avatar_rip.UseVisualStyleBackColor = true;
-            this.btn_avatar_rip.Visible = false;
             this.btn_avatar_rip.Click += new System.EventHandler(this.Btn_avatar_rip_Click);
             // 
             // txt_avatar_asseturl
@@ -918,19 +898,19 @@
             this.tree_worlds.Dock = System.Windows.Forms.DockStyle.Fill;
             this.tree_worlds.Location = new System.Drawing.Point(0, 0);
             this.tree_worlds.Name = "tree_worlds";
-            treeNode13.ImageIndex = 2;
-            treeNode13.Name = "Node0";
-            treeNode13.SelectedImageIndex = 2;
-            treeNode13.Text = "Personal";
-            treeNode13.ToolTipText = "Worlds uploaded by you";
-            treeNode14.ImageIndex = -2;
-            treeNode14.Name = "Node0";
-            treeNode14.SelectedImageIndex = -2;
-            treeNode14.Text = "Favorites";
-            treeNode14.ToolTipText = "Worlds favorited though VRChat";
+            treeNode11.ImageIndex = 2;
+            treeNode11.Name = "Node0";
+            treeNode11.SelectedImageIndex = 2;
+            treeNode11.Text = "Personal";
+            treeNode11.ToolTipText = "Worlds uploaded by you";
+            treeNode12.ImageIndex = -2;
+            treeNode12.Name = "Node0";
+            treeNode12.SelectedImageIndex = -2;
+            treeNode12.Text = "Favorites";
+            treeNode12.ToolTipText = "Worlds favorited though VRChat";
             this.tree_worlds.Nodes.AddRange(new System.Windows.Forms.TreeNode[] {
-            treeNode13,
-            treeNode14});
+            treeNode11,
+            treeNode12});
             this.tree_worlds.Size = new System.Drawing.Size(177, 337);
             this.tree_worlds.TabIndex = 22;
             this.tree_worlds.NodeMouseClick += new System.Windows.Forms.TreeNodeMouseClickEventHandler(this.worlds_node_selectedAsync);
@@ -1288,6 +1268,7 @@
             this.btn_mods_refresh.TabIndex = 14;
             this.btn_mods_refresh.Text = "Reload";
             this.btn_mods_refresh.UseVisualStyleBackColor = true;
+            this.btn_mods_refresh.Click += new System.EventHandler(this.on_btn_mods_refresh_Click);
             // 
             // tableLayoutPanelmods
             // 
@@ -1777,10 +1758,8 @@
         private System.Windows.Forms.Button btn_avatars_profile;
         private System.Windows.Forms.TextBox txt_avatar_author;
         private System.Windows.Forms.ContextMenuStrip menu_users;
-        private System.Windows.Forms.ToolStripMenuItem addFriendToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem removeFriendToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem friendToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem blockToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem unblockToolStripMenuItem;
         private System.Windows.Forms.ContextMenuStrip menu_mod;
         private System.Windows.Forms.ToolStripMenuItem toggleModToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem deleteModToolStripMenuItem;
@@ -1808,6 +1787,7 @@
         private System.Windows.Forms.TextBox txt_mod_version;
         private System.Windows.Forms.TextBox txt_mod_author;
         private System.Windows.Forms.TabPage tab_mods_available;
+        private System.Windows.Forms.ToolStripMenuItem profileMenuItem;
     }
 }
 

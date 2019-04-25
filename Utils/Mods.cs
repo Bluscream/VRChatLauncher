@@ -9,6 +9,7 @@ using System.Text;
 using System.Threading.Tasks;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
+using System.Diagnostics;
 
 namespace VRChatLauncher.Utils
 {
@@ -81,6 +82,7 @@ namespace VRChatLauncher.Utils
                 if (!Directory.Exists(modPath)) continue;
                 foreach (var file in Directory.GetFiles(modPath, "*.dll", SearchOption.TopDirectoryOnly)) {
                     var mod = GetMod(file);
+                    if (mod == null) continue;
                     mod.Enabled = true;
                     ret.Add(mod);
                 }
@@ -88,6 +90,7 @@ namespace VRChatLauncher.Utils
                 if (!Directory.Exists(disabledModPath)) continue;
                 foreach (var file in Directory.GetFiles(disabledModPath, "*.dll", SearchOption.TopDirectoryOnly)) {
                     var mod = GetMod(file);
+                    if (mod == null) continue;
                     mod.Enabled = false;
                     ret.Add(mod);
                 }
@@ -106,10 +109,24 @@ namespace VRChatLauncher.Utils
             var mod = new Mod();
             // mod.Type = ModLoaderType.Unknown;
             mod.File = new FileInfo(file);
+            if (mod.File.Extension.ToLower() != ".dll") return null;
             mod.Name = mod.File.FileNameWithoutExtension();
+            try
+            {
+                FileVersionInfo verInfo = FileVersionInfo.GetVersionInfo(mod.File.FullName);
+                if (!string.IsNullOrEmpty(verInfo.ProductName)) mod.Name = $"{verInfo.ProductName} ({verInfo.InternalName})";
+                mod.Author = verInfo.CompanyName;
+                mod.Version = string.IsNullOrEmpty(verInfo.ProductVersion) ? verInfo.FileVersion : verInfo.ProductVersion;
+                mod.Description = verInfo.FileDescription;
+            } catch (Exception ex) {
+                mod.Error = ex.Message;
+            }
             try {
                 mod = GetModInfo(mod);
-            } catch (Exception ex) { Logger.Error("Can't load mod", $"\"{mod.File.Name}\"", $"({ex.Message})", Environment.NewLine, ex.StackTrace); }
+            } catch (Exception ex) {
+                Logger.Error("Can't load mod info for", mod.File.Name.Quote(), ex.Message.Enclose(), Environment.NewLine, ex.StackTrace);
+                mod.Error = ex.Message;
+            }
             return mod;
         }
         public static Mod GetModInfo(Mod mod) {
@@ -154,6 +171,7 @@ namespace VRChatLauncher.Utils
 
         public class Mod {
             public FileInfo File { get; set; }
+            public string Error { get; set; }
             public bool Enabled { get; set; }
             public string Name { get; set; }
             public ModLoaderType Type { get; set; }

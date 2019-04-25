@@ -26,6 +26,7 @@
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
     <Prefer32Bit>false</Prefer32Bit>
+    <GenerateSerializationAssemblies>Auto</GenerateSerializationAssemblies>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <PlatformTarget>AnyCPU</PlatformTarget>
@@ -193,9 +194,8 @@
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\..\VRChat.Net\VRChatApi\VRChatApi\VRChatApi.csproj">
-      <Project>{49df3224-b9ad-4e78-a2a9-56a92da5f68e}</Project>
+      <Project>{6c83feed-b29a-4f7d-9371-5b02c5b4d551}</Project>
       <Name>VRChatApi</Name>
-      <EmbedInteropTypes>False</EmbedInteropTypes>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

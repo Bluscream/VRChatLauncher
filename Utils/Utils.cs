@@ -137,9 +137,5 @@ namespace VRChatLauncher.Utils
             }
             return Process.Start(proc);
         }
-        public static FileInfo getRipper()
-        {
-            return new FileInfo(Path.Combine(getGamePath().DirectoryName, "_TOOLS", "uTinyRipper", "uTinyRipper.exe"));
-        }
     }
 }

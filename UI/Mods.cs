@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Drawing;
+using System.IO;
 using System.Linq;
 using System.Windows.Forms;
 using VRChatLauncher.Utils;
@@ -30,30 +31,28 @@ namespace VRChatLauncher
             }
                 
             lst_mods.Clear();
+            mods = mods.OrderBy(o=>o.Name).ToList();
             foreach (var mod in mods)
             {
-                var broken = string.IsNullOrEmpty(mod.Version);
                 var item = new ListViewItem();
                 item.Tag = mod;
                 // ImageList imageList = new ImageList();
                 // imageList.Images.Add(Properties.Resources.vrctoolspng);
                 switch (mod.Type)
                 {
-                    case ModLoaderType.Unknown:
-                        break;
                     case ModLoaderType.VRCModloader:
+                        item.Text = mod.Name;
+                        item.ToolTipText = mod.File.FileNameWithoutExtension();
                         item.ImageIndex = 0;break;
                     case ModLoaderType.VRLoader:
+                        item.Text = mod.Name;
+                        item.ToolTipText = mod.File.FileNameWithoutExtension();
                         break;
+                    case ModLoaderType.Unknown:
                     default:
+                        item.Text = mod.File.FileNameWithoutExtension();
+                        item.ForeColor = Color.Red;
                         break;
-                }
-                if (broken) {
-                    item.Text = mod.File.FileNameWithoutExtension();
-                    item.ForeColor = Color.Red;
-                } else {
-                    item.Text = mod.Name;
-                    item.ToolTipText = mod.File.FileNameWithoutExtension();
                 }
                 if(!mod.Enabled) item.ForeColor = Color.Gray;
                 lst_mods.Items.Add(item);
@@ -72,6 +71,7 @@ namespace VRChatLauncher
             txt_mod_version.Text = mod.Version;
             txt_mod_author.Text = mod.Author;
             txt_mod_type.Text = mod.Type.ToString();
+            if (mod.Error != null) txt_mod_type.Text += mod.Error.Enclose();
             txt_mod_description.Text = mod.Description;
         }
 
@@ -81,8 +81,9 @@ namespace VRChatLauncher
 
         private void Menu_mod_Opening(object sender, System.ComponentModel.CancelEventArgs e)
         {
+            if (lst_mods.SelectedItems.Count < 1) { e.Cancel = true; return; }
             var mod = (Mod)lst_mods.SelectedItems[0].Tag;
-            if (mod == null) return;
+            if (mod == null) { e.Cancel = true; return; }
             menu_mod.Items[1].Text = mod.Enabled ? "Disable" : "Enable";
         }
 
@@ -111,13 +112,30 @@ namespace VRChatLauncher
             var confirmResult = MessageBox.Show($"Mod {mod.Name} will be deleted, Are you sure?", "Disable mod?", MessageBoxButtons.OKCancel, MessageBoxIcon.Warning);
             if (confirmResult != DialogResult.OK) { return; }
             mod.File.Delete();
+            SetupMods(true);
         }
 
         private void DecompileModToolStripMenuItem_Click(object sender, EventArgs e)
         {
             var mod = (Mod)lst_mods.SelectedItems[0].Tag;
             if (mod == null) return;
-            MessageBox.Show($"Not implemented", "tupper is gay", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+            FileInfo file;
+            if (string.IsNullOrEmpty(config["Paths"]["Decompiler"]))
+            {
+                var confirmResult = MessageBox.Show("You don't have set up a decompiler yet, you can select one like dnSpy or ILSpy that supports \"compiler.exe %file%\" if you click on OK", "Decompiler not found!", MessageBoxButtons.OKCancel, MessageBoxIcon.Warning);
+                if (confirmResult == DialogResult.Cancel) return;
+                var fileSelector = new OpenFileDialog();
+                fileSelector.Title = "Select the decompiler to use";
+                fileSelector.Filter = "dnSpy|dnSpy.exe|ILSpy|ILSpy.exe|All Executables|*.exe";
+                if (fileSelector.ShowDialog() == DialogResult.OK)
+                {
+                    file = new FileInfo(fileSelector.FileName);
+                    config["Paths"]["Decompiler"] = file.FullName;
+                    Config.Save(config);
+                }
+            }
+            file = new FileInfo(config["Paths"]["Decompiler"]);
+            Utils.Utils.StartProcess(file, mod.File.FullName.Quote());
         }
 
         private void OpenFolderToolStripMenuItem_Click(object sender, EventArgs e)

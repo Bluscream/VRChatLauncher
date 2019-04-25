@@ -49,7 +49,6 @@ namespace VRChatLauncher
             tree_avatars.Nodes[1].Nodes.Clear();
             tree_avatars.Nodes[2].Nodes.Clear();
             if (personal_avatars == null || force) {
-                if (Utils.Utils.getRipper().Exists) btn_avatar_rip.Visible = true;
                 personal_avatars = await vrcapi.AvatarApi.Personal();
                 Logger.Log("Downloaded list of", personal_avatars.Count, "official personal avatars");
             }
@@ -116,12 +115,24 @@ namespace VRChatLauncher
         // private List<FileInfo> tmpAvatars;
         private void Btn_avatar_rip_Click(object sender, EventArgs e)
         {
-            var ripper = Utils.Utils.getRipper();
-            if (!ripper.Exists) {
-                MessageBox.Show($"{ripper.Name} was not found in\n\n{ripper.Directory}\n\nIf you want to use this feature, place it there.");
-                return;
-            }
             var avatar = (AvatarResponse)txt_avatar_id.Tag;
+            if (avatar == null) return;
+            FileInfo ripper;
+            if (string.IsNullOrEmpty(config["Paths"]["Ripper"]))
+            {
+                var confirmResult = MessageBox.Show("You don't have set up a ripper yet, you can select one like uTinyRipper.exe that supports \"ripper.exe %file%\" if you click on OK", "Ripper not found!", MessageBoxButtons.OKCancel, MessageBoxIcon.Warning);
+                if (confirmResult == DialogResult.Cancel) return;
+                var fileSelector = new OpenFileDialog();
+                fileSelector.Title = "Select the ripper to use";
+                fileSelector.Filter = "uTinyRipper|uTinyRipper.exe|All Executables|*.exe";
+                if (fileSelector.ShowDialog() == DialogResult.OK)
+                {
+                    ripper = new FileInfo(fileSelector.FileName);
+                    config["Paths"]["Ripper"] = ripper.FullName;
+                    Config.Save(config);
+                }
+            }
+            ripper = new FileInfo(config["Paths"]["Ripper"]);
             var tmpPath = new DirectoryInfo(Path.GetTempPath());
             Logger.Log("Ripping avatar ", avatar.name, avatar.id.Enclose(), "to", tmpPath.FullName.Quote()+avatar.name.Ext("vrca"));
             var file = Utils.Utils.DownloadFile(avatar.assetUrl, tmpPath, avatar.name.Ext("vrca"));
