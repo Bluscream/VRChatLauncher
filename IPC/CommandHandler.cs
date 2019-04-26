@@ -10,16 +10,22 @@ namespace VRChatLauncher.IPC
 {
     public class CommandHandler
     {
-        public static async Task IsLauncherRunning(string argument)
+        public static void IsLauncherRunning(string argument)
         {
-            foreach (var arg in argument.Split(' ')) {
-                if (arg.ToLower().StartsWith("vrchat://")) {
+            foreach (var arg in argument.Split(' '))
+            {
+                if (arg.ToLower().StartsWith("vrchat://"))
+                {
                     var uri = URI.Parse(arg);
-                    switch (uri.Host.ToLower()) {
+                    switch (uri.Host.ToLower())
+                    {
                         case "launch":
-                            if (Utils.Game.IsGameAlreadyRunning()) {
+                            if (Utils.Game.IsGameAlreadyRunning())
+                            {
                                 Logger.Log(uri.ParseQueryString());
-                            } else {
+                            }
+                            else
+                            {
                                 Utils.Game.StartGame(false, arg); // Todo properly implement
                             }
                             break;

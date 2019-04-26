@@ -40,20 +40,16 @@ namespace VRChatLauncher.Utils
         public static void Trace(params object[] msg) => log(VRChatApi.Logging.LogLevel.Trace, msgs: msg);
         public static void Debug(params object[] msg) => log(VRChatApi.Logging.LogLevel.Debug, msgs: msg);
         public static void Log(params object[] msg) => log(VRChatApi.Logging.LogLevel.Info, msgs: msg);
-        public static void LogLines(bool lines = false, params object[] msg) => log(VRChatApi.Logging.LogLevel.Info, lines: lines, msgs: msg);
+        public static void LogLines(params object[] msg) => log(VRChatApi.Logging.LogLevel.Info, lines: true, msgs: msg);
         public static void Warn(params object[] msg) => log(VRChatApi.Logging.LogLevel.Warn, msgs: msg);
         public static void Error(params object[] msg) => log(VRChatApi.Logging.LogLevel.Error, msgs: msg);
         public static void Fatal(params object[] msg) => log(VRChatApi.Logging.LogLevel.Fatal, msgs: msg);
         private static void log(VRChatApi.Logging.LogLevel logLevel, bool lines = false, params object[] msgs) // [CallerMemberName] string cName = "Unknown.Unknown", 
         {
-            if (logLevel == VRChatApi.Logging.LogLevel.Trace) {
-                if (!Main.args.Contains("--vrclauncher.verbose")) return;
-            }
             string timestamp = DateTime.UtcNow.ToString("HH:mm:ss.fff", System.Globalization.CultureInfo.InvariantCulture);
             StackFrame frame = new StackFrame(1); var method = frame.GetMethod(); var cName = method.DeclaringType.Name; var mName = method.Name;
             var oldColor = Console.ForegroundColor;
             var newColor = ColorFromLogLevel(logLevel);
-            try { Console.ForegroundColor = newColor.Item2; } catch { }
             var item = new System.Windows.Forms.ListViewItem();
             item.ForeColor = newColor.Item1;
             var str = "";
@@ -75,8 +71,9 @@ namespace VRChatLauncher.Utils
                 Main.statusBar.ForeColor = newColor.Item1;
             }
             getLogFile().AppendLine(line);
-            if (logLevel > VRChatApi.Logging.LogLevel.Trace) {
+            if (logLevel > VRChatApi.Logging.LogLevel.Trace || Main.args.Contains("--vrclauncher.verbose")) {
                 try {
+                    Console.ForegroundColor = newColor.Item2;
                     Console.WriteLine(line);
                     Console.ForegroundColor = oldColor;
                 } catch { }

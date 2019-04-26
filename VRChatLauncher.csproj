@@ -203,7 +203,7 @@
     <PostBuildEvent>COPY "$(TargetPath)" "..\..\$(TargetFileName)"
 REM COPY "$(OutDir)\VRChatApi.dll" "..\..\launcher\lib\VRChatApi.dll"
 
-start "" "$(OutDir)..\..\$(TargetFileName)" --vrclauncher.console --vrclauncher.verbose</PostBuildEvent>
+start "" "$(OutDir)..\..\$(TargetFileName)" --vrclauncher.console --vrclauncher.verbose --vrclauncher.trace</PostBuildEvent>
   </PropertyGroup>
   <PropertyGroup>
     <PreBuildEvent>taskkill /f /fi "imagename eq $(TargetFileName)"

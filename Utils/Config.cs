@@ -12,7 +12,7 @@ namespace VRChatLauncher.Utils
     public class Config
     {
         public static IniData DefaultConfig = new IniData();
-        private static string DefaultConfigFile = Path.Combine(Utils.getOwnPath().DirectoryName, "Launcher.ini");
+        public static string DefaultConfigFile = Path.Combine(Utils.getOwnPath().DirectoryName, "Launcher.ini");
         public static IniData Load(string file = null, FileIniDataParser parser = null) {
             if (file == null) file = DefaultConfigFile;
             if (parser == null) parser = new FileIniDataParser();

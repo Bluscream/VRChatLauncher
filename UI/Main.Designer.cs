@@ -29,20 +29,20 @@
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
-            System.Windows.Forms.TreeNode treeNode1 = new System.Windows.Forms.TreeNode("Me");
-            System.Windows.Forms.TreeNode treeNode2 = new System.Windows.Forms.TreeNode("Online");
-            System.Windows.Forms.TreeNode treeNode3 = new System.Windows.Forms.TreeNode("Offline");
-            System.Windows.Forms.TreeNode treeNode4 = new System.Windows.Forms.TreeNode("Friends", new System.Windows.Forms.TreeNode[] {
-            treeNode2,
-            treeNode3});
-            System.Windows.Forms.TreeNode treeNode5 = new System.Windows.Forms.TreeNode("Blocked");
-            System.Windows.Forms.TreeNode treeNode6 = new System.Windows.Forms.TreeNode("Requests");
-            System.Windows.Forms.TreeNode treeNode7 = new System.Windows.Forms.TreeNode("Search");
-            System.Windows.Forms.TreeNode treeNode8 = new System.Windows.Forms.TreeNode("Personal");
-            System.Windows.Forms.TreeNode treeNode9 = new System.Windows.Forms.TreeNode("Favorites");
-            System.Windows.Forms.TreeNode treeNode10 = new System.Windows.Forms.TreeNode("VRCTools");
-            System.Windows.Forms.TreeNode treeNode11 = new System.Windows.Forms.TreeNode("Personal", 2, 2);
-            System.Windows.Forms.TreeNode treeNode12 = new System.Windows.Forms.TreeNode("Favorites", -2, -2);
+            System.Windows.Forms.TreeNode treeNode13 = new System.Windows.Forms.TreeNode("Me");
+            System.Windows.Forms.TreeNode treeNode14 = new System.Windows.Forms.TreeNode("Online");
+            System.Windows.Forms.TreeNode treeNode15 = new System.Windows.Forms.TreeNode("Offline");
+            System.Windows.Forms.TreeNode treeNode16 = new System.Windows.Forms.TreeNode("Friends", new System.Windows.Forms.TreeNode[] {
+            treeNode14,
+            treeNode15});
+            System.Windows.Forms.TreeNode treeNode17 = new System.Windows.Forms.TreeNode("Blocked");
+            System.Windows.Forms.TreeNode treeNode18 = new System.Windows.Forms.TreeNode("Requests");
+            System.Windows.Forms.TreeNode treeNode19 = new System.Windows.Forms.TreeNode("Search");
+            System.Windows.Forms.TreeNode treeNode1 = new System.Windows.Forms.TreeNode("Personal");
+            System.Windows.Forms.TreeNode treeNode2 = new System.Windows.Forms.TreeNode("Favorites");
+            System.Windows.Forms.TreeNode treeNode3 = new System.Windows.Forms.TreeNode("VRCTools");
+            System.Windows.Forms.TreeNode treeNode4 = new System.Windows.Forms.TreeNode("Personal", 2, 2);
+            System.Windows.Forms.TreeNode treeNode5 = new System.Windows.Forms.TreeNode("Favorites", -2, -2);
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Main));
             this.tabs_main = new System.Windows.Forms.TabControl();
             this.tab_news = new System.Windows.Forms.TabPage();
@@ -151,7 +151,10 @@
             this.tab_mods_available = new System.Windows.Forms.TabPage();
             this.tab_settings = new System.Windows.Forms.TabPage();
             this.panel_setings = new System.Windows.Forms.Panel();
+            this.panel1 = new System.Windows.Forms.Panel();
+            this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
             this.btn_config_save = new System.Windows.Forms.Button();
+            this.btn_config_apply = new System.Windows.Forms.Button();
             this.flow_settings = new System.Windows.Forms.FlowLayoutPanel();
             this.tab_log = new System.Windows.Forms.TabPage();
             this.tabs_log = new System.Windows.Forms.TabControl();
@@ -161,7 +164,6 @@
             this.tab_log_game = new System.Windows.Forms.TabPage();
             this.lst_log_game = new System.Windows.Forms.ListView();
             this.columnHeader2 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
-            this.tab_test = new System.Windows.Forms.TabPage();
             this.panel_status = new System.Windows.Forms.Panel();
             this.txt_status = new System.Windows.Forms.TextBox();
             this.btn_play = new System.Windows.Forms.Button();
@@ -207,6 +209,8 @@
             this.tableLayoutPanelmods.SuspendLayout();
             this.tab_settings.SuspendLayout();
             this.panel_setings.SuspendLayout();
+            this.panel1.SuspendLayout();
+            this.tableLayoutPanel1.SuspendLayout();
             this.tab_log.SuspendLayout();
             this.tabs_log.SuspendLayout();
             this.tab_log_launcher.SuspendLayout();
@@ -226,7 +230,6 @@
             this.tabs_main.Controls.Add(this.tab_mods);
             this.tabs_main.Controls.Add(this.tab_settings);
             this.tabs_main.Controls.Add(this.tab_log);
-            this.tabs_main.Controls.Add(this.tab_test);
             this.tabs_main.Location = new System.Drawing.Point(0, 0);
             this.tabs_main.Name = "tabs_main";
             this.tabs_main.SelectedIndex = 0;
@@ -307,29 +310,29 @@
             this.tree_users.Dock = System.Windows.Forms.DockStyle.Top;
             this.tree_users.Location = new System.Drawing.Point(0, 0);
             this.tree_users.Name = "tree_users";
-            treeNode1.Name = "node_user_self";
-            treeNode1.Text = "Me";
-            treeNode2.Name = "Node3";
-            treeNode2.Text = "Online";
-            treeNode3.Name = "Node2";
-            treeNode3.Text = "Offline";
-            treeNode4.Name = "Node0";
-            treeNode4.Text = "Friends";
-            treeNode4.ToolTipText = "Your VRChat friends";
-            treeNode5.Name = "Node0";
-            treeNode5.Text = "Blocked";
-            treeNode5.ToolTipText = "Avatars favorited though VRChat";
-            treeNode6.Name = "Node4";
-            treeNode6.Text = "Requests";
-            treeNode6.ToolTipText = "Users that want to become your friend";
-            treeNode7.Name = "node_users_search";
-            treeNode7.Text = "Search";
+            treeNode13.Name = "node_user_self";
+            treeNode13.Text = "Me";
+            treeNode14.Name = "Node3";
+            treeNode14.Text = "Online";
+            treeNode15.Name = "Node2";
+            treeNode15.Text = "Offline";
+            treeNode16.Name = "Node0";
+            treeNode16.Text = "Friends";
+            treeNode16.ToolTipText = "Your VRChat friends";
+            treeNode17.Name = "Node0";
+            treeNode17.Text = "Blocked";
+            treeNode17.ToolTipText = "Avatars favorited though VRChat";
+            treeNode18.Name = "Node4";
+            treeNode18.Text = "Requests";
+            treeNode18.ToolTipText = "Users that want to become your friend";
+            treeNode19.Name = "node_users_search";
+            treeNode19.Text = "Search";
             this.tree_users.Nodes.AddRange(new System.Windows.Forms.TreeNode[] {
-            treeNode1,
-            treeNode4,
-            treeNode5,
-            treeNode6,
-            treeNode7});
+            treeNode13,
+            treeNode16,
+            treeNode17,
+            treeNode18,
+            treeNode19});
             this.tree_users.Size = new System.Drawing.Size(187, 325);
             this.tree_users.TabIndex = 22;
             this.tree_users.NodeMouseClick += new System.Windows.Forms.TreeNodeMouseClickEventHandler(this.users_node_selected);
@@ -643,16 +646,16 @@
             this.tree_avatars.Dock = System.Windows.Forms.DockStyle.Fill;
             this.tree_avatars.Location = new System.Drawing.Point(0, 0);
             this.tree_avatars.Name = "tree_avatars";
-            treeNode8.Name = "Node0";
-            treeNode8.Text = "Personal";
-            treeNode9.Name = "Node1";
-            treeNode9.Text = "Favorites";
-            treeNode10.Name = "Node2";
-            treeNode10.Text = "VRCTools";
+            treeNode1.Name = "Node0";
+            treeNode1.Text = "Personal";
+            treeNode2.Name = "Node1";
+            treeNode2.Text = "Favorites";
+            treeNode3.Name = "Node2";
+            treeNode3.Text = "VRCTools";
             this.tree_avatars.Nodes.AddRange(new System.Windows.Forms.TreeNode[] {
-            treeNode8,
-            treeNode9,
-            treeNode10});
+            treeNode1,
+            treeNode2,
+            treeNode3});
             this.tree_avatars.Size = new System.Drawing.Size(177, 360);
             this.tree_avatars.TabIndex = 24;
             this.tree_avatars.NodeMouseClick += new System.Windows.Forms.TreeNodeMouseClickEventHandler(this.avatars_node_selected);
@@ -898,19 +901,19 @@
             this.tree_worlds.Dock = System.Windows.Forms.DockStyle.Fill;
             this.tree_worlds.Location = new System.Drawing.Point(0, 0);
             this.tree_worlds.Name = "tree_worlds";
-            treeNode11.ImageIndex = 2;
-            treeNode11.Name = "Node0";
-            treeNode11.SelectedImageIndex = 2;
-            treeNode11.Text = "Personal";
-            treeNode11.ToolTipText = "Worlds uploaded by you";
-            treeNode12.ImageIndex = -2;
-            treeNode12.Name = "Node0";
-            treeNode12.SelectedImageIndex = -2;
-            treeNode12.Text = "Favorites";
-            treeNode12.ToolTipText = "Worlds favorited though VRChat";
+            treeNode4.ImageIndex = 2;
+            treeNode4.Name = "Node0";
+            treeNode4.SelectedImageIndex = 2;
+            treeNode4.Text = "Personal";
+            treeNode4.ToolTipText = "Worlds uploaded by you";
+            treeNode5.ImageIndex = -2;
+            treeNode5.Name = "Node0";
+            treeNode5.SelectedImageIndex = -2;
+            treeNode5.Text = "Favorites";
+            treeNode5.ToolTipText = "Worlds favorited though VRChat";
             this.tree_worlds.Nodes.AddRange(new System.Windows.Forms.TreeNode[] {
-            treeNode11,
-            treeNode12});
+            treeNode4,
+            treeNode5});
             this.tree_worlds.Size = new System.Drawing.Size(177, 337);
             this.tree_worlds.TabIndex = 22;
             this.tree_worlds.NodeMouseClick += new System.Windows.Forms.TreeNodeMouseClickEventHandler(this.worlds_node_selectedAsync);
@@ -1437,33 +1440,69 @@
             // 
             // panel_setings
             // 
-            this.panel_setings.Controls.Add(this.btn_config_save);
-            this.panel_setings.Controls.Add(this.flow_settings);
+            this.panel_setings.Controls.Add(this.panel1);
             this.panel_setings.Dock = System.Windows.Forms.DockStyle.Fill;
             this.panel_setings.Location = new System.Drawing.Point(0, 0);
             this.panel_setings.Name = "panel_setings";
             this.panel_setings.Size = new System.Drawing.Size(905, 360);
             this.panel_setings.TabIndex = 1;
             // 
+            // panel1
+            // 
+            this.panel1.Controls.Add(this.tableLayoutPanel1);
+            this.panel1.Controls.Add(this.flow_settings);
+            this.panel1.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.panel1.Location = new System.Drawing.Point(0, 0);
+            this.panel1.Name = "panel1";
+            this.panel1.Size = new System.Drawing.Size(905, 360);
+            this.panel1.TabIndex = 0;
+            // 
+            // tableLayoutPanel1
+            // 
+            this.tableLayoutPanel1.ColumnCount = 2;
+            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50F));
+            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50F));
+            this.tableLayoutPanel1.Controls.Add(this.btn_config_save, 1, 0);
+            this.tableLayoutPanel1.Controls.Add(this.btn_config_apply, 0, 0);
+            this.tableLayoutPanel1.Dock = System.Windows.Forms.DockStyle.Bottom;
+            this.tableLayoutPanel1.Location = new System.Drawing.Point(0, 322);
+            this.tableLayoutPanel1.Name = "tableLayoutPanel1";
+            this.tableLayoutPanel1.RowCount = 1;
+            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50F));
+            this.tableLayoutPanel1.Size = new System.Drawing.Size(905, 38);
+            this.tableLayoutPanel1.TabIndex = 3;
+            // 
             // btn_config_save
             // 
-            this.btn_config_save.Dock = System.Windows.Forms.DockStyle.Bottom;
-            this.btn_config_save.Enabled = false;
-            this.btn_config_save.Location = new System.Drawing.Point(0, 337);
+            this.btn_config_save.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
+            this.btn_config_save.Location = new System.Drawing.Point(455, 7);
             this.btn_config_save.Name = "btn_config_save";
-            this.btn_config_save.Size = new System.Drawing.Size(905, 23);
+            this.btn_config_save.Size = new System.Drawing.Size(447, 23);
             this.btn_config_save.TabIndex = 1;
             this.btn_config_save.Text = "Save";
             this.btn_config_save.UseVisualStyleBackColor = true;
             this.btn_config_save.Click += new System.EventHandler(this.Btn_config_save_Click);
             // 
+            // btn_config_apply
+            // 
+            this.btn_config_apply.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
+            this.btn_config_apply.Location = new System.Drawing.Point(3, 7);
+            this.btn_config_apply.Name = "btn_config_apply";
+            this.btn_config_apply.Size = new System.Drawing.Size(446, 23);
+            this.btn_config_apply.TabIndex = 2;
+            this.btn_config_apply.Text = "Apply";
+            this.btn_config_apply.UseVisualStyleBackColor = true;
+            this.btn_config_apply.Click += new System.EventHandler(this.Btn_config_apply_Click);
+            // 
             // flow_settings
             // 
-            this.flow_settings.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.flow_settings.Location = new System.Drawing.Point(0, 0);
+            this.flow_settings.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.flow_settings.Location = new System.Drawing.Point(8, 8);
             this.flow_settings.Name = "flow_settings";
-            this.flow_settings.Size = new System.Drawing.Size(905, 360);
-            this.flow_settings.TabIndex = 0;
+            this.flow_settings.Size = new System.Drawing.Size(899, 308);
+            this.flow_settings.TabIndex = 2;
             // 
             // tab_log
             // 
@@ -1472,7 +1511,7 @@
             this.tab_log.Name = "tab_log";
             this.tab_log.Size = new System.Drawing.Size(905, 360);
             this.tab_log.TabIndex = 8;
-            this.tab_log.Text = "Log";
+            this.tab_log.Text = "Logs";
             this.tab_log.UseVisualStyleBackColor = true;
             // 
             // tabs_log
@@ -1545,15 +1584,6 @@
             // 
             this.columnHeader2.Text = "";
             this.columnHeader2.Width = 1;
-            // 
-            // tab_test
-            // 
-            this.tab_test.Location = new System.Drawing.Point(4, 22);
-            this.tab_test.Name = "tab_test";
-            this.tab_test.Size = new System.Drawing.Size(905, 360);
-            this.tab_test.TabIndex = 9;
-            this.tab_test.Text = "Test";
-            this.tab_test.UseVisualStyleBackColor = true;
             // 
             // panel_status
             // 
@@ -1655,6 +1685,8 @@
             this.tableLayoutPanelmods.PerformLayout();
             this.tab_settings.ResumeLayout(false);
             this.panel_setings.ResumeLayout(false);
+            this.panel1.ResumeLayout(false);
+            this.tableLayoutPanel1.ResumeLayout(false);
             this.tab_log.ResumeLayout(false);
             this.tabs_log.ResumeLayout(false);
             this.tab_log_launcher.ResumeLayout(false);
@@ -1680,11 +1712,8 @@
         private System.Windows.Forms.ListView lst_log_game;
         private System.Windows.Forms.ColumnHeader columnHeader1;
         private System.Windows.Forms.ColumnHeader columnHeader2;
-        private System.Windows.Forms.FlowLayoutPanel flow_settings;
         private System.Windows.Forms.Panel panel_setings;
-        private System.Windows.Forms.Button btn_config_save;
         private System.Windows.Forms.SplitContainer splitContainerAvatars;
-        private System.Windows.Forms.TabPage tab_test;
         private System.Windows.Forms.SplitContainer splitContainerUsers;
         private System.Windows.Forms.TreeView tree_users;
         private System.Windows.Forms.Button btn_users_reload;
@@ -1788,6 +1817,11 @@
         private System.Windows.Forms.TextBox txt_mod_author;
         private System.Windows.Forms.TabPage tab_mods_available;
         private System.Windows.Forms.ToolStripMenuItem profileMenuItem;
+        private System.Windows.Forms.Panel panel1;
+        private System.Windows.Forms.TableLayoutPanel tableLayoutPanel1;
+        private System.Windows.Forms.Button btn_config_save;
+        private System.Windows.Forms.Button btn_config_apply;
+        private System.Windows.Forms.FlowLayoutPanel flow_settings;
     }
 }
 

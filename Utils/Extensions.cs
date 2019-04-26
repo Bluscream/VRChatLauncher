@@ -23,6 +23,14 @@ namespace VRChatLauncher.Utils
         public static object ToJson(this object obj, bool indented = true) {
             return JsonConvert.SerializeObject(obj, (indented ? Formatting.Indented : Formatting.None), new JsonConverter[] { new StringEnumConverter() });
         }
+        public static string ReplaceLastOccurrence(this string Source, string Find, string Replace)
+        {
+            int place = Source.LastIndexOf(Find);
+            if(place == -1)
+                return Source;
+            string result = Source.Remove(place, Find.Length).Insert(place, Replace);
+            return result;
+        }
         public static string Ext(this string text, string extension)
         {
             return text + "." + extension;
