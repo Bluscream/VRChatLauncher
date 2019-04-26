@@ -190,6 +190,7 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Launcher.ico" />
+    <None Include="README.md" />
     <None Include="Resources\vrctools.png" />
   </ItemGroup>
   <ItemGroup>
