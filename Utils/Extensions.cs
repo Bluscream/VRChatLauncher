@@ -2,8 +2,10 @@
 using Newtonsoft.Json.Converters;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.IO;
 using System.Linq;
+using System.Reflection;
 using System.Text;
 using System.Text.RegularExpressions;
 using System.Threading;
@@ -22,6 +24,10 @@ namespace VRChatLauncher.Utils
         }
         public static object ToJson(this object obj, bool indented = true) {
             return JsonConvert.SerializeObject(obj, (indented ? Formatting.Indented : Formatting.None), new JsonConverter[] { new StringEnumConverter() });
+        }
+        public static string Remove(this string Source, string Replace)
+        {
+            return Source.Replace(Replace, string.Empty);
         }
         public static string ReplaceLastOccurrence(this string Source, string Find, string Replace)
         {
@@ -76,6 +82,22 @@ namespace VRChatLauncher.Utils
                 File.AppendAllLines(file.FullName, new string[] { line });
             } catch { }
         }
+
+        public static string GetDescription(this Enum value)
+        {
+            Type type = value.GetType();
+            string name = Enum.GetName(type, value);
+            if (name != null) {
+                FieldInfo field = type.GetField(name);
+                if (field != null) {
+                    DescriptionAttribute attr =  Attribute.GetCustomAttribute(field, typeof(DescriptionAttribute)) as DescriptionAttribute;
+                    if (attr != null) {
+                        return attr.Description;
+                    }
+                }
+            }
+    return null;
+}
         public static async Task<TResult> TimeoutAfter<TResult>(this Task<TResult> task, TimeSpan timeout) {
             using (var timeoutCancellationTokenSource = new CancellationTokenSource()) {
                 var completedTask = await Task.WhenAny(task, Task.Delay(timeout, timeoutCancellationTokenSource.Token));

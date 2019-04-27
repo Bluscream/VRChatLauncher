@@ -6,6 +6,7 @@ using VRChatApi.Classes;
 using System.Drawing;
 using System.Collections;
 using System.Linq;
+using static VRChatLauncher.IPC.Game;
 
 namespace VRChatLauncher
 {
@@ -69,9 +70,7 @@ namespace VRChatLauncher
             if (users_loading) { Logger.Warn("Users are already loading, try again later");  return; }
             users_loading = true;var friends = new List<UserBriefResponse>();
             var onlinenode = tree_users.Nodes[1].Nodes[0];
-            var offlinenode = tree_users.Nodes[1].Nodes[1];
             onlinenode.Nodes.Clear();
-            offlinenode.Nodes.Clear();
             tree_users.Nodes[2].Nodes.Clear();
             tree_users.Nodes[3].Nodes.Clear();
             if (me != null)  {
@@ -85,30 +84,62 @@ namespace VRChatLauncher
                 var offset = 0;
                 for (int i = 0; i < 10; i++)
                 {
-                    var friends_part = await vrcapi.FriendsApi.Get(offset, 100, true);
+                    Logger.Debug(i, "Getting online friends", offset, "to", offset + 100);
+                    var friends_part = await vrcapi.FriendsApi.Get(offset, 100, false);
                     friends.AddRange(friends_part);
+                    Logger.Debug(i, "Got", friends_part.Count, "online friends");
                     if (friends_part.Count < 100) break;
                     offset += 100;
                 }
-                friends = friends.OrderBy(o=>o.location).ToList();
+                /*foreach (var friend_id in me.friends) {
+                    if (friends.Any(n=> n.id == friend_id)) continue;
+                    var user = await vrcapi.UserApi.GetById(friend_id);
+                    friends.Add(user);
+                }*/
                 friends = friends.OrderBy(o=>o.displayName).ToList();
-                Logger.Log("Downloaded list of", friends.Count, "official friends");
+                friends = friends.OrderBy(o=>o.location).Reverse().ToList();
+                Logger.Log("Downloaded list of", friends.Count, "official online friends");
                 foreach (var friend in friends)
                 {
                     var node = new TreeNode(friend.displayName);
                     node.Tag = friend;
                     SetNodeColorFromTags(node, friend.tags);
-                    if (friend.location == "offline")
+                    if (friend.location == "offline") {
                         tree_users.Nodes[1].Nodes[1].Nodes.Add(node);
-                    else tree_users.Nodes[1].Nodes[0].Nodes.Add(node);
+                    } else { tree_users.Nodes[1].Nodes[0].Nodes.Add(node); }
                 }
                 //  tree_users.Nodes[1].Text = $"Friends ({onlinenode.Nodes.Count + offlinenode.Nodes.Count})";
                 onlinenode.Text = $"Online ({onlinenode.Nodes.Count})";
-                offlinenode.Text = $"Offline ({offlinenode.Nodes.Count})";
             }
             // tree_users.TreeViewNodeSorter = new NodeSorter();
             // tree_users.Sort(onlinenode);
             users_loading = false;
+        }
+        public async void FillOfflineFriends() {
+            var offlinenode = tree_users.Nodes[1].Nodes[1];
+            offlinenode.Nodes.Clear();
+            var friends = new List<UserBriefResponse>();
+            var offset = 0;
+            for (int i = 0; i < 15; i++)
+            {
+                Logger.Debug(i, "Getting offline friends", offset, "to", offset + 100);
+                var friends_part = await vrcapi.FriendsApi.Get(offset, 100, true);
+                friends.AddRange(friends_part);
+                Logger.Debug(i, "Got", friends_part.Count, "offline friends");
+                if (friends_part.Count < 100) break;
+                offset += 100;
+            }
+            friends = friends.OrderBy(o=>o.location).ToList();
+            friends = friends.OrderBy(o=>o.displayName).ToList();
+            Logger.Log("Downloaded list of", friends.Count, "official offline friends");
+            foreach (var friend in friends)
+            {
+                var node = new TreeNode(friend.displayName);
+                node.Tag = friend;
+                SetNodeColorFromTags(node, friend.tags);
+                tree_users.Nodes[1].Nodes[1].Nodes.Add(node);
+            }
+            offlinenode.Text = $"Offline ({offlinenode.Nodes.Count})";
         }
 
         private void FillUser(UserBriefResponse user)
@@ -120,6 +151,7 @@ namespace VRChatLauncher
             txt_users_status.Text = user.statusDescription;
             txt_users_rank.Text = RankFromTags(user.tags).ToString();
             txt_users_tags.Text = user.tags.ToJson().ToString();
+            txt_users_location.Text = user.location;
             if (tree_users.Nodes[0].Tag != null)
             {
                 var me = (UserResponse)tree_users.Nodes[0].Tag;
@@ -134,10 +166,14 @@ namespace VRChatLauncher
 
         private void users_node_selected(object sender, TreeNodeMouseClickEventArgs e)
         {
+            if( e.Node.Text == "Offline") {
+                FillOfflineFriends();
+                return;
+            }
             if (e.Node.Tag == null) return;
             if (e.Node.Tag is UserResponse) {
                 var user = (UserResponse)e.Node.Tag; FillUser(user);
-            } else {
+            } else if (e.Node.Tag is UserBriefResponse) {
                 var user = (UserBriefResponse)e.Node.Tag; FillUser(user);
            }
         }
@@ -147,9 +183,24 @@ namespace VRChatLauncher
             FillUser(user);
         }
 
+        private void Btn_users_search_name_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void Btn_user_join_Click(object sender, EventArgs e)
+        {
+            if(txt_users_location.Text == "offline") { MessageBox.Show($"{txt_users_displayname.Text} is offline. You can't join them!", "User offline", MessageBoxButtons.OK, MessageBoxIcon.Error); return; }
+            else if(txt_users_location.Text == "private") { MessageBox.Show($"{txt_users_displayname.Text} is in a private world. You can't join them!", "User in private world!", MessageBoxButtons.OK, MessageBoxIcon.Error); return; }
+            var worldinstance = new WorldInstanceID(txt_users_location.Text);
+            var cmd = new Command(CommandType.Launch, worldInstanceID: worldinstance, referrer: "vrclauncher");
+            Send(cmd);
+        }
+
         private void Btn_users_reload_Click(object sender, EventArgs e)
         {
             SetupUsersAsync(true);
+            FillOfflineFriends();
         }
 
         private void btn_users_save_click(object sender, EventArgs e)
