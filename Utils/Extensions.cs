@@ -15,16 +15,33 @@ namespace VRChatLauncher.Utils
 {
     static class Extensions
     {
+ #region DateTime
         public static bool ExpiredSince(this DateTime dateTime, int minutes)
         {
             return (dateTime - DateTime.Now).TotalMinutes < minutes;
         }
+#endregion
+ #region FileInfo
         public static string FileNameWithoutExtension(this FileInfo file) {
             return Path.GetFileNameWithoutExtension(file.Name);
         }
+        /*public static string Extension(this FileInfo file) {
+            return Path.GetExtension(file.Name);
+        }*/
+        public static void AppendLine(this FileInfo file, string line)
+        {
+            try {
+                if (!file.Exists) file.Create();
+                File.AppendAllLines(file.FullName, new string[] { line });
+            } catch { }
+        }
+#endregion
+ #region Object
         public static object ToJson(this object obj, bool indented = true) {
             return JsonConvert.SerializeObject(obj, (indented ? Formatting.Indented : Formatting.None), new JsonConverter[] { new StringEnumConverter() });
         }
+#endregion
+ #region String
         public static string Remove(this string Source, string Replace)
         {
             return Source.Replace(Replace, string.Empty);
@@ -57,12 +74,16 @@ namespace VRChatLauncher.Utils
         {
             return starts + text + ends;
         }
+#endregion
+ #region List
         public static T PopAt<T>(this List<T> list, int index)
         {
             T r = list[index];
             list.RemoveAt(index);
             return r;
         }
+#endregion
+ #region Uri
         private static readonly Regex QueryRegex = new Regex(@"[?&](\w[\w.]*)=([^?&]+)");
         public static IReadOnlyDictionary<string, string> ParseQueryString(this Uri uri)
         {
@@ -75,14 +96,8 @@ namespace VRChatLauncher.Utils
             }
             return paramaters;
         }
-        public static void AppendLine(this FileInfo file, string line)
-        {
-            try {
-                if (!file.Exists) file.Create();
-                File.AppendAllLines(file.FullName, new string[] { line });
-            } catch { }
-        }
-
+#endregion
+ #region Enum
         public static string GetDescription(this Enum value)
         {
             Type type = value.GetType();
@@ -98,6 +113,8 @@ namespace VRChatLauncher.Utils
             }
     return null;
 }
+#endregion
+ #region Task
         public static async Task<TResult> TimeoutAfter<TResult>(this Task<TResult> task, TimeSpan timeout) {
             using (var timeoutCancellationTokenSource = new CancellationTokenSource()) {
                 var completedTask = await Task.WhenAny(task, Task.Delay(timeout, timeoutCancellationTokenSource.Token));
@@ -109,5 +126,6 @@ namespace VRChatLauncher.Utils
                 }
             }
         }
+#endregion
     }
 }

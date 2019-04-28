@@ -4,9 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace VRChatLauncher.Utils
-{
-    class VRCAPI
-    {
+namespace VRChatLauncher.Utils {
+    public class VRCAPI {
     }
 }

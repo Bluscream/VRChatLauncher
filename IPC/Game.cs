@@ -23,7 +23,7 @@ namespace VRChatLauncher.IPC
         }
         private static void SendCommand(string cmd) {
             var oldClip = Clipboard.GetText();
-            Clipboard.SetText(" ");
+            Clipboard.Clear();
             Clipboard.SetText(cmd);
             if (oldClip != null)
             {

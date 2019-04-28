@@ -7,6 +7,7 @@ using System.Drawing;
 using System.Collections;
 using System.Linq;
 using static VRChatLauncher.IPC.Game;
+using System.IO;
 
 namespace VRChatLauncher
 {
@@ -74,11 +75,13 @@ namespace VRChatLauncher
             tree_users.Nodes[2].Nodes.Clear();
             tree_users.Nodes[3].Nodes.Clear();
             if (me != null)  {
-                if (force) me = await vrcapi.UserApi.UpdateInfo(me.id);
+                if (force) { me = await vrcapi.UserApi.UpdateInfo(me.id); }
+                Logger.Debug("Me: ", me.ToJson());
                 SetNodeColorFromTags(tree_users.Nodes[0], me.tags);
                 tree_users.Nodes[0].Text = me.displayName;
                 tree_users.Nodes[0].Tag = me;
                 tree_users.Nodes[1].Text = $"Friends ({me.friends.Count})";
+                // tree_users.Nodes[1].Tag = me.friends;
             }
             if (users_last_update == null || users_last_update.ExpiredSince(3) || force) {
                 var offset = 0;
@@ -86,16 +89,18 @@ namespace VRChatLauncher
                 {
                     Logger.Debug(i, "Getting online friends", offset, "to", offset + 100);
                     var friends_part = await vrcapi.FriendsApi.Get(offset, 100, false);
+                    if (friends_part == null) break;
+                    /*Logger.Trace(response.ToJson());
+                    if (response.Banned) {
+                        MessageBox.Show($"Banned until {response.Expires}!");
+                        return;
+                    }*/
+                    // var friends_part = (List<UserBriefResponse>)response.Content;
                     friends.AddRange(friends_part);
                     Logger.Debug(i, "Got", friends_part.Count, "online friends");
                     if (friends_part.Count < 100) break;
                     offset += 100;
                 }
-                /*foreach (var friend_id in me.friends) {
-                    if (friends.Any(n=> n.id == friend_id)) continue;
-                    var user = await vrcapi.UserApi.GetById(friend_id);
-                    friends.Add(user);
-                }*/
                 friends = friends.OrderBy(o=>o.displayName).ToList();
                 friends = friends.OrderBy(o=>o.location).Reverse().ToList();
                 Logger.Log("Downloaded list of", friends.Count, "official online friends");
@@ -124,6 +129,8 @@ namespace VRChatLauncher
             {
                 Logger.Debug(i, "Getting offline friends", offset, "to", offset + 100);
                 var friends_part = await vrcapi.FriendsApi.Get(offset, 100, true);
+                if (friends_part == null) break;
+                // var friends_part = (List<UserBriefResponse>)response.Content;
                 friends.AddRange(friends_part);
                 Logger.Debug(i, "Got", friends_part.Count, "offline friends");
                 if (friends_part.Count < 100) break;
@@ -166,16 +173,31 @@ namespace VRChatLauncher
 
         private void users_node_selected(object sender, TreeNodeMouseClickEventArgs e)
         {
-            if( e.Node.Text == "Offline") {
-                FillOfflineFriends();
-                return;
+            if (e.Button == MouseButtons.Left)
+            {
+                if (e.Node.Text == "Offline")
+                {
+                    FillOfflineFriends();
+                    return;
+                }
+                if (e.Node.Tag == null) return;
+                if (e.Node.Tag is UserResponse)
+                {
+                    var user = (UserResponse)e.Node.Tag; FillUser(user);
+                }
+                else if (e.Node.Tag is UserBriefResponse)
+                {
+                    var user = (UserBriefResponse)e.Node.Tag; FillUser(user);
+                }
+            } else if (e.Button == MouseButtons.Right) {
+                tree_users.SelectedNode = e.Node;
+                for (int i = 0; i < 5; i++) { menu_users.Items[i].Visible = false; }
+                if(e.Node.Text.StartsWith("Friends ("))
+                {
+                    menu_users.Items[3].Visible = true; menu_users.Items[4].Visible = true;
+                    menu_users.Show(tree_users, e.Location);
+                }
             }
-            if (e.Node.Tag == null) return;
-            if (e.Node.Tag is UserResponse) {
-                var user = (UserResponse)e.Node.Tag; FillUser(user);
-            } else if (e.Node.Tag is UserBriefResponse) {
-                var user = (UserBriefResponse)e.Node.Tag; FillUser(user);
-           }
         }
         private async void Btn_users_search_ClickAsync(object sender, EventArgs e)
         {
@@ -193,12 +215,13 @@ namespace VRChatLauncher
             if(txt_users_location.Text == "offline") { MessageBox.Show($"{txt_users_displayname.Text} is offline. You can't join them!", "User offline", MessageBoxButtons.OK, MessageBoxIcon.Error); return; }
             else if(txt_users_location.Text == "private") { MessageBox.Show($"{txt_users_displayname.Text} is in a private world. You can't join them!", "User in private world!", MessageBoxButtons.OK, MessageBoxIcon.Error); return; }
             var worldinstance = new WorldInstanceID(txt_users_location.Text);
-            var cmd = new Command(CommandType.Launch, worldInstanceID: worldinstance, referrer: "vrclauncher");
+            var cmd = new Command(CommandType.Launch, worldInstanceID: worldinstance); // , referrer: "vrclauncher"
             Send(cmd);
         }
 
         private void Btn_users_reload_Click(object sender, EventArgs e)
         {
+            if(me != null && me.id == null) { LoginVRCAPI(); }
             SetupUsersAsync(true);
             FillOfflineFriends();
         }
@@ -226,6 +249,51 @@ namespace VRChatLauncher
         private void Btn_users_unblock_Click(object sender, EventArgs e)
         {
 
+        }
+
+        private void Menu_item_exportfriends_Click(object sender, EventArgs e)
+        {
+            if (me == null) return;
+            SaveFileDialog savefile = new SaveFileDialog();
+            savefile.Title = $"Export {me.friends.Count} Friends";
+            savefile.FileName = $"friends_{me.username}.txt";
+            savefile.Filter = "Friends list|*.txt";
+
+            if (savefile.ShowDialog() == DialogResult.OK)
+            {
+                var file = new FileInfo(savefile.FileName);
+                Logger.Warn("Extenstion:", file.Extension);
+                using (StreamWriter sw = new StreamWriter(savefile.FileName))
+                {
+                    sw.Write(string.Join(Environment.NewLine, me.friends));
+                }
+            }
+        }
+        public int AddFriends(List<string> ids)
+        {
+            var toAdd = ids.Except(me.friends).ToList();
+            var skipped = ids.Count - toAdd.Count;
+            Logger.Log("ids:", ids.Count, "toAdd:", toAdd.Count, "skipped:", skipped);
+            foreach (var friend in toAdd)
+            {
+                 vrcapi.FriendsApi.SendRequest()
+            }
+            return toAdd.Count;
+        }
+
+        private void Menu_item_importfriends_Click(object sender, EventArgs e)
+        {
+            var fileSelector = new OpenFileDialog();
+            fileSelector.Title = "Import friends";
+            fileSelector.Filter = "Friends list|*.txt";
+            if (fileSelector.ShowDialog() == DialogResult.OK)
+            {
+                var file = new FileInfo(fileSelector.FileName);
+                if (!file.Exists) { MessageBox.Show("File does not exist!", "", MessageBoxButtons.OK, MessageBoxIcon.Error);  return; }
+                var toImport = new List<string>(File.ReadAllLines(file.FullName));
+                var imported = AddFriends(toImport);
+                MessageBox.Show($"Sent {imported} friend requests", "Import finished", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            }
         }
     }
 }

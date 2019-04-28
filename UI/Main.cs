@@ -6,6 +6,8 @@ using System.Windows.Forms;
 using VRChatLauncher.Utils;
 using IniParser.Model;
 using System.Net;
+using VRChatApi.Classes;
+using Humanizer;
 
 namespace VRChatLauncher
 {
@@ -75,15 +77,52 @@ namespace VRChatLauncher
         {
             Logger.Log("Trying to log in as", username, "...");
             vrcapi = new VRChatApi.VRChatApi(username, password);
-            me = await vrcapi.UserApi.Login().TimeoutAfter(TimeSpan.FromSeconds(3));
-            if (me == null) {
+            me = await vrcapi.UserApi.Login().TimeoutAfter(TimeSpan.FromSeconds(5));
+            // var json = await me.Raw.Content.ReadAsStringAsync();
+            if (me == null) { //  && me.id == null
+                // Check password
                 var confirmResult = MessageBox.Show($"Something went wrong while logging you in as {username}\n\nRetry?", "Failed to log in!", MessageBoxButtons.RetryCancel, MessageBoxIcon.Error);
                 if (confirmResult == DialogResult.Retry) return await VRCAPILogin(username, password);
                 tabs_main.SelectTab(0); return false;
             }
             Logger.Log("Logged in as", me.username);
-            return true;
+            var _me = await vrcapi.UserApi.UpdateInfo(me.id);
+            // Logger.Trace("_me", _me.ToJson());
+            if (_me.id != null) return true;
+            var json = await _me.Raw.Content.ReadAsStringAsync();
+            object temp = null;
+            temp = Newtonsoft.Json.JsonConvert.DeserializeObject<UserResponse>(json);
+            var userResponse = (UserResponse)temp;
+            if (userResponse.id != null) {
+                Logger.Trace("userResponse", userResponse.ToJson());
+                return true;
+            } else {
+                temp = Newtonsoft.Json.JsonConvert.DeserializeObject<BanResponse>(json);
+                var banResponse = (BanResponse)temp;
+                if (banResponse.Reason != null)
+                {
+                    Logger.Trace("banResponse", banResponse.ToJson());
+                    var isIPban = banResponse.Target != me.displayName;
+                    Logger.Trace("isIPban", isIPban); // https://stackoverflow.com/questions/3253701/get-public-external-ip-address
+                    var confirmResult = MessageBox.Show($"Your account {banResponse.Target} has been banned by VRChat!\n\nExpires: {banResponse.ExpiresAt} ({banResponse.ExpiresIn.Humanize()} remaining.)\n\nReason: {banResponse.Reason.Quote()}\n\nDo you want to log in to another account?", "Account banned!", MessageBoxButtons.OKCancel, MessageBoxIcon.Error);
+                    if (confirmResult == DialogResult.OK) { SetupVRCApiAsync(); }
+                    else { if (tabs_main.SelectedTab == tab_users) SetupUsersAsync(); }
+                    return false;
+                } else {
+                    temp = Newtonsoft.Json.JsonConvert.DeserializeObject<Response>(json);
+                    var response = (Response)temp;
+                    if (response.Content != null) {
+                        Logger.Trace("response", response.ToJson());
+                        MessageBox.Show($"Failed to log in because of {response.Content}", "Failed to log in!", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        return false;
+                    } else  {
+                        Logger.Error("Unable to parse UpdateInfo response:", _me.Raw.ToJson());
+                        return false;
+                    }
+                }
+            }
         }
+
         public async void SetupVRCApiAsync() {
             var confirmResult = MessageBox.Show("You are not logged in to VRChat.\n\nIn order to use this tab you need to log in through your VRChat account.\n\nDo you want to log in?", "Not logged in!", MessageBoxButtons.YesNo, MessageBoxIcon.Warning);
             if (confirmResult != DialogResult.Yes) { tabs_main.SelectTab(0); return; }
@@ -98,12 +137,7 @@ namespace VRChatLauncher
             config["VRCAPI"]["p"] = Utils.Utils.Base64Encode(password);
             Config.Save(config);
         }
-
-        private async void tab_changedAsync(object sender, TabControlEventArgs e)
-        {
-            Logger.Trace(e.Action.ToString(), e.TabPage.Name, e.TabPageIndex.ToString());
-            if (new string[] { "tab_users", "tab_avatars", "tab_worlds"}.Contains(e.TabPage.Name))
-            {
+        public async void LoginVRCAPI() {
                 if (vrcapi == null)
                 {
                     if (config.Sections.ContainsSection("VRCAPI") && config["VRCAPI"].ContainsKey("p") && !string.IsNullOrWhiteSpace(config["VRCAPI"]["p"]))
@@ -115,6 +149,14 @@ namespace VRChatLauncher
                         SetupVRCApiAsync(); return;
                     }
                 }
+        }
+
+        private async void tab_changedAsync(object sender, TabControlEventArgs e)
+        {
+            Logger.Trace(e.Action.ToString(), e.TabPage.Name, e.TabPageIndex.ToString());
+            if (new string[] { "tab_users", "tab_avatars", "tab_worlds"}.Contains(e.TabPage.Name))
+            {
+                LoginVRCAPI();
             }
             switch (e.TabPage.Name)
             {
