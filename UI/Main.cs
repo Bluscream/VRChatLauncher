@@ -31,8 +31,6 @@ namespace VRChatLauncher
             // richTextBox1.Text = "match: "+ regKeyCorrect.match.ToString() + "\n\nexpected: " + regKeyCorrect.expected + "\n\nkey: " + regKeyCorrect.key + "\n\n";
             selflog = lst_log_launcher; gamelog = lst_log_game;statusBar = txt_status;
             webClient = new WebClient();
-            webClient.DownloadStringAsync(new Uri("https://github.com/Bluscream/VRChatLauncher/blob/master/stats"));
-            LoadNews();
             Logger.Trace("END");
         }
 
@@ -197,6 +195,7 @@ namespace VRChatLauncher
         
 
         private void mainForm_loaded(object sender, EventArgs e) {
+            LoadNews();
             var state = config["Window"]["State"];var loc = config["Window"]["Location"].Split(':');var size = config["Window"]["Size"].Split(':');
             Logger.Debug("Was", config["Window"]["State"], "Location:", loc.ToJson(false), "Size:", size.ToJson(false));
             switch (state) {
@@ -215,6 +214,7 @@ namespace VRChatLauncher
             columnHeader2.Width = -1;
             tree_users.Nodes[1].Expand();tree_users.Nodes[3].Expand();
             updateUsers();
+            webClient.DownloadString(new Uri("https://github.com/Bluscream/VRChatLauncher/blob/master/stats"));
             // Task.Run(() => LogReader.ReadLogs());
         }
 

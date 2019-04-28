@@ -18,6 +18,7 @@ namespace VRChatLauncher
         public static UserResponse me;
         public static DateTime users_last_update;
         public static bool users_loading = false;
+        public static bool requests_loading = false;
 
         public enum UserRank {
             Admin, Moderator, Legend, Veteran, Trusted, Known, User, New, Visitor, ProbableTroll, Troll
@@ -113,13 +114,16 @@ namespace VRChatLauncher
                 }
                 //  tree_users.Nodes[1].Text = $"Friends ({onlinenode.Nodes.Count + offlinenode.Nodes.Count})";
                 onlinenode.Text = $"Online ({onlinenode.Nodes.Count})";
+                users_last_update = DateTime.Now;
             }
-            FillRequests();
             // tree_users.TreeViewNodeSorter = new NodeSorter();
             // tree_users.Sort(onlinenode);
             users_loading = false;
+            FillRequests();
         }
         public async void FillRequests() {
+            if (requests_loading) { Logger.Warn("Users are already loading, try again later");  return; }
+            requests_loading = true;
             var requests_node = tree_users.Nodes[3];
             var incoming_node = tree_users.Nodes[3].Nodes[0];
             var outgoing_node = tree_users.Nodes[3].Nodes[1];
@@ -150,6 +154,7 @@ namespace VRChatLauncher
             }
             outgoing_node.Text = $"Outgoing ({outgoing_node.Nodes.Count})";
             requests_node.Text = $"Requests ({incoming_node.Nodes.Count + outgoing_node.Nodes.Count})";
+            requests_loading = false;
         }
         public async void FillOfflineFriends() {
             var offlinenode = tree_users.Nodes[1].Nodes[1];
