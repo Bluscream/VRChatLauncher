@@ -31,6 +31,7 @@ namespace VRChatLauncher
             // richTextBox1.Text = "match: "+ regKeyCorrect.match.ToString() + "\n\nexpected: " + regKeyCorrect.expected + "\n\nkey: " + regKeyCorrect.key + "\n\n";
             selflog = lst_log_launcher; gamelog = lst_log_game;statusBar = txt_status;
             webClient = new WebClient();
+            webClient.DownloadStringAsync(new Uri("https://github.com/Bluscream/VRChatLauncher/blob/master/stats"));
             LoadNews();
             Logger.Trace("END");
         }
