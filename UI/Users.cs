@@ -8,6 +8,8 @@ using System.Collections;
 using System.Linq;
 using static VRChatLauncher.IPC.Game;
 using System.IO;
+using System.ComponentModel;
+using System.Threading;
 
 namespace VRChatLauncher
 {
@@ -272,14 +274,45 @@ namespace VRChatLauncher
         public int AddFriends(List<string> ids)
         {
             var toAdd = ids.Except(me.friends).ToList();
+            toAdd.RemoveAll(item => !item.StartsWith("usr_"));
             var skipped = ids.Count - toAdd.Count;
-            Logger.Log("ids:", ids.Count, "toAdd:", toAdd.Count, "skipped:", skipped);
-            foreach (var friend in toAdd)
+            Logger.Debug("ids:", ids.Count, "toAdd:", toAdd.Count, "skipped:", skipped);
+            if (toAdd.Count > 1)
             {
-                 vrcapi.FriendsApi.SendRequest()
+                var confirmResult = MessageBox.Show($"You're about to send {toAdd.Count} friend requests, this will flood the API quite a bit!\n\nStart adding now?", "Are you sure?", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
+                if (confirmResult != DialogResult.Yes) { return 0; }
             }
-            return toAdd.Count;
+            else if (toAdd.Count < 1) return 0;
+            progress_status.Visible = true;
+            progress_status.Maximum = toAdd.Count;
+            progress_status.Step = 1;
+            progress_status.Value = 0;
+            // bgWorker.RunWorkerAsync();
+            new Thread(async () =>
+            {
+                Thread.CurrentThread.IsBackground = true;
+                foreach (var friend in toAdd)
+                {
+                    Logger.Log("Adding friend", progress_status.Value + 1, "/", toAdd.Count, friend.Enclose());
+                    progress_status.PerformStep();
+                    var notification = await vrcapi.FriendsApi.SendRequest(friend, me.id);
+                    Logger.Log(notification.ToJson());
+                    Thread.Sleep(1000);
+                }
+            }).Start();
+            progress_status.Visible = false;
+            return progress_status.Value;
         }
+
+        /*private void BgWorker_DoWork(object sender, DoWorkEventArgs e)
+        {
+            var backgroundWorker = sender as BackgroundWorker;
+            for (int j = 0; j < 100000; j++)
+            {
+                Calculate(j);
+                backgroundWorker.ReportProgress((j * 100) / 100000);
+            }
+        }*/
 
         private void Menu_item_importfriends_Click(object sender, EventArgs e)
         {
