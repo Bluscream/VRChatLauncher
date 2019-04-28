@@ -68,16 +68,9 @@ namespace VRChatLauncher
                 return 0;
             } 
         }
-
-        public async void SetupUsersAsync(bool force = false) {
-            if (users_loading) { Logger.Warn("Users are already loading, try again later");  return; }
-            users_loading = true;var friends = new List<UserBriefResponse>();
-            var onlinenode = tree_users.Nodes[1].Nodes[0];
-            onlinenode.Nodes.Clear();
-            tree_users.Nodes[2].Nodes.Clear();
-            tree_users.Nodes[3].Nodes.Clear();
+        public async void FillMe(bool update = true) {
             if (me != null)  {
-                if (force) { me = await vrcapi.UserApi.UpdateInfo(me.id); }
+                if (update) me = await vrcapi.UserApi.UpdateInfo(me.id);
                 Logger.Debug("Me: ", me.ToJson());
                 SetNodeColorFromTags(tree_users.Nodes[0], me.tags);
                 tree_users.Nodes[0].Text = me.displayName;
@@ -85,6 +78,15 @@ namespace VRChatLauncher
                 tree_users.Nodes[1].Text = $"Friends ({me.friends.Count})";
                 // tree_users.Nodes[1].Tag = me.friends;
             }
+        }
+
+        public async void SetupUsersAsync(bool force = false) {
+            if (users_loading) { Logger.Warn("Users are already loading, try again later");  return; }
+            users_loading = true;var friends = new List<UserBriefResponse>();
+            FillMe();
+            var onlinenode = tree_users.Nodes[1].Nodes[0];
+            onlinenode.Nodes.Clear();
+            tree_users.Nodes[2].Nodes.Clear();
             if (users_last_update == null || users_last_update.ExpiredSince(3) || force) {
                 var offset = 0;
                 for (int i = 0; i < 10; i++)
@@ -92,12 +94,6 @@ namespace VRChatLauncher
                     Logger.Debug(i, "Getting online friends", offset, "to", offset + 100);
                     var friends_part = await vrcapi.FriendsApi.Get(offset, 100, false);
                     if (friends_part == null) break;
-                    /*Logger.Trace(response.ToJson());
-                    if (response.Banned) {
-                        MessageBox.Show($"Banned until {response.Expires}!");
-                        return;
-                    }*/
-                    // var friends_part = (List<UserBriefResponse>)response.Content;
                     friends.AddRange(friends_part);
                     Logger.Debug(i, "Got", friends_part.Count, "online friends");
                     if (friends_part.Count < 100) break;
@@ -118,9 +114,42 @@ namespace VRChatLauncher
                 //  tree_users.Nodes[1].Text = $"Friends ({onlinenode.Nodes.Count + offlinenode.Nodes.Count})";
                 onlinenode.Text = $"Online ({onlinenode.Nodes.Count})";
             }
+            FillRequests();
             // tree_users.TreeViewNodeSorter = new NodeSorter();
             // tree_users.Sort(onlinenode);
             users_loading = false;
+        }
+        public async void FillRequests() {
+            var requests_node = tree_users.Nodes[3];
+            var incoming_node = tree_users.Nodes[3].Nodes[0];
+            var outgoing_node = tree_users.Nodes[3].Nodes[1];
+            incoming_node.Nodes.Clear();
+            var incoming_requests = await vrcapi.NotificationsAPI.GetAll("friendRequest", false);
+            Logger.Log("Downloaded list of", incoming_requests.Count, "incoming friend requests");
+            foreach (var request in incoming_requests)
+            {
+                Logger.Trace(request.ToJson());
+                // var user = await vrcapi.UserApi.GetById(request.SenderUserId);
+                var node = new TreeNode(request.SenderUsername);
+                node.Tag = request;
+                // SetNodeColorFromTags(node, user.tags);
+                incoming_node.Nodes.Add(node);
+            }
+            incoming_node.Text = $"Incoming ({incoming_node.Nodes.Count})";
+            outgoing_node.Nodes.Clear();
+            var outgoing_requests = await vrcapi.NotificationsAPI.GetAll(type: "friendRequest", sent: true);
+            Logger.Log("Downloaded list of", outgoing_requests.Count, "outgoing friend requests");
+            foreach (var request in outgoing_requests)
+            {
+                Logger.Trace(request.ToJson());
+                // var user = await vrcapi.UserApi.GetById(request.ReceiverUserId);
+                var node = new TreeNode(request.Id);
+                node.Tag = request; //node.Tag = new Tuple<NotificationResponse, UserBriefResponse>(request, user);
+                // SetNodeColorFromTags(node, user.tags);
+                outgoing_node.Nodes.Add(node);
+            }
+            outgoing_node.Text = $"Outgoing ({outgoing_node.Nodes.Count})";
+            requests_node.Text = $"Requests ({incoming_node.Nodes.Count + outgoing_node.Nodes.Count})";
         }
         public async void FillOfflineFriends() {
             var offlinenode = tree_users.Nodes[1].Nodes[1];
@@ -193,11 +222,28 @@ namespace VRChatLauncher
                 }
             } else if (e.Button == MouseButtons.Right) {
                 tree_users.SelectedNode = e.Node;
-                for (int i = 0; i < 5; i++) { menu_users.Items[i].Visible = false; }
+                for (int i = 0; i < menu_users.Items.Count; i++) { menu_users.Items[i].Visible = false; }
                 if(e.Node.Text.StartsWith("Friends ("))
                 {
-                    menu_users.Items[3].Visible = true; menu_users.Items[4].Visible = true;
+                    menu_users.Items[5].Visible = true; menu_users.Items[6].Visible = true;
                     menu_users.Show(tree_users, e.Location);
+                    return;
+                }
+                if(e.Node.Tag != null)
+                {
+                    if (e.Node.Tag is UserBriefResponse) {
+                        var user = (UserBriefResponse)e.Node.Tag;
+                        // if (e.Node.Parent.Text.StartsWith("Online (") || e.Node.Parent.Text.StartsWith("Offline (")) {
+                        if (!me.friends.Contains(user.id)) {
+                            menu_users.Items[1].Visible = true;
+                        } else {
+                            menu_users.Items[2].Visible = true;
+                        }
+                        menu_users.Items[0].Visible = true; menu_users.Items[3].Visible = true;
+                        menu_users.Show(tree_users, e.Location);
+                    } else if (e.Node.Tag is UserResponse) {
+                        // var user = (UserResponse)e.Node.Tag;
+                    }
                 }
             }
         }
@@ -207,9 +253,19 @@ namespace VRChatLauncher
             FillUser(user);
         }
 
-        private void Btn_users_search_name_Click(object sender, EventArgs e)
+        private async void Btn_users_search_name_ClickAsync(object sender, EventArgs e)
         {
-
+            var users = await vrcapi.UserApi.Search(txt_users_displayname.Text);
+            users = users.OrderBy(o=>o.displayName).ToList();
+            tree_users.Nodes[4].Nodes.Clear();
+            foreach (var user in users)
+            {
+                var node = new TreeNode(user.displayName);
+                node.Tag = user;
+                SetNodeColorFromTags(node, user.tags);
+                tree_users.Nodes[4].Nodes.Add(node);
+            }
+            tree_users.Nodes[4].Expand();
         }
 
         private void Btn_user_join_Click(object sender, EventArgs e)
@@ -230,27 +286,66 @@ namespace VRChatLauncher
 
         private void btn_users_save_click(object sender, EventArgs e)
         {
-
+            MessageBox.Show("btn_users_save_click");
         }
 
-        private void Btn_users_friend_add_Click(object sender, EventArgs e)
+        private async void Btn_users_friend_add_ClickAsync(object sender, EventArgs e)
         {
-
+            var notification = await vrcapi.FriendsApi.SendRequest(txt_users_id.Text);
+            Logger.Log(notification.ToJson());
+            MessageBox.Show($"Sent friend request to {txt_users_displayname.Text}", "Friend Request sent", MessageBoxButtons.OK, MessageBoxIcon.Information);
         }
 
-        private void Btn_users_friend_remove_Click(object sender, EventArgs e)
+        private async void Btn_users_friend_remove_ClickAsync(object sender, EventArgs e)
         {
-
+            var confirmResult = MessageBox.Show($"Are you sure you want to remove {txt_users_displayname.Text} from your friendlist?", "Are you sure?", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
+            if (confirmResult != DialogResult.Yes) { return ; }
+            var notification = await vrcapi.FriendsApi.DeleteFriend(txt_users_id.Text);
+            Logger.Log(notification.ToJson());
+            MessageBox.Show($"Unfriended {txt_users_displayname.Text}.", "Success", MessageBoxButtons.OK, MessageBoxIcon.Information);
         }
 
         private void Btn_users_block_Click(object sender, EventArgs e)
         {
-
+            MessageBox.Show("Btn_users_block_Click");
         }
 
         private void Btn_users_unblock_Click(object sender, EventArgs e)
         {
+            MessageBox.Show("Btn_users_unblock_Click");
+        }
 
+        private void ProfileMenuItem_Click(object sender, EventArgs e)
+        {
+            MessageBox.Show("ProfileMenuItem_Click");
+        }
+
+        private async void Menu_item_friend_add_ClickAsync(object sender, EventArgs e)
+        {
+            var user = (UserBriefResponse)tree_users.SelectedNode.Tag;
+            var notification = await vrcapi.FriendsApi.SendRequest(user.id);
+            Logger.Log(notification.ToJson());
+            MessageBox.Show($"Sent friend request to {user.displayName}", "Friend Request sent", MessageBoxButtons.OK, MessageBoxIcon.Information);
+        }
+
+        private async void Menu_item_friend_remove_ClickAsync(object sender, EventArgs e)
+        {
+            var user = (UserBriefResponse)tree_users.SelectedNode.Tag;
+            var confirmResult = MessageBox.Show($"Are you sure you want to remove {user.displayName} from your friendlist?", "Are you sure?", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
+            if (confirmResult != DialogResult.Yes) { return ; }
+            var notification = await vrcapi.FriendsApi.DeleteFriend(user.id);
+            Logger.Log(notification.ToJson());
+            MessageBox.Show($"Unfriended {user.displayName}.", "Success", MessageBoxButtons.OK, MessageBoxIcon.Information);
+        }
+
+        private void BlockToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            MessageBox.Show("BlockToolStripMenuItem_Click");
+        }
+
+        private void UnblockToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            MessageBox.Show("UnblockToolStripMenuItem_Click");
         }
 
         private void Menu_item_exportfriends_Click(object sender, EventArgs e)
@@ -271,7 +366,7 @@ namespace VRChatLauncher
                 }
             }
         }
-        public int AddFriends(List<string> ids)
+        public async void AddFriendsAsync(List<string> ids)
         {
             var toAdd = ids.Except(me.friends).ToList();
             toAdd.RemoveAll(item => !item.StartsWith("usr_"));
@@ -280,28 +375,29 @@ namespace VRChatLauncher
             if (toAdd.Count > 1)
             {
                 var confirmResult = MessageBox.Show($"You're about to send {toAdd.Count} friend requests, this will flood the API quite a bit!\n\nStart adding now?", "Are you sure?", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
-                if (confirmResult != DialogResult.Yes) { return 0; }
+                if (confirmResult != DialogResult.Yes) { return; }
             }
-            else if (toAdd.Count < 1) return 0;
-            progress_status.Visible = true;
+            else if (toAdd.Count < 1) return;
+            /*progress_status.Visible = true;
             progress_status.Maximum = toAdd.Count;
             progress_status.Step = 1;
-            progress_status.Value = 0;
+            progress_status.Value = 0;*/
             // bgWorker.RunWorkerAsync();
-            new Thread(async () =>
+            /*new Thread(async () =>
             {
-                Thread.CurrentThread.IsBackground = true;
+                Thread.CurrentThread.IsBackground = true;*/
+                var i = 1;
                 foreach (var friend in toAdd)
                 {
-                    Logger.Log("Adding friend", progress_status.Value + 1, "/", toAdd.Count, friend.Enclose());
-                    progress_status.PerformStep();
-                    var notification = await vrcapi.FriendsApi.SendRequest(friend, me.id);
+                    Logger.Log("Adding friend", i++, "/", toAdd.Count, friend.Enclose());
+                    // progress_status.PerformStep();
+                    var notification = await vrcapi.FriendsApi.SendRequest(friend);
                     Logger.Log(notification.ToJson());
-                    Thread.Sleep(1000);
+                    Thread.Sleep(5000);
                 }
-            }).Start();
-            progress_status.Visible = false;
-            return progress_status.Value;
+                MessageBox.Show($"Sent {toAdd.Count} friend requests", "Requests sent!", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            // }).Start();
+            // progress_status.Visible = false;
         }
 
         /*private void BgWorker_DoWork(object sender, DoWorkEventArgs e)
@@ -324,8 +420,7 @@ namespace VRChatLauncher
                 var file = new FileInfo(fileSelector.FileName);
                 if (!file.Exists) { MessageBox.Show("File does not exist!", "", MessageBoxButtons.OK, MessageBoxIcon.Error);  return; }
                 var toImport = new List<string>(File.ReadAllLines(file.FullName));
-                var imported = AddFriends(toImport);
-                MessageBox.Show($"Sent {imported} friend requests", "Import finished", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                AddFriendsAsync(toImport);
             }
         }
     }

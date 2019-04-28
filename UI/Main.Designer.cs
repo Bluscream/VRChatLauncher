@@ -29,20 +29,24 @@
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
-            System.Windows.Forms.TreeNode treeNode13 = new System.Windows.Forms.TreeNode("Me");
-            System.Windows.Forms.TreeNode treeNode14 = new System.Windows.Forms.TreeNode("Online");
-            System.Windows.Forms.TreeNode treeNode15 = new System.Windows.Forms.TreeNode("Offline");
-            System.Windows.Forms.TreeNode treeNode16 = new System.Windows.Forms.TreeNode("Friends", new System.Windows.Forms.TreeNode[] {
-            treeNode14,
-            treeNode15});
-            System.Windows.Forms.TreeNode treeNode17 = new System.Windows.Forms.TreeNode("Blocked");
-            System.Windows.Forms.TreeNode treeNode18 = new System.Windows.Forms.TreeNode("Requests");
-            System.Windows.Forms.TreeNode treeNode19 = new System.Windows.Forms.TreeNode("Search");
-            System.Windows.Forms.TreeNode treeNode20 = new System.Windows.Forms.TreeNode("Personal");
-            System.Windows.Forms.TreeNode treeNode21 = new System.Windows.Forms.TreeNode("Favorites");
-            System.Windows.Forms.TreeNode treeNode22 = new System.Windows.Forms.TreeNode("VRCTools");
-            System.Windows.Forms.TreeNode treeNode23 = new System.Windows.Forms.TreeNode("Personal", 2, 2);
-            System.Windows.Forms.TreeNode treeNode24 = new System.Windows.Forms.TreeNode("Favorites", -2, -2);
+            System.Windows.Forms.TreeNode treeNode1 = new System.Windows.Forms.TreeNode("Me");
+            System.Windows.Forms.TreeNode treeNode2 = new System.Windows.Forms.TreeNode("Online");
+            System.Windows.Forms.TreeNode treeNode3 = new System.Windows.Forms.TreeNode("Offline");
+            System.Windows.Forms.TreeNode treeNode4 = new System.Windows.Forms.TreeNode("Friends", new System.Windows.Forms.TreeNode[] {
+            treeNode2,
+            treeNode3});
+            System.Windows.Forms.TreeNode treeNode5 = new System.Windows.Forms.TreeNode("Blocked");
+            System.Windows.Forms.TreeNode treeNode6 = new System.Windows.Forms.TreeNode("Incoming");
+            System.Windows.Forms.TreeNode treeNode7 = new System.Windows.Forms.TreeNode("Outgoing");
+            System.Windows.Forms.TreeNode treeNode8 = new System.Windows.Forms.TreeNode("Requests", new System.Windows.Forms.TreeNode[] {
+            treeNode6,
+            treeNode7});
+            System.Windows.Forms.TreeNode treeNode9 = new System.Windows.Forms.TreeNode("Search");
+            System.Windows.Forms.TreeNode treeNode10 = new System.Windows.Forms.TreeNode("Personal");
+            System.Windows.Forms.TreeNode treeNode11 = new System.Windows.Forms.TreeNode("Favorites");
+            System.Windows.Forms.TreeNode treeNode12 = new System.Windows.Forms.TreeNode("VRCTools");
+            System.Windows.Forms.TreeNode treeNode13 = new System.Windows.Forms.TreeNode("Personal", 2, 2);
+            System.Windows.Forms.TreeNode treeNode14 = new System.Windows.Forms.TreeNode("Favorites", -2, -2);
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Main));
             this.tabs_main = new System.Windows.Forms.TabControl();
             this.tab_news = new System.Windows.Forms.TabPage();
@@ -166,18 +170,19 @@
             this.tab_log_game = new System.Windows.Forms.TabPage();
             this.lst_log_game = new System.Windows.Forms.ListView();
             this.columnHeader2 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
-            this.tabPage1 = new System.Windows.Forms.TabPage();
             this.menu_users = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.profileMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.friendToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.menu_item_friend_add = new System.Windows.Forms.ToolStripMenuItem();
+            this.unfriendToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.blockToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.unblockToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.menu_item_exportfriends = new System.Windows.Forms.ToolStripMenuItem();
             this.menu_item_importfriends = new System.Windows.Forms.ToolStripMenuItem();
             this.panel_status = new System.Windows.Forms.Panel();
+            this.progress_status = new System.Windows.Forms.ProgressBar();
             this.txt_status = new System.Windows.Forms.TextBox();
             this.btn_play = new System.Windows.Forms.Button();
             this.icons_worlds = new System.Windows.Forms.ImageList(this.components);
-            this.progress_status = new System.Windows.Forms.ProgressBar();
             this.bgWorker = new System.ComponentModel.BackgroundWorker();
             this.tabs_main.SuspendLayout();
             this.tab_news.SuspendLayout();
@@ -243,7 +248,6 @@
             this.tabs_main.Controls.Add(this.tab_mods);
             this.tabs_main.Controls.Add(this.tab_settings);
             this.tabs_main.Controls.Add(this.tab_log);
-            this.tabs_main.Controls.Add(this.tabPage1);
             this.tabs_main.Location = new System.Drawing.Point(0, 0);
             this.tabs_main.Name = "tabs_main";
             this.tabs_main.SelectedIndex = 0;
@@ -320,32 +324,38 @@
             // 
             // tree_users
             // 
-            this.tree_users.Dock = System.Windows.Forms.DockStyle.Top;
+            this.tree_users.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.tree_users.Location = new System.Drawing.Point(0, 0);
             this.tree_users.Name = "tree_users";
-            treeNode13.Name = "node_user_self";
-            treeNode13.Text = "Me";
-            treeNode14.Name = "Node3";
-            treeNode14.Text = "Online";
-            treeNode15.Name = "Node2";
-            treeNode15.Text = "Offline";
-            treeNode16.Name = "Node0";
-            treeNode16.Text = "Friends";
-            treeNode16.ToolTipText = "Your VRChat friends";
-            treeNode17.Name = "Node0";
-            treeNode17.Text = "Blocked";
-            treeNode17.ToolTipText = "Avatars favorited though VRChat";
-            treeNode18.Name = "Node4";
-            treeNode18.Text = "Requests";
-            treeNode18.ToolTipText = "Users that want to become your friend";
-            treeNode19.Name = "node_users_search";
-            treeNode19.Text = "Search";
+            treeNode1.Name = "node_user_self";
+            treeNode1.Text = "Me";
+            treeNode2.Name = "Node3";
+            treeNode2.Text = "Online";
+            treeNode3.Name = "Node2";
+            treeNode3.Text = "Offline";
+            treeNode4.Name = "Node0";
+            treeNode4.Text = "Friends";
+            treeNode4.ToolTipText = "Your VRChat friends";
+            treeNode5.Name = "Node0";
+            treeNode5.Text = "Blocked";
+            treeNode5.ToolTipText = "Avatars favorited though VRChat";
+            treeNode6.Name = "Node0";
+            treeNode6.Text = "Incoming";
+            treeNode7.Name = "Node1";
+            treeNode7.Text = "Outgoing";
+            treeNode8.Name = "Node4";
+            treeNode8.Text = "Requests";
+            treeNode8.ToolTipText = "Users that want to become your friend";
+            treeNode9.Name = "node_users_search";
+            treeNode9.Text = "Search";
             this.tree_users.Nodes.AddRange(new System.Windows.Forms.TreeNode[] {
-            treeNode13,
-            treeNode16,
-            treeNode17,
-            treeNode18,
-            treeNode19});
+            treeNode1,
+            treeNode4,
+            treeNode5,
+            treeNode8,
+            treeNode9});
             this.tree_users.Size = new System.Drawing.Size(187, 325);
             this.tree_users.TabIndex = 22;
             this.tree_users.NodeMouseClick += new System.Windows.Forms.TreeNodeMouseClickEventHandler(this.users_node_selected);
@@ -383,7 +393,7 @@
             this.btn_users_friend_add.Text = "Add Friend";
             this.btn_users_friend_add.UseVisualStyleBackColor = true;
             this.btn_users_friend_add.Visible = false;
-            this.btn_users_friend_add.Click += new System.EventHandler(this.Btn_users_friend_add_Click);
+            this.btn_users_friend_add.Click += new System.EventHandler(this.Btn_users_friend_add_ClickAsync);
             // 
             // btn_users_friend_remove
             // 
@@ -395,7 +405,7 @@
             this.btn_users_friend_remove.Text = "Remove Friend";
             this.btn_users_friend_remove.UseVisualStyleBackColor = true;
             this.btn_users_friend_remove.Visible = false;
-            this.btn_users_friend_remove.Click += new System.EventHandler(this.Btn_users_friend_remove_Click);
+            this.btn_users_friend_remove.Click += new System.EventHandler(this.Btn_users_friend_remove_ClickAsync);
             // 
             // btn_users_block
             // 
@@ -644,7 +654,7 @@
             this.btn_users_search_name.TabIndex = 2;
             this.btn_users_search_name.Text = "Search";
             this.btn_users_search_name.UseVisualStyleBackColor = true;
-            this.btn_users_search_name.Click += new System.EventHandler(this.Btn_users_search_name_Click);
+            this.btn_users_search_name.Click += new System.EventHandler(this.Btn_users_search_name_ClickAsync);
             // 
             // txt_users_tags
             // 
@@ -661,7 +671,7 @@
             this.tab_avatars.Controls.Add(this.splitContainerAvatars);
             this.tab_avatars.Location = new System.Drawing.Point(4, 22);
             this.tab_avatars.Name = "tab_avatars";
-            this.tab_avatars.Size = new System.Drawing.Size(905, 321);
+            this.tab_avatars.Size = new System.Drawing.Size(905, 360);
             this.tab_avatars.TabIndex = 2;
             this.tab_avatars.Text = "Avatars";
             this.tab_avatars.UseVisualStyleBackColor = true;
@@ -680,14 +690,14 @@
             // splitContainerAvatars.Panel2
             // 
             this.splitContainerAvatars.Panel2.Controls.Add(this.tableLayoutPanelTEST);
-            this.splitContainerAvatars.Size = new System.Drawing.Size(905, 321);
+            this.splitContainerAvatars.Size = new System.Drawing.Size(905, 360);
             this.splitContainerAvatars.SplitterDistance = 177;
             this.splitContainerAvatars.TabIndex = 0;
             // 
             // button5
             // 
             this.button5.Dock = System.Windows.Forms.DockStyle.Bottom;
-            this.button5.Location = new System.Drawing.Point(0, 298);
+            this.button5.Location = new System.Drawing.Point(0, 337);
             this.button5.Name = "button5";
             this.button5.Size = new System.Drawing.Size(177, 23);
             this.button5.TabIndex = 25;
@@ -700,17 +710,17 @@
             this.tree_avatars.Dock = System.Windows.Forms.DockStyle.Fill;
             this.tree_avatars.Location = new System.Drawing.Point(0, 0);
             this.tree_avatars.Name = "tree_avatars";
-            treeNode20.Name = "Node0";
-            treeNode20.Text = "Personal";
-            treeNode21.Name = "Node1";
-            treeNode21.Text = "Favorites";
-            treeNode22.Name = "Node2";
-            treeNode22.Text = "VRCTools";
+            treeNode10.Name = "Node0";
+            treeNode10.Text = "Personal";
+            treeNode11.Name = "Node1";
+            treeNode11.Text = "Favorites";
+            treeNode12.Name = "Node2";
+            treeNode12.Text = "VRCTools";
             this.tree_avatars.Nodes.AddRange(new System.Windows.Forms.TreeNode[] {
-            treeNode20,
-            treeNode21,
-            treeNode22});
-            this.tree_avatars.Size = new System.Drawing.Size(177, 321);
+            treeNode10,
+            treeNode11,
+            treeNode12});
+            this.tree_avatars.Size = new System.Drawing.Size(177, 360);
             this.tree_avatars.TabIndex = 24;
             this.tree_avatars.NodeMouseClick += new System.Windows.Forms.TreeNodeMouseClickEventHandler(this.avatars_node_selected);
             // 
@@ -741,7 +751,7 @@
             this.tableLayoutPanelTEST.RowStyles.Add(new System.Windows.Forms.RowStyle());
             this.tableLayoutPanelTEST.RowStyles.Add(new System.Windows.Forms.RowStyle());
             this.tableLayoutPanelTEST.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
-            this.tableLayoutPanelTEST.Size = new System.Drawing.Size(724, 321);
+            this.tableLayoutPanelTEST.Size = new System.Drawing.Size(724, 360);
             this.tableLayoutPanelTEST.TabIndex = 24;
             // 
             // label11
@@ -760,7 +770,7 @@
             this.txt_avatar_description.Location = new System.Drawing.Point(123, 135);
             this.txt_avatar_description.Name = "txt_avatar_description";
             this.txt_avatar_description.ReadOnly = true;
-            this.txt_avatar_description.Size = new System.Drawing.Size(598, 183);
+            this.txt_avatar_description.Size = new System.Drawing.Size(598, 222);
             this.txt_avatar_description.TabIndex = 12;
             this.txt_avatar_description.Text = "";
             // 
@@ -768,7 +778,7 @@
             // 
             this.label12.Anchor = System.Windows.Forms.AnchorStyles.Left;
             this.label12.AutoSize = true;
-            this.label12.Location = new System.Drawing.Point(3, 220);
+            this.label12.Location = new System.Drawing.Point(3, 239);
             this.label12.Name = "label12";
             this.label12.Size = new System.Drawing.Size(63, 13);
             this.label12.TabIndex = 11;
@@ -927,7 +937,7 @@
             this.tab_worlds.Controls.Add(this.splitContainerWOrlds);
             this.tab_worlds.Location = new System.Drawing.Point(4, 22);
             this.tab_worlds.Name = "tab_worlds";
-            this.tab_worlds.Size = new System.Drawing.Size(905, 321);
+            this.tab_worlds.Size = new System.Drawing.Size(905, 360);
             this.tab_worlds.TabIndex = 3;
             this.tab_worlds.Text = "Worlds";
             this.tab_worlds.UseVisualStyleBackColor = true;
@@ -946,7 +956,7 @@
             // splitContainerWOrlds.Panel2
             // 
             this.splitContainerWOrlds.Panel2.Controls.Add(this.tableLayoutPanelWorlds);
-            this.splitContainerWOrlds.Size = new System.Drawing.Size(905, 321);
+            this.splitContainerWOrlds.Size = new System.Drawing.Size(905, 360);
             this.splitContainerWOrlds.SplitterDistance = 177;
             this.splitContainerWOrlds.TabIndex = 1;
             // 
@@ -955,27 +965,27 @@
             this.tree_worlds.Dock = System.Windows.Forms.DockStyle.Fill;
             this.tree_worlds.Location = new System.Drawing.Point(0, 0);
             this.tree_worlds.Name = "tree_worlds";
-            treeNode23.ImageIndex = 2;
-            treeNode23.Name = "Node0";
-            treeNode23.SelectedImageIndex = 2;
-            treeNode23.Text = "Personal";
-            treeNode23.ToolTipText = "Worlds uploaded by you";
-            treeNode24.ImageIndex = -2;
-            treeNode24.Name = "Node0";
-            treeNode24.SelectedImageIndex = -2;
-            treeNode24.Text = "Favorites";
-            treeNode24.ToolTipText = "Worlds favorited though VRChat";
+            treeNode13.ImageIndex = 2;
+            treeNode13.Name = "Node0";
+            treeNode13.SelectedImageIndex = 2;
+            treeNode13.Text = "Personal";
+            treeNode13.ToolTipText = "Worlds uploaded by you";
+            treeNode14.ImageIndex = -2;
+            treeNode14.Name = "Node0";
+            treeNode14.SelectedImageIndex = -2;
+            treeNode14.Text = "Favorites";
+            treeNode14.ToolTipText = "Worlds favorited though VRChat";
             this.tree_worlds.Nodes.AddRange(new System.Windows.Forms.TreeNode[] {
-            treeNode23,
-            treeNode24});
-            this.tree_worlds.Size = new System.Drawing.Size(177, 298);
+            treeNode13,
+            treeNode14});
+            this.tree_worlds.Size = new System.Drawing.Size(177, 337);
             this.tree_worlds.TabIndex = 22;
             this.tree_worlds.NodeMouseClick += new System.Windows.Forms.TreeNodeMouseClickEventHandler(this.worlds_node_selectedAsync);
             // 
             // btn_worlds_reload
             // 
             this.btn_worlds_reload.Dock = System.Windows.Forms.DockStyle.Bottom;
-            this.btn_worlds_reload.Location = new System.Drawing.Point(0, 298);
+            this.btn_worlds_reload.Location = new System.Drawing.Point(0, 337);
             this.btn_worlds_reload.Name = "btn_worlds_reload";
             this.btn_worlds_reload.Size = new System.Drawing.Size(177, 23);
             this.btn_worlds_reload.TabIndex = 21;
@@ -1010,7 +1020,7 @@
             this.tableLayoutPanelWorlds.RowStyles.Add(new System.Windows.Forms.RowStyle());
             this.tableLayoutPanelWorlds.RowStyles.Add(new System.Windows.Forms.RowStyle());
             this.tableLayoutPanelWorlds.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
-            this.tableLayoutPanelWorlds.Size = new System.Drawing.Size(724, 321);
+            this.tableLayoutPanelWorlds.Size = new System.Drawing.Size(724, 360);
             this.tableLayoutPanelWorlds.TabIndex = 22;
             // 
             // label22
@@ -1029,7 +1039,7 @@
             this.txt_world_description.Location = new System.Drawing.Point(123, 135);
             this.txt_world_description.Name = "txt_world_description";
             this.txt_world_description.ReadOnly = true;
-            this.txt_world_description.Size = new System.Drawing.Size(598, 183);
+            this.txt_world_description.Size = new System.Drawing.Size(598, 222);
             this.txt_world_description.TabIndex = 12;
             this.txt_world_description.Text = "";
             // 
@@ -1037,7 +1047,7 @@
             // 
             this.label23.Anchor = System.Windows.Forms.AnchorStyles.Left;
             this.label23.AutoSize = true;
-            this.label23.Location = new System.Drawing.Point(3, 220);
+            this.label23.Location = new System.Drawing.Point(3, 239);
             this.label23.Name = "label23";
             this.label23.Size = new System.Drawing.Size(63, 13);
             this.label23.TabIndex = 11;
@@ -1197,7 +1207,7 @@
             this.tab_mods.Controls.Add(this.tabs_mods);
             this.tab_mods.Location = new System.Drawing.Point(4, 22);
             this.tab_mods.Name = "tab_mods";
-            this.tab_mods.Size = new System.Drawing.Size(905, 321);
+            this.tab_mods.Size = new System.Drawing.Size(905, 360);
             this.tab_mods.TabIndex = 5;
             this.tab_mods.Text = "Mods";
             this.tab_mods.UseVisualStyleBackColor = true;
@@ -1210,7 +1220,7 @@
             this.tabs_mods.Location = new System.Drawing.Point(0, 0);
             this.tabs_mods.Name = "tabs_mods";
             this.tabs_mods.SelectedIndex = 0;
-            this.tabs_mods.Size = new System.Drawing.Size(905, 321);
+            this.tabs_mods.Size = new System.Drawing.Size(905, 360);
             this.tabs_mods.TabIndex = 0;
             // 
             // tab_mods_installed
@@ -1219,7 +1229,7 @@
             this.tab_mods_installed.Location = new System.Drawing.Point(4, 22);
             this.tab_mods_installed.Name = "tab_mods_installed";
             this.tab_mods_installed.Padding = new System.Windows.Forms.Padding(3);
-            this.tab_mods_installed.Size = new System.Drawing.Size(897, 295);
+            this.tab_mods_installed.Size = new System.Drawing.Size(897, 334);
             this.tab_mods_installed.TabIndex = 0;
             this.tab_mods_installed.Text = "Installed";
             this.tab_mods_installed.UseVisualStyleBackColor = true;
@@ -1237,7 +1247,7 @@
             // splitContainerMods.Panel2
             // 
             this.splitContainerMods.Panel2.Controls.Add(this.tableLayoutPanelmods);
-            this.splitContainerMods.Size = new System.Drawing.Size(891, 289);
+            this.splitContainerMods.Size = new System.Drawing.Size(891, 328);
             this.splitContainerMods.SplitterDistance = 166;
             this.splitContainerMods.TabIndex = 2;
             // 
@@ -1248,7 +1258,7 @@
             this.panel_mods_list.Dock = System.Windows.Forms.DockStyle.Fill;
             this.panel_mods_list.Location = new System.Drawing.Point(0, 0);
             this.panel_mods_list.Name = "panel_mods_list";
-            this.panel_mods_list.Size = new System.Drawing.Size(166, 289);
+            this.panel_mods_list.Size = new System.Drawing.Size(166, 328);
             this.panel_mods_list.TabIndex = 18;
             // 
             // lst_mods
@@ -1264,7 +1274,7 @@
             this.lst_mods.Name = "lst_mods";
             this.lst_mods.ShowGroups = false;
             this.lst_mods.ShowItemToolTips = true;
-            this.lst_mods.Size = new System.Drawing.Size(166, 266);
+            this.lst_mods.Size = new System.Drawing.Size(166, 305);
             this.lst_mods.SmallImageList = this.icons_mods;
             this.lst_mods.TabIndex = 13;
             this.lst_mods.UseCompatibleStateImageBehavior = false;
@@ -1319,7 +1329,7 @@
             // btn_mods_refresh
             // 
             this.btn_mods_refresh.Dock = System.Windows.Forms.DockStyle.Bottom;
-            this.btn_mods_refresh.Location = new System.Drawing.Point(0, 266);
+            this.btn_mods_refresh.Location = new System.Drawing.Point(0, 305);
             this.btn_mods_refresh.Name = "btn_mods_refresh";
             this.btn_mods_refresh.Size = new System.Drawing.Size(166, 23);
             this.btn_mods_refresh.TabIndex = 14;
@@ -1354,7 +1364,7 @@
             this.tableLayoutPanelmods.RowStyles.Add(new System.Windows.Forms.RowStyle());
             this.tableLayoutPanelmods.RowStyles.Add(new System.Windows.Forms.RowStyle());
             this.tableLayoutPanelmods.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 60F));
-            this.tableLayoutPanelmods.Size = new System.Drawing.Size(721, 289);
+            this.tableLayoutPanelmods.Size = new System.Drawing.Size(721, 328);
             this.tableLayoutPanelmods.TabIndex = 19;
             // 
             // lbl_mod_name
@@ -1373,7 +1383,7 @@
             this.txt_mod_description.Location = new System.Drawing.Point(123, 133);
             this.txt_mod_description.Name = "txt_mod_description";
             this.txt_mod_description.ReadOnly = true;
-            this.txt_mod_description.Size = new System.Drawing.Size(595, 153);
+            this.txt_mod_description.Size = new System.Drawing.Size(595, 192);
             this.txt_mod_description.TabIndex = 12;
             this.txt_mod_description.Text = "";
             // 
@@ -1390,7 +1400,7 @@
             // 
             this.lbl_mod_description.Anchor = System.Windows.Forms.AnchorStyles.Left;
             this.lbl_mod_description.AutoSize = true;
-            this.lbl_mod_description.Location = new System.Drawing.Point(3, 203);
+            this.lbl_mod_description.Location = new System.Drawing.Point(3, 222);
             this.lbl_mod_description.Name = "lbl_mod_description";
             this.lbl_mod_description.Size = new System.Drawing.Size(63, 13);
             this.lbl_mod_description.TabIndex = 11;
@@ -1488,7 +1498,7 @@
             this.tab_settings.Controls.Add(this.panel_setings);
             this.tab_settings.Location = new System.Drawing.Point(4, 22);
             this.tab_settings.Name = "tab_settings";
-            this.tab_settings.Size = new System.Drawing.Size(905, 321);
+            this.tab_settings.Size = new System.Drawing.Size(905, 360);
             this.tab_settings.TabIndex = 6;
             this.tab_settings.Text = "Settings";
             // 
@@ -1498,7 +1508,7 @@
             this.panel_setings.Dock = System.Windows.Forms.DockStyle.Fill;
             this.panel_setings.Location = new System.Drawing.Point(0, 0);
             this.panel_setings.Name = "panel_setings";
-            this.panel_setings.Size = new System.Drawing.Size(905, 321);
+            this.panel_setings.Size = new System.Drawing.Size(905, 360);
             this.panel_setings.TabIndex = 1;
             // 
             // panel1
@@ -1508,7 +1518,7 @@
             this.panel1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.panel1.Location = new System.Drawing.Point(0, 0);
             this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(905, 321);
+            this.panel1.Size = new System.Drawing.Size(905, 360);
             this.panel1.TabIndex = 0;
             // 
             // tableLayoutPanel1
@@ -1519,7 +1529,7 @@
             this.tableLayoutPanel1.Controls.Add(this.btn_config_save, 1, 0);
             this.tableLayoutPanel1.Controls.Add(this.btn_config_apply, 0, 0);
             this.tableLayoutPanel1.Dock = System.Windows.Forms.DockStyle.Bottom;
-            this.tableLayoutPanel1.Location = new System.Drawing.Point(0, 283);
+            this.tableLayoutPanel1.Location = new System.Drawing.Point(0, 322);
             this.tableLayoutPanel1.Name = "tableLayoutPanel1";
             this.tableLayoutPanel1.RowCount = 1;
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50F));
@@ -1555,7 +1565,7 @@
             | System.Windows.Forms.AnchorStyles.Right)));
             this.flow_settings.Location = new System.Drawing.Point(8, 8);
             this.flow_settings.Name = "flow_settings";
-            this.flow_settings.Size = new System.Drawing.Size(899, 308);
+            this.flow_settings.Size = new System.Drawing.Size(899, 347);
             this.flow_settings.TabIndex = 2;
             // 
             // tab_log
@@ -1563,7 +1573,7 @@
             this.tab_log.Controls.Add(this.tabs_log);
             this.tab_log.Location = new System.Drawing.Point(4, 22);
             this.tab_log.Name = "tab_log";
-            this.tab_log.Size = new System.Drawing.Size(905, 321);
+            this.tab_log.Size = new System.Drawing.Size(905, 360);
             this.tab_log.TabIndex = 8;
             this.tab_log.Text = "Logs";
             this.tab_log.UseVisualStyleBackColor = true;
@@ -1576,7 +1586,7 @@
             this.tabs_log.Location = new System.Drawing.Point(0, 0);
             this.tabs_log.Name = "tabs_log";
             this.tabs_log.SelectedIndex = 0;
-            this.tabs_log.Size = new System.Drawing.Size(905, 321);
+            this.tabs_log.Size = new System.Drawing.Size(905, 360);
             this.tabs_log.TabIndex = 0;
             this.tabs_log.Selected += new System.Windows.Forms.TabControlEventHandler(this.tab_changedAsync);
             // 
@@ -1586,7 +1596,7 @@
             this.tab_log_launcher.Location = new System.Drawing.Point(4, 22);
             this.tab_log_launcher.Name = "tab_log_launcher";
             this.tab_log_launcher.Padding = new System.Windows.Forms.Padding(3);
-            this.tab_log_launcher.Size = new System.Drawing.Size(897, 295);
+            this.tab_log_launcher.Size = new System.Drawing.Size(897, 334);
             this.tab_log_launcher.TabIndex = 0;
             this.tab_log_launcher.Text = "Launcher";
             this.tab_log_launcher.UseVisualStyleBackColor = true;
@@ -1599,7 +1609,7 @@
             this.lst_log_launcher.HeaderStyle = System.Windows.Forms.ColumnHeaderStyle.None;
             this.lst_log_launcher.Location = new System.Drawing.Point(3, 3);
             this.lst_log_launcher.Name = "lst_log_launcher";
-            this.lst_log_launcher.Size = new System.Drawing.Size(891, 289);
+            this.lst_log_launcher.Size = new System.Drawing.Size(891, 328);
             this.lst_log_launcher.TabIndex = 1;
             this.lst_log_launcher.UseCompatibleStateImageBehavior = false;
             this.lst_log_launcher.View = System.Windows.Forms.View.Details;
@@ -1639,44 +1649,53 @@
             this.columnHeader2.Text = "";
             this.columnHeader2.Width = 1;
             // 
-            // tabPage1
-            // 
-            this.tabPage1.Location = new System.Drawing.Point(4, 22);
-            this.tabPage1.Name = "tabPage1";
-            this.tabPage1.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage1.Size = new System.Drawing.Size(905, 321);
-            this.tabPage1.TabIndex = 9;
-            this.tabPage1.Text = "tabPage1";
-            this.tabPage1.UseVisualStyleBackColor = true;
-            // 
             // menu_users
             // 
             this.menu_users.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.profileMenuItem,
-            this.friendToolStripMenuItem,
+            this.menu_item_friend_add,
+            this.unfriendToolStripMenuItem,
             this.blockToolStripMenuItem,
+            this.unblockToolStripMenuItem,
             this.menu_item_exportfriends,
             this.menu_item_importfriends});
             this.menu_users.Name = "contextMenuStrip1";
-            this.menu_users.Size = new System.Drawing.Size(137, 114);
+            this.menu_users.Size = new System.Drawing.Size(137, 158);
             // 
             // profileMenuItem
             // 
             this.profileMenuItem.Name = "profileMenuItem";
             this.profileMenuItem.Size = new System.Drawing.Size(136, 22);
             this.profileMenuItem.Text = "View Profile";
+            this.profileMenuItem.Click += new System.EventHandler(this.ProfileMenuItem_Click);
             // 
-            // friendToolStripMenuItem
+            // menu_item_friend_add
             // 
-            this.friendToolStripMenuItem.Name = "friendToolStripMenuItem";
-            this.friendToolStripMenuItem.Size = new System.Drawing.Size(136, 22);
-            this.friendToolStripMenuItem.Text = "Friend";
+            this.menu_item_friend_add.Name = "menu_item_friend_add";
+            this.menu_item_friend_add.Size = new System.Drawing.Size(136, 22);
+            this.menu_item_friend_add.Text = "Friend";
+            this.menu_item_friend_add.Click += new System.EventHandler(this.Menu_item_friend_add_ClickAsync);
+            // 
+            // unfriendToolStripMenuItem
+            // 
+            this.unfriendToolStripMenuItem.Name = "unfriendToolStripMenuItem";
+            this.unfriendToolStripMenuItem.Size = new System.Drawing.Size(136, 22);
+            this.unfriendToolStripMenuItem.Text = "Unfriend";
+            this.unfriendToolStripMenuItem.Click += new System.EventHandler(this.Menu_item_friend_remove_ClickAsync);
             // 
             // blockToolStripMenuItem
             // 
             this.blockToolStripMenuItem.Name = "blockToolStripMenuItem";
             this.blockToolStripMenuItem.Size = new System.Drawing.Size(136, 22);
             this.blockToolStripMenuItem.Text = "Block";
+            this.blockToolStripMenuItem.Click += new System.EventHandler(this.BlockToolStripMenuItem_Click);
+            // 
+            // unblockToolStripMenuItem
+            // 
+            this.unblockToolStripMenuItem.Name = "unblockToolStripMenuItem";
+            this.unblockToolStripMenuItem.Size = new System.Drawing.Size(136, 22);
+            this.unblockToolStripMenuItem.Text = "Unblock";
+            this.unblockToolStripMenuItem.Click += new System.EventHandler(this.UnblockToolStripMenuItem_Click);
             // 
             // menu_item_exportfriends
             // 
@@ -1702,6 +1721,15 @@
             this.panel_status.Name = "panel_status";
             this.panel_status.Size = new System.Drawing.Size(913, 73);
             this.panel_status.TabIndex = 2;
+            // 
+            // progress_status
+            // 
+            this.progress_status.Dock = System.Windows.Forms.DockStyle.Bottom;
+            this.progress_status.Location = new System.Drawing.Point(0, 0);
+            this.progress_status.Name = "progress_status";
+            this.progress_status.Size = new System.Drawing.Size(913, 53);
+            this.progress_status.TabIndex = 4;
+            this.progress_status.Visible = false;
             // 
             // txt_status
             // 
@@ -1729,19 +1757,9 @@
             this.icons_worlds.TransparentColor = System.Drawing.Color.Transparent;
             this.icons_worlds.Images.SetKeyName(0, "lock.png");
             // 
-            // progress_status
-            // 
-            this.progress_status.Dock = System.Windows.Forms.DockStyle.Bottom;
-            this.progress_status.Location = new System.Drawing.Point(0, 0);
-            this.progress_status.Name = "progress_status";
-            this.progress_status.Size = new System.Drawing.Size(913, 53);
-            this.progress_status.TabIndex = 4;
-            this.progress_status.Visible = false;
-            // 
             // bgWorker
             // 
             this.bgWorker.WorkerReportsProgress = true;
-            // this.bgWorker.DoWork += new System.ComponentModel.DoWorkEventHandler(this.BgWorker_DoWork);
             // 
             // Main
             // 
@@ -1910,7 +1928,7 @@
         private System.Windows.Forms.Button btn_avatars_profile;
         private System.Windows.Forms.TextBox txt_avatar_author;
         private System.Windows.Forms.ContextMenuStrip menu_users;
-        private System.Windows.Forms.ToolStripMenuItem friendToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem menu_item_friend_add;
         private System.Windows.Forms.ToolStripMenuItem blockToolStripMenuItem;
         private System.Windows.Forms.ContextMenuStrip menu_mod;
         private System.Windows.Forms.ToolStripMenuItem toggleModToolStripMenuItem;
@@ -1953,12 +1971,13 @@
         private System.Windows.Forms.Panel panel3;
         private System.Windows.Forms.TextBox txt_users_displayname;
         private System.Windows.Forms.Button btn_users_search_name;
-        private System.Windows.Forms.TabPage tabPage1;
         private System.Windows.Forms.RichTextBox txt_users_tags;
         private System.Windows.Forms.ToolStripMenuItem menu_item_exportfriends;
         private System.Windows.Forms.ToolStripMenuItem menu_item_importfriends;
         private System.Windows.Forms.ProgressBar progress_status;
         private System.ComponentModel.BackgroundWorker bgWorker;
+        private System.Windows.Forms.ToolStripMenuItem unfriendToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem unblockToolStripMenuItem;
     }
 }
 

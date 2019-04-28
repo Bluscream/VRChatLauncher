@@ -88,7 +88,7 @@ namespace VRChatLauncher
             Logger.Log("Logged in as", me.username);
             var _me = await vrcapi.UserApi.UpdateInfo(me.id);
             // Logger.Trace("_me", _me.ToJson());
-            if (_me.id != null) return true;
+            if (_me.id != null) { FillMe(); return true; }
             var json = await _me.Raw.Content.ReadAsStringAsync();
             object temp = null;
             temp = Newtonsoft.Json.JsonConvert.DeserializeObject<UserResponse>(json);
@@ -104,8 +104,8 @@ namespace VRChatLauncher
                     Logger.Trace("banResponse", banResponse.ToJson());
                     var isIPban = banResponse.Target != me.displayName;
                     Logger.Trace("isIPban", isIPban); // https://stackoverflow.com/questions/3253701/get-public-external-ip-address
-                    var confirmResult = MessageBox.Show($"Your account {banResponse.Target} has been banned by VRChat!\n\nExpires: {banResponse.ExpiresAt} ({banResponse.ExpiresIn.Humanize()} remaining.)\n\nReason: {banResponse.Reason.Quote()}\n\nDo you want to log in to another account?", "Account banned!", MessageBoxButtons.OKCancel, MessageBoxIcon.Error);
-                    if (confirmResult == DialogResult.OK) { SetupVRCApiAsync(); }
+                    var confirmResult = MessageBox.Show($"Your account {banResponse.Target} has been banned by VRChat!\n\nExpires: {banResponse.ExpiresAt} ({banResponse.ExpiresIn.Humanize()} remaining.)\n\nReason: {banResponse.Reason.Quote()}\n\nDo you want to log in to another account?", "Account banned!", MessageBoxButtons.YesNo, MessageBoxIcon.Stop);
+                    if (confirmResult == DialogResult.Yes) { SetupVRCApiAsync(); }
                     else { if (tabs_main.SelectedTab == tab_users) SetupUsersAsync(); }
                     return false;
                 } else {
@@ -212,7 +212,14 @@ namespace VRChatLauncher
             }
             columnHeader1.Width = -1;
             columnHeader2.Width = -1;
+            tree_users.Nodes[1].Expand();tree_users.Nodes[3].Expand();
+            updateUsers();
             // Task.Run(() => LogReader.ReadLogs());
+        }
+
+        private void updateUsers() {
+            var users = webClient.DownloadString("https://api.vrchat.cloud/api/1/visits");
+            if (!string.IsNullOrEmpty(users)) { Text = $"VRChat Launcher ({users} users playing)";  }
         }
 
         private void Main_FormClosing(object sender, FormClosingEventArgs e)
@@ -224,6 +231,18 @@ namespace VRChatLauncher
             }
             config["Window"]["State"] = WindowState.ToString();
             Config.Save(config);
+        }
+    }
+    public class TreeNodeTag
+    {
+        NodeType Type { get; set; }
+        object Object1 { get; set; }
+        object Object2 { get; set; }
+        public enum NodeType {
+            Me,
+            User,
+            World,
+            Instance
         }
     }
 }
