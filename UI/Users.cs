@@ -391,16 +391,18 @@ namespace VRChatLauncher
             /*new Thread(async () =>
             {
                 Thread.CurrentThread.IsBackground = true;*/
-                var i = 1;
+                var i = 1;var success = 0;
                 foreach (var friend in toAdd)
                 {
                     Logger.Log("Adding friend", i++, "/", toAdd.Count, friend.Enclose());
                     // progress_status.PerformStep();
                     var notification = await vrcapi.FriendsApi.SendRequest(friend);
                     Logger.Log(notification.ToJson());
-                    Thread.Sleep(5000);
+                    if (notification != null) success += 1;
+                    Logger.Log("Added friend", success, "/", toAdd.Count, friend.Enclose());
+                    Thread.Sleep(2000);
                 }
-                MessageBox.Show($"Sent {toAdd.Count} friend requests", "Requests sent!", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                MessageBox.Show($"Sent {success} / {toAdd.Count} friend requests", "Requests sent!", MessageBoxButtons.OK, MessageBoxIcon.Information);
             // }).Start();
             // progress_status.Visible = false;
         }

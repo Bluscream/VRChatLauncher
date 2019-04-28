@@ -3,11 +3,13 @@ using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using Microsoft.VisualBasic.Devices;
+using System.Net;
 using VRChatLauncher.Utils;
 using IniParser.Model;
-using System.Net;
 using VRChatApi.Classes;
 using Humanizer;
+using System.Threading;
 
 namespace VRChatLauncher
 {
@@ -195,15 +197,12 @@ namespace VRChatLauncher
         
 
         private void mainForm_loaded(object sender, EventArgs e) {
-            LoadNews();
+            new Thread(LoadNews).Start();
             var state = config["Window"]["State"];var loc = config["Window"]["Location"].Split(':');var size = config["Window"]["Size"].Split(':');
             Logger.Debug("Was", config["Window"]["State"], "Location:", loc.ToJson(false), "Size:", size.ToJson(false));
             switch (state) {
                 case "Maximized":
                     WindowState = FormWindowState.Maximized;
-                    break;
-                case "Minimized":
-                    // WindowState = FormWindowState.Minimized;
                     break;
                 default:
                     Location = new System.Drawing.Point(int.Parse(loc[0]), int.Parse(loc[1]));
@@ -213,14 +212,28 @@ namespace VRChatLauncher
             columnHeader1.Width = -1;
             columnHeader2.Width = -1;
             tree_users.Nodes[1].Expand();tree_users.Nodes[3].Expand();
-            updateUsers();
-            webClient.DownloadString(new Uri("https://github.com/Bluscream/VRChatLauncher/blob/master/stats"));
+            new Thread(updateUsers).Start();
+            new Thread(sendHeartBeat).Start();
             // Task.Run(() => LogReader.ReadLogs());
+            Logger.Trace("MainForm fully loaded");
+        }
+
+        private void sendHeartBeat()
+        {
+            var osinfo = new ComputerInfo();
+            using (var wc = new WebClient())
+            {
+                wc.Headers.Add("Referer",$"https://launcher.vrc/{osinfo.OSFullName}/{osinfo.OSVersion}");
+                wc.DownloadString(new Uri("https://github.com/Bluscream/VRChatLauncher/blob/master/stats"));
+            }
         }
 
         private void updateUsers() {
-            var users = webClient.DownloadString("https://api.vrchat.cloud/api/1/visits");
-            if (!string.IsNullOrEmpty(users)) { Text = $"VRChat Launcher ({users} users playing)";  }
+            using (var wc = new WebClient())
+            {
+                var users = wc.DownloadString("https://api.vrchat.cloud/api/1/visits");
+                if (!string.IsNullOrEmpty(users)) { Text = $"VRChat Launcher ({users} users playing)";  }
+            }
         }
 
         private void Main_FormClosing(object sender, FormClosingEventArgs e)
