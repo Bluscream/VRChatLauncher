@@ -107,7 +107,7 @@ namespace VRChatLauncher
                     Logger.Trace("isIPban", isIPban); // https://stackoverflow.com/questions/3253701/get-public-external-ip-address
                     var confirmResult = MessageBox.Show($"Your account {banResponse.Target} has been banned by VRChat!\n\nExpires: {banResponse.ExpiresAt} ({banResponse.ExpiresIn.Humanize()} remaining.)\n\nReason: {banResponse.Reason.Quote()}\n\nDo you want to log in to another account?", "Account banned!", MessageBoxButtons.YesNo, MessageBoxIcon.Stop);
                     if (confirmResult == DialogResult.Yes) { SetupVRCApiAsync(); }
-                    else { if (tabs_main.SelectedTab == tab_users) SetupUsersAsync(); }
+                    else { if (tabs_main.SelectedTab == tab_users) SetupUsers(); }
                     return false;
                 } else {
                     temp = Newtonsoft.Json.JsonConvert.DeserializeObject<Response>(json);
@@ -162,7 +162,7 @@ namespace VRChatLauncher
             switch (e.TabPage.Name)
             {
                 case "tab_users":
-                    SetupUsersAsync();
+                    SetupUsers();
                     break;
                 case "tab_avatars":
                     SetupAvatarsAsync();
@@ -255,38 +255,44 @@ namespace VRChatLauncher
         public UserResponse userResponse { get; set; }
         public UserBriefResponse userBriefResponse { get; set; }
         public WorldResponse worldResponse { get; set; }
+        public WorldBriefResponse worldBriefResponse { get; set; }
         public WorldInstanceResponse worldInstanceResponse { get; set; }
+        public WorldInstance worldInstance { get; set; }
         public WorldInstanceUserResponse worldInstanceUserResponse { get; set; }
         public PlayerModeratedResponse playerModeratedResponse { get; set; }
-        /*public TreeNodeTag(NodeType type, string id = null, object _object = null, UserResponse response = null){ Type = type; Id = id; Object = _object; userResponse = response; }
-        public TreeNodeTag(NodeType type, string id = null, object _object = null, UserBriefResponse response = null){ Type = type; Id = id; Object = _object; userBriefResponse = response; }
-        public TreeNodeTag(NodeType type, string id = null, object _object = null, WorldResponse response = null){ Type = type; Id = id; Object = _object; worldResponse = response; }
-        public TreeNodeTag(NodeType type, string id = null, object _object = null, WorldInstanceResponse response = null){ Type = type; Id = id; Object = _object; worldInstanceResponse = response; }
-        public TreeNodeTag(NodeType type, string id = null, object _object = null, WorldInstanceUserResponse response = null){ Type = type; Id = id; Object = _object; worldInstanceUserResponse = response; }
-        public TreeNodeTag(NodeType type, string id = null, object _object = null, PlayerModeratedResponse response = null){ Type = type; Id = id; Object = _object; playerModeratedResponse = response; }*/
-        public TreeNodeTag(NodeType type, string id = null, object _object = null, params object[] responses){
-            Type = type; Id = id; Object = _object;
-            foreach (var response in responses)
-            {
-                switch (response)
-                {
+        public NotificationResponse notificationResponse { get; set; }
+        public AvatarResponse avatarResponse { get; set; }
+        public TreeNodeTag(NodeType type, string id = null, params object[] responses) {
+            Type = type; Id = id;
+            foreach (var response in responses) {
+                switch (response) {
                     case UserResponse ur:
                         userResponse = ur; break;
-                    case UserBriefResponse ur:
-                        userBriefResponse = ur; break;
-                    case WorldResponse ur:
-                        worldResponse = ur; break;
-                    case WorldInstanceResponse ur:
-                        worldInstanceResponse = ur; break;
-                    case WorldInstanceUserResponse ur:
-                        worldInstanceUserResponse = ur; break;
-                    case PlayerModeratedResponse ur:
-                        playerModeratedResponse = ur; break;
+                    case UserBriefResponse ubr:
+                        userBriefResponse = ubr; break;
+                    case WorldResponse wr:
+                        worldResponse = wr; break;
+                    case WorldBriefResponse wbr:
+                        worldBriefResponse = wbr; break;
+                    case WorldInstanceResponse wir:
+                        worldInstanceResponse = wir; break;
+                    case WorldInstance wir:
+                        worldInstance = wir; break;
+                    case WorldInstanceUserResponse wiur:
+                        worldInstanceUserResponse = wiur; break;
+                    case PlayerModeratedResponse pmr:
+                        playerModeratedResponse = pmr; break;
+                    case NotificationResponse nr:
+                        notificationResponse = nr; break;
+                    case AvatarResponse ar:
+                        avatarResponse = ar; break;
+                    default:
+                        Object = response; break;
                 }
             }
         }
     }
     public enum NodeType {
-        Me, User, World, Instance, Moderation, Notification
+        Me, User, World, Instance, Moderation, Notification, Avatar
     }
 }

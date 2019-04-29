@@ -357,7 +357,7 @@
             treeNode9});
             this.tree_users.Size = new System.Drawing.Size(187, 325);
             this.tree_users.TabIndex = 22;
-            this.tree_users.NodeMouseClick += new System.Windows.Forms.TreeNodeMouseClickEventHandler(this.users_node_selected);
+            this.tree_users.NodeMouseClick += new System.Windows.Forms.TreeNodeMouseClickEventHandler(this.users_node_selectedAsync);
             // 
             // flowLayoutPanel1
             // 
@@ -561,7 +561,7 @@
             this.btn_users_search.TabIndex = 1;
             this.btn_users_search.Text = "Search";
             this.btn_users_search.UseVisualStyleBackColor = true;
-            this.btn_users_search.Click += new System.EventHandler(this.Btn_users_search_ClickAsync);
+            this.btn_users_search.Click += new System.EventHandler(this.Btn_users_search_Click);
             // 
             // txt_users_id
             // 

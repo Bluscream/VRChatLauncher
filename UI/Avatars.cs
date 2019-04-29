@@ -55,7 +55,7 @@ namespace VRChatLauncher
             foreach (var avatar in personal_avatars)
             {
                 var node = new TreeNode(avatar.name);
-                node.Tag = avatar;
+                node.Tag = new TreeNodeTag(type: NodeType.Avatar, id: avatar.id, avatar);
                 node.ForeColor = ColorFromReleaseStatus(avatar.releaseStatus);
                 tree_avatars.Nodes[0].Nodes.Add(node);
             }
@@ -68,7 +68,7 @@ namespace VRChatLauncher
             foreach (var avatar in favorite_avatars)
             {
                 var node = new TreeNode(avatar.name);
-                node.Tag = avatar;
+                node.Tag = new TreeNodeTag(type: NodeType.Avatar, id: avatar.id, avatar);
                 node.ForeColor = ColorFromReleaseStatus(avatar.releaseStatus);
                 tree_avatars.Nodes[1].Nodes.Add(node);
             }
@@ -89,8 +89,9 @@ namespace VRChatLauncher
         private void avatars_node_selected(object sender, TreeNodeMouseClickEventArgs e)
         {
             if (e.Node.Tag == null) return;
-            AvatarResponse avatar = (AvatarResponse)e.Node.Tag;
-            FillAvatar(avatar);
+            var tag = (TreeNodeTag)e.Node.Tag;
+            if (tag.Type != NodeType.Avatar) return;
+            FillAvatar(tag.avatarResponse);
         }
 
         private void Btn_avatars_reload_Click(object sender, EventArgs e)

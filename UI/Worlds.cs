@@ -33,7 +33,7 @@ namespace VRChatLauncher
                 foreach (var world in personal_worlds)
                 {
                     var node = new TreeNode(world.name);
-                    node.Tag = world;
+                    node.Tag = new TreeNodeTag(type: NodeType.World, id: world.id, world);
                     node.ForeColor = ColorFromReleaseStatus(world.releaseStatus);
                     tree_worlds.Nodes[0].Nodes.Add(node);
                 }
@@ -41,7 +41,7 @@ namespace VRChatLauncher
                 foreach (var world in favorite_worlds)
                 {
                     var node = new TreeNode(world.name);
-                    node.Tag = world;
+                    node.Tag = new TreeNodeTag(type: NodeType.World, id: world.id, world);
                     node.ForeColor = ColorFromReleaseStatus(world.releaseStatus);
                     tree_worlds.Nodes[1].Nodes.Add(node);
                 }
@@ -62,68 +62,57 @@ namespace VRChatLauncher
 
         private async void worlds_node_selectedAsync(object sender, TreeNodeMouseClickEventArgs e)
         {
-            if (e.Node.Tag == null) return;
-            WorldResponse world = null; WorldInstance instance; // WorldInstanceUserResponse user;
-            var isworld = e.Node.Tag is WorldResponse || e.Node.Tag is WorldBriefResponse; var isinstance = e.Node.Tag is WorldInstance; var isuser = e.Node.Tag is WorldInstanceUserResponse;
-            if (isuser) { world = (WorldResponse)e.Node.Parent.Parent.Tag; instance = (WorldInstance)e.Node.Parent.Tag; }
-            if (isinstance) { world = (WorldResponse)e.Node.Parent.Tag; }
-            if (isworld)
+            if (e.Button == MouseButtons.Left)
             {
-                if (e.Node.Tag is WorldResponse)
+                if (e.Node.Tag == null) return;
+                var tag = (TreeNodeTag)e.Node.Tag;
+                if (tag.Type == NodeType.World)
                 {
-                    world = (WorldResponse)e.Node.Tag;
+                    if (tag.worldResponse is null)
+                    {
+                        var _world = tag.worldBriefResponse;
+                        var fullworld = await vrcapi.WorldApi.Get(_world.id);
+                        tag.worldResponse = fullworld; e.Node.Tag = tag;
+                    }
+                    var world = tag.worldResponse;
+                    e.Node.Nodes.Clear();
+                    foreach (var _instance in world.instances)
+                    {
+                        var node = new TreeNode($"{_instance.id} ({_instance.occupants}/{world.capacity})", 1, 1);
+                        node.Tag = new TreeNodeTag(type: NodeType.Instance, id: _instance.id, _instance);
+                        node.ImageIndex = 2;
+                        e.Node.Nodes.Add(node);
+                    }
+                    FillWorld(world);
                 }
-                else
+                else if (tag.Type == NodeType.Instance)
                 {
-                    var _world = (WorldBriefResponse)e.Node.Tag;
-                    var fullworld = await vrcapi.WorldApi.Get(_world.id);
-                    e.Node.Tag = fullworld;
-                    world = (WorldResponse)e.Node.Tag;
+                    var worldNode = (TreeNodeTag)e.Node.Parent.Tag;
+                    var world = worldNode.worldResponse;
+                    var instance = tag.worldInstance;
+                    e.Node.Nodes.Clear();
+                    var fullinstance = await vrcapi.WorldApi.GetInstance(world.id, instance.id);
+                    Logger.Warn("hidden:", fullinstance.hidden);
+                    tag.worldInstanceResponse = fullinstance;
+                    e.Node.ImageIndex = (string.IsNullOrEmpty(fullinstance.hidden) ? 1 : 2);
+                    foreach (var user in fullinstance.users)
+                    {
+                        var node = new TreeNode(user.displayName);
+                        node.Tag = new TreeNodeTag(NodeType.User, user.id, user);
+                        e.Node.Nodes.Add(node);
+                    }
+                    e.Node.Expand();
                 }
-                e.Node.Nodes.Clear();
-                foreach (var _instance in world.instances)
-                {
-                    var node = new TreeNode($"{_instance.id} ({_instance.occupants}/{world.capacity})", 1, 1);
-                    node.Tag = _instance;
-                    node.ImageIndex = 2;
-                    e.Node.Nodes.Add(node);
+            } else if (e.Button == MouseButtons.Right) {
+                if (e.Node.Tag == null) return;
+                var tag = (TreeNodeTag)e.Node.Tag;
+                // if (tag.Type)
+                if (tag.Type == NodeType.User) {
+                    for (int i = 0; i < menu_users.Items.Count; i++) { menu_users.Items[i].Visible = false; }
+                    menu_users.Items[0].Visible = true;
+                    menu_users.Show(tree_worlds, e.Location);
                 }
             }
-            if (isinstance)
-            {
-                e.Node.Nodes.Clear();
-                instance = (WorldInstance)e.Node.Tag;
-                var fullinstance = await vrcapi.WorldApi.GetInstance(world.id, instance.id);
-                Logger.Warn("hidden:", fullinstance.hidden);
-                e.Node.ImageIndex = (string.IsNullOrEmpty(fullinstance.hidden) ? 1 : 2);
-                // e.Node.Tag = fullinstance; // TODO: Fix
-                foreach (var user in fullinstance.users)
-                {
-                    var node = new TreeNode(user.displayName);
-                    var menu = new ContextMenuStrip();
-                    // var item = new List<ToolStripMenuItem>();
-                    var user_profile = new ToolStripMenuItem("View Profile");
-                    user_profile.Click += User_profile_ClickAsync;
-                    node.ContextMenuStrip = menu;
-                    /*
-                    private System.Windows.Forms.ContextMenuStrip menu_mod;
-                    private System.Windows.Forms.ToolStripMenuItem toggleModToolStripMenuItem;
-                    private System.Windows.Forms.ToolStripMenuItem deleteModToolStripMenuItem;
-                    private System.Windows.Forms.ToolStripMenuItem decompileModToolStripMenuItem;
-                    this.menu_mod = new System.Windows.Forms.ContextMenuStrip(this.components);
-                    this.toggleModToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-                    this.deleteModToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-                    this.decompileModToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-                    this.lst_mods.ContextMenuStrip = this.menu_mod;
-                    */
-                    e.Node.Nodes.Add(node);
-                }
-                e.Node.Expand();
-            }
-            if (isuser && e.Button == MouseButtons.Right) {
-                // menu_users.Show();
-            }
-            FillWorld(world);
         }
 
         private async void User_profile_ClickAsync(object sender, EventArgs e)
@@ -132,7 +121,7 @@ namespace VRChatLauncher
             var user = await vrcapi.UserApi.GetById(_user.id);
             tree_users.Nodes[4].Nodes.Clear();
             var node = new TreeNode(user.displayName);
-            node.Tag = user;
+            node.Tag = new TreeNodeTag(type: NodeType.User, id: user.id, user);
             node = SetNodeColorFromTags(node, user.tags);
             tree_users.Nodes[4].Nodes.Add(node);
             FillUser(user);
