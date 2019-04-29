@@ -249,14 +249,44 @@ namespace VRChatLauncher
     }
     public class TreeNodeTag
     {
-        NodeType Type { get; set; }
-        object Object1 { get; set; }
-        object Object2 { get; set; }
-        public enum NodeType {
-            Me,
-            User,
-            World,
-            Instance
+        public NodeType Type { get; set; }
+        public string Id { get; set; }
+        public object Object { get; set; }
+        public UserResponse userResponse { get; set; }
+        public UserBriefResponse userBriefResponse { get; set; }
+        public WorldResponse worldResponse { get; set; }
+        public WorldInstanceResponse worldInstanceResponse { get; set; }
+        public WorldInstanceUserResponse worldInstanceUserResponse { get; set; }
+        public PlayerModeratedResponse playerModeratedResponse { get; set; }
+        /*public TreeNodeTag(NodeType type, string id = null, object _object = null, UserResponse response = null){ Type = type; Id = id; Object = _object; userResponse = response; }
+        public TreeNodeTag(NodeType type, string id = null, object _object = null, UserBriefResponse response = null){ Type = type; Id = id; Object = _object; userBriefResponse = response; }
+        public TreeNodeTag(NodeType type, string id = null, object _object = null, WorldResponse response = null){ Type = type; Id = id; Object = _object; worldResponse = response; }
+        public TreeNodeTag(NodeType type, string id = null, object _object = null, WorldInstanceResponse response = null){ Type = type; Id = id; Object = _object; worldInstanceResponse = response; }
+        public TreeNodeTag(NodeType type, string id = null, object _object = null, WorldInstanceUserResponse response = null){ Type = type; Id = id; Object = _object; worldInstanceUserResponse = response; }
+        public TreeNodeTag(NodeType type, string id = null, object _object = null, PlayerModeratedResponse response = null){ Type = type; Id = id; Object = _object; playerModeratedResponse = response; }*/
+        public TreeNodeTag(NodeType type, string id = null, object _object = null, params object[] responses){
+            Type = type; Id = id; Object = _object;
+            foreach (var response in responses)
+            {
+                switch (response)
+                {
+                    case UserResponse ur:
+                        userResponse = ur; break;
+                    case UserBriefResponse ur:
+                        userBriefResponse = ur; break;
+                    case WorldResponse ur:
+                        worldResponse = ur; break;
+                    case WorldInstanceResponse ur:
+                        worldInstanceResponse = ur; break;
+                    case WorldInstanceUserResponse ur:
+                        worldInstanceUserResponse = ur; break;
+                    case PlayerModeratedResponse ur:
+                        playerModeratedResponse = ur; break;
+                }
+            }
         }
+    }
+    public enum NodeType {
+        Me, User, World, Instance, Moderation, Notification
     }
 }

@@ -19,6 +19,7 @@ namespace VRChatLauncher
         public static DateTime users_last_update;
         public static bool users_loading = false;
         public static bool requests_loading = false;
+        public static bool blocked_loading = false;
 
         public enum UserRank {
             Admin, Moderator, Legend, Veteran, Trusted, Known, User, New, Visitor, ProbableTroll, Troll
@@ -118,11 +119,12 @@ namespace VRChatLauncher
             }
             // tree_users.TreeViewNodeSorter = new NodeSorter();
             // tree_users.Sort(onlinenode);
-            users_loading = false;
             FillRequests();
+            FillBlocked();
+            users_loading = false;
         }
         public async void FillRequests() {
-            if (requests_loading) { Logger.Warn("Users are already loading, try again later");  return; }
+            if (requests_loading) { Logger.Warn("Requests are already loading, try again later");  return; }
             requests_loading = true;
             var requests_node = tree_users.Nodes[3];
             var incoming_node = tree_users.Nodes[3].Nodes[0];
@@ -140,6 +142,7 @@ namespace VRChatLauncher
                 incoming_node.Nodes.Add(node);
             }
             incoming_node.Text = $"Incoming ({incoming_node.Nodes.Count})";
+            requests_loading = false; return;
             outgoing_node.Nodes.Clear();
             var outgoing_requests = await vrcapi.NotificationsAPI.GetAll(type: "friendRequest", sent: true);
             Logger.Log("Downloaded list of", outgoing_requests.Count, "outgoing friend requests");
@@ -155,6 +158,36 @@ namespace VRChatLauncher
             outgoing_node.Text = $"Outgoing ({outgoing_node.Nodes.Count})";
             requests_node.Text = $"Requests ({incoming_node.Nodes.Count + outgoing_node.Nodes.Count})";
             requests_loading = false;
+        }
+
+        public async void FillBlocked() {
+            if (blocked_loading) { Logger.Warn("Blocked users are already loading, try again later");  return; }
+            blocked_loading = true;
+            var blocked_node = tree_users.Nodes[2];
+            blocked_node.Nodes.Clear();
+            var outgoing_mods = await vrcapi.ModerationsApi.GetPlayerModerations();
+            Logger.Log("Downloaded list of", outgoing_mods.Count, "own moderations");
+            var outgoing_blocks = new List<PlayerModeratedResponse>();
+            foreach (var mod in outgoing_mods)
+            {
+                foreach (var _mod in outgoing_mods)
+                {
+                    if (_mod.targetUserId == mod.targetUserId && _mod.type ==  "unblock") continue;
+                }
+                if (mod.type != "block") continue;
+                outgoing_blocks.Add(mod);
+            }
+            foreach (var block in outgoing_blocks)
+            {
+                Logger.Trace(block.ToJson());
+                var user = await vrcapi.UserApi.GetById(block.id);
+                var node = new TreeNode(user.displayName);
+                node.Tag = new TreeNodeTag(NodeType.Moderation, id: block.id, response: block);
+                SetNodeColorFromTags(node, user.tags);
+                blocked_node.Nodes.Add(node);
+            }
+            blocked_node.Text = $"Blocked ({blocked_node.Nodes.Count})";
+            blocked_loading = false;
         }
         public async void FillOfflineFriends() {
             var offlinenode = tree_users.Nodes[1].Nodes[1];
@@ -197,8 +230,8 @@ namespace VRChatLauncher
             txt_users_location.Text = user.location;
             if (tree_users.Nodes[0].Tag != null)
             {
-                var me = (UserResponse)tree_users.Nodes[0].Tag;
-                if (user.id == me.id) { btn_users_save.Visible = true; } else { btn_users_save.Visible = false; }
+                var tag = (TreeNodeTag)tree_users.Nodes[0].Tag;
+                // if (user.id == me.id) { btn_users_save.Visible = true; } else { btn_users_save.Visible = false; }
             }
         }
 
@@ -236,18 +269,12 @@ namespace VRChatLauncher
                 }
                 if(e.Node.Tag != null)
                 {
-                    if (e.Node.Tag is UserBriefResponse) {
-                        var user = (UserBriefResponse)e.Node.Tag;
-                        // if (e.Node.Parent.Text.StartsWith("Online (") || e.Node.Parent.Text.StartsWith("Offline (")) {
-                        if (!me.friends.Contains(user.id)) {
-                            menu_users.Items[1].Visible = true;
-                        } else {
-                            menu_users.Items[2].Visible = true;
-                        }
+                    var tag = (TreeNodeTag)tree_users.SelectedNode.Tag;
+                    if (tag.Type == NodeType.Me || tag.Type == NodeType.User || tag.Type == NodeType.Moderation) {
+                        if (!me.friends.Contains(tag.Id)) { menu_users.Items[1].Visible = true;
+                        } else { menu_users.Items[2].Visible = true; }
                         menu_users.Items[0].Visible = true; menu_users.Items[3].Visible = true;
                         menu_users.Show(tree_users, e.Location);
-                    } else if (e.Node.Tag is UserResponse) {
-                        // var user = (UserResponse)e.Node.Tag;
                     }
                 }
             }
@@ -266,7 +293,7 @@ namespace VRChatLauncher
             foreach (var user in users)
             {
                 var node = new TreeNode(user.displayName);
-                node.Tag = user;
+                node.Tag = new TreeNodeTag(NodeType.User, id: user.id, response: user);
                 SetNodeColorFromTags(node, user.tags);
                 tree_users.Nodes[4].Nodes.Add(node);
             }
@@ -343,14 +370,20 @@ namespace VRChatLauncher
             MessageBox.Show($"Unfriended {user.displayName}.", "Success", MessageBoxButtons.OK, MessageBoxIcon.Information);
         }
 
-        private void BlockToolStripMenuItem_Click(object sender, EventArgs e)
+        private async void BlockToolStripMenuItem_ClickAsync(object sender, EventArgs e)
         {
-            MessageBox.Show("BlockToolStripMenuItem_Click");
+            var tag = (TreeNodeTag)tree_users.SelectedNode.Tag;
+            var notification = await vrcapi.ModerationsApi.BlockUser(tag.Id);
+            Logger.Trace(notification);
         }
 
-        private void UnblockToolStripMenuItem_Click(object sender, EventArgs e)
+        private async void UnblockToolStripMenuItem_ClickAsync(object sender, EventArgs e)
         {
-            MessageBox.Show("UnblockToolStripMenuItem_Click");
+            var tag = (TreeNodeTag)tree_users.SelectedNode.Tag;
+            if (tag.Type != NodeType.Moderation) return;
+            var mod = tag.PlayerModeratedResponse;
+            var notification = await vrcapi.ModerationsApi.UnblockUser(mod.targetUserId, mod.id);
+            Logger.Trace(notification);
         }
 
         private void Menu_item_exportfriends_Click(object sender, EventArgs e)
@@ -427,6 +460,8 @@ namespace VRChatLauncher
                 var file = new FileInfo(fileSelector.FileName);
                 if (!file.Exists) { MessageBox.Show("File does not exist!", "", MessageBoxButtons.OK, MessageBoxIcon.Error);  return; }
                 var toImport = new List<string>(File.ReadAllLines(file.FullName));
+                var operation = new UI.OperationsPanel();
+                operation.Show();
                 AddFriendsAsync(toImport);
             }
         }

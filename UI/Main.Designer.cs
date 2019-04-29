@@ -179,7 +179,6 @@
             this.menu_item_exportfriends = new System.Windows.Forms.ToolStripMenuItem();
             this.menu_item_importfriends = new System.Windows.Forms.ToolStripMenuItem();
             this.panel_status = new System.Windows.Forms.Panel();
-            this.progress_status = new System.Windows.Forms.ProgressBar();
             this.txt_status = new System.Windows.Forms.TextBox();
             this.btn_play = new System.Windows.Forms.Button();
             this.icons_worlds = new System.Windows.Forms.ImageList(this.components);
@@ -1688,14 +1687,14 @@
             this.blockToolStripMenuItem.Name = "blockToolStripMenuItem";
             this.blockToolStripMenuItem.Size = new System.Drawing.Size(136, 22);
             this.blockToolStripMenuItem.Text = "Block";
-            this.blockToolStripMenuItem.Click += new System.EventHandler(this.BlockToolStripMenuItem_Click);
+            this.blockToolStripMenuItem.Click += new System.EventHandler(this.BlockToolStripMenuItem_ClickAsync);
             // 
             // unblockToolStripMenuItem
             // 
             this.unblockToolStripMenuItem.Name = "unblockToolStripMenuItem";
             this.unblockToolStripMenuItem.Size = new System.Drawing.Size(136, 22);
             this.unblockToolStripMenuItem.Text = "Unblock";
-            this.unblockToolStripMenuItem.Click += new System.EventHandler(this.UnblockToolStripMenuItem_Click);
+            this.unblockToolStripMenuItem.Click += new System.EventHandler(this.UnblockToolStripMenuItem_ClickAsync);
             // 
             // menu_item_exportfriends
             // 
@@ -1713,7 +1712,6 @@
             // 
             // panel_status
             // 
-            this.panel_status.Controls.Add(this.progress_status);
             this.panel_status.Controls.Add(this.txt_status);
             this.panel_status.Controls.Add(this.btn_play);
             this.panel_status.Dock = System.Windows.Forms.DockStyle.Bottom;
@@ -1721,15 +1719,6 @@
             this.panel_status.Name = "panel_status";
             this.panel_status.Size = new System.Drawing.Size(913, 73);
             this.panel_status.TabIndex = 2;
-            // 
-            // progress_status
-            // 
-            this.progress_status.Dock = System.Windows.Forms.DockStyle.Bottom;
-            this.progress_status.Location = new System.Drawing.Point(0, 0);
-            this.progress_status.Name = "progress_status";
-            this.progress_status.Size = new System.Drawing.Size(913, 53);
-            this.progress_status.TabIndex = 4;
-            this.progress_status.Visible = false;
             // 
             // txt_status
             // 
@@ -1974,7 +1963,6 @@
         private System.Windows.Forms.RichTextBox txt_users_tags;
         private System.Windows.Forms.ToolStripMenuItem menu_item_exportfriends;
         private System.Windows.Forms.ToolStripMenuItem menu_item_importfriends;
-        private System.Windows.Forms.ProgressBar progress_status;
         private System.ComponentModel.BackgroundWorker bgWorker;
         private System.Windows.Forms.ToolStripMenuItem unfriendToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem unblockToolStripMenuItem;
