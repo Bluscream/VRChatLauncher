@@ -416,7 +416,6 @@
             this.btn_users_block.Text = "Block";
             this.btn_users_block.UseVisualStyleBackColor = true;
             this.btn_users_block.Visible = false;
-            this.btn_users_block.Click += new System.EventHandler(this.Btn_users_block_Click);
             // 
             // btn_users_unblock
             // 
@@ -428,7 +427,6 @@
             this.btn_users_unblock.Text = "Unblock";
             this.btn_users_unblock.UseVisualStyleBackColor = true;
             this.btn_users_unblock.Visible = false;
-            this.btn_users_unblock.Click += new System.EventHandler(this.Btn_users_unblock_Click);
             // 
             // tableLayoutPanelUSers
             // 

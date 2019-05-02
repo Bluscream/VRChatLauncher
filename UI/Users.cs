@@ -261,6 +261,7 @@ namespace VRChatLauncher
                 }
                 if (e.Node.Tag == null) return;
                 var tag = (TreeNodeTag)e.Node.Tag;
+                // Logger.Warn(tag.ToJson());
                 if (tag.userResponse != null) { FillUser(tag.userResponse); return; }
                 else if (tag.userBriefResponse != null) { FillUser(tag.userBriefResponse); return; }
                 else if (tag.Type == NodeType.Notification) {
@@ -269,10 +270,10 @@ namespace VRChatLauncher
                     else if (tag.notificationResponse.SenderUserId == me.id) id = tag.notificationResponse.ReceiverUserId;
                     if (string.IsNullOrEmpty(id)) return;
                     var user = await vrcapi.UserApi.GetById(id); tag.userBriefResponse = user; e.Node.Tag = tag; FillUser(user); return;
-                }else if (tag.Type == NodeType.Moderation) {
+                } else if (tag.Type == NodeType.Moderation) {
                     var id = "";
-                    if (tag.playerModeratedResponse.targetUserId == me.id) id = tag.playerModeratedResponse.sourceUserId;
-                    else if (tag.playerModeratedResponse.sourceUserId == me.id) id = tag.playerModeratedResponse.targetUserId;
+                    if (tag.playerModeratedResponse.targetUserId == me.id) { id = tag.playerModeratedResponse.sourceUserId; }
+                    else if (tag.playerModeratedResponse.sourceUserId == me.id) { id = tag.playerModeratedResponse.targetUserId; }
                     if (string.IsNullOrEmpty(id)) return;
                     var user = await vrcapi.UserApi.GetById(id); tag.userBriefResponse = user; e.Node.Tag = tag; FillUser(user); return;
                 }
@@ -366,16 +367,6 @@ namespace VRChatLauncher
             MessageBox.Show($"Unfriended {txt_users_displayname.Text}.", "Success", MessageBoxButtons.OK, MessageBoxIcon.Information);
         }
 
-        private void Btn_users_block_Click(object sender, EventArgs e)
-        {
-            MessageBox.Show("Btn_users_block_Click");
-        }
-
-        private void Btn_users_unblock_Click(object sender, EventArgs e)
-        {
-            MessageBox.Show("Btn_users_unblock_Click");
-        }
-
         private void ProfileMenuItem_Click(object sender, EventArgs e)
         {
             TreeNodeTag tag = null;
@@ -431,8 +422,11 @@ namespace VRChatLauncher
             var tag = (TreeNodeTag)tree_users.SelectedNode.Tag;
             if (tag.Type != NodeType.Moderation) { MessageBox.Show("Sorry, unblocking currently only works on active blocks :("); return; }
             var mod = tag.playerModeratedResponse;
-            var notification = await vrcapi.ModerationsApi.UnblockUser(mod.targetUserId, mod.id);
-            Logger.Trace(notification);
+            if (string.IsNullOrWhiteSpace(mod.targetUserId)) return;
+            var notification = await vrcapi.ModerationsApi.UnblockUser(mod.targetUserId);
+            Logger.Trace(notification.ToJson());
+            if (notification == null) { MessageBox.Show($"Unable to unblock {mod.targetDisplayName}!\n\n{notification.ToJson()}", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            } else { MessageBox.Show($"Unblocked {mod.targetDisplayName}.", "Success", MessageBoxButtons.OK, MessageBoxIcon.Information); FillBlocked(); }
         }
 
         private void Menu_item_exportfriends_Click(object sender, EventArgs e)
