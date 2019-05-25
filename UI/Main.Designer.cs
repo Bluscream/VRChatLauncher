@@ -178,6 +178,8 @@
             this.unblockToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.menu_item_exportfriends = new System.Windows.Forms.ToolStripMenuItem();
             this.menu_item_importfriends = new System.Windows.Forms.ToolStripMenuItem();
+            this.messageToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.inviteToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.panel_status = new System.Windows.Forms.Panel();
             this.txt_status = new System.Windows.Forms.TextBox();
             this.btn_play = new System.Windows.Forms.Button();
@@ -1265,6 +1267,7 @@
             this.lst_mods.Dock = System.Windows.Forms.DockStyle.Fill;
             this.lst_mods.FullRowSelect = true;
             this.lst_mods.HeaderStyle = System.Windows.Forms.ColumnHeaderStyle.None;
+            this.lst_mods.HideSelection = false;
             this.lst_mods.LargeImageList = this.icons_mods;
             this.lst_mods.Location = new System.Drawing.Point(0, 0);
             this.lst_mods.MultiSelect = false;
@@ -1286,34 +1289,34 @@
             this.deleteModToolStripMenuItem,
             this.decompileModToolStripMenuItem});
             this.menu_mod.Name = "menu_mod";
-            this.menu_mod.Size = new System.Drawing.Size(202, 92);
+            this.menu_mod.Size = new System.Drawing.Size(208, 92);
             this.menu_mod.Opening += new System.ComponentModel.CancelEventHandler(this.Menu_mod_Opening);
             // 
             // openFolderToolStripMenuItem
             // 
             this.openFolderToolStripMenuItem.Name = "openFolderToolStripMenuItem";
-            this.openFolderToolStripMenuItem.Size = new System.Drawing.Size(201, 22);
+            this.openFolderToolStripMenuItem.Size = new System.Drawing.Size(207, 22);
             this.openFolderToolStripMenuItem.Text = "Open Containing Folder";
             this.openFolderToolStripMenuItem.Click += new System.EventHandler(this.OpenFolderToolStripMenuItem_Click);
             // 
             // toggleModToolStripMenuItem
             // 
             this.toggleModToolStripMenuItem.Name = "toggleModToolStripMenuItem";
-            this.toggleModToolStripMenuItem.Size = new System.Drawing.Size(201, 22);
+            this.toggleModToolStripMenuItem.Size = new System.Drawing.Size(207, 22);
             this.toggleModToolStripMenuItem.Text = "Disable";
             this.toggleModToolStripMenuItem.Click += new System.EventHandler(this.ToggleModToolStripMenuItem_Click);
             // 
             // deleteModToolStripMenuItem
             // 
             this.deleteModToolStripMenuItem.Name = "deleteModToolStripMenuItem";
-            this.deleteModToolStripMenuItem.Size = new System.Drawing.Size(201, 22);
+            this.deleteModToolStripMenuItem.Size = new System.Drawing.Size(207, 22);
             this.deleteModToolStripMenuItem.Text = "Delete";
             this.deleteModToolStripMenuItem.Click += new System.EventHandler(this.DeleteModToolStripMenuItem_Click);
             // 
             // decompileModToolStripMenuItem
             // 
             this.decompileModToolStripMenuItem.Name = "decompileModToolStripMenuItem";
-            this.decompileModToolStripMenuItem.Size = new System.Drawing.Size(201, 22);
+            this.decompileModToolStripMenuItem.Size = new System.Drawing.Size(207, 22);
             this.decompileModToolStripMenuItem.Text = "Decompile";
             this.decompileModToolStripMenuItem.Click += new System.EventHandler(this.DecompileModToolStripMenuItem_Click);
             // 
@@ -1604,6 +1607,7 @@
             this.columnHeader1});
             this.lst_log_launcher.Dock = System.Windows.Forms.DockStyle.Fill;
             this.lst_log_launcher.HeaderStyle = System.Windows.Forms.ColumnHeaderStyle.None;
+            this.lst_log_launcher.HideSelection = false;
             this.lst_log_launcher.Location = new System.Drawing.Point(3, 3);
             this.lst_log_launcher.Name = "lst_log_launcher";
             this.lst_log_launcher.Size = new System.Drawing.Size(891, 328);
@@ -1634,6 +1638,7 @@
             this.lst_log_game.Dock = System.Windows.Forms.DockStyle.Fill;
             this.lst_log_game.FullRowSelect = true;
             this.lst_log_game.HeaderStyle = System.Windows.Forms.ColumnHeaderStyle.None;
+            this.lst_log_game.HideSelection = false;
             this.lst_log_game.Location = new System.Drawing.Point(3, 3);
             this.lst_log_game.Name = "lst_log_game";
             this.lst_log_game.Size = new System.Drawing.Size(891, 328);
@@ -1655,58 +1660,74 @@
             this.blockToolStripMenuItem,
             this.unblockToolStripMenuItem,
             this.menu_item_exportfriends,
-            this.menu_item_importfriends});
+            this.menu_item_importfriends,
+            this.messageToolStripMenuItem,
+            this.inviteToolStripMenuItem});
             this.menu_users.Name = "contextMenuStrip1";
-            this.menu_users.Size = new System.Drawing.Size(137, 158);
+            this.menu_users.Size = new System.Drawing.Size(142, 202);
             // 
             // profileMenuItem
             // 
             this.profileMenuItem.Name = "profileMenuItem";
-            this.profileMenuItem.Size = new System.Drawing.Size(136, 22);
+            this.profileMenuItem.Size = new System.Drawing.Size(141, 22);
             this.profileMenuItem.Text = "View Profile";
             this.profileMenuItem.Click += new System.EventHandler(this.ProfileMenuItem_Click);
             // 
             // menu_item_friend_add
             // 
             this.menu_item_friend_add.Name = "menu_item_friend_add";
-            this.menu_item_friend_add.Size = new System.Drawing.Size(136, 22);
+            this.menu_item_friend_add.Size = new System.Drawing.Size(141, 22);
             this.menu_item_friend_add.Text = "Friend";
             this.menu_item_friend_add.Click += new System.EventHandler(this.Menu_item_friend_add_ClickAsync);
             // 
             // unfriendToolStripMenuItem
             // 
             this.unfriendToolStripMenuItem.Name = "unfriendToolStripMenuItem";
-            this.unfriendToolStripMenuItem.Size = new System.Drawing.Size(136, 22);
+            this.unfriendToolStripMenuItem.Size = new System.Drawing.Size(141, 22);
             this.unfriendToolStripMenuItem.Text = "Unfriend";
             this.unfriendToolStripMenuItem.Click += new System.EventHandler(this.Menu_item_friend_remove_ClickAsync);
             // 
             // blockToolStripMenuItem
             // 
             this.blockToolStripMenuItem.Name = "blockToolStripMenuItem";
-            this.blockToolStripMenuItem.Size = new System.Drawing.Size(136, 22);
+            this.blockToolStripMenuItem.Size = new System.Drawing.Size(141, 22);
             this.blockToolStripMenuItem.Text = "Block";
             this.blockToolStripMenuItem.Click += new System.EventHandler(this.BlockToolStripMenuItem_ClickAsync);
             // 
             // unblockToolStripMenuItem
             // 
             this.unblockToolStripMenuItem.Name = "unblockToolStripMenuItem";
-            this.unblockToolStripMenuItem.Size = new System.Drawing.Size(136, 22);
+            this.unblockToolStripMenuItem.Size = new System.Drawing.Size(141, 22);
             this.unblockToolStripMenuItem.Text = "Unblock";
             this.unblockToolStripMenuItem.Click += new System.EventHandler(this.UnblockToolStripMenuItem_ClickAsync);
             // 
             // menu_item_exportfriends
             // 
             this.menu_item_exportfriends.Name = "menu_item_exportfriends";
-            this.menu_item_exportfriends.Size = new System.Drawing.Size(136, 22);
+            this.menu_item_exportfriends.Size = new System.Drawing.Size(141, 22);
             this.menu_item_exportfriends.Text = "Export";
             this.menu_item_exportfriends.Click += new System.EventHandler(this.Menu_item_exportfriends_Click);
             // 
             // menu_item_importfriends
             // 
             this.menu_item_importfriends.Name = "menu_item_importfriends";
-            this.menu_item_importfriends.Size = new System.Drawing.Size(136, 22);
+            this.menu_item_importfriends.Size = new System.Drawing.Size(141, 22);
             this.menu_item_importfriends.Text = "Import";
             this.menu_item_importfriends.Click += new System.EventHandler(this.Menu_item_importfriends_Click);
+            // 
+            // messageToolStripMenuItem
+            // 
+            this.messageToolStripMenuItem.Name = "messageToolStripMenuItem";
+            this.messageToolStripMenuItem.Size = new System.Drawing.Size(141, 22);
+            this.messageToolStripMenuItem.Text = "Message";
+            this.messageToolStripMenuItem.Click += new System.EventHandler(this.MessageToolStripMenuItem_ClickAsync);
+            // 
+            // inviteToolStripMenuItem
+            // 
+            this.inviteToolStripMenuItem.Name = "inviteToolStripMenuItem";
+            this.inviteToolStripMenuItem.Size = new System.Drawing.Size(141, 22);
+            this.inviteToolStripMenuItem.Text = "Invite";
+            this.inviteToolStripMenuItem.Click += new System.EventHandler(this.InviteToolStripMenuItem_Click);
             // 
             // panel_status
             // 
@@ -1964,6 +1985,8 @@
         private System.ComponentModel.BackgroundWorker bgWorker;
         private System.Windows.Forms.ToolStripMenuItem unfriendToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem unblockToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem messageToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem inviteToolStripMenuItem;
     }
 }
 

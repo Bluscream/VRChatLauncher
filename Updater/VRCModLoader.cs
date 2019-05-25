@@ -13,7 +13,7 @@ namespace VRChatLauncher.Updater
 {
     public class VRCModLoader
     {
-        public static Mod CheckForUpdate()
+        public static Mod CheckForUpdate() // https://download2.survival-machines.fr/vrcmodloader/VRCModLoaderHashCheck.php?localhash=b9a34bb327390008c235cefe8d8f4ada
         {
             var mod = GetMod(Setup.Mods.VRCModLoaderDLL().FullName);
             using (var socket = new ConnectedSocket("vrchat.survival-machines.fr", 26341))

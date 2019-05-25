@@ -87,6 +87,7 @@ namespace VRChatLauncher
                 }
                 else if (tag.Type == NodeType.Instance)
                 {
+                    return; // Broken because VRChat Inc. restricted access to moderators only ....
                     var worldNode = (TreeNodeTag)e.Node.Parent.Tag;
                     var world = worldNode.worldResponse;
                     var instance = tag.worldInstance;

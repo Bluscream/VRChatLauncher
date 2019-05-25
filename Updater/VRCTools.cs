@@ -22,7 +22,7 @@ namespace VRChatLauncher.Updater
 
         private static bool errored = false;
         private static int errorCode = -1;
-        public static Mod CheckForUpdate(Mod mod)
+        public static Mod CheckForUpdate(Mod mod) // https://vrchat.survival-machines.fr/vrcmod/VRCToolsHashCheck.php?localhash=fd7d02ff07940b4617c0e333f2434021
         {
             return mod;
         }

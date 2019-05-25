@@ -10,6 +10,7 @@ using static VRChatLauncher.IPC.Game;
 using System.IO;
 using System.ComponentModel;
 using System.Threading;
+// using Microsoft.VisualBasic;
 
 namespace VRChatLauncher
 {
@@ -252,6 +253,9 @@ namespace VRChatLauncher
 
         private async void users_node_selectedAsync(object sender, TreeNodeMouseClickEventArgs e)
         {
+            if (e.Node.Text == "Me") {
+                FillMe(); return;
+            }
             if (e.Button == MouseButtons.Left)
             {
                 if (e.Node.Text == "Offline") {
@@ -304,6 +308,8 @@ namespace VRChatLauncher
                         if (isBlocked) menu_users.Items[4].Visible = true;
                         else menu_users.Items[3].Visible = true;
                         menu_users.Items[0].Visible = true;
+                        menu_users.Items[7].Visible = true;
+                        // menu_users.Items[8].Visible = true;
                         menu_users.Show(tree_users, e.Location);
                     }
                 }
@@ -508,5 +514,28 @@ namespace VRChatLauncher
                 AddFriendsAsync(toImport);
             }
         }
+
+        
+
+        private async void MessageToolStripMenuItem_ClickAsync(object sender, EventArgs e)
+        {
+            var tag = (TreeNodeTag)tree_users.SelectedNode.Tag;
+            // var message = Interaction.InputBox("", $"Send message to {tag.Id}");
+            string message = "";
+            var toName = (tag.userResponse != null) ? tag.userResponse.displayName : tag.userBriefResponse.displayName;
+            var result = UI.Utils.InputBox($"Send message to {toName}", "Message:", ref message, false);
+            if (result != DialogResult.OK || string.IsNullOrWhiteSpace(message)) return;
+            var notification = await vrcapi.FriendsApi.SendMessage(tag.Id, $"| Message from \"{me.displayName}\"\nAt: {DateTime.Now}\n{message}", "Messaging provided by github.com/Bluscream/VRCLauncher");
+            var json = notification.ToJson();
+            Logger.Log(json);
+            MessageBox.Show(json.ToString(), "Message sent", MessageBoxButtons.OK, MessageBoxIcon.Information);
+        }
+
+        private void InviteToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+
+        }
+
+
     }
 }
