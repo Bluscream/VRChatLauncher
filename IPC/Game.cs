@@ -60,7 +60,7 @@ namespace VRChatLauncher.IPC
                 var sb = new StringBuilder(WorldID);
                 if (InstanceID > 0) {
                     sb.Append(":"); sb.Append(InstanceID);
-                    if (Private) sb.Append("~hidden"); sb.Append(CreatorID.Enclose()); sb.Append("~nonce"); sb.Append(Nonce.Enclose());  
+                    if (Private) { sb.Append("~hidden"); sb.Append(CreatorID.Enclose()); sb.Append("~nonce"); sb.Append(Nonce.Enclose()); }
                 }
                 return sb.ToString();
             }

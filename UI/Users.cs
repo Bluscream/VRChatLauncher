@@ -263,8 +263,7 @@ namespace VRChatLauncher
                 } else if (e.Node.Text == "Outgoing") {
                     FillOutgoingRequests(); return;
                 }
-                if (e.Node.Tag == null) return;
-                var tag = (TreeNodeTag)e.Node.Tag;
+                if (!(e.Node.Tag is TreeNodeTag tag)) return;
                 // Logger.Warn(tag.ToJson());
                 if (tag.userResponse != null) { FillUser(tag.userResponse); return; }
                 else if (tag.userBriefResponse != null) { FillUser(tag.userBriefResponse); return; }
@@ -521,14 +520,17 @@ namespace VRChatLauncher
         {
             var tag = (TreeNodeTag)tree_users.SelectedNode.Tag;
             // var message = Interaction.InputBox("", $"Send message to {tag.Id}");
-            string message = "";
             var toName = (tag.userResponse != null) ? tag.userResponse.displayName : tag.userBriefResponse.displayName;
-            var result = UI.Utils.InputBox($"Send message to {toName}", "Message:", ref message, false);
-            if (result != DialogResult.OK || string.IsNullOrWhiteSpace(message)) return;
-            var notification = await vrcapi.FriendsApi.SendMessage(tag.Id, $"| Message from \"{me.displayName}\"\nAt: {DateTime.Now}\n{message}", "Messaging provided by github.com/Bluscream/VRCLauncher");
+            var title = $"Send message to {toName}";
+            //var result = UI.Utils.InputBox(title, "Message:", ref message, true);
+            var message = UI.MultilineInput.Get(title);
+            if (string.IsNullOrWhiteSpace(message)) return;
+            message = $"| Message from \"{me.displayName}\"\nAt: {DateTime.Now}\n{message}";
+            Logger.Warn(message);
+            var notification = await vrcapi.FriendsApi.SendMessage(tag.Id, message, "Messaging provided by github.com/Bluscream/VRCLauncher");
             var json = notification.ToJson();
             Logger.Log(json);
-            MessageBox.Show(json.ToString(), "Message sent", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            // MessageBox.Show(json.ToString(), "Message sent", MessageBoxButtons.OK, MessageBoxIcon.Information);
         }
 
         private void InviteToolStripMenuItem_Click(object sender, EventArgs e)

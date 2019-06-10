@@ -149,6 +149,12 @@
     <Compile Include="UI\Mods.cs">
       <SubType>Form</SubType>
     </Compile>
+    <Compile Include="UI\MultilineInput.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="UI\MultilineInput.Designer.cs">
+      <DependentUpon>MultilineInput.cs</DependentUpon>
+    </Compile>
     <Compile Include="UI\News.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -199,6 +205,9 @@
     <EmbeddedResource Include="Setup\VRCAPI\LoginModal.resx">
       <DependentUpon>LoginModal.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="UI\MultilineInput.resx">
+      <DependentUpon>MultilineInput.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="UI\OperationsPanel.resx">
       <DependentUpon>OperationsPanel.cs</DependentUpon>
     </EmbeddedResource>
@@ -222,7 +231,8 @@
     <PostBuildEvent>COPY "$(TargetPath)" "..\..\$(TargetFileName)"
 REM COPY "$(OutDir)\VRChatApi.dll" "..\..\launcher\lib\VRChatApi.dll"
 
-start "" "$(OutDir)..\..\$(TargetFileName)" --vrclauncher.console --vrclauncher.verbose --vrclauncher.trace</PostBuildEvent>
+start "" "$(OutDir)..\..\$(TargetFileName)" --vrclauncher.console --vrclauncher.verbose --vrclauncher.trace
+exit 0</PostBuildEvent>
   </PropertyGroup>
   <PropertyGroup>
     <PreBuildEvent>taskkill /f /fi "imagename eq $(TargetFileName)"

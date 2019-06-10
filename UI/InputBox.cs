@@ -24,19 +24,28 @@ namespace VRChatLauncher.UI
           buttonOk.DialogResult = DialogResult.OK;
           buttonCancel.DialogResult = DialogResult.Cancel;
 
-          label.SetBounds(9, 20, 372, 13);
-          if (multiline) textBox.SetBounds(12, 36, 372, 90);
-          else textBox.SetBounds(12, 36, 372, 20);
-          buttonOk.SetBounds(228, 72, 75, 23);
-          buttonCancel.SetBounds(309, 72, 75, 23);
+          label.SetBounds(10, 20, 370, 15);
+            if (multiline)
+            {
+                var btn_vertical = 130;
+                buttonOk.SetBounds(230, btn_vertical, 75, 25);
+                buttonCancel.SetBounds(310, btn_vertical, 75, 25);
+                textBox.SetBounds(10, 35, 370, 90);
+            }
+            else
+            {
+                buttonOk.SetBounds(230, 70, 75, 25);
+                buttonCancel.SetBounds(310, 70, 75, 25);
+                textBox.SetBounds(10, 35, 370, 20);
+            }
 
           label.AutoSize = true;
           textBox.Anchor = textBox.Anchor | AnchorStyles.Right;
           buttonOk.Anchor = AnchorStyles.Bottom | AnchorStyles.Right;
           buttonCancel.Anchor = AnchorStyles.Bottom | AnchorStyles.Right;
 
-          if (multiline) form.ClientSize = new Size(396, 167);
-          else form.ClientSize = new Size(396, 107);
+          if (multiline) form.ClientSize = new Size(400, 160);
+          else form.ClientSize = new Size(400, 100);
           form.Controls.AddRange(new Control[] { label, textBox, buttonOk, buttonCancel });
           form.ClientSize = new Size(Math.Max(300, label.Right + 10), form.ClientSize.Height);
           form.FormBorderStyle = FormBorderStyle.FixedDialog;
@@ -48,7 +57,7 @@ namespace VRChatLauncher.UI
 
           DialogResult dialogResult = form.ShowDialog();
           value = textBox.Text;
-          if (multiline) textBox.Focus();
+          textBox.Focus();
           return dialogResult;
         }
 
