@@ -26,7 +26,7 @@ namespace VRChatLauncher
             // var args = Program.args.Skip(1).ToArray();
             args = arguments;
             var gameInSameDir = Setup.Game.CheckForGame();
-            if (!gameInSameDir) SetupGame();
+            // if (!gameInSameDir) SetupGame();
             Setup.URIResponse regKeyCorrect = Setup.URI.CheckURIRegistryKey();
             Logger.Trace("match=", regKeyCorrect.match.ToString());
             if(regKeyCorrect.match != Setup.URIResponse.URIEnum.INSTALLED) SetupURI(regKeyCorrect.expected, regKeyCorrect.key);
@@ -198,22 +198,25 @@ namespace VRChatLauncher
 
         private void mainForm_loaded(object sender, EventArgs e) {
             new Thread(LoadNews).Start();
-            var state = config["Window"]["State"];var loc = config["Window"]["Location"].Split(':');var size = config["Window"]["Size"].Split(':');
-            Logger.Debug("Was", config["Window"]["State"], "Location:", loc.ToJson(false), "Size:", size.ToJson(false));
-            switch (state) {
-                case "Maximized":
-                    WindowState = FormWindowState.Maximized;
-                    break;
-                default:
-                    Location = new System.Drawing.Point(int.Parse(loc[0]), int.Parse(loc[1]));
-                    Size = new System.Drawing.Size(int.Parse(size[1]), int.Parse(size[0]));
-                    break;
+            if (config.Sections.ContainsSection("Window"))
+            {
+                var state = config["Window"]["State"];var loc = config["Window"]["Location"].Split(':');var size = config["Window"]["Size"].Split(':');
+                Logger.Debug("Was", config["Window"]["State"], "Location:", loc.ToJson(false), "Size:", size.ToJson(false));
+                switch (state) {
+                    case "Maximized":
+                        WindowState = FormWindowState.Maximized;
+                        break;
+                    default:
+                        Location = new System.Drawing.Point(int.Parse(loc[0]), int.Parse(loc[1]));
+                        Size = new System.Drawing.Size(int.Parse(size[1]), int.Parse(size[0]));
+                        break;
+                }
             }
             columnHeader1.Width = -1;
             columnHeader2.Width = -1;
             tree_users.Nodes[1].Expand();tree_users.Nodes[3].Expand();
             new Thread(updateUsers).Start();
-            new Thread(sendHeartBeat).Start();
+            // new Thread(sendHeartBeat).Start();
             // Task.Run(() => LogReader.ReadLogs());
             Logger.Trace("MainForm fully loaded");
         }
@@ -227,12 +230,28 @@ namespace VRChatLauncher
                 wc.DownloadString(new Uri("https://github.com/Bluscream/VRChatLauncher/blob/master/stats"));
             }
         }
-
+        private void SetNews(string rtf) {
+          if (this.txt_news.InvokeRequired) { 
+            GenericCallback d = new GenericCallback(SetNews);
+            this.txt_news.Invoke(d, new object[] { rtf });
+          } else {
+            this.txt_news.Rtf = rtf;
+          }
+        }
+        delegate void GenericCallback(string text);
+        private void SetTitle(string text) {
+          if (this.InvokeRequired) { 
+            GenericCallback d = new GenericCallback(SetTitle);
+            this.Invoke(d, new object[] { text });
+          } else {
+            this.Text = text;
+          }
+        }
         private void updateUsers() {
             using (var wc = new WebClient())
             {
                 var users = wc.DownloadString("https://api.vrchat.cloud/api/1/visits");
-                if (!string.IsNullOrEmpty(users)) { Text = $"VRChat Launcher ({users} users playing)";  }
+                if (!string.IsNullOrEmpty(users)) { SetTitle($"VRChat Launcher ({users} users playing)"); }
             }
         }
 

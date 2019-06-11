@@ -67,8 +67,10 @@ namespace VRChatLauncher.Utils
                 Main.selflog.Items.Add(item);
             }
             if (Main.statusBar != null && logLevel > VRChatApi.Logging.LogLevel.Debug) {
-                Main.statusBar.Text = line;
-                Main.statusBar.ForeColor = newColor.Item1;
+                try {
+                    Main.statusBar.Text = line;
+                    Main.statusBar.ForeColor = newColor.Item1;
+                } catch (InvalidOperationException) { }
             }
             getLogFile().AppendLine(line);
             if (logLevel > VRChatApi.Logging.LogLevel.Trace || Main.args.Contains("--vrclauncher.verbose")) {

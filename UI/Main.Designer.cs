@@ -185,6 +185,7 @@
             this.btn_play = new System.Windows.Forms.Button();
             this.icons_worlds = new System.Windows.Forms.ImageList(this.components);
             this.bgWorker = new System.ComponentModel.BackgroundWorker();
+            this.tooltip_user_location = new System.Windows.Forms.ToolTip(this.components);
             this.tabs_main.SuspendLayout();
             this.tab_news.SuspendLayout();
             this.tab_users.SuspendLayout();
@@ -623,6 +624,7 @@
             this.txt_users_location.ReadOnly = true;
             this.txt_users_location.Size = new System.Drawing.Size(483, 20);
             this.txt_users_location.TabIndex = 17;
+            this.txt_users_location.Enter += new System.EventHandler(this.Txt_users_location_Enter);
             // 
             // panel3
             // 
@@ -1769,6 +1771,11 @@
             // 
             this.bgWorker.WorkerReportsProgress = true;
             // 
+            // tooltip_user_location
+            // 
+            this.tooltip_user_location.BackColor = System.Drawing.SystemColors.ControlDarkDark;
+            this.tooltip_user_location.ShowAlways = true;
+            // 
             // Main
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -1987,6 +1994,7 @@
         private System.Windows.Forms.ToolStripMenuItem unblockToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem messageToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem inviteToolStripMenuItem;
+        private System.Windows.Forms.ToolTip tooltip_user_location;
     }
 }
 

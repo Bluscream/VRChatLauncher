@@ -244,12 +244,18 @@ namespace VRChatLauncher
             txt_users_rank.Text = RankFromTags(user.tags).ToString();
             txt_users_tags.Text = user.tags.ToJson().ToString();
             txt_users_location.Text = user.location;
+            var location = new UserLocation(user.location);
+            if (location.Type == UserLocationType.Public) {
+                tooltip_user_location.SetToolTip(txt_users_location, location.WorldInstance.ToJson().ToString());
+            } 
             /*if (tree_users.Nodes[0].Tag != null)
             {
                 var tag = (TreeNodeTag)tree_users.Nodes[0].Tag;
                 // if (user.id == me.id) { btn_users_save.Visible = true; } else { btn_users_save.Visible = false; }
             }*/
         }
+
+        private void Txt_users_location_Enter(object sender, EventArgs e) {}
 
         private async void users_node_selectedAsync(object sender, TreeNodeMouseClickEventArgs e)
         {

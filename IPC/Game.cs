@@ -31,7 +31,27 @@ namespace VRChatLauncher.IPC
                 Clipboard.SetText(oldClip);
             }
         }
-        
+        public enum UserLocationType { Unknown, Empty, Offline, Private, Public }
+        public class UserLocation
+        {
+            public UserLocationType Type { get; }
+            public WorldInstanceID WorldInstance { get; }
+            public UserLocation(string location)
+            {
+                if (location is null) {
+                    Type = UserLocationType.Empty;
+                } else if (location.StartsWith("wrld_")) {
+                    Type = UserLocationType.Public;
+                    WorldInstance = new WorldInstanceID(location);
+                } else if (location == "private") {
+                    Type = UserLocationType.Private;
+                } else if (location == "offline") {
+                    Type = UserLocationType.Offline;
+                } else if (location == "") {
+                    Type = UserLocationType.Empty;
+                } else { Type = UserLocationType.Unknown;  }
+            }
+        }
         /*
          * string instance_pattern = @"^(\d+)~hidden";
         *  string instance_pattern_private = instance_pattern + @"\((usr_[\w\d]{8}-[\w\d]{4}-[\w\d]{4}-[\w\d]{4}-[\w\d]{12})\)~nonce\(([0-9A-Z]{64})\)$";
