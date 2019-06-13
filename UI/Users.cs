@@ -21,6 +21,7 @@ namespace VRChatLauncher
         public static bool users_loading = false;
         public static bool requests_loading = false;
         public static bool blocked_loading = false;
+        public static UI.ChatWindow ChatWindow;
 
         public enum UserRank {
             Admin, Moderator, Legend, Veteran, Trusted, Known, User, New, Visitor, ProbableTroll, Troll
@@ -287,6 +288,11 @@ namespace VRChatLauncher
                     var user = await vrcapi.UserApi.GetById(id); tag.userBriefResponse = user; e.Node.Tag = tag; FillUser(user); return;
                 }
             } else if (e.Button == MouseButtons.Right) {
+                if (args.Contains("--vrclauncher.verbose")) {
+                    for (int i = 0; i < menu_users.Items.Count; i++) {
+                        Logger.Trace(i, menu_users.Items[i].Text);
+                    }
+                }
                 tree_users.SelectedNode = e.Node;
                 for (int i = 0; i < menu_users.Items.Count; i++) { menu_users.Items[i].Visible = false; }
                 if(e.Node.Text.StartsWith("Friends ("))
@@ -311,10 +317,11 @@ namespace VRChatLauncher
                             }
                         } else { isBlocked = true; }
                         if (isBlocked) menu_users.Items[4].Visible = true;
-                        else menu_users.Items[3].Visible = true;
+                        else { menu_users.Items[3].Visible = true; }
                         menu_users.Items[0].Visible = true;
                         menu_users.Items[7].Visible = true;
-                        // menu_users.Items[8].Visible = true;
+                        menu_users.Items[8].Visible = true;
+                        menu_users.Items[9].Visible = true;
                         menu_users.Show(tree_users, e.Location);
                     }
                 }
@@ -532,11 +539,25 @@ namespace VRChatLauncher
             var message = UI.MultilineInput.Get(title);
             if (string.IsNullOrWhiteSpace(message)) return;
             message = $"| Message from \"{me.displayName}\"\nAt: {DateTime.Now}\n{message}";
-            Logger.Warn(message);
             var notification = await vrcapi.FriendsApi.SendMessage(tag.Id, message, "Messaging provided by github.com/Bluscream/VRCLauncher");
-            var json = notification.ToJson();
-            Logger.Log(json);
+            Logger.Debug(notification);
             // MessageBox.Show(json.ToString(), "Message sent", MessageBoxButtons.OK, MessageBoxIcon.Information);
+        }
+        private void ChatToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            if (ChatWindow is null)
+            {
+                ChatWindow = new UI.ChatWindow(vrcapi, me);
+                ChatWindow.FormClosed += ChatWindow_FormClosed;
+                ChatWindow.Show();
+            }
+            var tag = (TreeNodeTag)tree_users.SelectedNode.Tag;
+            ChatWindow.AddChat(tag.userBriefResponse);
+        }
+
+        private void ChatWindow_FormClosed(object sender, FormClosedEventArgs e)
+        {
+            ChatWindow = null;
         }
 
         private void InviteToolStripMenuItem_Click(object sender, EventArgs e)

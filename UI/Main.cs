@@ -286,7 +286,8 @@ namespace VRChatLauncher
             foreach (var response in responses) {
                 switch (response) {
                     case UserResponse ur:
-                        userResponse = ur; break;
+                        userResponse = ur;
+                        userBriefResponse = ur; break;
                     case UserBriefResponse ubr:
                         userBriefResponse = ubr; break;
                     case WorldResponse wr:

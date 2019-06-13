@@ -29,24 +29,24 @@
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
-            System.Windows.Forms.TreeNode treeNode1 = new System.Windows.Forms.TreeNode("Me");
-            System.Windows.Forms.TreeNode treeNode2 = new System.Windows.Forms.TreeNode("Online");
-            System.Windows.Forms.TreeNode treeNode3 = new System.Windows.Forms.TreeNode("Offline");
-            System.Windows.Forms.TreeNode treeNode4 = new System.Windows.Forms.TreeNode("Friends", new System.Windows.Forms.TreeNode[] {
-            treeNode2,
-            treeNode3});
-            System.Windows.Forms.TreeNode treeNode5 = new System.Windows.Forms.TreeNode("Blocked");
-            System.Windows.Forms.TreeNode treeNode6 = new System.Windows.Forms.TreeNode("Incoming");
-            System.Windows.Forms.TreeNode treeNode7 = new System.Windows.Forms.TreeNode("Outgoing");
-            System.Windows.Forms.TreeNode treeNode8 = new System.Windows.Forms.TreeNode("Requests", new System.Windows.Forms.TreeNode[] {
-            treeNode6,
-            treeNode7});
-            System.Windows.Forms.TreeNode treeNode9 = new System.Windows.Forms.TreeNode("Search");
-            System.Windows.Forms.TreeNode treeNode10 = new System.Windows.Forms.TreeNode("Personal");
-            System.Windows.Forms.TreeNode treeNode11 = new System.Windows.Forms.TreeNode("Favorites");
-            System.Windows.Forms.TreeNode treeNode12 = new System.Windows.Forms.TreeNode("VRCTools");
-            System.Windows.Forms.TreeNode treeNode13 = new System.Windows.Forms.TreeNode("Personal", 2, 2);
-            System.Windows.Forms.TreeNode treeNode14 = new System.Windows.Forms.TreeNode("Favorites", -2, -2);
+            System.Windows.Forms.TreeNode treeNode15 = new System.Windows.Forms.TreeNode("Me");
+            System.Windows.Forms.TreeNode treeNode16 = new System.Windows.Forms.TreeNode("Online");
+            System.Windows.Forms.TreeNode treeNode17 = new System.Windows.Forms.TreeNode("Offline");
+            System.Windows.Forms.TreeNode treeNode18 = new System.Windows.Forms.TreeNode("Friends", new System.Windows.Forms.TreeNode[] {
+            treeNode16,
+            treeNode17});
+            System.Windows.Forms.TreeNode treeNode19 = new System.Windows.Forms.TreeNode("Blocked");
+            System.Windows.Forms.TreeNode treeNode20 = new System.Windows.Forms.TreeNode("Incoming");
+            System.Windows.Forms.TreeNode treeNode21 = new System.Windows.Forms.TreeNode("Outgoing");
+            System.Windows.Forms.TreeNode treeNode22 = new System.Windows.Forms.TreeNode("Requests", new System.Windows.Forms.TreeNode[] {
+            treeNode20,
+            treeNode21});
+            System.Windows.Forms.TreeNode treeNode23 = new System.Windows.Forms.TreeNode("Search");
+            System.Windows.Forms.TreeNode treeNode24 = new System.Windows.Forms.TreeNode("Personal");
+            System.Windows.Forms.TreeNode treeNode25 = new System.Windows.Forms.TreeNode("Favorites");
+            System.Windows.Forms.TreeNode treeNode26 = new System.Windows.Forms.TreeNode("VRCTools");
+            System.Windows.Forms.TreeNode treeNode27 = new System.Windows.Forms.TreeNode("Personal", 2, 2);
+            System.Windows.Forms.TreeNode treeNode28 = new System.Windows.Forms.TreeNode("Favorites", -2, -2);
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Main));
             this.tabs_main = new System.Windows.Forms.TabControl();
             this.tab_news = new System.Windows.Forms.TabPage();
@@ -70,15 +70,15 @@
             this.label21 = new System.Windows.Forms.Label();
             this.txt_users_username = new System.Windows.Forms.TextBox();
             this.txt_users_status = new System.Windows.Forms.TextBox();
-            this.panel_users_id = new System.Windows.Forms.Panel();
+            this.panel_user_id = new System.Windows.Forms.Panel();
             this.btn_users_search = new System.Windows.Forms.Button();
             this.txt_users_id = new System.Windows.Forms.TextBox();
             this.label1 = new System.Windows.Forms.Label();
             this.label17 = new System.Windows.Forms.Label();
-            this.panel2 = new System.Windows.Forms.Panel();
+            this.panel_user_location = new System.Windows.Forms.Panel();
             this.btn_user_join = new System.Windows.Forms.Button();
             this.txt_users_location = new System.Windows.Forms.TextBox();
-            this.panel3 = new System.Windows.Forms.Panel();
+            this.panel_user_displayname = new System.Windows.Forms.Panel();
             this.txt_users_displayname = new System.Windows.Forms.TextBox();
             this.btn_users_search_name = new System.Windows.Forms.Button();
             this.txt_users_tags = new System.Windows.Forms.RichTextBox();
@@ -96,7 +96,7 @@
             this.txt_avatar_name = new System.Windows.Forms.TextBox();
             this.label16 = new System.Windows.Forms.Label();
             this.txt_avatar_version = new System.Windows.Forms.TextBox();
-            this.panel_worlds_id = new System.Windows.Forms.Panel();
+            this.panel_avatars_id = new System.Windows.Forms.Panel();
             this.btn_avatar_search = new System.Windows.Forms.Button();
             this.txt_avatar_id = new System.Windows.Forms.TextBox();
             this.panel_worlds_asseturl = new System.Windows.Forms.Panel();
@@ -119,13 +119,13 @@
             this.txt_world_name = new System.Windows.Forms.TextBox();
             this.label27 = new System.Windows.Forms.Label();
             this.txt_world_version = new System.Windows.Forms.TextBox();
-            this.panel_words_id_2 = new System.Windows.Forms.Panel();
+            this.panel_words_id = new System.Windows.Forms.Panel();
             this.btn_worlds_search = new System.Windows.Forms.Button();
             this.txt_world_id = new System.Windows.Forms.TextBox();
-            this.panel8 = new System.Windows.Forms.Panel();
+            this.panel_world_asseturl = new System.Windows.Forms.Panel();
             this.btn_worlds_rip = new System.Windows.Forms.Button();
             this.txt_world_asset = new System.Windows.Forms.TextBox();
-            this.panel9 = new System.Windows.Forms.Panel();
+            this.panel_world_author = new System.Windows.Forms.Panel();
             this.btn_worlds_author = new System.Windows.Forms.Button();
             this.txt_world_author = new System.Windows.Forms.TextBox();
             this.tab_mods = new System.Windows.Forms.TabPage();
@@ -157,7 +157,7 @@
             this.tab_mods_available = new System.Windows.Forms.TabPage();
             this.tab_settings = new System.Windows.Forms.TabPage();
             this.panel_setings = new System.Windows.Forms.Panel();
-            this.panel1 = new System.Windows.Forms.Panel();
+            this.panel_settings = new System.Windows.Forms.Panel();
             this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
             this.btn_config_save = new System.Windows.Forms.Button();
             this.btn_config_apply = new System.Windows.Forms.Button();
@@ -186,6 +186,7 @@
             this.icons_worlds = new System.Windows.Forms.ImageList(this.components);
             this.bgWorker = new System.ComponentModel.BackgroundWorker();
             this.tooltip_user_location = new System.Windows.Forms.ToolTip(this.components);
+            this.chatToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.tabs_main.SuspendLayout();
             this.tab_news.SuspendLayout();
             this.tab_users.SuspendLayout();
@@ -195,16 +196,16 @@
             this.splitContainerUsers.SuspendLayout();
             this.flowLayoutPanel1.SuspendLayout();
             this.tableLayoutPanelUSers.SuspendLayout();
-            this.panel_users_id.SuspendLayout();
-            this.panel2.SuspendLayout();
-            this.panel3.SuspendLayout();
+            this.panel_user_id.SuspendLayout();
+            this.panel_user_location.SuspendLayout();
+            this.panel_user_displayname.SuspendLayout();
             this.tab_avatars.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainerAvatars)).BeginInit();
             this.splitContainerAvatars.Panel1.SuspendLayout();
             this.splitContainerAvatars.Panel2.SuspendLayout();
             this.splitContainerAvatars.SuspendLayout();
             this.tableLayoutPanelTEST.SuspendLayout();
-            this.panel_worlds_id.SuspendLayout();
+            this.panel_avatars_id.SuspendLayout();
             this.panel_worlds_asseturl.SuspendLayout();
             this.panel_worlds_author.SuspendLayout();
             this.tab_worlds.SuspendLayout();
@@ -213,9 +214,9 @@
             this.splitContainerWOrlds.Panel2.SuspendLayout();
             this.splitContainerWOrlds.SuspendLayout();
             this.tableLayoutPanelWorlds.SuspendLayout();
-            this.panel_words_id_2.SuspendLayout();
-            this.panel8.SuspendLayout();
-            this.panel9.SuspendLayout();
+            this.panel_words_id.SuspendLayout();
+            this.panel_world_asseturl.SuspendLayout();
+            this.panel_world_author.SuspendLayout();
             this.tab_mods.SuspendLayout();
             this.tabs_mods.SuspendLayout();
             this.tab_mods_installed.SuspendLayout();
@@ -228,7 +229,7 @@
             this.tableLayoutPanelmods.SuspendLayout();
             this.tab_settings.SuspendLayout();
             this.panel_setings.SuspendLayout();
-            this.panel1.SuspendLayout();
+            this.panel_settings.SuspendLayout();
             this.tableLayoutPanel1.SuspendLayout();
             this.tab_log.SuspendLayout();
             this.tabs_log.SuspendLayout();
@@ -331,33 +332,33 @@
             | System.Windows.Forms.AnchorStyles.Right)));
             this.tree_users.Location = new System.Drawing.Point(0, 0);
             this.tree_users.Name = "tree_users";
-            treeNode1.Name = "node_user_self";
-            treeNode1.Text = "Me";
-            treeNode2.Name = "Node3";
-            treeNode2.Text = "Online";
-            treeNode3.Name = "Node2";
-            treeNode3.Text = "Offline";
-            treeNode4.Name = "Node0";
-            treeNode4.Text = "Friends";
-            treeNode4.ToolTipText = "Your VRChat friends";
-            treeNode5.Name = "Node0";
-            treeNode5.Text = "Blocked";
-            treeNode5.ToolTipText = "Avatars favorited though VRChat";
-            treeNode6.Name = "Node0";
-            treeNode6.Text = "Incoming";
-            treeNode7.Name = "Node1";
-            treeNode7.Text = "Outgoing";
-            treeNode8.Name = "Node4";
-            treeNode8.Text = "Requests";
-            treeNode8.ToolTipText = "Users that want to become your friend";
-            treeNode9.Name = "node_users_search";
-            treeNode9.Text = "Search";
+            treeNode15.Name = "node_user_self";
+            treeNode15.Text = "Me";
+            treeNode16.Name = "Node3";
+            treeNode16.Text = "Online";
+            treeNode17.Name = "Node2";
+            treeNode17.Text = "Offline";
+            treeNode18.Name = "Node0";
+            treeNode18.Text = "Friends";
+            treeNode18.ToolTipText = "Your VRChat friends";
+            treeNode19.Name = "Node0";
+            treeNode19.Text = "Blocked";
+            treeNode19.ToolTipText = "Avatars favorited though VRChat";
+            treeNode20.Name = "Node0";
+            treeNode20.Text = "Incoming";
+            treeNode21.Name = "Node1";
+            treeNode21.Text = "Outgoing";
+            treeNode22.Name = "Node4";
+            treeNode22.Text = "Requests";
+            treeNode22.ToolTipText = "Users that want to become your friend";
+            treeNode23.Name = "node_users_search";
+            treeNode23.Text = "Search";
             this.tree_users.Nodes.AddRange(new System.Windows.Forms.TreeNode[] {
-            treeNode1,
-            treeNode4,
-            treeNode5,
-            treeNode8,
-            treeNode9});
+            treeNode15,
+            treeNode18,
+            treeNode19,
+            treeNode22,
+            treeNode23});
             this.tree_users.Size = new System.Drawing.Size(187, 325);
             this.tree_users.TabIndex = 22;
             this.tree_users.NodeMouseClick += new System.Windows.Forms.TreeNodeMouseClickEventHandler(this.users_node_selectedAsync);
@@ -369,10 +370,12 @@
             this.flowLayoutPanel1.Controls.Add(this.btn_users_friend_remove);
             this.flowLayoutPanel1.Controls.Add(this.btn_users_block);
             this.flowLayoutPanel1.Controls.Add(this.btn_users_unblock);
-            this.flowLayoutPanel1.Location = new System.Drawing.Point(6, 315);
+            this.flowLayoutPanel1.Dock = System.Windows.Forms.DockStyle.Bottom;
+            this.flowLayoutPanel1.Location = new System.Drawing.Point(0, 315);
             this.flowLayoutPanel1.Name = "flowLayoutPanel1";
-            this.flowLayoutPanel1.Size = new System.Drawing.Size(702, 39);
+            this.flowLayoutPanel1.Size = new System.Drawing.Size(708, 39);
             this.flowLayoutPanel1.TabIndex = 26;
+            this.flowLayoutPanel1.Visible = false;
             // 
             // btn_users_save
             // 
@@ -447,11 +450,11 @@
             this.tableLayoutPanelUSers.Controls.Add(this.label21, 0, 2);
             this.tableLayoutPanelUSers.Controls.Add(this.txt_users_username, 1, 2);
             this.tableLayoutPanelUSers.Controls.Add(this.txt_users_status, 1, 3);
-            this.tableLayoutPanelUSers.Controls.Add(this.panel_users_id, 1, 0);
+            this.tableLayoutPanelUSers.Controls.Add(this.panel_user_id, 1, 0);
             this.tableLayoutPanelUSers.Controls.Add(this.label1, 0, 5);
             this.tableLayoutPanelUSers.Controls.Add(this.label17, 0, 6);
-            this.tableLayoutPanelUSers.Controls.Add(this.panel2, 1, 5);
-            this.tableLayoutPanelUSers.Controls.Add(this.panel3, 1, 1);
+            this.tableLayoutPanelUSers.Controls.Add(this.panel_user_location, 1, 5);
+            this.tableLayoutPanelUSers.Controls.Add(this.panel_user_displayname, 1, 1);
             this.tableLayoutPanelUSers.Controls.Add(this.txt_users_tags, 1, 6);
             this.tableLayoutPanelUSers.Location = new System.Drawing.Point(0, 0);
             this.tableLayoutPanelUSers.Name = "tableLayoutPanelUSers";
@@ -543,15 +546,15 @@
             this.txt_users_status.Size = new System.Drawing.Size(570, 20);
             this.txt_users_status.TabIndex = 7;
             // 
-            // panel_users_id
+            // panel_user_id
             // 
-            this.panel_users_id.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
-            this.panel_users_id.Controls.Add(this.btn_users_search);
-            this.panel_users_id.Controls.Add(this.txt_users_id);
-            this.panel_users_id.Location = new System.Drawing.Point(135, 3);
-            this.panel_users_id.Name = "panel_users_id";
-            this.panel_users_id.Size = new System.Drawing.Size(570, 23);
-            this.panel_users_id.TabIndex = 13;
+            this.panel_user_id.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
+            this.panel_user_id.Controls.Add(this.btn_users_search);
+            this.panel_user_id.Controls.Add(this.txt_users_id);
+            this.panel_user_id.Location = new System.Drawing.Point(135, 3);
+            this.panel_user_id.Name = "panel_user_id";
+            this.panel_user_id.Size = new System.Drawing.Size(570, 23);
+            this.panel_user_id.TabIndex = 13;
             // 
             // btn_users_search
             // 
@@ -593,15 +596,15 @@
             this.label17.TabIndex = 11;
             this.label17.Text = "Tags:";
             // 
-            // panel2
+            // panel_user_location
             // 
-            this.panel2.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
-            this.panel2.Controls.Add(this.btn_user_join);
-            this.panel2.Controls.Add(this.txt_users_location);
-            this.panel2.Location = new System.Drawing.Point(135, 137);
-            this.panel2.Name = "panel2";
-            this.panel2.Size = new System.Drawing.Size(570, 23);
-            this.panel2.TabIndex = 15;
+            this.panel_user_location.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
+            this.panel_user_location.Controls.Add(this.btn_user_join);
+            this.panel_user_location.Controls.Add(this.txt_users_location);
+            this.panel_user_location.Location = new System.Drawing.Point(135, 137);
+            this.panel_user_location.Name = "panel_user_location";
+            this.panel_user_location.Size = new System.Drawing.Size(570, 23);
+            this.panel_user_location.TabIndex = 15;
             // 
             // btn_user_join
             // 
@@ -626,15 +629,15 @@
             this.txt_users_location.TabIndex = 17;
             this.txt_users_location.Enter += new System.EventHandler(this.Txt_users_location_Enter);
             // 
-            // panel3
+            // panel_user_displayname
             // 
-            this.panel3.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
-            this.panel3.Controls.Add(this.txt_users_displayname);
-            this.panel3.Controls.Add(this.btn_users_search_name);
-            this.panel3.Location = new System.Drawing.Point(135, 32);
-            this.panel3.Name = "panel3";
-            this.panel3.Size = new System.Drawing.Size(570, 21);
-            this.panel3.TabIndex = 16;
+            this.panel_user_displayname.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
+            this.panel_user_displayname.Controls.Add(this.txt_users_displayname);
+            this.panel_user_displayname.Controls.Add(this.btn_users_search_name);
+            this.panel_user_displayname.Location = new System.Drawing.Point(135, 32);
+            this.panel_user_displayname.Name = "panel_user_displayname";
+            this.panel_user_displayname.Size = new System.Drawing.Size(570, 21);
+            this.panel_user_displayname.TabIndex = 16;
             // 
             // txt_users_displayname
             // 
@@ -711,16 +714,16 @@
             this.tree_avatars.Dock = System.Windows.Forms.DockStyle.Fill;
             this.tree_avatars.Location = new System.Drawing.Point(0, 0);
             this.tree_avatars.Name = "tree_avatars";
-            treeNode10.Name = "Node0";
-            treeNode10.Text = "Personal";
-            treeNode11.Name = "Node1";
-            treeNode11.Text = "Favorites";
-            treeNode12.Name = "Node2";
-            treeNode12.Text = "VRCTools";
+            treeNode24.Name = "Node0";
+            treeNode24.Text = "Personal";
+            treeNode25.Name = "Node1";
+            treeNode25.Text = "Favorites";
+            treeNode26.Name = "Node2";
+            treeNode26.Text = "VRCTools";
             this.tree_avatars.Nodes.AddRange(new System.Windows.Forms.TreeNode[] {
-            treeNode10,
-            treeNode11,
-            treeNode12});
+            treeNode24,
+            treeNode25,
+            treeNode26});
             this.tree_avatars.Size = new System.Drawing.Size(177, 360);
             this.tree_avatars.TabIndex = 24;
             this.tree_avatars.NodeMouseClick += new System.Windows.Forms.TreeNodeMouseClickEventHandler(this.avatars_node_selected);
@@ -739,7 +742,7 @@
             this.tableLayoutPanelTEST.Controls.Add(this.txt_avatar_name, 1, 1);
             this.tableLayoutPanelTEST.Controls.Add(this.label16, 0, 2);
             this.tableLayoutPanelTEST.Controls.Add(this.txt_avatar_version, 1, 2);
-            this.tableLayoutPanelTEST.Controls.Add(this.panel_worlds_id, 1, 0);
+            this.tableLayoutPanelTEST.Controls.Add(this.panel_avatars_id, 1, 0);
             this.tableLayoutPanelTEST.Controls.Add(this.panel_worlds_asseturl, 1, 4);
             this.tableLayoutPanelTEST.Controls.Add(this.panel_worlds_author, 1, 3);
             this.tableLayoutPanelTEST.Dock = System.Windows.Forms.DockStyle.Fill;
@@ -843,15 +846,15 @@
             this.txt_avatar_version.Size = new System.Drawing.Size(598, 20);
             this.txt_avatar_version.TabIndex = 5;
             // 
-            // panel_worlds_id
+            // panel_avatars_id
             // 
-            this.panel_worlds_id.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
-            this.panel_worlds_id.Controls.Add(this.btn_avatar_search);
-            this.panel_worlds_id.Controls.Add(this.txt_avatar_id);
-            this.panel_worlds_id.Location = new System.Drawing.Point(123, 3);
-            this.panel_worlds_id.Name = "panel_worlds_id";
-            this.panel_worlds_id.Size = new System.Drawing.Size(598, 20);
-            this.panel_worlds_id.TabIndex = 13;
+            this.panel_avatars_id.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
+            this.panel_avatars_id.Controls.Add(this.btn_avatar_search);
+            this.panel_avatars_id.Controls.Add(this.txt_avatar_id);
+            this.panel_avatars_id.Location = new System.Drawing.Point(123, 3);
+            this.panel_avatars_id.Name = "panel_avatars_id";
+            this.panel_avatars_id.Size = new System.Drawing.Size(598, 20);
+            this.panel_avatars_id.TabIndex = 13;
             // 
             // btn_avatar_search
             // 
@@ -966,19 +969,19 @@
             this.tree_worlds.Dock = System.Windows.Forms.DockStyle.Fill;
             this.tree_worlds.Location = new System.Drawing.Point(0, 0);
             this.tree_worlds.Name = "tree_worlds";
-            treeNode13.ImageIndex = 2;
-            treeNode13.Name = "Node0";
-            treeNode13.SelectedImageIndex = 2;
-            treeNode13.Text = "Personal";
-            treeNode13.ToolTipText = "Worlds uploaded by you";
-            treeNode14.ImageIndex = -2;
-            treeNode14.Name = "Node0";
-            treeNode14.SelectedImageIndex = -2;
-            treeNode14.Text = "Favorites";
-            treeNode14.ToolTipText = "Worlds favorited though VRChat";
+            treeNode27.ImageIndex = 2;
+            treeNode27.Name = "Node0";
+            treeNode27.SelectedImageIndex = 2;
+            treeNode27.Text = "Personal";
+            treeNode27.ToolTipText = "Worlds uploaded by you";
+            treeNode28.ImageIndex = -2;
+            treeNode28.Name = "Node0";
+            treeNode28.SelectedImageIndex = -2;
+            treeNode28.Text = "Favorites";
+            treeNode28.ToolTipText = "Worlds favorited though VRChat";
             this.tree_worlds.Nodes.AddRange(new System.Windows.Forms.TreeNode[] {
-            treeNode13,
-            treeNode14});
+            treeNode27,
+            treeNode28});
             this.tree_worlds.Size = new System.Drawing.Size(177, 337);
             this.tree_worlds.TabIndex = 22;
             this.tree_worlds.NodeMouseClick += new System.Windows.Forms.TreeNodeMouseClickEventHandler(this.worlds_node_selectedAsync);
@@ -1008,9 +1011,9 @@
             this.tableLayoutPanelWorlds.Controls.Add(this.txt_world_name, 1, 1);
             this.tableLayoutPanelWorlds.Controls.Add(this.label27, 0, 2);
             this.tableLayoutPanelWorlds.Controls.Add(this.txt_world_version, 1, 2);
-            this.tableLayoutPanelWorlds.Controls.Add(this.panel_words_id_2, 1, 0);
-            this.tableLayoutPanelWorlds.Controls.Add(this.panel8, 1, 4);
-            this.tableLayoutPanelWorlds.Controls.Add(this.panel9, 1, 3);
+            this.tableLayoutPanelWorlds.Controls.Add(this.panel_words_id, 1, 0);
+            this.tableLayoutPanelWorlds.Controls.Add(this.panel_world_asseturl, 1, 4);
+            this.tableLayoutPanelWorlds.Controls.Add(this.panel_world_author, 1, 3);
             this.tableLayoutPanelWorlds.Dock = System.Windows.Forms.DockStyle.Fill;
             this.tableLayoutPanelWorlds.Location = new System.Drawing.Point(0, 0);
             this.tableLayoutPanelWorlds.Name = "tableLayoutPanelWorlds";
@@ -1112,15 +1115,15 @@
             this.txt_world_version.Size = new System.Drawing.Size(598, 20);
             this.txt_world_version.TabIndex = 5;
             // 
-            // panel_words_id_2
+            // panel_words_id
             // 
-            this.panel_words_id_2.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
-            this.panel_words_id_2.Controls.Add(this.btn_worlds_search);
-            this.panel_words_id_2.Controls.Add(this.txt_world_id);
-            this.panel_words_id_2.Location = new System.Drawing.Point(123, 3);
-            this.panel_words_id_2.Name = "panel_words_id_2";
-            this.panel_words_id_2.Size = new System.Drawing.Size(598, 20);
-            this.panel_words_id_2.TabIndex = 13;
+            this.panel_words_id.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
+            this.panel_words_id.Controls.Add(this.btn_worlds_search);
+            this.panel_words_id.Controls.Add(this.txt_world_id);
+            this.panel_words_id.Location = new System.Drawing.Point(123, 3);
+            this.panel_words_id.Name = "panel_words_id";
+            this.panel_words_id.Size = new System.Drawing.Size(598, 20);
+            this.panel_words_id.TabIndex = 13;
             // 
             // btn_worlds_search
             // 
@@ -1141,16 +1144,16 @@
             this.txt_world_id.Size = new System.Drawing.Size(517, 20);
             this.txt_world_id.TabIndex = 0;
             // 
-            // panel8
+            // panel_world_asseturl
             // 
-            this.panel8.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
-            this.panel8.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
-            this.panel8.Controls.Add(this.btn_worlds_rip);
-            this.panel8.Controls.Add(this.txt_world_asset);
-            this.panel8.Location = new System.Drawing.Point(123, 109);
-            this.panel8.Name = "panel8";
-            this.panel8.Size = new System.Drawing.Size(598, 20);
-            this.panel8.TabIndex = 14;
+            this.panel_world_asseturl.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
+            this.panel_world_asseturl.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
+            this.panel_world_asseturl.Controls.Add(this.btn_worlds_rip);
+            this.panel_world_asseturl.Controls.Add(this.txt_world_asset);
+            this.panel_world_asseturl.Location = new System.Drawing.Point(123, 109);
+            this.panel_world_asseturl.Name = "panel_world_asseturl";
+            this.panel_world_asseturl.Size = new System.Drawing.Size(598, 20);
+            this.panel_world_asseturl.TabIndex = 14;
             // 
             // btn_worlds_rip
             // 
@@ -1173,15 +1176,15 @@
             this.txt_world_asset.Size = new System.Drawing.Size(517, 20);
             this.txt_world_asset.TabIndex = 0;
             // 
-            // panel9
+            // panel_world_author
             // 
-            this.panel9.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
-            this.panel9.Controls.Add(this.btn_worlds_author);
-            this.panel9.Controls.Add(this.txt_world_author);
-            this.panel9.Location = new System.Drawing.Point(123, 81);
-            this.panel9.Name = "panel9";
-            this.panel9.Size = new System.Drawing.Size(598, 22);
-            this.panel9.TabIndex = 15;
+            this.panel_world_author.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
+            this.panel_world_author.Controls.Add(this.btn_worlds_author);
+            this.panel_world_author.Controls.Add(this.txt_world_author);
+            this.panel_world_author.Location = new System.Drawing.Point(123, 81);
+            this.panel_world_author.Name = "panel_world_author";
+            this.panel_world_author.Size = new System.Drawing.Size(598, 22);
+            this.panel_world_author.TabIndex = 15;
             // 
             // btn_worlds_author
             // 
@@ -1506,22 +1509,22 @@
             // 
             // panel_setings
             // 
-            this.panel_setings.Controls.Add(this.panel1);
+            this.panel_setings.Controls.Add(this.panel_settings);
             this.panel_setings.Dock = System.Windows.Forms.DockStyle.Fill;
             this.panel_setings.Location = new System.Drawing.Point(0, 0);
             this.panel_setings.Name = "panel_setings";
             this.panel_setings.Size = new System.Drawing.Size(905, 360);
             this.panel_setings.TabIndex = 1;
             // 
-            // panel1
+            // panel_settings
             // 
-            this.panel1.Controls.Add(this.tableLayoutPanel1);
-            this.panel1.Controls.Add(this.flow_settings);
-            this.panel1.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.panel1.Location = new System.Drawing.Point(0, 0);
-            this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(905, 360);
-            this.panel1.TabIndex = 0;
+            this.panel_settings.Controls.Add(this.tableLayoutPanel1);
+            this.panel_settings.Controls.Add(this.flow_settings);
+            this.panel_settings.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.panel_settings.Location = new System.Drawing.Point(0, 0);
+            this.panel_settings.Name = "panel_settings";
+            this.panel_settings.Size = new System.Drawing.Size(905, 360);
+            this.panel_settings.TabIndex = 0;
             // 
             // tableLayoutPanel1
             // 
@@ -1664,70 +1667,71 @@
             this.menu_item_exportfriends,
             this.menu_item_importfriends,
             this.messageToolStripMenuItem,
-            this.inviteToolStripMenuItem});
+            this.inviteToolStripMenuItem,
+            this.chatToolStripMenuItem});
             this.menu_users.Name = "contextMenuStrip1";
-            this.menu_users.Size = new System.Drawing.Size(142, 202);
+            this.menu_users.Size = new System.Drawing.Size(181, 246);
             // 
             // profileMenuItem
             // 
             this.profileMenuItem.Name = "profileMenuItem";
-            this.profileMenuItem.Size = new System.Drawing.Size(141, 22);
+            this.profileMenuItem.Size = new System.Drawing.Size(180, 22);
             this.profileMenuItem.Text = "View Profile";
             this.profileMenuItem.Click += new System.EventHandler(this.ProfileMenuItem_Click);
             // 
             // menu_item_friend_add
             // 
             this.menu_item_friend_add.Name = "menu_item_friend_add";
-            this.menu_item_friend_add.Size = new System.Drawing.Size(141, 22);
+            this.menu_item_friend_add.Size = new System.Drawing.Size(180, 22);
             this.menu_item_friend_add.Text = "Friend";
             this.menu_item_friend_add.Click += new System.EventHandler(this.Menu_item_friend_add_ClickAsync);
             // 
             // unfriendToolStripMenuItem
             // 
             this.unfriendToolStripMenuItem.Name = "unfriendToolStripMenuItem";
-            this.unfriendToolStripMenuItem.Size = new System.Drawing.Size(141, 22);
+            this.unfriendToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
             this.unfriendToolStripMenuItem.Text = "Unfriend";
             this.unfriendToolStripMenuItem.Click += new System.EventHandler(this.Menu_item_friend_remove_ClickAsync);
             // 
             // blockToolStripMenuItem
             // 
             this.blockToolStripMenuItem.Name = "blockToolStripMenuItem";
-            this.blockToolStripMenuItem.Size = new System.Drawing.Size(141, 22);
+            this.blockToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
             this.blockToolStripMenuItem.Text = "Block";
             this.blockToolStripMenuItem.Click += new System.EventHandler(this.BlockToolStripMenuItem_ClickAsync);
             // 
             // unblockToolStripMenuItem
             // 
             this.unblockToolStripMenuItem.Name = "unblockToolStripMenuItem";
-            this.unblockToolStripMenuItem.Size = new System.Drawing.Size(141, 22);
+            this.unblockToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
             this.unblockToolStripMenuItem.Text = "Unblock";
             this.unblockToolStripMenuItem.Click += new System.EventHandler(this.UnblockToolStripMenuItem_ClickAsync);
             // 
             // menu_item_exportfriends
             // 
             this.menu_item_exportfriends.Name = "menu_item_exportfriends";
-            this.menu_item_exportfriends.Size = new System.Drawing.Size(141, 22);
+            this.menu_item_exportfriends.Size = new System.Drawing.Size(180, 22);
             this.menu_item_exportfriends.Text = "Export";
             this.menu_item_exportfriends.Click += new System.EventHandler(this.Menu_item_exportfriends_Click);
             // 
             // menu_item_importfriends
             // 
             this.menu_item_importfriends.Name = "menu_item_importfriends";
-            this.menu_item_importfriends.Size = new System.Drawing.Size(141, 22);
+            this.menu_item_importfriends.Size = new System.Drawing.Size(180, 22);
             this.menu_item_importfriends.Text = "Import";
             this.menu_item_importfriends.Click += new System.EventHandler(this.Menu_item_importfriends_Click);
             // 
             // messageToolStripMenuItem
             // 
             this.messageToolStripMenuItem.Name = "messageToolStripMenuItem";
-            this.messageToolStripMenuItem.Size = new System.Drawing.Size(141, 22);
+            this.messageToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
             this.messageToolStripMenuItem.Text = "Message";
             this.messageToolStripMenuItem.Click += new System.EventHandler(this.MessageToolStripMenuItem_ClickAsync);
             // 
             // inviteToolStripMenuItem
             // 
             this.inviteToolStripMenuItem.Name = "inviteToolStripMenuItem";
-            this.inviteToolStripMenuItem.Size = new System.Drawing.Size(141, 22);
+            this.inviteToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
             this.inviteToolStripMenuItem.Text = "Invite";
             this.inviteToolStripMenuItem.Click += new System.EventHandler(this.InviteToolStripMenuItem_Click);
             // 
@@ -1776,6 +1780,13 @@
             this.tooltip_user_location.BackColor = System.Drawing.SystemColors.ControlDarkDark;
             this.tooltip_user_location.ShowAlways = true;
             // 
+            // chatToolStripMenuItem
+            // 
+            this.chatToolStripMenuItem.Name = "chatToolStripMenuItem";
+            this.chatToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.chatToolStripMenuItem.Text = "Chat";
+            this.chatToolStripMenuItem.Click += new System.EventHandler(this.ChatToolStripMenuItem_Click);
+            // 
             // Main
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -1798,12 +1809,12 @@
             this.flowLayoutPanel1.ResumeLayout(false);
             this.tableLayoutPanelUSers.ResumeLayout(false);
             this.tableLayoutPanelUSers.PerformLayout();
-            this.panel_users_id.ResumeLayout(false);
-            this.panel_users_id.PerformLayout();
-            this.panel2.ResumeLayout(false);
-            this.panel2.PerformLayout();
-            this.panel3.ResumeLayout(false);
-            this.panel3.PerformLayout();
+            this.panel_user_id.ResumeLayout(false);
+            this.panel_user_id.PerformLayout();
+            this.panel_user_location.ResumeLayout(false);
+            this.panel_user_location.PerformLayout();
+            this.panel_user_displayname.ResumeLayout(false);
+            this.panel_user_displayname.PerformLayout();
             this.tab_avatars.ResumeLayout(false);
             this.splitContainerAvatars.Panel1.ResumeLayout(false);
             this.splitContainerAvatars.Panel2.ResumeLayout(false);
@@ -1811,8 +1822,8 @@
             this.splitContainerAvatars.ResumeLayout(false);
             this.tableLayoutPanelTEST.ResumeLayout(false);
             this.tableLayoutPanelTEST.PerformLayout();
-            this.panel_worlds_id.ResumeLayout(false);
-            this.panel_worlds_id.PerformLayout();
+            this.panel_avatars_id.ResumeLayout(false);
+            this.panel_avatars_id.PerformLayout();
             this.panel_worlds_asseturl.ResumeLayout(false);
             this.panel_worlds_asseturl.PerformLayout();
             this.panel_worlds_author.ResumeLayout(false);
@@ -1824,12 +1835,12 @@
             this.splitContainerWOrlds.ResumeLayout(false);
             this.tableLayoutPanelWorlds.ResumeLayout(false);
             this.tableLayoutPanelWorlds.PerformLayout();
-            this.panel_words_id_2.ResumeLayout(false);
-            this.panel_words_id_2.PerformLayout();
-            this.panel8.ResumeLayout(false);
-            this.panel8.PerformLayout();
-            this.panel9.ResumeLayout(false);
-            this.panel9.PerformLayout();
+            this.panel_words_id.ResumeLayout(false);
+            this.panel_words_id.PerformLayout();
+            this.panel_world_asseturl.ResumeLayout(false);
+            this.panel_world_asseturl.PerformLayout();
+            this.panel_world_author.ResumeLayout(false);
+            this.panel_world_author.PerformLayout();
             this.tab_mods.ResumeLayout(false);
             this.tabs_mods.ResumeLayout(false);
             this.tab_mods_installed.ResumeLayout(false);
@@ -1843,7 +1854,7 @@
             this.tableLayoutPanelmods.PerformLayout();
             this.tab_settings.ResumeLayout(false);
             this.panel_setings.ResumeLayout(false);
-            this.panel1.ResumeLayout(false);
+            this.panel_settings.ResumeLayout(false);
             this.tableLayoutPanel1.ResumeLayout(false);
             this.tab_log.ResumeLayout(false);
             this.tabs_log.ResumeLayout(false);
@@ -1876,12 +1887,6 @@
         private System.Windows.Forms.SplitContainer splitContainerUsers;
         private System.Windows.Forms.TreeView tree_users;
         private System.Windows.Forms.Button btn_users_reload;
-        private System.Windows.Forms.Button btn_users_save;
-        private System.Windows.Forms.FlowLayoutPanel flowLayoutPanel1;
-        private System.Windows.Forms.Button btn_users_friend_add;
-        private System.Windows.Forms.Button btn_users_friend_remove;
-        private System.Windows.Forms.Button btn_users_block;
-        private System.Windows.Forms.Button btn_users_unblock;
         private System.Windows.Forms.TableLayoutPanel tableLayoutPanelUSers;
         private System.Windows.Forms.Label label13;
         private System.Windows.Forms.TextBox txt_users_rank;
@@ -1891,7 +1896,7 @@
         private System.Windows.Forms.Label label21;
         private System.Windows.Forms.TextBox txt_users_username;
         private System.Windows.Forms.TextBox txt_users_status;
-        private System.Windows.Forms.Panel panel_users_id;
+        private System.Windows.Forms.Panel panel_user_id;
         private System.Windows.Forms.Button btn_users_search;
         private System.Windows.Forms.TextBox txt_users_id;
         private System.Windows.Forms.Panel panel_status;
@@ -1912,13 +1917,13 @@
         private System.Windows.Forms.TextBox txt_world_name;
         private System.Windows.Forms.Label label27;
         private System.Windows.Forms.TextBox txt_world_version;
-        private System.Windows.Forms.Panel panel_words_id_2;
+        private System.Windows.Forms.Panel panel_words_id;
         private System.Windows.Forms.Button btn_worlds_search;
         private System.Windows.Forms.TextBox txt_world_id;
-        private System.Windows.Forms.Panel panel8;
+        private System.Windows.Forms.Panel panel_world_asseturl;
         private System.Windows.Forms.Button btn_worlds_rip;
         private System.Windows.Forms.TextBox txt_world_asset;
-        private System.Windows.Forms.Panel panel9;
+        private System.Windows.Forms.Panel panel_world_author;
         private System.Windows.Forms.Button btn_worlds_author;
         private System.Windows.Forms.TextBox txt_world_author;
         private System.Windows.Forms.Button button5;
@@ -1933,7 +1938,7 @@
         private System.Windows.Forms.TextBox txt_avatar_name;
         private System.Windows.Forms.Label label16;
         private System.Windows.Forms.TextBox txt_avatar_version;
-        private System.Windows.Forms.Panel panel_worlds_id;
+        private System.Windows.Forms.Panel panel_avatars_id;
         private System.Windows.Forms.Button btn_avatar_search;
         private System.Windows.Forms.TextBox txt_avatar_id;
         private System.Windows.Forms.Panel panel_worlds_asseturl;
@@ -1973,17 +1978,17 @@
         private System.Windows.Forms.TextBox txt_mod_author;
         private System.Windows.Forms.TabPage tab_mods_available;
         private System.Windows.Forms.ToolStripMenuItem profileMenuItem;
-        private System.Windows.Forms.Panel panel1;
+        private System.Windows.Forms.Panel panel_settings;
         private System.Windows.Forms.TableLayoutPanel tableLayoutPanel1;
         private System.Windows.Forms.Button btn_config_save;
         private System.Windows.Forms.Button btn_config_apply;
         private System.Windows.Forms.FlowLayoutPanel flow_settings;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.Label label17;
-        private System.Windows.Forms.Panel panel2;
+        private System.Windows.Forms.Panel panel_user_location;
         private System.Windows.Forms.Button btn_user_join;
         private System.Windows.Forms.TextBox txt_users_location;
-        private System.Windows.Forms.Panel panel3;
+        private System.Windows.Forms.Panel panel_user_displayname;
         private System.Windows.Forms.TextBox txt_users_displayname;
         private System.Windows.Forms.Button btn_users_search_name;
         private System.Windows.Forms.RichTextBox txt_users_tags;
@@ -1995,6 +2000,13 @@
         private System.Windows.Forms.ToolStripMenuItem messageToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem inviteToolStripMenuItem;
         private System.Windows.Forms.ToolTip tooltip_user_location;
+        private System.Windows.Forms.FlowLayoutPanel flowLayoutPanel1;
+        private System.Windows.Forms.Button btn_users_save;
+        private System.Windows.Forms.Button btn_users_friend_add;
+        private System.Windows.Forms.Button btn_users_friend_remove;
+        private System.Windows.Forms.Button btn_users_block;
+        private System.Windows.Forms.Button btn_users_unblock;
+        private System.Windows.Forms.ToolStripMenuItem chatToolStripMenuItem;
     }
 }
 
