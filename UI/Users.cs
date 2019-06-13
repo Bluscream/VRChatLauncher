@@ -73,7 +73,19 @@ namespace VRChatLauncher
             } 
         }
 #region FillNodes
-
+        private void RefreshToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            // var control = ((ContextMenuStrip)((ToolStripMenuItem)sender).Owner).SourceControl;
+            // Logger.Debug(control.Name, control.Text);
+            var node = tree_users.SelectedNode;
+            if (node.Name == "node_friends") { FillOnlineFriends(true); FillOfflineFriends(); }
+            else if (node.Name == "node_friends_online") FillOnlineFriends(true);
+            else if (node.Name == "node_friends_offline") FillOfflineFriends();
+            else if (node.Name == "node_friends_blocked") FillBlocked();
+            else if (node.Name == "node_friends_requests") { FillRequests(); FillOutgoingRequests(); }
+            else if (node.Name == "node_friends_requests_incoming") { FillRequests(); }
+            else if (node.Name == "node_friends_requests_outgoing") { FillOutgoingRequests(); }
+        }
         public void SetupUsers(bool force = false) {
             if (users_loading) { Logger.Warn("Users are already loading, try again later");  return; }
             users_loading = true;
@@ -295,19 +307,20 @@ namespace VRChatLauncher
                 }
                 tree_users.SelectedNode = e.Node;
                 for (int i = 0; i < menu_users.Items.Count; i++) { menu_users.Items[i].Visible = false; }
+                /*if (e.Node.Nodes.Count > 0)*/ menu_users.Items[10].Visible = true; // Refresh
                 if(e.Node.Text.StartsWith("Friends ("))
                 {
                     menu_users.Items[5].Visible = true; menu_users.Items[6].Visible = true;
-                    menu_users.Show(tree_users, e.Location);
-                    return;
                 }
-                if(e.Node.Tag != null)
+                else if(e.Node.Tag != null)
                 {
                     var tag = (TreeNodeTag)tree_users.SelectedNode.Tag;
                     if (tag.Type == NodeType.Me || tag.Type == NodeType.User || tag.Type == NodeType.Moderation || tag.Type == NodeType.Notification) {
                         // if(tag.notificationResponse != null && tag.notificationResponse.)
-                        if (!me.friends.Contains(tag.Id)) { menu_users.Items[1].Visible = true;
-                        } else { menu_users.Items[2].Visible = true; }
+                        if (!me.friends.Contains(tag.Id)) { menu_users.Items[1].Visible = true; // Unfriend
+                        } else {
+                            menu_users.Items[2].Visible = true; //Friend
+                    }
                         var isBlocked = false;
                         if (tag.Type != NodeType.Moderation) { // Todo: proper implementation
                             foreach (TreeNode node in tree_users.Nodes[2].Nodes)
@@ -318,13 +331,14 @@ namespace VRChatLauncher
                         } else { isBlocked = true; }
                         if (isBlocked) menu_users.Items[4].Visible = true;
                         else { menu_users.Items[3].Visible = true; }
-                        menu_users.Items[0].Visible = true;
-                        menu_users.Items[7].Visible = true;
-                        menu_users.Items[8].Visible = true;
-                        menu_users.Items[9].Visible = true;
-                        menu_users.Show(tree_users, e.Location);
+                        menu_users.Items[0].Visible = true; // Profile
+                        menu_users.Items[7].Visible = true; // Message
+                        menu_users.Items[8].Visible = true; // Invite
+                        menu_users.Items[9].Visible = true; // Chat
                     }
                 }
+                // if (menu_users.Items.Cast<ToolStripMenuItem>().ToList().Any(p => p.Visible))
+                    menu_users.Show(tree_users, e.Location);
             }
         }
         private void Btn_users_search_Click(object sender, EventArgs e) {
@@ -562,7 +576,7 @@ namespace VRChatLauncher
 
         private void InviteToolStripMenuItem_Click(object sender, EventArgs e)
         {
-
+            throw new Exception("System.NiggaThisIsNotHereYetException");
         }
 
 
