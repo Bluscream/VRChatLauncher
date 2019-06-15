@@ -1735,7 +1735,7 @@
             this.inviteToolStripMenuItem.Name = "inviteToolStripMenuItem";
             this.inviteToolStripMenuItem.Size = new System.Drawing.Size(141, 22);
             this.inviteToolStripMenuItem.Text = "Invite";
-            this.inviteToolStripMenuItem.Click += new System.EventHandler(this.InviteToolStripMenuItem_Click);
+            this.inviteToolStripMenuItem.Click += new System.EventHandler(this.InviteToolStripMenuItem_ClickAsync);
             // 
             // chatToolStripMenuItem
             // 

@@ -559,24 +559,32 @@ namespace VRChatLauncher
         }
         private void ChatToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            if (ChatWindow is null)
+            if (ChatWindow is null || ChatWindow.IsDisposed)
             {
                 ChatWindow = new UI.ChatWindow(vrcapi, me);
-                ChatWindow.FormClosed += ChatWindow_FormClosed;
-                ChatWindow.Show();
+                // ChatWindow.FormClosed += ChatWindow_FormClosed;
             }
+            ChatWindow.Show();
             var tag = (TreeNodeTag)tree_users.SelectedNode.Tag;
             ChatWindow.AddChat(tag.userBriefResponse);
         }
 
-        private void ChatWindow_FormClosed(object sender, FormClosedEventArgs e)
-        {
+        /*private void ChatWindow_FormClosed(object sender, FormClosedEventArgs e) {
             ChatWindow = null;
-        }
+        }*/
 
-        private void InviteToolStripMenuItem_Click(object sender, EventArgs e)
+        private async void InviteToolStripMenuItem_ClickAsync(object sender, EventArgs e)
         {
-            throw new Exception("System.NiggaThisIsNotHereYetException");
+            var tag = (TreeNodeTag)tree_users.SelectedNode.Tag;
+            var targetId = (tag.userResponse != null) ? tag.userResponse.id : tag.userBriefResponse.id;
+            var worldinstanceid = "";
+            var result = UI.Utils.InputBox("Enter World ID", "WorldID:", ref worldinstanceid);
+            if (result != DialogResult.OK) return;
+            var worldname = "";
+            result = UI.Utils.InputBox("Enter World Name", "Name:", ref worldname);
+            if (result != DialogResult.OK) return;
+            var notification = await vrcapi.FriendsApi.SendInvite(targetId, worldinstanceid, worldname);
+            Logger.Debug(notification);
         }
 
 

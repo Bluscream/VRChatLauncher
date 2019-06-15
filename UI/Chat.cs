@@ -22,6 +22,7 @@ namespace VRChatLauncher.UI
         }
         public void AddChat(UserBriefResponse user)
         {
+            BringUp();
             var chatId = $"chat_{user.id}";
             if (tabs_chat.TabPages.ContainsKey(chatId))
             {
@@ -43,9 +44,22 @@ namespace VRChatLauncher.UI
             tab.Controls.Add(lst_messages);
             tabs_chat.Controls.Add(tab);
             tabs_chat.SelectTab(tab.TabIndex); // Select Tab
-            Text = $"Chat with {user.displayName}";
+            this.Text = $"Chat with {user.displayName}";
+            txt_chat_input.Focus();
             var tag = (TabTag)tab.Tag;
             LogLine(chatId, tag.SessionStart, $"Chat session with {user.displayName.Quote()} started.");
+        }
+
+        private void BringUp()
+        {
+            if (WindowState == FormWindowState.Minimized) {
+                WindowState = FormWindowState.Normal;
+            } else {
+                TopMost = true;
+                Focus();
+                BringToFront();
+                TopMost = false;
+            }
         }
 
         private void Tab_MouseClick(object sender, MouseEventArgs e)
