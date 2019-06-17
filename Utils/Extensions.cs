@@ -42,6 +42,14 @@ namespace VRChatLauncher.Utils
         }
 #endregion
  #region String
+        public static bool IsNullOrEmpty(this string source)
+        {
+            return string.IsNullOrEmpty(source);
+        }
+        public static string[] Split(this string source, string split, int count=1, StringSplitOptions options = StringSplitOptions.None)
+        {
+            return source.Split(new string[]{split}, count, options);
+        }
         public static string Remove(this string Source, string Replace)
         {
             return Source.Replace(Replace, string.Empty);
@@ -111,8 +119,30 @@ namespace VRChatLauncher.Utils
                     }
                 }
             }
-    return null;
-}
+            return null;
+        }
+    public static T GetValueFromDescription<T>(string description, bool returnDefault = false)
+    {
+        var type = typeof(T);
+        if(!type.IsEnum) throw new InvalidOperationException();
+        foreach(var field in type.GetFields())
+        {
+            var attribute = Attribute.GetCustomAttribute(field,
+                typeof(DescriptionAttribute)) as DescriptionAttribute;
+            if(attribute != null)
+            {
+                if(attribute.Description == description)
+                    return (T)field.GetValue(null);
+            }
+            else
+            {
+                if(field.Name == description)
+                    return (T)field.GetValue(null);
+            }
+        }
+        if (returnDefault) return default(T);
+        else throw new ArgumentException("Not found.", "description");
+    }
 #endregion
  #region Task
         public static async Task<TResult> TimeoutAfter<TResult>(this Task<TResult> task, TimeSpan timeout) {
