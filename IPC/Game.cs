@@ -26,7 +26,7 @@ namespace VRChatLauncher.IPC
             List<string> _args = new List<string>();
             foreach (var arg in args) {
                 if (arg.StartsWith("--vrclauncher.")) continue;
-                var cmd = new Command(CommandType.Unknown).FromString(arg);
+                var cmd = Command.FromString(arg);
                 if (cmd is null) _args.Add(arg);
             }
             return _args.ToArray();
@@ -141,11 +141,9 @@ namespace VRChatLauncher.IPC
                 CommandType = type; CommandTypeRaw = type.GetDescription(); SkipLauncher = skipLauncher; Force = force; WorldInstanceId = worldInstanceID; Referrer = referrer;
                 Logger.Trace(this.ToJson());
             }
-            public Command FromString(string url)
-            {
-                url = url.ToLower();
+            public static Command FromString(string url) {
                 Uri uri;
-                try { uri = new Uri(url);
+                try { uri = new Uri(url.ToLower());
                 } catch (UriFormatException) { return null; }
                 var query = HttpUtility.ParseQueryString(uri.Query);
                 // var cmdtype = uri.Host.ToLower();
