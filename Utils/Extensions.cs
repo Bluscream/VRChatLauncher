@@ -2,6 +2,7 @@
 using Newtonsoft.Json.Converters;
 using System;
 using System.Collections.Generic;
+using System.Collections.Specialized;
 using System.ComponentModel;
 using System.IO;
 using System.Linq;
@@ -22,6 +23,20 @@ namespace VRChatLauncher.Utils
         }
 #endregion
  #region FileInfo
+        public static DirectoryInfo Combine(this DirectoryInfo dir, params string[] paths) {
+            var final = dir.FullName;
+            foreach (var path in paths) {
+                final = Path.Combine(final, path);
+            }
+            return new DirectoryInfo(final);
+        }
+        public static FileInfo Combine(this FileInfo dir, params string[] paths) {
+            var final = dir.FullName;
+            foreach (var path in paths) {
+                final = Path.Combine(final, path);
+            }
+            return new FileInfo(final);
+        }
         public static string FileNameWithoutExtension(this FileInfo file) {
             return Path.GetFileNameWithoutExtension(file.Name);
         }
@@ -42,13 +57,18 @@ namespace VRChatLauncher.Utils
         }
 #endregion
  #region String
+        public static bool Contains(this string source, string toCheck, StringComparison comp)
+        {
+            return source?.IndexOf(toCheck, comp) >= 0;
+        }
         public static bool IsNullOrEmpty(this string source)
         {
             return string.IsNullOrEmpty(source);
         }
-        public static string[] Split(this string source, string split, int count=1, StringSplitOptions options = StringSplitOptions.None)
+        public static string[] Split(this string source, string split, int count=-1, StringSplitOptions options = StringSplitOptions.None)
         {
-            return source.Split(new string[]{split}, count, options);
+            if (count != -1) return source.Split(new string[]{split}, count, options);
+            return source.Split(new string[]{split}, options);
         }
         public static string Remove(this string Source, string Replace)
         {
@@ -74,6 +94,10 @@ namespace VRChatLauncher.Utils
         {
             return SurroundWith(text, "(",")");
         }
+        public static string Brackets(this string text)
+        {
+            return SurroundWith(text, "[","]");
+        }
         public static string SurroundWith(this string text, string surrounds)
         {
             return surrounds + text + surrounds;
@@ -84,6 +108,42 @@ namespace VRChatLauncher.Utils
         }
 #endregion
  #region List
+        public static string ToQueryString(this NameValueCollection nvc)
+        {
+        if (nvc == null) return string.Empty;
+
+        StringBuilder sb = new StringBuilder();
+
+        foreach (string key in nvc.Keys)
+        {
+        if (string.IsNullOrWhiteSpace(key)) continue;
+
+        string[] values = nvc.GetValues(key);
+        if (values == null) continue;
+
+        foreach (string value in values)
+        {
+            sb.Append(sb.Length == 0 ? "?" : "&");
+            sb.AppendFormat("{0}={1}", key, value);
+        }
+        }
+
+        return sb.ToString();
+        }
+        public static bool GetBool(this NameValueCollection collection, string key, bool defaultValue = false)
+        {
+            if (!collection.AllKeys.Contains(key, StringComparer.OrdinalIgnoreCase)) return false;
+            var trueValues = new string[] { true.ToString(), "yes", "1" };
+            if (trueValues.Contains(collection[key], StringComparer.OrdinalIgnoreCase)) return true;
+            var falseValues = new string[] { false.ToString(), "no", "0" };
+            if (falseValues.Contains(collection[key], StringComparer.OrdinalIgnoreCase)) return true;
+            return defaultValue;
+        }
+        public static string GetString(this NameValueCollection collection, string key)
+        {
+            if (!collection.AllKeys.Contains(key)) return collection[key];
+            return null;
+        }
         public static T PopAt<T>(this List<T> list, int index)
         {
             T r = list[index];

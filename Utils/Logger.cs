@@ -9,7 +9,7 @@ namespace VRChatLauncher.Utils
     class Logger
     {
         private static FileInfo getLogFile(string fileName = "Launcher.log") {
-            return new FileInfo(Path.Combine(Utils.getOwnPath().DirectoryName, fileName));
+            return Utils.getOwnPath().Combine(fileName);
         }
         public static void Init() {
             try { Console.Title = "VRChat Launcher Log"; } catch { }
@@ -47,15 +47,19 @@ namespace VRChatLauncher.Utils
         private static void log(VRChatApi.Logging.LogLevel logLevel, bool lines = false, params object[] msgs) // [CallerMemberName] string cName = "Unknown.Unknown", 
         {
             string timestamp = DateTime.UtcNow.ToString("HH:mm:ss.fff", System.Globalization.CultureInfo.InvariantCulture);
-            StackFrame frame = new StackFrame(1); var method = frame.GetMethod(); var cName = method.DeclaringType.Name; var mName = method.Name;
+            StackFrame frame = new StackFrame(2); var method = frame.GetMethod(); var cName = method.DeclaringType.Name; var mName = method.Name;
             var oldColor = Console.ForegroundColor;
             var newColor = ColorFromLogLevel(logLevel);
             var item = new System.Windows.Forms.ListViewItem();
             item.ForeColor = newColor.Item1;
             var str = "";
             var seperator = lines ? Environment.NewLine : " ";
-            foreach(var msg in msgs) {
-                try { str += seperator + (string)msg;
+            foreach(var _msg in msgs) {
+                var msg = _msg;
+                try {
+                    var type = msg.GetType();
+                    if (type.IsArray) msg = string.Join(", ", _msg).Brackets();
+                    str += seperator + (string)msg;
                 } catch (Exception ex) {
                     // Console.WriteLine($"Error {ex.ToString()}");
                     str += seperator + msg.ToString();

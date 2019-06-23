@@ -1,21 +1,21 @@
 ﻿using System;
+using System.Net;
 using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Windows.Forms;
-using Microsoft.VisualBasic.Devices;
-using System.Net;
+using System.Threading;
+using System.Collections.Generic;
 using VRChatLauncher.Utils;
 using IniParser.Model;
 using VRChatApi.Classes;
 using Humanizer;
-using System.Threading;
 
 namespace VRChatLauncher
 {
     public partial class Main : Form
     {
-        public static string[] args = new string[] { };
+        public static List<string> args = new List<string>();
         public IniData config;public VRChatApi.VRChatApi vrcapi;
         public static TextBox statusBar;public static WebClient webClient;
         public Main(string[] arguments)
@@ -24,7 +24,7 @@ namespace VRChatLauncher
             config = Config.Load();
             InitializeComponent();
             // var args = Program.args.Skip(1).ToArray();
-            args = arguments;
+            args = arguments.ToList();
             var gameInSameDir = Setup.Game.CheckForGame();
             // if (!gameInSameDir) SetupGame();
             Setup.URIResponse regKeyCorrect = Setup.URI.CheckURIRegistryKey();
@@ -192,7 +192,8 @@ namespace VRChatLauncher
 
         private void btn_play_Click(object sender, EventArgs e)
         {
-            Game.StartGame(args: args);
+            // Game.StartGame(args: args.ToArray()); // TODO ENABLE
+            Logger.Log("Build Platform:", AssemblyReader.GetBuildStoreID());
         }
         
 
@@ -223,7 +224,7 @@ namespace VRChatLauncher
 
         private void sendHeartBeat()
         {
-            var osinfo = new ComputerInfo();
+            var osinfo = new Microsoft.VisualBasic.Devices.ComputerInfo();
             using (var wc = new WebClient())
             {
                 wc.Headers.Add("Referer",$"https://launcher.vrc/{osinfo.OSFullName}/{osinfo.OSVersion}");
@@ -250,8 +251,13 @@ namespace VRChatLauncher
         private void updateUsers() {
             using (var wc = new WebClient())
             {
-                var users = wc.DownloadString("https://api.vrchat.cloud/api/1/visits");
-                if (!string.IsNullOrEmpty(users)) { SetTitle($"VRChat Launcher ({users} users playing)"); }
+                var sleep = TimeSpan.FromMinutes(5);
+                while (true)
+                {
+                    var users = wc.DownloadString("https://api.vrchat.cloud/api/1/visits");
+                    if (!string.IsNullOrEmpty(users)) { SetTitle($"VRChat Launcher ({users} users playing)"); }
+                    Thread.Sleep(sleep);
+                }
             }
         }
 

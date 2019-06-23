@@ -366,8 +366,8 @@ namespace VRChatLauncher
         {
             if(txt_users_location.Text == "offline") { MessageBox.Show($"{txt_users_displayname.Text} is offline. You can't join them!", "User offline", MessageBoxButtons.OK, MessageBoxIcon.Error); return; }
             else if(txt_users_location.Text == "private") { MessageBox.Show($"{txt_users_displayname.Text} is in a private world. You can't join them!", "User in private world!", MessageBoxButtons.OK, MessageBoxIcon.Error); return; }
-            var worldinstance = new WorldInstanceID(txt_users_location.Text);
-            var cmd = new Command(CommandType.Launch, worldInstanceID: worldinstance); // , referrer: "vrclauncher"
+            var cmd = new Command(CommandType.Launch); // , referrer: "vrclauncher"
+            cmd.WorldInstanceID = new WorldInstanceID(txt_users_location.Text);
             Send(cmd);
         }
 

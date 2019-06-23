@@ -10,7 +10,7 @@ namespace VRChatLauncher.IPC
 {
     public class CommandHandler
     {
-        public static void IsLauncherRunning(string argument)
+        public static void IsLauncherRunning(string argument) // TODO: make properly
         {
             foreach (var arg in argument.Split(' '))
             {
