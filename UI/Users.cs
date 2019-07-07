@@ -10,6 +10,7 @@ using static VRChatLauncher.IPC.Game;
 using System.IO;
 using System.ComponentModel;
 using System.Threading;
+using System.Text;
 // using Microsoft.VisualBasic;
 
 namespace VRChatLauncher
@@ -98,15 +99,61 @@ namespace VRChatLauncher
             users_loading = false;
         }
         public async void FillMe(bool update = true) {
+            Logger.Trace("Me: ", me != null);
             if (me != null)  {
-                if (update) me = await vrcapi.UserApi.UpdateInfo(me.id);
-                Logger.Trace("Me: ", me != null);
+                Logger.Trace("Me: ", me.ToJson());
+                if (update) {
+                    me = await vrcapi.UserApi.UpdateInfo(me.id);
+                    FriendsToCache(me.friends);
+                }
                 SetNodeColorFromTags(tree_users.Nodes[0], me.tags);
                 tree_users.Nodes[0].Text = me.displayName;
                 tree_users.Nodes[0].Tag = new TreeNodeTag(type: NodeType.Me, id: me.id, me);
                 tree_users.Nodes[1].Text = $"Friends ({me.friends.Count})";
             }
         }
+        public void FriendsToCache(List<string> newFriends)
+        {
+            var friendCache = new FileInfo("friends.txt");
+            Logger.Log("Loading cached friends from", friendCache.FullName.Quote());
+            if (friendCache.Exists) {
+                var cachedFriends = new List<string>(File.ReadAllLines(friendCache.FullName));
+                Logger.Log("Loaded", cachedFriends.Count, "cached friends from", friendCache.Name.Quote());
+                CompareFriendCaches(cachedFriends, newFriends);
+            }
+            Logger.Log("Saving", newFriends.Count, "new friends to", friendCache.Name.Quote());
+            File.WriteAllLines(friendCache.FullName, newFriends);
+        }
+        private void CompareFriendCaches(List<string> oldFriends, List<string> newFriends) {
+            if (oldFriends != newFriends) {
+                var addedFriends = new List<string>();
+                var removedFriends = new List<string>();
+                foreach (var oldFriend in oldFriends) {
+                    if (!newFriends.Contains(oldFriend))
+                        removedFriends.Add(oldFriend);
+                }
+                foreach (var newFriend in newFriends) {
+                    if (!oldFriends.Contains(newFriend))
+                        addedFriends.Add(newFriend);
+                }
+                if (addedFriends.Count > 0 || removedFriends.Count > 0)
+                    ShowCompareFriendResults(addedFriends, removedFriends);
+            }
+        }
+
+        private void ShowCompareFriendResults(List<string> addedFriends, List<string> removedFriends)
+        {
+            var sb = new StringBuilder("Friend List Changed:\n\n");
+            foreach (var addedFriend in addedFriends) {
+                sb.AppendLine($"{addedFriend.Quote()} was added!");
+            }
+            sb.AppendLine();
+            foreach (var removedFriend in removedFriends) {
+                sb.AppendLine($"{removedFriend.Quote()} was removed!");
+            }
+            MessageBox.Show(sb.ToString());
+        }
+
         public async void FillOnlineFriends(bool force = false)
         {
             var friends = new List<UserBriefResponse>();

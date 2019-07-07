@@ -57,7 +57,7 @@ namespace VRChatLauncher
                 if(!mod.Enabled) item.ForeColor = Color.Gray;
                 lst_mods.Items.Add(item);
             }
-
+            tabs_mods.TabPages[0].Text = $"Installed ({mods.Count})";
         }
 
         int lastModIndex = 0;

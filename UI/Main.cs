@@ -152,10 +152,10 @@ namespace VRChatLauncher
                 }
         }
 
-        private async void tab_changedAsync(object sender, TabControlEventArgs e)
+        private void tab_changed(object sender, TabControlEventArgs e)
         {
             Logger.Trace(e.Action.ToString(), e.TabPage.Name, e.TabPageIndex.ToString());
-            if (new string[] { "tab_users", "tab_avatars", "tab_worlds"}.Contains(e.TabPage.Name))
+            if (new string[] { "tab_users", "tab_avatars", "tab_worlds" }.Contains(e.TabPage.Name))
             {
                 LoginVRCAPI();
             }
@@ -175,11 +175,12 @@ namespace VRChatLauncher
                         SetupSettings();
                     break;
                 case "tab_mods":
-                    if(mods == null)
+                    if (mods == null)
                         SetupMods();
                     break;
                 case "tab_log_game":
-                    if (logReader == null) {
+                    if (logReader == null)
+                    {
                         logReader = new LogReader();
                         logReader.Init();
                         lst_log_game.Items.Add("Initialized Log Watcher");
@@ -192,8 +193,8 @@ namespace VRChatLauncher
 
         private void btn_play_Click(object sender, EventArgs e)
         {
-            // Game.StartGame(args: args.ToArray()); // TODO ENABLE
-            Logger.Log("Build Platform:", AssemblyReader.GetBuildStoreID());
+            Game.StartGame(args: args.ToArray()); // TODO ENABLE
+            Logger.Log("Build Platform:", AssemblyReader.GetBuildStoreID()); // IDK?
         }
         
 

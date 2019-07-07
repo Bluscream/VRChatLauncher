@@ -257,7 +257,7 @@
             this.tabs_main.SelectedIndex = 0;
             this.tabs_main.Size = new System.Drawing.Size(913, 386);
             this.tabs_main.TabIndex = 1;
-            this.tabs_main.Selected += new System.Windows.Forms.TabControlEventHandler(this.tab_changedAsync);
+            this.tabs_main.Selected += new System.Windows.Forms.TabControlEventHandler(this.tab_changed);
             // 
             // tab_news
             // 
@@ -1594,7 +1594,7 @@
             this.tabs_log.SelectedIndex = 0;
             this.tabs_log.Size = new System.Drawing.Size(905, 360);
             this.tabs_log.TabIndex = 0;
-            this.tabs_log.Selected += new System.Windows.Forms.TabControlEventHandler(this.tab_changedAsync);
+            this.tabs_log.Selected += new System.Windows.Forms.TabControlEventHandler(this.tab_changed);
             // 
             // tab_log_launcher
             // 
