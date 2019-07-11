@@ -34,8 +34,8 @@ namespace VRChatLauncher.Utils
             }
             return new DirectoryInfo(final);
         }
-        public static FileInfo Combine(this FileInfo dir, params string[] paths) {
-            var final = dir.FullName;
+        public static FileInfo Combine(this FileInfo file, params string[] paths) {
+            var final = file.DirectoryName;
             foreach (var path in paths) {
                 final = Path.Combine(final, path);
             }

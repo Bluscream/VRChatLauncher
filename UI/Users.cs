@@ -120,7 +120,7 @@ namespace VRChatLauncher
         }
         public void FriendsToCache(List<UserBriefResponse> newFriends)
         {
-            var friendCache = new FileInfo("friends.cache.json");
+            var friendCache = Utils.Utils.getOwnPath().Combine("friends.cache.json");
             Logger.Log("Loading cached friends from", friendCache.FullName.Quote());
             var newFriendsBackup = new FriendsBackup(me, newFriends);
             if (friendCache.Exists) {
