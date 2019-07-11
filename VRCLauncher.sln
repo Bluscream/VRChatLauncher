@@ -11,6 +11,10 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "VRChatAutoConnect", "C:\Use
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BeatSaberModManager", "C:\Users\blusc\source\repos\BeatSaberModInstaller\BeatSaberModManager\BeatSaberModManager.csproj", "{A053076C-1827-4FD0-B29C-35CDEC751687}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "VRCAPIdotNet", "..\..\VRCAPIdotNet\VRCAPIdotNet\VRCAPIdotNet.csproj", "{CCC3A3F4-C581-4AF4-8EA9-39D47FA2E1D3}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "VRCModManager", "..\VRChatModInstaller\VRCModManager\VRCModManager.csproj", "{66C53D4D-B5C5-4CA2-92FB-E53E370B1C23}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -41,6 +45,18 @@ Global
 		{A053076C-1827-4FD0-B29C-35CDEC751687}.Release and Pack|Any CPU.Build.0 = Release and Pack|Any CPU
 		{A053076C-1827-4FD0-B29C-35CDEC751687}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{A053076C-1827-4FD0-B29C-35CDEC751687}.Release|Any CPU.Build.0 = Release|Any CPU
+		{CCC3A3F4-C581-4AF4-8EA9-39D47FA2E1D3}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{CCC3A3F4-C581-4AF4-8EA9-39D47FA2E1D3}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{CCC3A3F4-C581-4AF4-8EA9-39D47FA2E1D3}.Release and Pack|Any CPU.ActiveCfg = Release|Any CPU
+		{CCC3A3F4-C581-4AF4-8EA9-39D47FA2E1D3}.Release and Pack|Any CPU.Build.0 = Release|Any CPU
+		{CCC3A3F4-C581-4AF4-8EA9-39D47FA2E1D3}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{CCC3A3F4-C581-4AF4-8EA9-39D47FA2E1D3}.Release|Any CPU.Build.0 = Release|Any CPU
+		{66C53D4D-B5C5-4CA2-92FB-E53E370B1C23}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{66C53D4D-B5C5-4CA2-92FB-E53E370B1C23}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{66C53D4D-B5C5-4CA2-92FB-E53E370B1C23}.Release and Pack|Any CPU.ActiveCfg = Release|Any CPU
+		{66C53D4D-B5C5-4CA2-92FB-E53E370B1C23}.Release and Pack|Any CPU.Build.0 = Release|Any CPU
+		{66C53D4D-B5C5-4CA2-92FB-E53E370B1C23}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{66C53D4D-B5C5-4CA2-92FB-E53E370B1C23}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

@@ -21,8 +21,12 @@ namespace VRChatLauncher.Utils
         {
             return (dateTime - DateTime.Now).TotalMinutes < minutes;
         }
-#endregion
- #region FileInfo
+        public static TimeSpan StripMilliseconds(this TimeSpan time)
+        {
+            return new TimeSpan(time.Days, time.Hours, time.Minutes, time.Seconds);
+        }
+        #endregion
+        #region FileInfo
         public static DirectoryInfo Combine(this DirectoryInfo dir, params string[] paths) {
             var final = dir.FullName;
             foreach (var path in paths) {

@@ -11,6 +11,8 @@ using System.IO;
 using System.ComponentModel;
 using System.Threading;
 using System.Text;
+using System.Threading.Tasks;
+using Newtonsoft.Json;
 // using Microsoft.VisualBasic;
 
 namespace VRChatLauncher
@@ -87,11 +89,15 @@ namespace VRChatLauncher
             else if (node.Name == "node_friends_requests_incoming") { FillRequests(); }
             else if (node.Name == "node_friends_requests_outgoing") { FillOutgoingRequests(); }
         }
-        public void SetupUsers(bool force = false) {
+        public async void SetupUsers(bool force = false) {
             if (users_loading) { Logger.Warn("Users are already loading, try again later");  return; }
             users_loading = true;
             FillMe();
-            FillOnlineFriends(force);
+            var friends = await GetAllFriends();
+            FillOnlineFriends(force, friends: friends.Where(f => !f.Offline).ToList());
+            FillOfflineFriends(friends: friends.Where(f => f.Offline).ToList());
+            /*if (users_last_update == DateTime.MinValue)*/ FriendsToCache(friends);
+            // FillOnlineFriends(force);
             // tree_users.TreeViewNodeSorter = new NodeSorter();
             // tree_users.Sort(onlinenode);
             FillRequests();
@@ -104,7 +110,7 @@ namespace VRChatLauncher
                 Logger.Trace("Me: ", me.ToJson());
                 if (update) {
                     me = await vrcapi.UserApi.UpdateInfo(me.id);
-                    FriendsToCache(me.friends);
+                    // FriendsToCache(me.friends);
                 }
                 SetNodeColorFromTags(tree_users.Nodes[0], me.tags);
                 tree_users.Nodes[0].Text = me.displayName;
@@ -112,69 +118,139 @@ namespace VRChatLauncher
                 tree_users.Nodes[1].Text = $"Friends ({me.friends.Count})";
             }
         }
-        public void FriendsToCache(List<string> newFriends)
+        public void FriendsToCache(List<UserBriefResponse> newFriends)
         {
-            var friendCache = new FileInfo("friends.txt");
+            var friendCache = new FileInfo("friends.cache.json");
             Logger.Log("Loading cached friends from", friendCache.FullName.Quote());
+            var newFriendsBackup = new FriendsBackup(me, newFriends);
             if (friendCache.Exists) {
-                var cachedFriends = new List<string>(File.ReadAllLines(friendCache.FullName));
-                Logger.Log("Loaded", cachedFriends.Count, "cached friends from", friendCache.Name.Quote());
-                CompareFriendCaches(cachedFriends, newFriends);
+                try {
+                    var cachedFriends = JsonConvert.DeserializeObject<FriendsBackup>(File.ReadAllText(friendCache.FullName));
+                    Logger.Log("Loaded", cachedFriends.Friends.Count, "cached friends from", friendCache.Name.Quote());
+                    CompareFriendCaches(cachedFriends, newFriendsBackup);
+                } catch (JsonException ex) {
+                    MessageBox.Show($"An error was thrown while reading cached friends!\nClick okay to discard current cache and write a new one\n\n{ex.Message}\n\n{ex.StackTrace}", "Error while loading cached friends!", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
             }
-            Logger.Log("Saving", newFriends.Count, "new friends to", friendCache.Name.Quote());
-            File.WriteAllLines(friendCache.FullName, newFriends);
+            Logger.Log("Saving", newFriendsBackup.Friends.Count, "new friends to", friendCache.Name.Quote());
+            // File.WriteAllLines(friendCache.FullName, newFriends);
+            File.WriteAllText(friendCache.FullName, JsonConvert.SerializeObject(newFriendsBackup, Formatting.Indented));
         }
-        private void CompareFriendCaches(List<string> oldFriends, List<string> newFriends) {
+        private void CompareFriendCaches(FriendsBackup oldFriends, FriendsBackup newFriends) {
             if (oldFriends != newFriends) {
-                var addedFriends = new List<string>();
-                var removedFriends = new List<string>();
-                foreach (var oldFriend in oldFriends) {
-                    if (!newFriends.Contains(oldFriend))
-                        removedFriends.Add(oldFriend);
+                var sb = new StringBuilder($"Last Backup: {oldFriends.TimeStamp} ({(DateTime.Now - oldFriends.TimeStamp).StripMilliseconds()} ago)\n\n");
+                if (oldFriends.Account.id != newFriends.Account.id) {
+                    var diffAccResult = MessageBox.Show($"Last Friends Backup was created with account\n\n{oldFriends.Account.displayName.Quote()}\n\nbut you're currently logged in as\n\n{newFriends.Account.displayName.Quote()}\n\nAre you sure you still want to compare them?", "Friend backup conflict detected!", MessageBoxButtons.OKCancel, MessageBoxIcon.Warning);
+                    if (diffAccResult != DialogResult.OK) return;
                 }
-                foreach (var newFriend in newFriends) {
-                    if (!oldFriends.Contains(newFriend))
+                // var addedFriends = new List<FriendsBackup.Friend>();
+                var removedFriends = new List<FriendsBackup.Friend>();
+                // var changedNames = new List<FriendsBackup.Friend>();
+                var changed = false;
+                foreach (var oldFriend in oldFriends.Friends)
+                {
+                    var oldInNew = newFriends.Friends.FirstOrDefault(c => c.id == oldFriend.id);
+                    if (oldInNew is null) {
+                        removedFriends.Add(oldFriend);changed = true;
+                    } else {
+                        if (oldInNew.displayName != oldFriend.displayName) {
+                            sb.AppendLine($"{oldFriend.displayName.Quote()} changed their name to {oldInNew.displayName.Quote()}!"); changed = true;
+                        }
+                    }
+                }
+                if (changed)
+                {
+                    var title = "Friend List Changed";
+                    if (removedFriends.Count > 0) {
+                        Logger.Debug("Removed Friends:", removedFriends.ToJson());
+                        foreach (var removedFriend in removedFriends) {
+                            sb.AppendLine($"{removedFriend.displayName.Quote()} was removed!");
+                        }
+                        sb.AppendLine("\n\nPress Yes to re-add removed friends to your list");
+                        var reAddResult = MessageBox.Show(sb.ToString(), title, MessageBoxButtons.YesNo, MessageBoxIcon.Information);
+                        if (reAddResult == DialogResult.Yes) {
+                            AddFriendsAsync(removedFriends.Select(c => c.id).ToList());
+                        }
+                    } else {
+                        MessageBox.Show(sb.ToString(), title, MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    }
+                }
+                /*foreach (var oldFriend in oldFriends.Friends)
+                {
+                    // var change = FriendsBackup.Friend.Changed.Everything;
+                    foreach (var newFriend in newFriends.Friends)
+                    {
+                        /*switch (oldFriend.Difference(newFriend))
+                        {
+                            case FriendsBackup.Friend.Changed.Name:
+                                change = FriendsBackup.Friend.Changed.Name; break;
+                            case FriendsBackup.Friend.Changed.Nothing:
+                                change = FriendsBackup.Friend.Changed.Nothing; break;
+                            default:
+                                break;
+                        }
+                        if (change != FriendsBackup.Friend.Changed.Everything) break;
+
+                    }
+                    switch (change)
+                    {
+                        case FriendsBackup.Friend.Changed.Name:
+                            changedNames.Add(oldFriend); break;
+                        case FriendsBackup.Friend.Changed.Everything:
+                            removedFriends.Add(oldFriend); break;
+                        default:
+                            break;
+                    }
+                }*/
+                /*foreach (var newFriend in newFriends.Friends) {
+                    if (!newFriends.Friends.Any(x => x.id == newFriend.id)) {
                         addedFriends.Add(newFriend);
-                }
-                if (addedFriends.Count > 0 || removedFriends.Count > 0)
-                    ShowCompareFriendResults(addedFriends, removedFriends);
+                    }
+                }*/
+
             }
         }
 
-        private void ShowCompareFriendResults(List<string> addedFriends, List<string> removedFriends)
+        public async Task<List<UserBriefResponse>> GetAllFriends() // New
         {
-            var sb = new StringBuilder("Friend List Changed:\n\n");
-            foreach (var addedFriend in addedFriends) {
-                sb.AppendLine($"{addedFriend.Quote()} was added!");
-            }
-            sb.AppendLine();
-            foreach (var removedFriend in removedFriends) {
-                sb.AppendLine($"{removedFriend.Quote()} was removed!");
-            }
-            MessageBox.Show(sb.ToString());
+            var onlineFriends = await GetOnlineFriends();
+            var offlineFriends = await GetOfflineFriends();
+            var friends = new List<UserBriefResponse>();
+            friends.AddRange(onlineFriends);
+            friends.AddRange(offlineFriends);
+            friends = friends.OrderBy(o => o.displayName).ToList();
+            friends = friends.OrderBy(o => o.location).Reverse().ToList();
+            Logger.Log("Downloaded list of", friends.Count, "official friends");
+            return friends;
         }
 
-        public async void FillOnlineFriends(bool force = false)
+        public async Task<List<UserBriefResponse>> GetOnlineFriends()
         {
             var friends = new List<UserBriefResponse>();
+            var offset = 0;
+            for (int i = 0; i < 10; i++)
+            {
+                Logger.Debug(i, "Getting online friends", offset, "to", offset + 100);
+                var friends_part = await vrcapi.FriendsApi.Get(offset, 100, false);
+                if (friends_part == null) break;
+                friends.AddRange(friends_part);
+                Logger.Debug(i, "Got", friends_part.Count, "online friends");
+                if (friends_part.Count < 100) break;
+                offset += 100;
+            }
+            friends = friends.OrderBy(o => o.displayName).ToList();
+            friends = friends.OrderBy(o => o.location).Reverse().ToList();
+            Logger.Log("Downloaded list of", friends.Count, "official online friends");
+            return friends;
+        }
+
+        public async void FillOnlineFriends(bool force = false, List<UserBriefResponse> friends = null)
+        {
             var onlinenode = tree_users.Nodes[1].Nodes[0];
             onlinenode.Nodes.Clear();
             tree_users.Nodes[2].Nodes.Clear();
             if (users_last_update == null || users_last_update.ExpiredSince(3) || force) {
-                var offset = 0;
-                for (int i = 0; i < 10; i++)
-                {
-                    Logger.Debug(i, "Getting online friends", offset, "to", offset + 100);
-                    var friends_part = await vrcapi.FriendsApi.Get(offset, 100, false);
-                    if (friends_part == null) break;
-                    friends.AddRange(friends_part);
-                    Logger.Debug(i, "Got", friends_part.Count, "online friends");
-                    if (friends_part.Count < 100) break;
-                    offset += 100;
-                }
-                friends = friends.OrderBy(o=>o.displayName).ToList();
-                friends = friends.OrderBy(o=>o.location).Reverse().ToList();
-                Logger.Log("Downloaded list of", friends.Count, "official online friends");
+                if (friends is null) { friends = await GetOnlineFriends(); }
                 foreach (var friend in friends)
                 {
                     var node = new TreeNode(friend.displayName);
@@ -188,9 +264,9 @@ namespace VRChatLauncher
                 users_last_update = DateTime.Now;
             }
         }
-        public async void FillOfflineFriends() {
-            var offlinenode = tree_users.Nodes[1].Nodes[1];
-            offlinenode.Nodes.Clear();
+
+        public async Task<List<UserBriefResponse>> GetOfflineFriends()
+        {
             var friends = new List<UserBriefResponse>();
             var offset = 0;
             for (int i = 0; i < 15; i++)
@@ -199,14 +275,21 @@ namespace VRChatLauncher
                 var friends_part = await vrcapi.FriendsApi.Get(offset, 100, true);
                 if (friends_part == null) break;
                 // var friends_part = (List<UserBriefResponse>)response.Content;
-                friends.AddRange(friends_part);
+                friends.AddRange(friends_part.Select(c => { c.Offline = true; return c; }));
                 Logger.Debug(i, "Got", friends_part.Count, "offline friends");
                 if (friends_part.Count < 100) break;
                 offset += 100;
             }
-            friends = friends.OrderBy(o=>o.location).ToList();
-            friends = friends.OrderBy(o=>o.displayName).ToList();
+            friends = friends.OrderBy(o => o.location).ToList();
+            friends = friends.OrderBy(o => o.displayName).ToList();
             Logger.Log("Downloaded list of", friends.Count, "official offline friends");
+            return friends;
+        }
+
+        public async void FillOfflineFriends(List<UserBriefResponse> friends = null) {
+            var offlinenode = tree_users.Nodes[1].Nodes[1];
+            offlinenode.Nodes.Clear();
+            if (friends is null) { friends = await GetOfflineFriends(); }
             foreach (var friend in friends)
             {
                 var node = new TreeNode(friend.displayName);
@@ -534,7 +617,7 @@ namespace VRChatLauncher
             Logger.Debug("ids:", ids.Count, "toAdd:", toAdd.Count, "skipped:", skipped);
             if (toAdd.Count > 1)
             {
-                var confirmResult = MessageBox.Show($"You're about to send {toAdd.Count} friend requests, this will flood the API quite a bit!\n\nStart adding now?", "Are you sure?", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
+                var confirmResult = MessageBox.Show($"You're about to send {toAdd.Count} friend requests, this can flood the API quite a bit!\n\nStart adding now?", "Are you sure?", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
                 if (confirmResult != DialogResult.Yes) { return; }
             }
             else if (toAdd.Count < 1) return;
