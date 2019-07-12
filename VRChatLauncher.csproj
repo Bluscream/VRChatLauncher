@@ -140,6 +140,12 @@
       <DependentUpon>CommandLineArguments.cs</DependentUpon>
     </Compile>
     <Compile Include="UI\InputBox.cs" />
+    <Compile Include="UI\InviteDialog.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="UI\InviteDialog.Designer.cs">
+      <DependentUpon>InviteDialog.cs</DependentUpon>
+    </Compile>
     <Compile Include="UI\Main.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -211,6 +217,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="UI\CommandLineArguments.resx">
       <DependentUpon>CommandLineArguments.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UI\InviteDialog.resx">
+      <DependentUpon>InviteDialog.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="UI\Main.resx">
       <DependentUpon>Main.cs</DependentUpon>

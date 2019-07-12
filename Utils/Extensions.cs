@@ -11,6 +11,7 @@ using System.Text;
 using System.Text.RegularExpressions;
 using System.Threading;
 using System.Threading.Tasks;
+using System.Windows.Forms;
 
 namespace VRChatLauncher.Utils
 {
@@ -54,8 +55,20 @@ namespace VRChatLauncher.Utils
                 File.AppendAllLines(file.FullName, new string[] { line });
             } catch { }
         }
-#endregion
- #region Object
+        #endregion
+        #region UI
+        public static IEnumerable<TreeNode> GetAllChilds(this TreeNodeCollection nodes)
+        {
+            foreach (TreeNode node in nodes)
+            {
+                yield return node;
+
+                foreach (var child in GetAllChilds(node.Nodes))
+                    yield return child;
+            }
+        }
+        #endregion
+        #region Object
         public static object ToJson(this object obj, bool indented = true) {
             return JsonConvert.SerializeObject(obj, (indented ? Formatting.Indented : Formatting.None), new JsonConverter[] { new StringEnumConverter() });
         }

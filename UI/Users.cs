@@ -706,15 +706,37 @@ namespace VRChatLauncher
         private async void InviteToolStripMenuItem_ClickAsync(object sender, EventArgs e)
         {
             var tag = (TreeNodeTag)tree_users.SelectedNode.Tag;
-            var targetId = (tag.userResponse != null) ? tag.userResponse.id : tag.userBriefResponse.id;
-            var worldinstanceid = "";
+            var target = (tag.userResponse != null) ? tag.userResponse : tag.userBriefResponse;
+            /*
             var result = UI.Utils.InputBox("Enter World ID", "WorldID:", ref worldinstanceid);
             if (result != DialogResult.OK) return;
             var worldname = "";
             result = UI.Utils.InputBox("Enter World Name", "Name:", ref worldname);
             if (result != DialogResult.OK) return;
-            var notification = await vrcapi.FriendsApi.SendInvite(targetId, worldinstanceid, worldname);
+            */
+            var worlds = new List<UI.InviteDialog.World>();
+            if (remoteConfig is null) remoteConfig = await vrcapi.RemoteConfig.Get();
+            if (remoteConfig != null)
+            {
+                worlds.Add(new UI.InviteDialog.World(remoteConfig.timeOutWorldId, "Timeout"));
+                worlds.Add(new UI.InviteDialog.World(remoteConfig.hubWorldId, "Hub"));
+                worlds.Add(new UI.InviteDialog.World(remoteConfig.homeWorldId, "Home"));
+                worlds.Add(new UI.InviteDialog.World(remoteConfig.tutorialWorldId, "Tutorial"));
+            }
+            foreach (var node in tree_worlds.Nodes.GetAllChilds())
+            {
+                var nodetag = node.Tag as TreeNodeTag;
+                if (nodetag is null) continue;
+                if (nodetag.Type != NodeType.World) continue;
+                var world = nodetag.worldBriefResponse;
+                if (world.id is null) continue;
+                worlds.Add(new UI.InviteDialog.World(world.id, world.name));
+            }
+            var result = UI.InviteDialog.Get($"Invite {target.displayName.Quote()}", worlds);
+            if (!result.Continue) return;
+            var notification = await vrcapi.FriendsApi.SendInvite(target.id, result.WorldId, result.WorldName);
             Logger.Debug(notification);
+            MessageBox.Show($"Invited\n\n{target.displayName.Quote()}\n\nto\n\n{result.WorldName}", $"Invited {target.displayName.Quote()}");
         }
 
 

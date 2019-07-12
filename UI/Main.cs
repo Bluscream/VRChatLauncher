@@ -16,7 +16,7 @@ namespace VRChatLauncher
     public partial class Main : Form
     {
         public static List<string> args = new List<string>();
-        public IniData config;public VRChatApi.VRChatApi vrcapi;
+        public IniData config;public VRChatApi.VRChatApi vrcapi;public ConfigResponse remoteConfig;
         public static TextBox statusBar;public static WebClient webClient;
         public Main(string[] arguments)
         {
@@ -134,6 +134,8 @@ namespace VRChatLauncher
             // ConfigResponse config = await vrcapi.RemoteConfig.Get();
             var logged_in = await VRCAPILogin(username, password);
             if (!logged_in) return;
+            remoteConfig = await vrcapi.RemoteConfig.Get();
+            Logger.Trace(remoteConfig.ToJson());
             config["VRCAPI"]["u"] = Utils.Utils.Base64Encode(username);
             config["VRCAPI"]["p"] = Utils.Utils.Base64Encode(password);
             Config.Save(config);
@@ -298,7 +300,8 @@ namespace VRChatLauncher
                     case UserBriefResponse ubr:
                         userBriefResponse = ubr; break;
                     case WorldResponse wr:
-                        worldResponse = wr; break;
+                        worldResponse = wr;
+                        worldBriefResponse = wr; break;
                     case WorldBriefResponse wbr:
                         worldBriefResponse = wbr; break;
                     case WorldInstanceResponse wir:
