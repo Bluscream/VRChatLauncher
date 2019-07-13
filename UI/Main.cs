@@ -10,6 +10,9 @@ using VRChatLauncher.Utils;
 using IniParser.Model;
 using VRChatApi.Classes;
 using Humanizer;
+using System.Text;
+using Newtonsoft.Json.Linq;
+using Newtonsoft.Json;
 
 namespace VRChatLauncher
 {
@@ -243,13 +246,13 @@ namespace VRChatLauncher
           }
         }
         delegate void GenericCallback(string text);
-        private void SetTitle(string text) {
-          if (this.InvokeRequired) { 
+        private void SetTitle(string prefix) {
+            if (this.InvokeRequired) { 
             GenericCallback d = new GenericCallback(SetTitle);
-            this.Invoke(d, new object[] { text });
-          } else {
-            this.Text = text;
-          }
+            this.Invoke(d, new object[] { prefix });
+            } else {
+            this.Text = prefix;
+            }
         }
         private void updateUsers() {
             using (var wc = new WebClient())
@@ -257,8 +260,19 @@ namespace VRChatLauncher
                 var sleep = TimeSpan.FromMinutes(5);
                 while (true)
                 {
-                    var users = wc.DownloadString("https://api.vrchat.cloud/api/1/visits");
-                    if (!string.IsNullOrEmpty(users)) { SetTitle($"VRChat Launcher ({users} users playing)"); }
+                    var sb = new StringBuilder("VRChat Launcher");
+                    try {
+                        var users = wc.DownloadString("https://api.vrchat.cloud/api/1/visits");
+                        if (!string.IsNullOrEmpty(users)) { sb.Append($" ({users} users playing)"); }
+                    } catch (Exception ex) { Logger.Error(ex.Message, ex.StackTrace); }
+                    try {
+                        var _vrcmnusers = wc.DownloadString("https://vrchat.minopia.de/vrcmn/stats?clientCount");
+                        var vrcmnusersJSON = (JObject)JsonConvert.DeserializeObject(_vrcmnusers);
+                        string vrcmnusers = vrcmnusersJSON["clientCount"].Value<string>();
+                        if (!string.IsNullOrEmpty(vrcmnusers)) { sb.Append($" ({vrcmnusers} VRCMN users online)"); }
+                    } catch (Exception ex) { Logger.Error(ex.Message, ex.StackTrace); }
+                    if (args.Contains("--vrclauncher.verbose")) sb.Append($" | Last updated: {DateTime.Now.ToString()}");
+                    SetTitle(sb.ToString());
                     Thread.Sleep(sleep);
                 }
             }
