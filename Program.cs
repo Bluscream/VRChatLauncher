@@ -51,6 +51,7 @@ namespace VRChatLauncher
             mainWindow = new Main(args);
             Application.Run(mainWindow);
             Logger.Trace("END");
+            OnProcessExit(false, new EventArgs());
         }
 
         static void OnProcessExit(object sender, EventArgs e)
@@ -58,6 +59,7 @@ namespace VRChatLauncher
             Logger.Log("Exiting...");
             // LogReader.Dispose();
             // IPC.Launcher.Dispose();
+            Application.Exit();
         }
     }
 }
