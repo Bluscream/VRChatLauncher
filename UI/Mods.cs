@@ -5,6 +5,7 @@ using System.IO;
 using System.Linq;
 using System.Windows.Forms;
 using VRChatLauncher.Utils;
+using VRCModManager.Core;
 using static VRChatLauncher.Utils.Mods;
 
 namespace VRChatLauncher
@@ -58,6 +59,33 @@ namespace VRChatLauncher
                 lst_mods.Items.Add(item);
             }
             tabs_mods.TabPages[0].Text = $"Installed ({mods.Count})";
+        }
+
+        private void mods_tab_changed(object sender, TabControlEventArgs e)
+        {
+            Logger.Trace(e.Action.ToString(), e.TabPage.Name, e.TabPageIndex.ToString());
+            switch (e.TabPage.Name)
+            {
+                case "tab_mods_installed":
+                    break;
+                case "tab_mods_available":
+                    SetupAvailableMods();
+                    break;
+                default:
+                    break;
+            }
+        }
+
+        bool finishedLoadingAvailable = false;
+
+        private void SetupAvailableMods()
+        {
+            VRCModManager.FormMain embeddedForm = new VRCModManager.FormMain();
+            embeddedForm.TopLevel = false;
+            tabs_mods.TabPages[1].Controls.Add(embeddedForm);
+            embeddedForm.Show();
+            embeddedForm.Dock = DockStyle.Fill;
+            finishedLoadingAvailable = true;
         }
 
         int lastModIndex = 0;

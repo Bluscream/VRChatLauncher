@@ -258,6 +258,10 @@
       <Project>{6c83feed-b29a-4f7d-9371-5b02c5b4d551}</Project>
       <Name>VRChatApi</Name>
     </ProjectReference>
+    <ProjectReference Include="..\VRChatModInstaller\VRCModManager\VRCModManager.csproj">
+      <Project>{66c53d4d-b5c5-4ca2-92fb-e53e370b1c23}</Project>
+      <Name>VRCModManager</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>

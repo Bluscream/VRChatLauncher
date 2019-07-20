@@ -1227,6 +1227,7 @@
             this.tabs_mods.SelectedIndex = 0;
             this.tabs_mods.Size = new System.Drawing.Size(905, 360);
             this.tabs_mods.TabIndex = 0;
+            this.tabs_mods.Selected += new System.Windows.Forms.TabControlEventHandler(this.mods_tab_changed);
             // 
             // tab_mods_installed
             // 
