@@ -82,9 +82,10 @@ namespace VRChatLauncher
         {
             VRCModManager.FormMain embeddedForm = new VRCModManager.FormMain();
             embeddedForm.TopLevel = false;
+            embeddedForm.FormBorderStyle = FormBorderStyle.None;
+            embeddedForm.Dock = DockStyle.Fill;
             tabs_mods.TabPages[1].Controls.Add(embeddedForm);
             embeddedForm.Show();
-            embeddedForm.Dock = DockStyle.Fill;
             finishedLoadingAvailable = true;
         }
 
