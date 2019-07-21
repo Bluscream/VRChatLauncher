@@ -21,6 +21,7 @@ namespace VRChatLauncher
         public static List<string> args = new List<string>();
         public IniData config;public VRChatApi.VRChatApi vrcapi;public ConfigResponse remoteConfig;
         public static TextBox statusBar;public static WebClient webClient;
+        string usercountsURL = "https://vrchat.minopia.de/vrcmn/stats/counts.json";
         public Main(string[] arguments)
         {
             Logger.Trace("START");
@@ -29,7 +30,7 @@ namespace VRChatLauncher
             // var args = Program.args.Skip(1).ToArray();
             args = arguments.ToList();
             var gameInSameDir = Setup.Game.CheckForGame();
-            // if (!gameInSameDir) SetupGame();
+            if (!gameInSameDir) SetupGame();
             Setup.URIResponse regKeyCorrect = Setup.URI.CheckURIRegistryKey();
             Logger.Trace("match=", regKeyCorrect.match.ToString());
             if(regKeyCorrect.match != Setup.URIResponse.URIEnum.INSTALLED) SetupURI(regKeyCorrect.expected, regKeyCorrect.key);
@@ -266,28 +267,35 @@ namespace VRChatLauncher
             }
         }
 
-        private void FetchUserCounts(WebClient wc)
+        private async void FetchUserCounts(WebClient wc)
         {
-            var sb = new StringBuilder("VRChat Launcher");
             try
             {
-                var usercounts = wc.DownloadString("https://vrchat.minopia.de/vrcmn/stats/counts.json");
-                var usercountsJSON = JsonConvert.DeserializeObject<Classes.UserCountsEndPoint[]>(usercounts);
-                if (usercountsJSON.Length > 0)
-                {
-                    sb.Append(" | Users online:");
-                    foreach (var endpoint in usercountsJSON)
-                    {
-                        if (!string.IsNullOrEmpty(endpoint.Mod))
-                        {
-                            if (mods == null) continue;
-                            if (!mods.Any(mod => mod.Name == endpoint.Mod)) continue;
-                        }
-                        sb.Append($" {endpoint.Name}: {endpoint.onlineClients}");
-                    }
-                }
+                wc.DownloadStringCompleted += new DownloadStringCompletedEventHandler(FetchUserCountsCompleted);
+                wc.DownloadStringAsync(new Uri(usercountsURL));
             }
             catch (Exception ex) { Logger.Error(ex.Message, ex.StackTrace); }
+        }
+
+        private void FetchUserCountsCompleted(object sender, DownloadStringCompletedEventArgs e)
+        {
+            var sb = new StringBuilder("VRChat Launcher");
+            var usercounts = e.Result;
+            Logger.Debug("Recieved usercounts from", usercountsURL.Quote(), ":", Environment.NewLine, usercounts);
+            var usercountsJSON = JsonConvert.DeserializeObject<Classes.UserCounts>(usercounts);
+            if (usercountsJSON.endpoints.Length > 0)
+            {
+                sb.Append(" | Users online:");
+                foreach (var endpoint in usercountsJSON.endpoints)
+                {
+                    if (!string.IsNullOrEmpty(endpoint.Mod))
+                    {
+                        if (mods == null) continue;
+                        if (!mods.Any(mod => mod.Name == endpoint.Mod)) continue;
+                    }
+                    sb.Append($" {endpoint.Name}: {endpoint.onlineClients}");
+                }
+            }
             if (args.Contains("--vrclauncher.verbose")) sb.Append($" (Updated: {DateTime.Now.ToString()})");
             SetTitle(sb.ToString());
         }
