@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Windows.Forms;
 using VRChatLauncher.Utils;
@@ -59,7 +60,7 @@ namespace VRChatLauncher
             Logger.Log("Exiting...");
             // LogReader.Dispose();
             // IPC.Launcher.Dispose();
-            Application.Exit();
+            Process.GetCurrentProcess().Kill();
         }
     }
 }

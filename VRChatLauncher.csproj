@@ -125,6 +125,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Classes\FriendsBackup.cs" />
+    <Compile Include="Classes\UserCounts.cs" />
     <Compile Include="IPC\CommandHandler.cs" />
     <Compile Include="IPC\Game.cs" />
     <Compile Include="UI\Chat.cs">

@@ -260,22 +260,36 @@ namespace VRChatLauncher
                 var sleep = TimeSpan.FromMinutes(5);
                 while (true)
                 {
-                    var sb = new StringBuilder("VRChat Launcher");
-                    try {
-                        var users = wc.DownloadString("https://api.vrchat.cloud/api/1/visits");
-                        if (!string.IsNullOrEmpty(users)) { sb.Append($" ({users} users playing)"); }
-                    } catch (Exception ex) { Logger.Error(ex.Message, ex.StackTrace); }
-                    try {
-                        var _vrcmnusers = wc.DownloadString("https://vrchat.minopia.de/vrcmn/stats?clientCount");
-                        var vrcmnusersJSON = (JObject)JsonConvert.DeserializeObject(_vrcmnusers);
-                        string vrcmnusers = vrcmnusersJSON["clientCount"].Value<string>();
-                        if (!string.IsNullOrEmpty(vrcmnusers)) { sb.Append($" ({vrcmnusers} VRCMN users online)"); }
-                    } catch (Exception ex) { Logger.Error(ex.Message, ex.StackTrace); }
-                    if (args.Contains("--vrclauncher.verbose")) sb.Append($" | Last updated: {DateTime.Now.ToString()}");
-                    SetTitle(sb.ToString());
+                    FetchUserCounts(wc);
                     Thread.Sleep(sleep);
                 }
             }
+        }
+
+        private void FetchUserCounts(WebClient wc)
+        {
+            var sb = new StringBuilder("VRChat Launcher");
+            try
+            {
+                var usercounts = wc.DownloadString("https://vrchat.minopia.de/vrcmn/stats/counts.json");
+                var usercountsJSON = JsonConvert.DeserializeObject<Classes.UserCountsEndPoint[]>(usercounts);
+                if (usercountsJSON.Length > 0)
+                {
+                    sb.Append(" | Users online:");
+                    foreach (var endpoint in usercountsJSON)
+                    {
+                        if (!string.IsNullOrEmpty(endpoint.Mod))
+                        {
+                            if (mods == null) continue;
+                            if (!mods.Any(mod => mod.Name == endpoint.Mod)) continue;
+                        }
+                        sb.Append($" {endpoint.Name}: {endpoint.onlineClients}");
+                    }
+                }
+            }
+            catch (Exception ex) { Logger.Error(ex.Message, ex.StackTrace); }
+            if (args.Contains("--vrclauncher.verbose")) sb.Append($" (Updated: {DateTime.Now.ToString()})");
+            SetTitle(sb.ToString());
         }
 
         private void Main_FormClosing(object sender, FormClosingEventArgs e)
@@ -287,6 +301,7 @@ namespace VRChatLauncher
             }
             config["Window"]["State"] = WindowState.ToString();
             Config.Save(config);
+            Application.Exit();
         }
     }
     public class TreeNodeTag

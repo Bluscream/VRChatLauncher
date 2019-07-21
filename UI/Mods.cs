@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Drawing;
 using System.IO;
 using System.Linq;
+using System.Net;
 using System.Windows.Forms;
 using VRChatLauncher.Utils;
 using VRCModManager.Core;
@@ -28,6 +29,10 @@ namespace VRChatLauncher
                 if (Setup.Mods.IsVRCModLoaderInstalled()) {
                     Mod VRCModLoader = Updater.VRCModLoader.CheckForUpdate();
                     if (VRCModLoader.Update != null) MessageBox.Show("Update available for VRCModLoader");
+                }
+                using (var wc = new WebClient())
+                {
+                    FetchUserCounts(wc);
                 }
             }
                 
