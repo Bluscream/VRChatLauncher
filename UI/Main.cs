@@ -26,9 +26,10 @@ namespace VRChatLauncher
         {
             Logger.Trace("START");
             config = Config.Load();
+            args = arguments.ToList();
+            if (args.Contains("--vrclauncher.nossl")) ServicePointManager.ServerCertificateValidationCallback = (a, b, c, d) => true;
             InitializeComponent();
             // var args = Program.args.Skip(1).ToArray();
-            args = arguments.ToList();
             var gameInSameDir = Setup.Game.CheckForGame();
             if (!gameInSameDir) SetupGame();
             Setup.URIResponse regKeyCorrect = Setup.URI.CheckURIRegistryKey();
@@ -281,7 +282,7 @@ namespace VRChatLauncher
         {
             var sb = new StringBuilder("VRChat Launcher");
             var usercounts = e.Result;
-            Logger.Debug("Recieved usercounts from", usercountsURL.Quote(), ":", Environment.NewLine, usercounts);
+            Logger.Trace("Recieved usercounts from", usercountsURL.Quote(), ":", Environment.NewLine, usercounts);
             var usercountsJSON = JsonConvert.DeserializeObject<Classes.UserCounts>(usercounts);
             if (usercountsJSON.endpoints.Length > 0)
             {

@@ -200,6 +200,7 @@
     <Compile Include="Updater\Launcher.cs" />
     <Compile Include="Updater\VRCModLoader.cs" />
     <Compile Include="Updater\VRCTools.cs" />
+    <Compile Include="Utils\Arguments.cs" />
     <Compile Include="Utils\AssemblyReader.cs" />
     <Compile Include="Utils\Config.cs" />
     <Compile Include="Utils\Extensions.cs" />
