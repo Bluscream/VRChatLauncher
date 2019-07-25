@@ -81,7 +81,8 @@ namespace VRChatLauncher
             // var control = ((ContextMenuStrip)((ToolStripMenuItem)sender).Owner).SourceControl;
             // Logger.Debug(control.Name, control.Text);
             var node = tree_users.SelectedNode;
-            if (node.Name == "node_friends") { FillOnlineFriends(true); FillOfflineFriends(); }
+            if (node.Index == 0) FillMe(true);
+            else if (node.Name == "node_friends") { FillOnlineFriends(true); FillOfflineFriends(); }
             else if (node.Name == "node_friends_online") FillOnlineFriends(true);
             else if (node.Name == "node_friends_offline") FillOfflineFriends();
             else if (node.Name == "node_friends_blocked") FillBlocked();
@@ -437,7 +438,7 @@ namespace VRChatLauncher
                 }
                 tree_users.SelectedNode = e.Node;
                 for (int i = 0; i < menu_users.Items.Count; i++) { menu_users.Items[i].Visible = false; }
-                /*if (e.Node.Nodes.Count > 0)*/ menu_users.Items[10].Visible = true; // Refresh
+                if (e.Node.Nodes.Count > 0 || e.Node.Index == 0) menu_users.Items[10].Visible = true; // Refresh
                 if(e.Node.Text.StartsWith("Friends ("))
                 {
                     menu_users.Items[5].Visible = true; menu_users.Items[6].Visible = true;
@@ -446,6 +447,9 @@ namespace VRChatLauncher
                 {
                     var tag = (TreeNodeTag)tree_users.SelectedNode.Tag;
                     if (tag.Type == NodeType.Me || tag.Type == NodeType.User || tag.Type == NodeType.Moderation || tag.Type == NodeType.Notification) {
+                        if (tag.Type == NodeType.Me) {
+                            menu_users.Items[11].Visible = true; // Set Status
+                        }
                         // if(tag.notificationResponse != null && tag.notificationResponse.)
                         if (!me.friends.Contains(tag.Id)) { menu_users.Items[1].Visible = true; // Unfriend
                         } else {
@@ -504,6 +508,7 @@ namespace VRChatLauncher
         private void Btn_users_reload_Click(object sender, EventArgs e)
         {
             if(me != null && me.id == null) { LoginVRCAPI(); }
+            FillMe(true);
             SetupUsers(true);
             FillOfflineFriends();
         }
@@ -739,6 +744,17 @@ namespace VRChatLauncher
             MessageBox.Show($"Invited\n\n{target.displayName.Quote()}\n\nto\n\n{result.WorldName}", $"Invited {target.displayName.Quote()}");
         }
 
+        private async void SetStatusToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            var title = $"Set Status";
+            // var result = UI.Utils.InputBox(title, "Message:", ref message, true);
+            // if (result != DialogResult.OK) return;
+            var message = UI.MultilineInput.Get(title, me.statusDescription);
+            if (string.IsNullOrWhiteSpace(message) || message == me.statusDescription) return;
+            me = await vrcapi.UserApi.UpdateInfo(me.id, status: me.status, statusDescription: message);
+            FillMe(false);
+            Logger.Debug("New Status:", me.status, me.statusDescription.Enclose());
+        }
 
     }
 }
