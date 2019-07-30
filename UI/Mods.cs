@@ -27,8 +27,10 @@ namespace VRChatLauncher
                 mods.OrderBy(x => x.Name);
                 CheckForUpdates(mods);
                 if (Setup.Mods.IsVRCModLoaderInstalled()) {
+                    /* Skip
                     Mod VRCModLoader = Updater.VRCModLoader.CheckForUpdate();
                     if (VRCModLoader.Update != null) MessageBox.Show("Update available for VRCModLoader");
+                    */
                 }
                 using (var wc = new WebClient())
                 {

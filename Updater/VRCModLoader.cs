@@ -45,7 +45,7 @@ namespace VRChatLauncher.Updater
             Logger.Debug(this.toJSON());
         }
         public string toJSON() {
-            return Newtonsoft.Json.JsonConvert.SerializeObject(this);
+            return JsonConvert.SerializeObject(this);
         }
     }
     public class Type {
@@ -59,7 +59,7 @@ namespace VRChatLauncher.Updater
         public ReturnCode returncode;
         public string data;
         public VRCTResponse(string json) {
-            var obj = JsonConvert.DeserializeObject(json);
+            var obj = JsonConvert.DeserializeObject<VRCTResponse>(json);
         }
         public VRCTResponse(int returncode, string data) {
             this.returncode = (ReturnCode)returncode;
