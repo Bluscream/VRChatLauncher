@@ -1,0 +1,112 @@
+﻿{
+	"fps": {
+		"argType": 2,
+		"valueType": "System.Int32, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089",
+		"name": "fps",
+		"description": "Sets the max FPS the game will lock on",
+		"values": null,
+		"value": null,
+		"defaultValue": null,
+		"isSet": false
+	},
+	"noVR": {
+		"argType": 2,
+		"valueType": "System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089",
+		"name": "no-vr",
+		"description": "Sets the game to desktop-mode",
+		"values": null,
+		"value": null,
+		"defaultValue": false,
+		"isSet": false
+	},
+	"osc": {
+		"argType": 2,
+		"valueType": "System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089",
+		"name": "osc",
+		"description": "Set additional arguments for osc",
+		"values": null,
+		"value": null,
+		"defaultValue": null,
+		"isSet": false
+	},
+	"url": {
+		"argType": 2,
+		"valueType": "System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089",
+		"name": "url",
+		"description": "Same as applying a URL without this param",
+		"values": null,
+		"value": null,
+		"defaultValue": null,
+		"isSet": false
+	},
+	"logDebugLevels": {
+		"argType": 2,
+		"valueType": "System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089",
+		"name": "log-debug-levels",
+		"description": "Sets log levels for the game",
+		"values": null,
+		"value": null,
+		"defaultValue": null,
+		"isSet": false
+	},
+	"clearPlayerModerations": {
+		"argType": 2,
+		"valueType": "System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089",
+		"name": "clear-player-moderations",
+		"description": "Clears all player moderations, be careful with this!",
+		"values": null,
+		"value": null,
+		"defaultValue": false,
+		"isSet": false
+	},
+	"autoLoginUsername": {
+		"argType": 2,
+		"valueType": "System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089",
+		"name": "auto-login-un",
+		"description": "Sets username for auto login",
+		"values": null,
+		"value": null,
+		"defaultValue": null,
+		"isSet": false
+	},
+	"autoLoginPassword": {
+		"argType": 2,
+		"valueType": "System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089",
+		"name": "auto-login-pw",
+		"description": "Sets password for auto login",
+		"values": null,
+		"value": null,
+		"defaultValue": null,
+		"isSet": false
+	},
+	"autoLogin2FA": {
+		"argType": 2,
+		"valueType": "System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089",
+		"name": "auto-login-2fa",
+		"description": "Sets two factor authentication code for auto login",
+		"values": null,
+		"value": null,
+		"defaultValue": null,
+		"isSet": false
+	},
+	"spawnRadius": {
+		"argType": 2,
+		"valueType": "System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089",
+		"name": "spawn-radius",
+		"description": "N/A",
+		"values": null,
+		"value": null,
+		"defaultValue": null,
+		"isSet": false
+	},
+	"profile": {
+		"argType": 2,
+		"valueType": "System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089",
+		"name": "profile",
+		"description": "N/A",
+		"values": null,
+		"value": null,
+		"defaultValue": null,
+		"isSet": false
+	}
+}

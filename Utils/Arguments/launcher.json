@@ -1,0 +1,52 @@
+﻿{
+	"ignoreSSLErrors": {
+		"argType": 1,
+		"valueType": "System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089",
+		"name": "nossl",
+		"description": "Instructs the launcher to ignore SSL errors",
+		"values": null,
+		"value": null,
+		"defaultValue": false,
+		"isSet": false
+	},
+	"keepOpen": {
+		"argType": 1,
+		"valueType": "System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089",
+		"name": "keep",
+		"description": "Keeps the launcher open even if another instance of it is already running",
+		"values": null,
+		"value": null,
+		"defaultValue": false,
+		"isSet": false
+	},
+	"verbose": {
+		"argType": 1,
+		"valueType": "System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089",
+		"name": "verbose",
+		"description": "Starts logging Trace messages",
+		"values": null,
+		"value": null,
+		"defaultValue": false,
+		"isSet": false
+	},
+	"console": {
+		"argType": 1,
+		"valueType": "System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089",
+		"name": "console",
+		"description": "Opens a console on startup",
+		"values": null,
+		"value": null,
+		"defaultValue": false,
+		"isSet": false
+	},
+	"skip": {
+		"argType": 1,
+		"valueType": "System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089",
+		"name": "skiplauncher",
+		"description": "Skip opening the launcher and start the game directly",
+		"values": null,
+		"value": null,
+		"defaultValue": false,
+		"isSet": false
+	}
+}

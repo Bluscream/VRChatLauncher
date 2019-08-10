@@ -248,6 +248,9 @@
     <EmbeddedResource Include="app.config" />
     <None Include="News.rtf" />
     <None Include="packages.config" />
+    <None Include="Utils\Arguments\vrctools.json" />
+    <None Include="Utils\Arguments\game.json" />
+    <None Include="Utils\Arguments\launcher.json" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="FodyWeavers.xml" />

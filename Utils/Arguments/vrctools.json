@@ -1,0 +1,62 @@
+﻿{
+	"forceUpdate": {
+		"argType": 3,
+		"valueType": "System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089",
+		"name": "forceupdate",
+		"description": "Forces a vrctools update",
+		"values": null,
+		"value": null,
+		"defaultValue": false,
+		"isSet": false
+	},
+	"noUpdate": {
+		"argType": 3,
+		"valueType": "System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089",
+		"name": "noupdate",
+		"description": "Skips VRCTools and AvatarFav update check (Required to run a modified version of VRCTools)",
+		"values": null,
+		"value": null,
+		"defaultValue": false,
+		"isSet": false
+	},
+	"enableNamePlateIcons": {
+		"argType": 3,
+		"valueType": "System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089",
+		"name": "enablenameplateicons",
+		"description": "Shows nameplate icons for VRCTools users",
+		"values": null,
+		"value": null,
+		"defaultValue": false,
+		"isSet": false
+	},
+	"dev": {
+		"argType": 3,
+		"valueType": "System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089",
+		"name": "dev",
+		"description": "Changes VRCMN Server port from  26342 to 26345",
+		"values": null,
+		"value": null,
+		"defaultValue": false,
+		"isSet": false
+	},
+	"verbose": {
+		"argType": 0,
+		"valueType": "System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089",
+		"name": "verbose",
+		"description": "Enables VRCTools Console",
+		"values": null,
+		"value": null,
+		"defaultValue": false,
+		"isSet": false
+	},
+	"noModLoader": {
+		"argType": 0,
+		"valueType": "System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089",
+		"name": "nomodloader",
+		"description": "Disables vrctools mod loading",
+		"values": null,
+		"value": null,
+		"defaultValue": false,
+		"isSet": false
+	}
+}
