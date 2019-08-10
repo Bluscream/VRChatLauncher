@@ -22,12 +22,14 @@ namespace VRChatLauncher
         public IniData config;public VRChatApi.VRChatApi vrcapi;public ConfigResponse remoteConfig;
         public static TextBox statusBar;public static WebClient webClient;
         string usercountsURL = "https://vrchat.minopia.de/vrcmn/stats/counts.json";
-        public Main(string[] arguments)
+        public Main(Program App)
         {
             Logger.Trace("START");
             config = Config.Load();
-            args = arguments.ToList();
-            if (args.Contains("--vrclauncher.nossl")) ServicePointManager.ServerCertificateValidationCallback = (a, b, c, d) => true;
+            if (App.Arguments.Launcher.IgnoreSSLErrors.IsTrue()) {
+                Logger.Warn(App.Arguments.Launcher.IgnoreSSLErrors.Name.Quote(), "is set, ignoring SSL Errors!");
+                ServicePointManager.ServerCertificateValidationCallback = (a, b, c, d) => true;
+            }
             InitializeComponent();
             // var args = Program.args.Skip(1).ToArray();
             var gameInSameDir = Setup.Game.CheckForGame();

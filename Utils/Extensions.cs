@@ -161,9 +161,11 @@ namespace VRChatLauncher.Utils
             if (!collection.AllKeys.Contains(key)) return collection[key];
             return null;
         }
+        public static T PopFirst<T>(this IEnumerable<T> list) => list.ToList().PopAt(0);
+        public static T PopLast<T>(this IEnumerable<T> list) => list.ToList().PopAt(list.Count() - 1);
         public static T PopAt<T>(this List<T> list, int index)
         {
-            T r = list[index];
+            T r = list.ElementAt<T>(index);
             list.RemoveAt(index);
             return r;
         }

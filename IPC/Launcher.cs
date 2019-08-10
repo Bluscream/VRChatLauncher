@@ -7,7 +7,7 @@ using VRChatLauncher.Utils;
 
 namespace VRChatLauncher.IPC
 {
-    partial class Launcher
+    public partial class Launcher
     {
         tiesky.com.SharmIpc sm = null;
         public void Init() {

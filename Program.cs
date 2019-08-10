@@ -7,32 +7,34 @@ using VRChatLauncher.Utils;
 
 namespace VRChatLauncher
 {
-    class Program
+    public class Program
     {
         public static Main mainWindow;
-        public static IPC.Launcher ipc;
-        public static Arguments Arguments;
+        public IPC.Launcher ipc;
+        public Arguments Arguments;
         [STAThread]
         static void Main(string[] args)
         {
+            var prog = new Program();
             AppDomain.CurrentDomain.ProcessExit += new EventHandler(OnProcessExit);
             Logger.Init();
             Logger.Trace("START");
-            ipc = new IPC.Launcher(); ipc.Init();
+            prog.ipc = new IPC.Launcher(); prog.ipc.Init();
             // var args = Environment.GetCommandLineArgs().Skip(1).ToArray();
-            if (args.Length > 0) Logger.Warn("Catched command line arguments:");
+            /*if (args.Length > 0) Logger.Warn("Catched command line arguments:");
             for (int i = 0; i < args.Length; i++)
             {
                 Logger.Warn($"[{i}]", args[i]);
-            }
-            Arguments = Arguments.FromArgs(args.ToList());
-            var msg = ipc.MakeRemoteRequestWithResponse(new IPC.Launcher.Message($"islauncherrunning {string.Join(" ", args)}"), 200);
+            }*/
+            prog.Arguments = Arguments.FromArgs(args.ToList());
+            // Logger.Warn("Parsed Command Line Arguments", prog.Arguments.ToJson());
+            var msg = prog.ipc.MakeRemoteRequestWithResponse(new IPC.Launcher.Message($"islauncherrunning {string.Join(" ", args)}"), 200);
             var launcher_running = Utils.Utils.IsLauncherAlreadyRunning();
-            var keep_open = args.Contains("--vrclauncher.keep");
-            if (keep_open) {
+            var keep_open = prog.Arguments.Launcher.KeepOpen.IsTrue();
+            /*if (keep_open) {
                 var firstAfter = args.SkipWhile(p => p != "--vrclauncher.keep").ElementAt(1);
                 Logger.Warn("firstAfter", firstAfter);
-            }
+            }*/
             Logger.Log("Launcher already running:", launcher_running.ToString());
             if ((msg.Str == "yes" || launcher_running) && !keep_open) {
                 Logger.Fatal("Launcher already running, exiting...");
@@ -42,8 +44,7 @@ namespace VRChatLauncher
             var game_running = Game.IsGameAlreadyRunning();
             Logger.Log("Game already running:", game_running.ToString());
             if(!game_running) {
-                var argstr = string.Join(" ", args);
-                if (argstr.ToLower().Contains("skiplauncher=true")) {
+                if (prog.Arguments.Launcher.Skip.IsTrue()) {
                     Logger.Warn("Found \"skiplauncher=true\" in arguments, tunneling directly...");
                     Game.StartGame(args: args);
                     Utils.Utils.Exit();
@@ -51,7 +52,7 @@ namespace VRChatLauncher
             }
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
-            mainWindow = new Main(args);
+            mainWindow = new Main(prog);
             Application.Run(mainWindow);
             Logger.Trace("END");
             OnProcessExit(false, new EventArgs());
