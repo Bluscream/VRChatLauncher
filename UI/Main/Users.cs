@@ -13,6 +13,8 @@ using System.Threading;
 using System.Text;
 using System.Threading.Tasks;
 using Newtonsoft.Json;
+using System.Text.RegularExpressions;
+using System.Data;
 // using Microsoft.VisualBasic;
 
 namespace VRChatLauncher
@@ -441,7 +443,8 @@ namespace VRChatLauncher
                 if (e.Node.Nodes.Count > 0 || e.Node.Index == 0) menu_users.Items[10].Visible = true; // Refresh
                 if(e.Node.Text.StartsWith("Friends ("))
                 {
-                    menu_users.Items[5].Visible = true; menu_users.Items[6].Visible = true;
+                    menu_users.Items[5].Visible = true; menu_users.Items[6].Visible = true; // Import/Export
+                    menu_users.Items[12].Visible = true; // Discord Names
                 }
                 else if(e.Node.Tag != null)
                 {
@@ -463,8 +466,8 @@ namespace VRChatLauncher
                                 if (nodetag.playerModeratedResponse.targetUserId == tag.Id) { isBlocked = true; break; }
                             }
                         } else { isBlocked = true; }
-                        if (isBlocked) menu_users.Items[4].Visible = true;
-                        else { menu_users.Items[3].Visible = true; }
+                        if (isBlocked) menu_users.Items[4].Visible = true; // Unblock
+                        else { menu_users.Items[3].Visible = true; /*Block*/ }
                         menu_users.Items[0].Visible = true; // Profile
                         menu_users.Items[7].Visible = true; // Message
                         menu_users.Items[8].Visible = true; // Invite
@@ -500,7 +503,7 @@ namespace VRChatLauncher
         {
             if(txt_users_location.Text == "offline") { MessageBox.Show($"{txt_users_displayname.Text} is offline. You can't join them!", "User offline", MessageBoxButtons.OK, MessageBoxIcon.Error); return; }
             else if(txt_users_location.Text == "private") { MessageBox.Show($"{txt_users_displayname.Text} is in a private world. You can't join them!", "User in private world!", MessageBoxButtons.OK, MessageBoxIcon.Error); return; }
-            var cmd = new Command(CommandType.Launch); // , referrer: "vrclauncher"
+            var cmd = new Command(IPC.Game.CommandType.Launch); // , referrer: "vrclauncher"
             cmd.WorldInstanceID = new WorldInstanceID(txt_users_location.Text);
             Send(cmd);
         }
@@ -754,6 +757,53 @@ namespace VRChatLauncher
             me = await vrcapi.UserApi.UpdateInfo(userId: me.id, status: me.status, statusDescription: message);
             FillMe(false);
             Logger.Debug("New Status:", me.status, me.statusDescription.Enclose());
+        }
+
+        private void DiscordNamesToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            var regex = new Regex(@".*#(\d{4})", RegexOptions.Multiline);
+            var dict = new Dictionary<string, string>();
+            foreach (TreeNode node in tree_users.Nodes.GetAllChilds()) {
+                var tag = node.Tag;
+                if (tag is null) continue;
+                var Tag = tag as TreeNodeTag;
+                if (Tag.userBriefResponse is null) continue;
+                if (!string.IsNullOrWhiteSpace(Tag.userBriefResponse.statusDescription)) {
+                    foreach (Match m in regex.Matches(input: Tag.userBriefResponse.statusDescription)) {
+                        dict.AddSafe(Tag.userBriefResponse.displayName, m.Value);
+                    }
+                }
+            }
+            if (dict.Count < 1) {
+                MessageBox.Show("Sorry, we could not find any discord names in your friends statuses :c");
+                return;
+            }
+            Form form = new Form();
+            form.Text = $"Discord names of your friends ({dict.Count})";
+            form.Height *= 2;
+            form.Width *= 3;
+            form.Icon = ActiveForm.Icon;
+
+            DataTable DiscordNames = new DataTable("DiscordNames");
+            DataColumn c0 = new DataColumn("Ingame Name");
+            c0.ReadOnly = true;
+            DataColumn c1 = new DataColumn("Status");
+            c1.ReadOnly = true;
+            DiscordNames.Columns.Add(c1);
+            foreach (var user in dict) {
+                DataRow row = DiscordNames.NewRow();
+                row[c0.ColumnName] = user.Key;
+                row[c1.ColumnName] = user.Value;
+                DiscordNames.Rows.Add(row);
+            }
+
+            var table = new DataGridView();
+            table.Dock = DockStyle.Fill;
+            table.DataSource = DiscordNames;
+            form.Controls.Add(table);
+            form.Show();
+            table.Columns[0].AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
+            table.Columns[1].AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
         }
 
     }

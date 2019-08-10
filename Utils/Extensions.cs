@@ -123,8 +123,15 @@ namespace VRChatLauncher.Utils
         {
             return starts + text + ends;
         }
-#endregion
- #region List
+        #endregion
+        #region Dict
+        public static void AddSafe(this Dictionary<string, string> dictionary, string key, string value)
+        {
+            if (!dictionary.ContainsKey(key))
+                dictionary.Add(key, value);
+        }
+        #endregion
+        #region List
         public static string ToQueryString(this NameValueCollection nvc)
         {
         if (nvc == null) return string.Empty;

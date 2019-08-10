@@ -183,13 +183,13 @@
             this.chatToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.refreshToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.setStatusToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.discordNamesToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.panel_status = new System.Windows.Forms.Panel();
             this.txt_status = new System.Windows.Forms.TextBox();
             this.btn_play = new System.Windows.Forms.Button();
             this.icons_worlds = new System.Windows.Forms.ImageList(this.components);
             this.bgWorker = new System.ComponentModel.BackgroundWorker();
             this.tooltip_user_location = new System.Windows.Forms.ToolTip(this.components);
-            this.discordNamesToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.tabs_main.SuspendLayout();
             this.tab_news.SuspendLayout();
             this.tab_users.SuspendLayout();
@@ -1677,91 +1677,98 @@
             this.setStatusToolStripMenuItem,
             this.discordNamesToolStripMenuItem});
             this.menu_users.Name = "contextMenuStrip1";
-            this.menu_users.Size = new System.Drawing.Size(181, 312);
+            this.menu_users.Size = new System.Drawing.Size(163, 290);
             // 
             // profileMenuItem
             // 
             this.profileMenuItem.Name = "profileMenuItem";
-            this.profileMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.profileMenuItem.Size = new System.Drawing.Size(162, 22);
             this.profileMenuItem.Text = "View Profile";
             this.profileMenuItem.Click += new System.EventHandler(this.ProfileMenuItem_Click);
             // 
             // menu_item_friend_add
             // 
             this.menu_item_friend_add.Name = "menu_item_friend_add";
-            this.menu_item_friend_add.Size = new System.Drawing.Size(180, 22);
+            this.menu_item_friend_add.Size = new System.Drawing.Size(162, 22);
             this.menu_item_friend_add.Text = "Friend";
             this.menu_item_friend_add.Click += new System.EventHandler(this.Menu_item_friend_add_ClickAsync);
             // 
             // unfriendToolStripMenuItem
             // 
             this.unfriendToolStripMenuItem.Name = "unfriendToolStripMenuItem";
-            this.unfriendToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.unfriendToolStripMenuItem.Size = new System.Drawing.Size(162, 22);
             this.unfriendToolStripMenuItem.Text = "Unfriend";
             this.unfriendToolStripMenuItem.Click += new System.EventHandler(this.Menu_item_friend_remove_ClickAsync);
             // 
             // blockToolStripMenuItem
             // 
             this.blockToolStripMenuItem.Name = "blockToolStripMenuItem";
-            this.blockToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.blockToolStripMenuItem.Size = new System.Drawing.Size(162, 22);
             this.blockToolStripMenuItem.Text = "Block";
             this.blockToolStripMenuItem.Click += new System.EventHandler(this.BlockToolStripMenuItem_ClickAsync);
             // 
             // unblockToolStripMenuItem
             // 
             this.unblockToolStripMenuItem.Name = "unblockToolStripMenuItem";
-            this.unblockToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.unblockToolStripMenuItem.Size = new System.Drawing.Size(162, 22);
             this.unblockToolStripMenuItem.Text = "Unblock";
             this.unblockToolStripMenuItem.Click += new System.EventHandler(this.UnblockToolStripMenuItem_ClickAsync);
             // 
             // menu_item_exportfriends
             // 
             this.menu_item_exportfriends.Name = "menu_item_exportfriends";
-            this.menu_item_exportfriends.Size = new System.Drawing.Size(180, 22);
+            this.menu_item_exportfriends.Size = new System.Drawing.Size(162, 22);
             this.menu_item_exportfriends.Text = "Export";
             this.menu_item_exportfriends.Click += new System.EventHandler(this.Menu_item_exportfriends_Click);
             // 
             // menu_item_importfriends
             // 
             this.menu_item_importfriends.Name = "menu_item_importfriends";
-            this.menu_item_importfriends.Size = new System.Drawing.Size(180, 22);
+            this.menu_item_importfriends.Size = new System.Drawing.Size(162, 22);
             this.menu_item_importfriends.Text = "Import";
             this.menu_item_importfriends.Click += new System.EventHandler(this.Menu_item_importfriends_Click);
             // 
             // messageToolStripMenuItem
             // 
             this.messageToolStripMenuItem.Name = "messageToolStripMenuItem";
-            this.messageToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.messageToolStripMenuItem.Size = new System.Drawing.Size(162, 22);
             this.messageToolStripMenuItem.Text = "Message";
             this.messageToolStripMenuItem.Click += new System.EventHandler(this.MessageToolStripMenuItem_ClickAsync);
             // 
             // inviteToolStripMenuItem
             // 
             this.inviteToolStripMenuItem.Name = "inviteToolStripMenuItem";
-            this.inviteToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.inviteToolStripMenuItem.Size = new System.Drawing.Size(162, 22);
             this.inviteToolStripMenuItem.Text = "Invite";
             this.inviteToolStripMenuItem.Click += new System.EventHandler(this.InviteToolStripMenuItem_ClickAsync);
             // 
             // chatToolStripMenuItem
             // 
             this.chatToolStripMenuItem.Name = "chatToolStripMenuItem";
-            this.chatToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.chatToolStripMenuItem.Size = new System.Drawing.Size(162, 22);
             this.chatToolStripMenuItem.Text = "Chat";
             this.chatToolStripMenuItem.Click += new System.EventHandler(this.ChatToolStripMenuItem_Click);
             // 
             // refreshToolStripMenuItem
             // 
             this.refreshToolStripMenuItem.Name = "refreshToolStripMenuItem";
-            this.refreshToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.refreshToolStripMenuItem.Size = new System.Drawing.Size(162, 22);
             this.refreshToolStripMenuItem.Text = "Refresh";
             this.refreshToolStripMenuItem.Click += new System.EventHandler(this.RefreshToolStripMenuItem_Click);
             // 
             // setStatusToolStripMenuItem
             // 
             this.setStatusToolStripMenuItem.Name = "setStatusToolStripMenuItem";
-            this.setStatusToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.setStatusToolStripMenuItem.Size = new System.Drawing.Size(162, 22);
             this.setStatusToolStripMenuItem.Text = "Set Status";
             this.setStatusToolStripMenuItem.Click += new System.EventHandler(this.SetStatusToolStripMenuItem_Click);
+            // 
+            // discordNamesToolStripMenuItem
+            // 
+            this.discordNamesToolStripMenuItem.Name = "discordNamesToolStripMenuItem";
+            this.discordNamesToolStripMenuItem.Size = new System.Drawing.Size(162, 22);
+            this.discordNamesToolStripMenuItem.Text = "Discord Names";
+            this.discordNamesToolStripMenuItem.Click += new System.EventHandler(this.DiscordNamesToolStripMenuItem_Click);
             // 
             // panel_status
             // 
@@ -1807,12 +1814,6 @@
             // 
             this.tooltip_user_location.BackColor = System.Drawing.SystemColors.ControlDarkDark;
             this.tooltip_user_location.ShowAlways = true;
-            // 
-            // discordNamesToolStripMenuItem
-            // 
-            this.discordNamesToolStripMenuItem.Name = "discordNamesToolStripMenuItem";
-            this.discordNamesToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
-            this.discordNamesToolStripMenuItem.Text = "Discord Names";
             // 
             // Main
             // 
