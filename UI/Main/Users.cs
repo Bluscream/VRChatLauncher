@@ -787,13 +787,14 @@ namespace VRChatLauncher
             DataTable DiscordNames = new DataTable("DiscordNames");
             DataColumn c0 = new DataColumn("Ingame Name");
             c0.ReadOnly = true;
+            DiscordNames.Columns.Add(c0);
             DataColumn c1 = new DataColumn("Status");
             c1.ReadOnly = true;
             DiscordNames.Columns.Add(c1);
             foreach (var user in dict) {
                 DataRow row = DiscordNames.NewRow();
-                row[c0.ColumnName] = user.Key;
-                row[c1.ColumnName] = user.Value;
+                row[0] = user.Key;
+                row[1] = user.Value;
                 DiscordNames.Rows.Add(row);
             }
 
