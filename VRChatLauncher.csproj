@@ -147,10 +147,10 @@
     <Compile Include="UI\InviteDialog.Designer.cs">
       <DependentUpon>InviteDialog.cs</DependentUpon>
     </Compile>
-    <Compile Include="UI\Main.cs">
+    <Compile Include="UI\Main\Main.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="UI\Main.Designer.cs">
+    <Compile Include="UI\Main\Main.Designer.cs">
       <DependentUpon>Main.cs</DependentUpon>
     </Compile>
     <Compile Include="Program.cs" />
@@ -163,13 +163,13 @@
     <Compile Include="Setup\VRCAPI\LoginModal.Designer.cs">
       <DependentUpon>LoginModal.cs</DependentUpon>
     </Compile>
-    <Compile Include="UI\Avatars.cs">
+    <Compile Include="UI\Main\Avatars.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="UI\Log.cs">
+    <Compile Include="UI\Main\Log.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="UI\Mods.cs">
+    <Compile Include="UI\Main\Mods.cs">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="UI\MultilineInput.cs">
@@ -178,7 +178,7 @@
     <Compile Include="UI\MultilineInput.Designer.cs">
       <DependentUpon>MultilineInput.cs</DependentUpon>
     </Compile>
-    <Compile Include="UI\News.cs">
+    <Compile Include="UI\Main\News.cs">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="UI\OperationsPanel.cs">
@@ -187,13 +187,13 @@
     <Compile Include="UI\OperationsPanel.Designer.cs">
       <DependentUpon>OperationsPanel.cs</DependentUpon>
     </Compile>
-    <Compile Include="UI\Settings.cs">
+    <Compile Include="UI\Main\Settings.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="UI\Users.cs">
+    <Compile Include="UI\Main\Users.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="UI\Worlds.cs">
+    <Compile Include="UI\Main\Worlds.cs">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="Updater\AvatarFav.cs" />
@@ -223,7 +223,7 @@
     <EmbeddedResource Include="UI\InviteDialog.resx">
       <DependentUpon>InviteDialog.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="UI\Main.resx">
+    <EmbeddedResource Include="UI\Main\Main.resx">
       <DependentUpon>Main.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">

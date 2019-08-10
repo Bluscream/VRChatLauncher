@@ -11,19 +11,21 @@ namespace VRChatLauncher
     {
         public static Main mainWindow;
         public static IPC.Launcher ipc;
+        public static Arguments Arguments;
         [STAThread]
-        static void Main()
+        static void Main(string[] args)
         {
             AppDomain.CurrentDomain.ProcessExit += new EventHandler(OnProcessExit);
             Logger.Init();
             Logger.Trace("START");
             ipc = new IPC.Launcher(); ipc.Init();
-            var args = Environment.GetCommandLineArgs().Skip(1).ToArray();
+            // var args = Environment.GetCommandLineArgs().Skip(1).ToArray();
             if (args.Length > 0) Logger.Warn("Catched command line arguments:");
             for (int i = 0; i < args.Length; i++)
             {
                 Logger.Warn($"[{i}]", args[i]);
             }
+            Arguments = Arguments.FromArgs(args.ToList());
             var msg = ipc.MakeRemoteRequestWithResponse(new IPC.Launcher.Message($"islauncherrunning {string.Join(" ", args)}"), 200);
             var launcher_running = Utils.Utils.IsLauncherAlreadyRunning();
             var keep_open = args.Contains("--vrclauncher.keep");
@@ -60,6 +62,8 @@ namespace VRChatLauncher
             Logger.Log("Exiting...");
             // LogReader.Dispose();
             // IPC.Launcher.Dispose();
+            ExternalConsole.Dispose();
+            Application.Exit();
             Process.GetCurrentProcess().Kill();
         }
     }

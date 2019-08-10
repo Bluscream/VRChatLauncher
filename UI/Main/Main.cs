@@ -92,9 +92,10 @@ namespace VRChatLauncher
                 tabs_main.SelectTab(0); return false;
             }
             Logger.Log("Logged in as", me.username);
-            var _me = await vrcapi.UserApi.UpdateInfo(me.id);
+            var _me = await vrcapi.UserApi.UpdateInfo(userId: me.id);
             // Logger.Trace("_me", _me.ToJson());
             if (_me.id != null) { FillMe(); return true; }
+            return false; /* TODO: FixMe
             var json = await _me.Raw.Content.ReadAsStringAsync();
             object temp = null;
             temp = Newtonsoft.Json.JsonConvert.DeserializeObject<UserResponse>(json);
@@ -115,7 +116,7 @@ namespace VRChatLauncher
                     else { if (tabs_main.SelectedTab == tab_users) SetupUsers(); }
                     return false;
                 } else {
-                    temp = Newtonsoft.Json.JsonConvert.DeserializeObject<Response>(json);
+                    temp = Newtonsoft.Json.JsonConvert.DeserializeObject<Response>(json); TODO: Fix
                     var response = (Response)temp;
                     if (response.Content != null) {
                         Logger.Trace("response", response.ToJson());
@@ -126,7 +127,7 @@ namespace VRChatLauncher
                         return false;
                     }
                 }
-            }
+            }*/
         }
 
         public async void SetupVRCApiAsync() {

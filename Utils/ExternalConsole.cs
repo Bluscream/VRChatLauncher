@@ -15,6 +15,8 @@ namespace VRChatLauncher.Utils
         private static extern IntPtr GetStdHandle(int nStdHandle);  
         [DllImport("kernel32.dll", EntryPoint = "AllocConsole", SetLastError = true, CharSet = CharSet.Auto, CallingConvention = CallingConvention.StdCall)]  
         private static extern int AllocConsole();  
+        [DllImport("kernel32.dll", EntryPoint = "FreeConsole", SetLastError = true, CharSet = CharSet.Auto, CallingConvention = CallingConvention.StdCall)]  
+        private static extern int FreeConsole();  
  
         public static void InitConsole()
         {                
@@ -27,5 +29,9 @@ namespace VRChatLauncher.Utils
             standardOutput.AutoFlush = true;  
             Console.SetOut(standardOutput);  
          }  
+        public static void Dispose()
+        {
+            FreeConsole();
+        }
     }
 }

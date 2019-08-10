@@ -110,7 +110,7 @@ namespace VRChatLauncher
             if (me != null)  {
                 Logger.Trace("Me: ", me.ToJson());
                 if (update) {
-                    me = await vrcapi.UserApi.UpdateInfo(me.id);
+                    me = await vrcapi.UserApi.UpdateInfo(userId: me.id);
                     // FriendsToCache(me.friends);
                 }
                 SetNodeColorFromTags(tree_users.Nodes[0], me.tags);
@@ -751,7 +751,7 @@ namespace VRChatLauncher
             // if (result != DialogResult.OK) return;
             var message = UI.MultilineInput.Get(title, me.statusDescription);
             if (string.IsNullOrWhiteSpace(message) || message == me.statusDescription) return;
-            me = await vrcapi.UserApi.UpdateInfo(me.id, status: me.status, statusDescription: message);
+            me = await vrcapi.UserApi.UpdateInfo(userId: me.id, status: me.status, statusDescription: message);
             FillMe(false);
             Logger.Debug("New Status:", me.status, me.statusDescription.Enclose());
         }
