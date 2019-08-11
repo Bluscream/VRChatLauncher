@@ -761,8 +761,12 @@ namespace VRChatLauncher
 
         private void DiscordNamesToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            var regex = new Regex(@".*#(\d{4})", RegexOptions.Multiline);
-            var dict = new Dictionary<string, string>();
+            var regex = new Regex(@".*#(\d{4})", RegexOptions.Multiline | RegexOptions.IgnoreCase);
+            var confirmResult = MessageBox.Show(
+                $"This will search through all your friends statuses and extract the ones that might be discord names (matching {regex.ToString()}).\n\nYou can select multiple rows and copy them with [CTRL] + [C]"
+            , "Search for discord names?", MessageBoxButtons.OKCancel, MessageBoxIcon.Question);
+            if (confirmResult != DialogResult.OK) return;
+            var dict = new SortedDictionary<string, string>();
             foreach (TreeNode node in tree_users.Nodes.GetAllChilds()) {
                 var tag = node.Tag;
                 if (tag is null) continue;
@@ -770,7 +774,7 @@ namespace VRChatLauncher
                 if (Tag.userBriefResponse is null) continue;
                 if (!string.IsNullOrWhiteSpace(Tag.userBriefResponse.statusDescription)) {
                     foreach (Match m in regex.Matches(input: Tag.userBriefResponse.statusDescription)) {
-                        dict.AddSafe(Tag.userBriefResponse.displayName, m.Value);
+                        dict.AddSafe(Tag.userBriefResponse.displayName.Trim(), m.Value.Trim());
                     }
                 }
             }
@@ -778,6 +782,7 @@ namespace VRChatLauncher
                 MessageBox.Show("Sorry, we could not find any discord names in your friends statuses :c");
                 return;
             }
+            dict.OrderBy(kv => kv.Key);
             Form form = new Form();
             form.Text = $"Discord names of your friends ({dict.Count})";
             form.Height *= 2;
@@ -785,16 +790,13 @@ namespace VRChatLauncher
             form.Icon = ActiveForm.Icon;
 
             DataTable DiscordNames = new DataTable("DiscordNames");
-            DataColumn c0 = new DataColumn("Ingame Name");
-            c0.ReadOnly = true;
-            DiscordNames.Columns.Add(c0);
-            DataColumn c1 = new DataColumn("Status");
-            c1.ReadOnly = true;
-            DiscordNames.Columns.Add(c1);
+            DiscordNames.Columns.Clear();
+            DataColumn c0 = new DataColumn("Ingame Name"); c0.ReadOnly = true; DiscordNames.Columns.Add(c0);
+            DataColumn c1 = new DataColumn("Status"); /* c1.ReadOnly = true; */ DiscordNames.Columns.Add(c1);
             foreach (var user in dict) {
                 DataRow row = DiscordNames.NewRow();
-                row[0] = user.Key;
-                row[1] = user.Value;
+                row[c0.ColumnName] = user.Key;
+                row[c1.ColumnName] = user.Value;
                 DiscordNames.Rows.Add(row);
             }
 
@@ -803,8 +805,9 @@ namespace VRChatLauncher
             table.DataSource = DiscordNames;
             form.Controls.Add(table);
             form.Show();
-            table.Columns[0].AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
-            table.Columns[1].AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
+            table.Columns[c0.ColumnName].AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
+            table.Columns[c1.ColumnName].AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
+            table.Sort(table.Columns[c0.ColumnName], ListSortDirection.Ascending);
         }
 
     }

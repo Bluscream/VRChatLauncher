@@ -125,7 +125,7 @@ namespace VRChatLauncher.Utils
         }
         #endregion
         #region Dict
-        public static void AddSafe(this Dictionary<string, string> dictionary, string key, string value)
+        public static void AddSafe(this IDictionary<string, string> dictionary, string key, string value)
         {
             if (!dictionary.ContainsKey(key))
                 dictionary.Add(key, value);
