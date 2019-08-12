@@ -18,16 +18,15 @@ namespace VRChatLauncher
 {
     public partial class Main : Form
     {
-        public static List<string> args = new List<string>();
         public IniData config;public VRChatApi.VRChatApi vrcapi;public ConfigResponse remoteConfig;
         public static TextBox statusBar;public static WebClient webClient;
         string usercountsURL = "https://vrchat.minopia.de/vrcmn/stats/counts.json";
-        public Main(Program App)
+        public Main()
         {
             Logger.Trace("START");
             config = Config.Load();
-            if (App.Arguments.Launcher.IgnoreSSLErrors.IsTrue()) {
-                Logger.Warn(App.Arguments.Launcher.IgnoreSSLErrors.Name.Quote(), "is set, ignoring SSL Errors!");
+            if (Program.Arguments.Launcher.IgnoreSSLErrors.IsTrue) {
+                Logger.Warn(Program.Arguments.Launcher.IgnoreSSLErrors.Name.Quote(), "is set, ignoring SSL Errors!");
                 ServicePointManager.ServerCertificateValidationCallback = (a, b, c, d) => true;
             }
             InitializeComponent();
@@ -203,7 +202,7 @@ namespace VRChatLauncher
 
         private void btn_play_Click(object sender, EventArgs e)
         {
-            Game.StartGame(args: args.ToArray()); // TODO ENABLE
+            Game.StartGame(args: Program.Arguments.ToArray()); // TODO ENABLE
             Logger.Log("Build Platform:", AssemblyReader.GetBuildStoreID()); // IDK?
         }
         
@@ -300,7 +299,7 @@ namespace VRChatLauncher
                     sb.Append($" {endpoint.Name}: {endpoint.onlineClients}");
                 }
             }
-            if (args.Contains("--vrclauncher.verbose")) sb.Append($" (Updated: {DateTime.Now.ToString()})");
+            if (Program.Arguments.Launcher.Verbose.IsTrue) sb.Append($" (Updated: {DateTime.Now.ToString()})");
             SetTitle(sb.ToString());
         }
 

@@ -14,22 +14,22 @@ namespace VRChatLauncher.IPC
 {
     public class Game
     {
-        private static List<string> CleanArgs(List<string> args)
+        /* private static List<string> CleanArgs(List<string> args)
         {
             args.RemoveAll(item => item.StartsWith("--vrclauncher."));
             // foreach (var arg in args) {
                 /*var cmd = Command.FromString(arg);
-                if (cmd is null) _args.Add(arg);*/
+                if (cmd is null) _args.Add(arg);*
             //}
             return args;
-        }
+        }*/
         public static void Send(Command command) {
             var cmd = command.ToString();
             Logger.Debug("Sending command to game:", Environment.NewLine, command.ToJson());
             if (Utils.Game.IsGameAlreadyRunning()) {
                 SendCommand(cmd);
             } else {
-                Utils.Game.StartGame(false, string.Join(" ", CleanArgs(Main.args)), cmd);
+                Utils.Game.StartGame(false, Program.Arguments.ToString(), cmd);
             }
         }
         private static void SendCommand(string cmd) {
@@ -129,15 +129,24 @@ namespace VRChatLauncher.IPC
         }
         public class Command : UriBuilder {
             // vrchat://launch/?id=wrld_496b11e8-25a0
-            public new string Scheme = "vrchat";
+            //public new string Scheme = "vrchat";
             public NameValueCollection Parameters { get; set; }
             public CommandType Type { get { return Extensions.GetValueFromDescription<CommandType>(Host, true); } set { Host = value.GetDescription(); } }
             public bool Force { get { return Parameters.GetBool("force"); } set { Parameters["force"] = value.ToString(); } }
             public bool SkipLauncher { get { return Parameters.GetBool("skiplauncher"); } set { Parameters["skiplauncher"] = value.ToString(); } }
             public string Referrer { get { return Parameters.GetString("ref"); } set { Parameters["ref"] = value; } }
             public WorldInstanceID WorldInstanceID { get { return new WorldInstanceID(Parameters.GetString("id")); } set { Console.WriteLine("Setting WorldInstanceID"); Parameters["id"] = value.ToString(); } }
-            public new string Query { get { return Parameters.ToQueryString(); } set { Parameters = HttpUtility.ParseQueryString(value); } }
+            public new string Query {
+                get {
+                    return Parameters.ToQueryString();
+                } 
+                set {
+                    base.Query = value;
+                    Parameters = HttpUtility.ParseQueryString(value);
+                }
+            }
             public Command(CommandType type = CommandType.Launch, NameValueCollection parameters = null, string url = "vrchat://") : base(url) {
+                Scheme = "vrchat";
                 Type = type;
                 if (parameters != null) Parameters = parameters;
                 else Parameters = new NameValueCollection();

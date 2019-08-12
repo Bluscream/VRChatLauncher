@@ -15,7 +15,7 @@ namespace VRChatLauncher.Utils
             try { Console.Title = "VRChat Launcher Log"; } catch { }
             var args = Environment.GetCommandLineArgs().Skip(1).ToArray();
             args = args.Select(s => s.ToLowerInvariant()).ToArray();
-            if (args.Contains("--vrclauncher.console")) { ExternalConsole.InitConsole(); }
+            if (Program.Arguments.Launcher.Console.IsTrue) { ExternalConsole.InitConsole(); }
         }
         public static void ClearLog() {
             var log = getLogFile();
@@ -68,7 +68,7 @@ namespace VRChatLauncher.Utils
             var line = $"[{timestamp}] {logLevel} - {cName}.{mName}: {str}";
             if (Main.selflog != null) {
                 item.Text = line;
-                Main.selflog.Items.Add(item);
+                try { Main.selflog.Items.Add(item); } catch (Exception) { }
             }
             if (Main.statusBar != null && logLevel > VRChatApi.Logging.LogLevel.Debug) {
                 try {
@@ -77,7 +77,9 @@ namespace VRChatLauncher.Utils
                 } catch (InvalidOperationException) { }
             }
             getLogFile().AppendLine(line);
-            if (logLevel > VRChatApi.Logging.LogLevel.Trace || Main.args.Contains("--vrclauncher.verbose")) {
+            bool IsVerbose = false;
+            try { IsVerbose = Program.Arguments.Launcher.Verbose.IsTrue; } catch (Exception) { };
+            if (logLevel > VRChatApi.Logging.LogLevel.Trace || IsVerbose) {
                 try {
                     Console.ForegroundColor = newColor.Item2;
                     Console.WriteLine(line);

@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Windows.Forms;
 using VRChatLauncher.Utils;
+using VRChatApi;
 using VRChatApi.Classes;
 using System.Drawing;
 using System.Collections;
@@ -433,7 +434,7 @@ namespace VRChatLauncher
                     var user = await vrcapi.UserApi.GetById(id); tag.userBriefResponse = user; e.Node.Tag = tag; FillUser(user); return;
                 }
             } else if (e.Button == MouseButtons.Right) {
-                if (args.Contains("--vrclauncher.verbose")) {
+                if (Program.Arguments.Launcher.Verbose.IsTrue) { // Todo Change
                     for (int i = 0; i < menu_users.Items.Count; i++) {
                         Logger.Trace(i, menu_users.Items[i].Text);
                     }
@@ -761,7 +762,7 @@ namespace VRChatLauncher
 
         private void DiscordNamesToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            var regex = new Regex(@".*#(\d{4})", RegexOptions.Multiline | RegexOptions.IgnoreCase);
+            var regex = new Regex(@"(?:^|\n*)(?:(?:[^\n:]|\|)*(?:dc|discord)[ \t\v\f\r]*:?[ \t\v\f\r]*)?([^\n]*#\d{4})", RegexOptions.Multiline | RegexOptions.IgnoreCase); // .*#(\d{4})
             var confirmResult = MessageBox.Show(
                 $"This will search through all your friends statuses and extract the ones that might be discord names (matching {regex.ToString()}).\n\nYou can select multiple rows and copy them with [CTRL] + [C]"
             , "Search for discord names?", MessageBoxButtons.OKCancel, MessageBoxIcon.Question);

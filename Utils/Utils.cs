@@ -71,7 +71,7 @@ namespace VRChatLauncher.Utils
             proc.UseShellExecute = true;
             proc.WorkingDirectory = Environment.CurrentDirectory;
             proc.FileName = Assembly.GetEntryAssembly().CodeBase;
-            proc.Arguments += string.Join(" ", Main.args);
+            proc.Arguments += Program.Arguments.ToString();
             proc.Verb = "runas";
             try
             {

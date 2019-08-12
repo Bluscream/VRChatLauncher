@@ -7,30 +7,29 @@ using VRChatLauncher.Utils;
 
 namespace VRChatLauncher
 {
-    public class Program
+    public static class Program
     {
         public static Main mainWindow;
-        public IPC.Launcher ipc;
-        public Arguments Arguments;
+        public static IPC.Launcher ipc;
+        public static Arguments Arguments;
         [STAThread]
         static void Main(string[] args)
         {
-            var prog = new Program();
             AppDomain.CurrentDomain.ProcessExit += new EventHandler(OnProcessExit);
+            Arguments = Arguments.FromArgs(args.ToList());
             Logger.Init();
             Logger.Trace("START");
-            prog.ipc = new IPC.Launcher(); prog.ipc.Init();
+            ipc = new IPC.Launcher(); ipc.Init();
             // var args = Environment.GetCommandLineArgs().Skip(1).ToArray();
             /*if (args.Length > 0) Logger.Warn("Catched command line arguments:");
             for (int i = 0; i < args.Length; i++)
             {
                 Logger.Warn($"[{i}]", args[i]);
             }*/
-            prog.Arguments = Arguments.FromArgs(args.ToList());
             // Logger.Warn("Parsed Command Line Arguments", prog.Arguments.ToJson());
-            var msg = prog.ipc.MakeRemoteRequestWithResponse(new IPC.Launcher.Message($"islauncherrunning {string.Join(" ", args)}"), 200);
+            var msg = ipc.MakeRemoteRequestWithResponse(new IPC.Launcher.Message($"islauncherrunning {string.Join(" ", args)}"), 200);
             var launcher_running = Utils.Utils.IsLauncherAlreadyRunning();
-            var keep_open = prog.Arguments.Launcher.KeepOpen.IsTrue();
+            var keep_open = Arguments.Launcher.KeepOpen.IsTrue;
             /*if (keep_open) {
                 var firstAfter = args.SkipWhile(p => p != "--vrclauncher.keep").ElementAt(1);
                 Logger.Warn("firstAfter", firstAfter);
@@ -44,15 +43,15 @@ namespace VRChatLauncher
             var game_running = Game.IsGameAlreadyRunning();
             Logger.Log("Game already running:", game_running.ToString());
             if(!game_running) {
-                if (prog.Arguments.Launcher.Skip.IsTrue()) {
-                    Logger.Warn("Found \"skiplauncher=true\" in arguments, tunneling directly...");
+                if (Arguments.Launcher.Skip.IsTrue) {
+                    Logger.Warn("Skiplauncher is set, tunneling directly...");
                     Game.StartGame(args: args);
                     Utils.Utils.Exit();
                 }
             }
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
-            mainWindow = new Main(prog);
+            mainWindow = new Main();
             Application.Run(mainWindow);
             Logger.Trace("END");
             OnProcessExit(false, new EventArgs());

@@ -15,7 +15,9 @@ namespace VRChatLauncher.Utils
             // proc.WorkingDirectory = ownPath;
             if (System.Windows.Input.Keyboard.IsKeyDown(System.Windows.Input.Key.LeftShift)) {
                 var argsWindow = new UI.CommandLineArguments(Utils.getGamePath().FullName, args.ToArray());
+                Logger.Debug(Program.Arguments.ToJson());
                 var result = argsWindow.ShowDialog();
+                if (result != System.Windows.Forms.DialogResult.OK) return null;
             }
             return Utils.StartProcess(Utils.getGamePath(), args);
         }
