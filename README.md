@@ -1,4 +1,4 @@
-﻿# VRChatLauncher [![Build status](https://ci.appveyor.com/api/projects/status/v63b5slm5hdltwc2?svg=true)](https://ci.appveyor.com/project/Bluscream/vrchatlauncher) ![](https://img.shields.io/github/downloads/Bluscream/VRChatLauncher/total.svg)
+# VRChatLauncher [![Build status](https://ci.appveyor.com/api/projects/status/v63b5slm5hdltwc2?svg=true)](https://ci.appveyor.com/project/Bluscream/vrchatlauncher) ![](https://img.shields.io/github/downloads/Bluscream/VRChatLauncher/total.svg) [![Discord](https://img.shields.io/discord/439093693769711616?label=Discord)](https://discord.gg/wyVh2vh)
 
 <!--## Download
 
