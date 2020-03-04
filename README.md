@@ -20,5 +20,5 @@ You can get the latest build [here](releases)-->
 ![Settings](https://i.imgur.com/5wg2lim.png)
 
 ![Logs](https://i.imgur.com/w5C1sDM.png)
-</details>
 
+</details>
