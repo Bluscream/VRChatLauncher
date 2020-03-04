@@ -25,6 +25,8 @@ namespace VRChatLauncher
         {
             Logger.Trace("START");
             config = Config.Load();
+            if (!config.Sections.ContainsSection("features"))
+                config["features"]["DesktopAFKStatus"] = "False";
             if (Program.Arguments.Launcher.IgnoreSSLErrors.IsTrue) {
                 Logger.Warn(Program.Arguments.Launcher.IgnoreSSLErrors.Name.Quote(), "is set, ignoring SSL Errors!");
                 ServicePointManager.ServerCertificateValidationCallback = (a, b, c, d) => true;

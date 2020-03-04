@@ -600,6 +600,22 @@ namespace VRChatLauncher
             } else { MessageBox.Show($"Unblocked {mod.targetDisplayName}.", "Success", MessageBoxButtons.OK, MessageBoxIcon.Information); FillBlocked(); }
         }
 
+        private void Menu_item_importfriends_Click(object sender, EventArgs e)
+        {
+            var fileSelector = new OpenFileDialog();
+            fileSelector.Title = "Import friends";
+            fileSelector.Filter = "Friends list|*.txt";
+            if (fileSelector.ShowDialog() == DialogResult.OK)
+            {
+                var file = new FileInfo(fileSelector.FileName);
+                if (!file.Exists) { MessageBox.Show("File does not exist!", "", MessageBoxButtons.OK, MessageBoxIcon.Error);  return; }
+                var toImport = new List<string>(File.ReadAllLines(file.FullName));
+                var operation = new UI.OperationsPanel();
+                operation.Show();
+                AddFriendsAsync(toImport);
+            }
+        }
+
         private void Menu_item_exportfriends_Click(object sender, EventArgs e)
         {
             if (me == null) return;
@@ -662,25 +678,7 @@ namespace VRChatLauncher
                 Calculate(j);
                 backgroundWorker.ReportProgress((j * 100) / 100000);
             }
-        }*/
-
-        private void Menu_item_importfriends_Click(object sender, EventArgs e)
-        {
-            var fileSelector = new OpenFileDialog();
-            fileSelector.Title = "Import friends";
-            fileSelector.Filter = "Friends list|*.txt";
-            if (fileSelector.ShowDialog() == DialogResult.OK)
-            {
-                var file = new FileInfo(fileSelector.FileName);
-                if (!file.Exists) { MessageBox.Show("File does not exist!", "", MessageBoxButtons.OK, MessageBoxIcon.Error);  return; }
-                var toImport = new List<string>(File.ReadAllLines(file.FullName));
-                var operation = new UI.OperationsPanel();
-                operation.Show();
-                AddFriendsAsync(toImport);
-            }
-        }
-
-        
+        }*/        
 
         private async void MessageToolStripMenuItem_ClickAsync(object sender, EventArgs e)
         {

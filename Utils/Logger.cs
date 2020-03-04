@@ -48,7 +48,9 @@ namespace VRChatLauncher.Utils
         {
             string timestamp = DateTime.UtcNow.ToString("HH:mm:ss.fff", System.Globalization.CultureInfo.InvariantCulture);
             StackFrame frame = new StackFrame(2); var method = frame.GetMethod(); var cName = method.DeclaringType.Name; var mName = method.Name;
-            var oldColor = Console.ForegroundColor;
+            System.ConsoleColor oldColor = ConsoleColor.White;
+            try { oldColor = Console.ForegroundColor;
+            } catch (IOException) {  }
             var newColor = ColorFromLogLevel(logLevel);
             var item = new System.Windows.Forms.ListViewItem();
             item.ForeColor = newColor.Item1;
@@ -60,7 +62,7 @@ namespace VRChatLauncher.Utils
                     var type = msg.GetType();
                     if (type.IsArray) msg = string.Join(", ", _msg).Brackets();
                     str += seperator + (string)msg;
-                } catch (Exception ex) {
+                } catch (Exception) {
                     // Console.WriteLine($"Error {ex.ToString()}");
                     str += seperator + msg.ToString();
                 }
